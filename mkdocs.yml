@@ -1,0 +1,96 @@
+# MkDocs configuration file
+site_name: Ansible Best Practices
+copyright: Copyright &copy; Computacenter 2022
+extra:
+  social:
+    - icon: fontawesome/brands/gitlab
+      link: https://gitlab.ccloud.ninja/tgruetzmacher/documentation-as-code
+      name: Projekt im Gitlab
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/tables.css
+edit_uri: ""
+theme:
+  name: material
+  custom_dir: docs/overrides
+  icon:
+    repo: fontawesome/brands/github
+  logo: assets/computacenter-logo-white.png
+  language: de
+  favicon: assets/computacenter-logo.png
+  features:
+    - navigation.indexes
+    - navigation.instant
+    - navigation.sections
+    - search.highlight
+    - search.suggest
+  palette:
+    - scheme: default
+      primary: grey
+      toggle:
+        icon: material/toggle-switch-off-outline 
+        name: Switch to dark mode
+    - scheme: slate
+      primary: red
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+plugins:
+  - search:
+      lang: de
+      separator: '[\s]'
+  - awesome-pages
+  - autolinks
+  - git-revision-date-localized:
+    # This plugin needs a Git executable and the .git folder
+      locale: de
+      fallback_to_build_date: true
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(__md_get("__palette").index == 1)) ? 'dark' : 'light'
+        securityLevel: 'loose'
+extra_javascript:
+  - https://unpkg.com/mermaid/dist/mermaid.min.js
+  - extra/refresh-on-toggle-dark-light.js
+  - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
+  - extra/tablesort.js
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid
+  - tables
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+repo_url: https://github.com/TimGrt/Ansible-Best-Practices
+repo_name: TimGrt/Ansible-Best-Practices
+# Navigation definition
+nav:
+  - "Home": index.md
+  - "Installation": installation.md
+  - "Project": project.md
+  - "Inventory": inventory.md
+  - "Variables": variables.md
+  - "Playbook": playbook.md
+  - "Roles": roles.md
+  - "Tasks": tasks.md
+  - "Linting": linting.md
