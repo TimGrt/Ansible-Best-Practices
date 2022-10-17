@@ -10,5 +10,3 @@ Hier finden sich Ansible Best Practices und Beispiele.
 
 !!! tip "Versionierung"
     Das Template wird ständig aktualisiert, zuletzt am **{{ git_revision_date_localized }}**.
-
-

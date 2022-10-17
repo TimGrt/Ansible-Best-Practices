@@ -1,6 +1,8 @@
 # MkDocs configuration file
 site_name: Ansible Best Practices
+site_description: Best Practices and Style Guide for Ansible Projects
 copyright: Copyright &copy; Computacenter 2022
+edit_uri: ""
 extra:
   social:
     - icon: fontawesome/brands/gitlab
@@ -9,47 +11,6 @@ extra:
 extra_css:
   - stylesheets/extra.css
   - stylesheets/tables.css
-edit_uri: ""
-theme:
-  name: material
-  custom_dir: docs/overrides
-  icon:
-    repo: fontawesome/brands/github
-  logo: assets/computacenter-logo-white.png
-  language: de
-  favicon: assets/computacenter-logo.png
-  features:
-    - navigation.indexes
-    - navigation.instant
-    - navigation.sections
-    - search.highlight
-    - search.suggest
-  palette:
-    - scheme: default
-      primary: grey
-      toggle:
-        icon: material/toggle-switch-off-outline 
-        name: Switch to dark mode
-    - scheme: slate
-      primary: red
-      toggle:
-        icon: material/toggle-switch
-        name: Switch to light mode
-plugins:
-  - search:
-      lang: de
-      separator: '[\s]'
-  - awesome-pages
-  - autolinks
-  - git-revision-date-localized:
-    # This plugin needs a Git executable and the .git folder
-      locale: de
-      fallback_to_build_date: true
-  - mermaid2:
-      arguments:
-        theme: |
-          ^(JSON.parse(__md_get("__palette").index == 1)) ? 'dark' : 'light'
-        securityLevel: 'loose'
 extra_javascript:
   - https://unpkg.com/mermaid/dist/mermaid.min.js
   - extra/refresh-on-toggle-dark-light.js
@@ -80,7 +41,58 @@ markdown_extensions:
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
-
+plugins:
+  - search:
+      lang: de
+      separator: '[\s]'
+  - awesome-pages
+  - autolinks
+  - git-revision-date-localized:
+    # This plugin needs a Git executable and the .git folder
+      enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
+      fallback_to_build_date: true
+      locale: de
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(__md_get("__palette").index == 1)) ? 'dark' : 'light'
+        securityLevel: 'loose'
+  - print-site:
+      add_cover_page: true
+      add_print_site_banner: true
+      cover_page_template: "docs/assets/cover-page.tpl"
+      enabled: !ENV [ENABLED_PRINT_SITE, True]
+      exclude:
+        - index.md
+      path_to_pdf: "docs/assets/ansible-best-practices.pdf"
+      print_page_title: ""
+      print_site_banner_template: "docs/assets/print-banner.tpl"
+theme:
+  name: material
+  custom_dir: docs/overrides
+  icon:
+    repo: fontawesome/brands/github
+  logo: assets/computacenter-logo-white.png
+  language: de
+  favicon: assets/computacenter-logo.png
+  features:
+    - navigation.indexes
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.suggest
+  palette:
+    - scheme: default
+      primary: grey
+      toggle:
+        icon: material/toggle-switch-off-outline 
+        name: Switch to dark mode
+    - scheme: slate
+      primary: red
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
 repo_url: https://github.com/TimGrt/Ansible-Best-Practices
 repo_name: TimGrt/Ansible-Best-Practices
 # Navigation definition
