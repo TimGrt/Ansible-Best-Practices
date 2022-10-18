@@ -12,23 +12,64 @@ The *defaults*-folder contains only default values for all variables used by the
 
 ## Naming Variables
 
-The variable name should be self-explanatory, use multiple words and don't shorten things.
+The variable name should be self-explanatory (*as brief as possible, as detailed as necessary*), use multiple words and don't shorten things.
 
 * Multiple words are separated with underscores (`_`)
 * *List*-Variables are suffixed with `_list`
 * *Dictionary*-Variables are suffixed with `_dict`
+* *Boolean* values are provided with lowercase `true` or `false`
 
 === "Good"
     !!! success ""
         ```yaml
         download_directory: ~/.local/bin
-
-
+        create_key: true
+        needs_agent: false
         ```
 === "Bad"
     !!! failure ""
         ```yaml
         dir: ~/.local/bin
+        create_key: yes
+        needsAgent: no
+        knows_oop: True
+        ```
+
+## Referencing variables
+
+After a variable is defined, use *Jinja2* syntax to reference it. Jinja2 variables use *double curly braces* (`{{` and `}}`).  
+Use spaces after and before the double curly braces and the variable name.  
+When referencing *list* or *dictionary* variables, try to use the *bracket notation* instead of the *dot notation*.
+Bracket notation always works and you can use variables inside the brackets. Dot notation can cause problems because some keys collide with attributes and methods of python dictionaries. 
+=== "Good"
+    !!! success ""
+        Simple variable reference:
+        ```yaml
+        - name: Deploy configuration file
+          ansible.builtin.template:
+            src: foo.cfg.j2
+            dest: "{{ remote_install_path }}/foo.cfg"
+        ```
+        Bracket-notation and using variable (*interface_name*) inside:
+        ```yaml
+        - name: Output IPv4 address of {{ interface_name }} interface
+          ansible.builtin.debug:
+            msg: "{{ ansible_facts[interface_name]['ipv4']['address'] }}"
+        ```
+=== "Bad"
+    !!! failure ""
+        Not using whitespaces around variable name.
+        ```yaml
+        - name: Deploy configuration file
+          ansible.builtin.template:
+            src: foo.cfg.j2
+            dest: "{{remote_install_path}}/foo.cfg"
+        ```
+        Not using whitespaces and using dot-notation.
+        ```yaml
+        - name: Output IPv4 address of eth0 interface
+          ansible.builtin.debug:
+            msg: "{{ansible_facts.eth0.ipv4.address}}"
         ```
 
 ## Encrypted variables
