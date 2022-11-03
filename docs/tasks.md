@@ -66,6 +66,35 @@ It is possible to leave off the *name* for a given task, though it is recommende
             state: present
         ```
 
+When separating tasks in *sub-taskfiles* as above, consider adding the task file name to every task in it. In case of a failure, when executing the playbook, you know where to look for the failed task.
+
+```yaml
+# tasks/prerequisites.yml
+- name: prerequisites | Ensure Memory cgroup is enabled
+  ansible.builtin.stat:
+    path: /sys/fs/cgroup/memory
+
+- name: prerequisites | Disable swap
+  ansible.builtin.command: swapoff -a
+  when: ansible_swaptotal_mb > 0
+```
+
+```bash
+...
+TASK [k8s-bootstrap : prerequisites | Ensure Memory cgroup is enabled] *********
+Friday 28 October 2022  14:38:22 +0200 (0:00:05.278)       0:00:05.298 ********
+ok: [node2]
+ok: [node1]
+ok: [node3]
+
+TASK [k8s-bootstrap : prerequisites | Disable swap] ****************************
+Friday 28 October 2022  14:38:23 +0200 (0:00:01.742)       0:00:07.040 ********
+ok: [node1]
+ok: [node2]
+ok: [node3]
+...
+```
+
 ## Always mention the *state*
 The `state` parameter is optional to a lot of modules. Whether `state: present` or `state: absent`, it’s always best to leave that parameter in your playbooks to make it clear, especially as some modules support additional states.
 
