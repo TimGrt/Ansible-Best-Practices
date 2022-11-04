@@ -66,8 +66,9 @@ pip3 install -r requirements.txt
 .
 ├── ansible.cfg
 ├── hosts
-├── k3s-install.yml
+├── k8s-install.yml
 ├── README.md
+├── requirements.txt
 ├── requirements.yml
 └── roles
     ├── k8s-bootstrap
@@ -131,7 +132,7 @@ YAML files are saved with the extension `.yml`.
         .
         ├── ansible.cfg
         ├── hosts
-        ├── k8sdeploymemt.yaml
+        ├── k8s-install.yaml
         ├── README.md
         └── roles
             ├── k8s_bootstrap

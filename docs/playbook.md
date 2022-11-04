@@ -1,47 +1,46 @@
 # Playbooks
 
-## Verzeichnisstruktur
- 
-Das Haupt-Playbook **_vodafone.yml_** importiert weitere Playbooks, es enthält ansonsten keine eigenen Plays. Alle importierten Playbooks werden im Ordner **_playbooks_** im Projekt-Verzeichnis hinterlegt.
- 
-```
+## Directory structure
+
+If you have multiple playbooks, create a new folder `playbooks` and store all playbooks there, except the *main* playbook (here called `site.yml`).
+
+```bash
 .
 ├── ansible.cfg
-├── group_vars
-├── host_vars
-├── playbooks
-├── roles
-├── inventory
-├── README.md
-└── vodafone.yml
+├── site.yml
+└── playbooks
+    ├── database.yml
+    ├── loadbalancer.yml
+    └── webserver.yml
 ```
- 
-> Die Speicherung der importierten Playbooks im **_playbooks_**-Ordner hat zur Folge, dass Rollen nicht mehr gefunden werden bei der Ausführung der **_vodafone.yml_**.  
-> Eine lokale **_ansible.cfg_** mit Parameter **_role\_path=roles_** ist notwendig.
- 
-<p>
-<details>
-<summary><b>Beispiele</b></summary>
- 
-Die folgenden Beispiele verdeutlichen die Konventionen zu Playbooks:  
- 
-**Main Playbook**
+
+The `site.yml` file contains references to the other playbooks:
+
 ```yaml
-# Main Vodafone Playbook
- 
-- import_playbook: playbooks/kafka-servers.yml
-- import_playbook: playbooks/streamproc-servers.yml
- 
+---
+# Main playbook including all other playbooks
+
+- import_playbook: playbooks/database.yml
+- import_playbook: playbooks/webserver.yml
+- import_playbook: playbooks/loadbalancer.yml
 ```
- 
-**Lower level Playbook**
+
+The *lower-level* playbooks contain actual *plays*:
+
 ```yaml
-# This Playbook installs Kafka Servers with Zookeeper
- 
-- hosts: kafka_servers
+---
+# playbooks/database
+
+- name: Install and configure PostgreSQL database
+  hosts: postgres_servers
   roles:
-    - nom-kafka
+    - postgres
+
 ```
- 
-</details>
-</p>
+
+To be able to run the overall playbook, as well as the imported playbooks, add this parameter to your `ansible.cfg`, otherwise roles are not found:
+
+```ini
+[defaults]
+roles_path = .roles
+```

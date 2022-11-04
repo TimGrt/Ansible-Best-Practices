@@ -4,3 +4,6 @@
 ## Automated Linting
 
 Running *ansible-lint* through a CI pipeline automatically when commiting (or merging) changes to the Git repository is **highly advisable**.
+
+!!! warning
+    **Work in Progress** - More description necessary.

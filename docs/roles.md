@@ -1,96 +1,126 @@
 # Roles
 
-## Rollen
+New playbook functionality is always added in a role. Roles should only serve a defined purpose that is unambiguous by the role name.
+The role name should be short and unique. It is separated with hyphens, if it consists of several words.
  
-Neue Playbook-Funktionalität wird immer in einer Rolle hinzugefügt oder einer bereits bestehenden Rolle, falls diese Rolle den gleichen Zweck erfüllt.
-Rollen sollen nur einem festgelegten und durch den Rollen-Namen eindeutigen Zweck erfüllen.  
-Jede Rolle wird nach dem Ansible Galaxy Stil angelegt: `ansible-galaxy role init <Rollen Name>`. Nicht genutzte Ordner und Dateien verbleiben in der gegebenen Struktur.
-Der Rollenname soll kurz und eindeutig sein. Er wird mit Bindestrichen getrennt, falls er aus mehreren Wörtern besteht.
- 
-Die README der Rolle muss befüllt sein. Die folgenden Unterpunkte müssen befüllt werden:
+## Readme
 
-* **Title**
-  * kurze Aufgabenbeschreibung der Rolle
-  * evtl. kurze Beschreibung der ausgerollten Applikation
-  * optional: Übersicht über Rollenstruktur (tree)
-* **Requirements**
-  * spezielle (Python-) Pakete z.B. netaddr
-  * eigene Module oder Plugins z.B. nom_tell-Modul
-* **Role Variables**
-  * verwendete Variablen in Tabelle, idealerweise in der Reihenfolge des Auftretens
-    * _Variable name_
-    * _Type_: String, Integer, Float, Boolean, List, Dictionary
-    * _Default Value_: Wert aus default/main.yml, oder _None_, falls nicht gesetzt
-    * _Description_: ausführliche Beschreibung und Ort der Variablendefinition, wenn außerhalb der Rolle (z.B. group_vars/host_vars)
-* **Dependencies**
-  * Liste mit Rollen, welche zuvor erfolgreich gelaufen sein müssen
-* **Tags**
-  * Liste mit Tags, falls verwendet
-* **Example Playbook**
-  * minimales Playbook zur Ausführung der Rolle
-* **Author Information**
-  * Autor(en) inklusive Vodafone E-Mail-Adresse
+Every role must have a role-specific `README.md` describing scope and focus of the role. Use the following example:
 
-<p>
-<details>
-<summary><b>Beispiel</b></summary>
+````markdown
+# Role name/title
 
-    # nom-vkms-controller
+Brief description of the role, what it does and what not.
 
-    The role sets up the nom-vkms service.   
-    The Vault Key Management System (vkms) manages secrets and is used to generate and distribute certificates in support of secure communication between SPS components.
+## Requirements
 
-    ## Requirements
+Technical requirements, e.g. necessary packages/rpms, own modules or plugins.
 
-    None.
+## Role Variables
 
-    ## Role Variables
+The role uses the following variables:
 
-    The role defines the following variables:
+| Variable Name | Type    | Default Value | Description            |
+| ------------- | ------- | ------------- | ---------------------- |
+| example       | Boolean | false         | Brief description      |
 
-    Variable Name | Type | Default Value | Description
-    ------------- | ---- | ------------- | -----------
-    nom_vkms_secrets_dir | String | /var/nom/secrets/nom-vkms | The directory where all certificates and keys are stored.
-    nom_vkms_ca_ttl_days | String | 3560 | The amount of days the CA certificate is valid.
-    nom_vkms_https_cert_cn | String | nom-vkms | The common name of the certificate.
-    nom_vkms_client | String | /usr/local/nom/sbin/nom-vkms-client | The path to to nom-vkms client binary.
-    nom_vkms_root_ttl_hours | String | 87600h | The amount of hours the root certificate is valid.
-    nom_vkms_intermediate_ttl_hours | String | 35040h | The amount of hours the intermediate certificate is valid.
-    nom_vkms_leaf_ttl_hours | String | 8760h | The amount of hours the leaf certificate is valid.
+## Dependencies
 
-    ## Dependencies
+This role expects to run **after** the following roles:
+* repository
+* networking
+* common
+* software
 
-    This role expects to run **after** the following roles:
-    * repository
-    * networking
-    * common
-    * software
+## Tags
 
-    ## Tags
+The role can be executed with the following tags:
+* install
+* configure
+* service
 
-    The role can be executed with the following tags:
-    * nom-vkms-controller
-    * install
-    * configure
-    * init
-    * unseal
-    * ca-certificate
+## Example Playbook
 
-    ## Example Playbook
+Use the role in a playbook like this (after running plays/roles from dependencies section):
+```yaml
+- name: Execute role
+  hosts: example_servers
+  become: true
+  roles:
+    - example-role
+```
 
-    Use the role in a playbook like this (after running plays/roles from dependencies section):
-    ```yaml
-    - name: Execute nom-vkms role
-      hosts: vkms_servers
-      become: yes
-      roles:
-        - nom-vkms-controller
-    ```
+## Authors
 
-    ## Author Information
+Tim Grützmacher - <tim.gruetzmacher@computacenter.com>
 
-    Tim Grützmacher - <tim.gruetzmacher@vodafone.com>
+````
 
-</details>
-</p>
+## Role structure
 
+### Role skeleton
+
+The `ansible-galaxy` utility can be used to create the role *skeleton* with the following command:
+
+```bash
+ansible-galaxy role init roles/demo
+```
+
+This would create the following directory:
+
+```bash
+roles/demo/
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+├── .travis.yml
+└── vars
+    └── main.yml
+```
+
+At least the folders (and content) `tests` (a sample inventory and playbook for testing, we will use a different testing method) and `vars` (variable definitions, not used according to this Best Practice Guide, because we use only *group_vars*, *host_vars* and *defaults*) are not necessary. Also the `.travis.yml` (a CI/CD solution) definition is not useful.
+
+!!! tip
+    Use a custom role skeleton which is used by `ansible-galaxy`!
+
+Consider the following role skeleton, note the missing *vars* and *test* folder and the newly added [Molecule folder](testing.md#molecule).
+
+```bash
+roles/role-skeleton/
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── molecule
+│   └── default
+│       ├── converge.yml
+│       └── molecule.yml
+├── README.md
+├── tasks
+│   └── main.yml
+└── templates
+```
+
+You need to define the following parameter in your custom `ansible.cfg`:
+
+```ini
+[galaxy]
+role_skeleton = roles/role-skeleton
+```
+
+!!! success
+    Afterwards, initializing a new role with `ansible-galaxy role init` creates a role structure with exactly the content you need!

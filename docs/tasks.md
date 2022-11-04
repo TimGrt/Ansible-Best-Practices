@@ -25,6 +25,23 @@ The file name of a task file should describe the content.
 
 Each task must be idempotent, if non-idempotent modules are used (*command*, *shell*, *raw*) these tasks must be developed via appropriate parameters or conditions to an idempotent mode of operation.  
 
+### *command* vs. *shell* module
+
+In most of the use cases, both shell and command modules perform the same job. However, there are few main differences between these two modules. The *command* module uses the Python interpreter on the target node (as all other modules), the *shell* module runs a real shell on the target (pipeing and redirections are available, as well as access to environment variables).
+
+!!! tip
+    Always try to use the `command` module over the `shell` module, if you do not explicitly need shell functionality.
+
+Parsing shell metacharacters can lead to unexpected commands being executed if quoting is not done correctly so it is more secure to use the command module when possible. To sanitize any variables passed to the shell module, you should use `{{ var | quote }}` instead of just `{{ var }}` to make sure they do not include evil things like semicolons.
+
+### *creates* and *removes*
+
+Check mode is supported when passing creates or removes. If running in check mode and either of these are specified, the module will check for the existence of the file and report the correct changed status. If these are not supplied, the task will be skipped.
+
+!!! warning
+    **Work in Progress** - More description necessary.
+
+
 ### *failed_when* and *changed_when*
 
 === "Good"
@@ -65,35 +82,6 @@ It is possible to leave off the *name* for a given task, though it is recommende
             name: httpd
             state: present
         ```
-
-When separating tasks in *sub-taskfiles* as above, consider adding the task file name to every task in it. In case of a failure, when executing the playbook, you know where to look for the failed task.
-
-```yaml
-# tasks/prerequisites.yml
-- name: prerequisites | Ensure Memory cgroup is enabled
-  ansible.builtin.stat:
-    path: /sys/fs/cgroup/memory
-
-- name: prerequisites | Disable swap
-  ansible.builtin.command: swapoff -a
-  when: ansible_swaptotal_mb > 0
-```
-
-```bash
-...
-TASK [k8s-bootstrap : prerequisites | Ensure Memory cgroup is enabled] *********
-Friday 28 October 2022  14:38:22 +0200 (0:00:05.278)       0:00:05.298 ********
-ok: [node2]
-ok: [node1]
-ok: [node3]
-
-TASK [k8s-bootstrap : prerequisites | Disable swap] ****************************
-Friday 28 October 2022  14:38:23 +0200 (0:00:01.742)       0:00:07.040 ********
-ok: [node1]
-ok: [node2]
-ok: [node3]
-...
-```
 
 ## Always mention the *state*
 The `state` parameter is optional to a lot of modules. Whether `state: present` or `state: absent`, it’s always best to leave that parameter in your playbooks to make it clear, especially as some modules support additional states.

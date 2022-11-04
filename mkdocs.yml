@@ -106,3 +106,4 @@ nav:
   - "Roles": roles.md
   - "Tasks": tasks.md
   - "Linting": linting.md
+  - "Testing": testing.md
