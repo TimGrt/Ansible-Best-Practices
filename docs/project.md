@@ -236,47 +236,6 @@ The so-called YAML "one-line" syntax is not used, neither for passing parameters
             state: present
         ```
 
-### Line-length
-Too long lines are to be avoided, a maximum 70 characters are allowed. Longer lines must be broken by a _YAML Folded Scalar_ (">").
-
-=== "Good"
-    !!! success ""
-        ```yaml
-        download_directory: ~/.local/bin
-
-
-        ```
-=== "Bad"
-    !!! failure ""
-        ```yaml
-        dir: ~/.local/bin
-        ```
-
-<p>
-<details>
-<summary><b>Beispiele</b></summary>
- 
-**Task mit zu langer Zeile**
-```yaml
-# Task with too long line, also does not work idempotent
-- name: Execute Python command
-  command:
-    cmd: python a very long command --with=very --long-options=foo --and-even=more_options --like-these
-```
- 
-**Task mit YAML folded scalar**
-```yaml
-# Task still does not work idempotent, but line length is ok
-- name: Execute Python command
-  command:
-    cmd: >
-      python a very long command --with=very --long-options=foo
-      --and-even=more_options --like-these
-```
- 
-</details>
-</p>
-
 ## Comments
 
 Use loads of comments!  
