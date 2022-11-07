@@ -77,7 +77,7 @@ Bracket notation always works and you can use variables inside the brackets. Dot
 !!! tip
     All variables with sensitive content should be *vault*-encrypted.  
 
-Although encrypting just the value of a single variable is possible (with `ansible-vault encrypt_string`), you should avoid this. Store all sensitive variables in a single file and encrypt to file.  
+Although encrypting just the value of a single variable is possible (with `ansible-vault encrypt_string`), you should avoid this. Store all sensitive variables in a single file and encrypt the whole file.  
 For example, to store sensitive variables in `group_vars`, create the subdirectory for the group and within create two files named `vars.yml` and `vault.yml`.  
 Inside of the `vars.yml` file, define all of the variables needed, including any sensitive ones. Next, copy all of the sensitive variables over to the `vault.yml` file and prefix these variables with `vault_`. Adjust the variables in the *vars* file to point to the matching *vault_* variables using Jinja2 syntax, and ensure that the vault file is vault encrypted.
 
@@ -88,19 +88,39 @@ Inside of the `vars.yml` file, define all of the variables needed, including any
         # file: group_vars/database_servers/vars.yml
         username: "{{ vault_username }}"
         password: "{{ vault_password }}"
-
+        ```
+        ```yaml
         ---
         # file: group_vars/database_servers/vault.yml
         # NOTE: THIS FILE MUST ALWAYS BE VAULT-ENCRYPTED
         vault_username: admin
-        vault_password: s3cr3tp4$$w0rd
+        vault_password: ex4mple
         ```
+        ??? info "I can still read the credentials...?"
+            Obviously, you wouldn't be able to read the content of the file `group_vars/database_servers/vault.yml`, as the file would be encrypted.  
+            **This only demonstrates how the variables are referencing each other.**  
+            The encrypted file looks something like this:
+            ```yaml
+            $ANSIBLE_VAULT;1.1;AES256
+            30653164396132376333316665656131666165613863343330616666376264353830323234623631
+            6361303062336532303665643765336464656164363662370a663834313837303437323332336631
+            65656335643031393065333366366639653330353634303664653135653230656461666266356530
+            3935346533343834650a323934346666383032636562613966633136663631636435333834393261
+            36363833373439333735653262306331333062383630623432633134386138656636343137333439
+            61633965323066633433373137383330366466366332626334633234376231393330363335353436
+            62383866616232323132376366326161386561666238623731323835633237373036636561666165
+            36363838313737656232376365346136633934373861326130636531616438643036656137373762
+            39616234353135613063393536306536303065653231306166306432623232356465613063336439
+            34636232346334386464313935356537323832666436393336366536626463326631653137313639
+            36353532623161653266666436646135396632656133623762643131323439613534643430636333
+            31386635613238613233
+            ```
 === "Bad"
     !!! failure ""
         ```yaml
         # file: group_vars/database_servers.yml
         username: admin
-        password: s3cr3tp4$$w0rd
+        password: ex4mple
         ```
 
 Defining variables this way makes sure that you can still find them with *grep*.
