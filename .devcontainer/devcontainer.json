@@ -1,9 +1,14 @@
 {
 	"name": "MkDocs Dev-Container",
-	"image": "mcr.microsoft.com/devcontainers/python:3.10-bullseye",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		// Update 'VARIANT' to pick a Python version. Rebuild the container 
+		// if it already exists to update. Available variants: 3, 3.6, 3.7, 3.8 
+		"args": { "VARIANT": "3" }
+	},
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {}
 	},
-	"postCreateCommand": "mkdocs serve -a localhost:8080",
-	"forwardPorts": [8080]
+	"postStartCommand": ["echo", "Run 'mkdocs serve' to preview the MkDocs project."]
 }
