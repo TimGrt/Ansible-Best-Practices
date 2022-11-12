@@ -49,8 +49,24 @@ Use `deactivate` to leave your VE.
 
 ### Configuration
 
+You may use these example configurations as a starting point. It expects that the [Docker image](https://hub.docker.com/r/timgrt/centos7-ansible) is already present (use `docker pull timgrt/centos7-ansible`) and `ansible-lint` is installed. See the install instructions above.
 
-You may use these example as a starting point. It expects that the [Docker image](https://hub.docker.com/r/timgrt/centos7-ansible) is already present (use `docker pull timgrt/centos7-ansible`) and `ansible-lint` is installed. See the install instructions above.
+The *molecule* configuration files are kept in the role folder you want to test. Create the directory `molecule/default` and at least the `molecule.yml` and `converge.yml`:
+
+```bash hl_lines="5 6 7 8"
+roles/
+└── webserver-demo
+    ├── defaults
+    │   └── main.yml
+    ├── molecule
+    │   └── default
+    │       ├── converge.yml
+    │       └── molecule.yml
+    ├── tasks
+    │   └── main.yml
+    └── templates
+        └── index.html
+```
 
 === "Central Molecule configuration"
     !!! example "molecule.yml"
@@ -121,3 +137,27 @@ You may use these example as a starting point. It expects that the [Docker image
           roles:
             - role-name
         ```
+
+### Usage
+
+Molecule is executed from within the role you want to test, change directory:
+```bash
+cd roles/webserver-demo
+```
+  
+From here, run the molecule scenario.
+
+To only create the defined containers, but not run the Ansible tasks:
+```bash
+molecule create
+```
+
+To run the Ansible tasks of the role (if the container does not exist, it will be created):
+```bash
+molecule converge
+```
+
+To execute a full test circle (existing containers are deleted, re-created and Ansible tasks are executed, containers are deleted(!) afterwards):
+```bash
+molecule test
+```

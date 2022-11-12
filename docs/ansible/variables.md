@@ -41,6 +41,7 @@ After a variable is defined, use *Jinja2* syntax to reference it. Jinja2 variabl
 Use spaces after and before the double curly braces and the variable name.  
 When referencing *list* or *dictionary* variables, try to use the *bracket notation* instead of the *dot notation*.
 Bracket notation always works and you can use variables inside the brackets. Dot notation can cause problems because some keys collide with attributes and methods of python dictionaries. 
+
 === "Good"
     !!! success ""
         Simple variable reference:

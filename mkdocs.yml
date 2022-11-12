@@ -36,6 +36,8 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:mermaid2.fence_mermaid
   - tables
+  - toc:
+      title: On this page
   - pymdownx.tabbed:
       alternate_style: true 
   - def_list
@@ -62,8 +64,6 @@ plugins:
       add_print_site_banner: true
       cover_page_template: "docs/assets/cover-page.tpl"
       enabled: !ENV [ENABLED_PRINT_SITE, True]
-      exclude:
-        - index.md
       path_to_pdf: "docs/assets/ansible-best-practices.pdf"
       print_page_title: ""
       print_site_banner_template: "docs/assets/print-banner.tpl"
@@ -97,13 +97,18 @@ repo_url: https://github.com/TimGrt/Ansible-Best-Practices
 repo_name: TimGrt/Ansible-Best-Practices
 # Navigation definition
 nav:
-  - "Home": index.md
-  - "Installation": installation.md
-  - "Project": project.md
-  - "Inventory": inventory.md
-  - "Variables": variables.md
-  - "Playbook": playbook.md
-  - "Roles": roles.md
-  - "Tasks": tasks.md
-  - "Linting": linting.md
-  - "Testing": testing.md
+  - "Overview": index.md
+  - "Ansible": 
+    - ansible/index.md
+    - "Installation": ansible/installation.md
+    - "Project": ansible/project.md
+    - "Inventory": ansible/inventory.md
+    - "Variables": ansible/variables.md
+    - "Playbook": ansible/playbook.md
+    - "Roles": ansible/roles.md
+    - "Tasks": ansible/tasks.md
+  - "Ansible Development":
+    - development/index.md
+    - "Linting": development/linting.md
+    - "Testing": development/testing.md
+    - "Extending": development/extending.md

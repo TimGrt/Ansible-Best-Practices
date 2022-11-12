@@ -1,4 +1,6 @@
-# Ansible Best Practices
+# Best Practices
+
+This document aims to gather good and best practices from Ansible practitioners and projects at Computacenter. It strives to give all Ansible user a guideline from which to start their automation journey in good conditions.
 
 <figure markdown>
   ![CC Logo](assets/computacenter.png#only-light){ width="500" }
@@ -6,7 +8,9 @@
   <figcaption></figcaption>
 </figure>
 
-Hier finden sich Ansible Best Practices und Beispiele.
+Ansible is simple, flexible, and powerful. Like any powerful tool, there are many ways to use it, some better than others.
 
-!!! tip "Versionierung"
-    Das Template wird ständig aktualisiert, zuletzt am **{{ git_revision_date_localized }}**.
+Those are **opinionated** guidelines based on the experience of many projects. They are not meant to be followed blindly if they don’t fit the reader’s specific use case or needs. Take them as an inspiration and adjust them to your needs, still let us know your good and best practices, we all can learn.
+
+!!! tip "Versioning"
+    This guide is updated regularly, last update on **{{ git_revision_date_localized }}**.
