@@ -1,0 +1,9 @@
+{
+	"name": "MkDocs",
+	"image": "mcr.microsoft.com/devcontainers/python:3.10-bullseye",
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {}
+	},
+	"postCreateCommand": "pip3 install --user -r requirements.txt; mkdocs serve -a localhost:8080",
+	"forwardPorts": [8080]
+}
