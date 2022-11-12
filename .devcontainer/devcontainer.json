@@ -10,5 +10,5 @@
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {}
 	},
-	"postStartCommand": ["echo", "Run 'mkdocs serve' to preview the MkDocs project."]
+	"postAttachCommand": ["echo", "Run 'mkdocs serve' to preview the MkDocs project."]
 }
