@@ -21,6 +21,24 @@ The file name of a task file should describe the content.
 - import_tasks: install-kubeadm.yml
 ```
 
+## Tags
+Don't use too many tags, it gets confusing very quickly.  
+Tags should only be allowed for imported task files within the `main.yml` of a role. Tags at the task level in sub-task files should be avoided.
+
+```yaml
+---
+# tasks/main.yml
+- import_tasks: installation.yml
+  tags:
+    - install
+
+- import_tasks: configuration.yml
+  tags:
+    - configure
+```
+
+Try to use the same tags across your roles, this way you would be able to run only e.g. *installation* tasks from multiple roles.
+
 ## Idempotence
 
 Each task must be idempotent, if non-idempotent modules are used (*command*, *shell*, *raw*) these tasks must be developed via appropriate parameters or conditions to an idempotent mode of operation.  
@@ -68,7 +86,8 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
 
 ## Naming tasks
 
-It is possible to leave off the *name* for a given task, though it is recommended to provide a description about why something is being done instead. This description is shown when the playbook is run.
+It is possible to leave off the *name* for a given task, though it is recommended to provide a description about why something is being done instead. This description is shown when the playbook is run.  
+Write task names in the imperative (e.g. *"Ensure service is running"*), this communicates the action of the task. Start with a capital letter.
 
 === "Good"
     !!! success ""
@@ -82,6 +101,13 @@ It is possible to leave off the *name* for a given task, though it is recommende
     !!! failure ""
         ```yaml
         - yum:
+            name: httpd
+            state: present
+        ```
+        Using name parameter, but not starting with capital letter, nor desrcibing the task properly.
+        ```yaml
+        - name: install package
+          yum:
             name: httpd
             state: present
         ```
@@ -109,28 +135,108 @@ changed: [kubemaster]
 ...
 ```
 
+## FQCN
+
+Use the *full qualified collection names (FQCN)* for modules, they are supported since Version 2.9 and ensures your tasks are set for the future.
+
+=== "Good"
+    !!! success ""
+        ```yaml
+        - name: Install webserver package
+          ansible.builtin.yum:
+            name: httpd
+            state: present
+        ```
+=== "Bad"
+    !!! failure ""
+        ```yaml
+        - yum:
+            name: httpd
+            state: present
+        ```
+
+In Ansible 2.10, many plugins and modules have migrated to Collections on Ansible Galaxy. Your playbooks should continue to work without any changes. Using the FQCN in your playbooks ensures the explicit and authoritative indicator of which collection to use as some collections may contain duplicate module names.
 
 ## State definition
 The `state` parameter is optional to a lot of modules. Whether `state: present` or `state: absent`, it’s always best to leave that parameter in your playbooks to make it clear, especially as some modules support additional states.
 
+## Conditionals
 
-## Tags
-Don't use too many tags, it gets confusing very quickly.  
-Tags should only be allowed for imported task files within the `main.yml` of a role. Tags at the task level in sub-task files should be avoided.
+If the `when:` condition results in a line that is very long, and is an `and` expression, then break it into a list of conditions.
 
-```yaml
----
-# tasks/main.yml
-- import_tasks: installation.yml
-  tags:
-    - install
+=== "Good"
+    !!! success ""
+        ```yaml
+        - name: Set motd message for k8s worker node
+          ansible.builtin.copy:
+            content: "This host is used as k8s worker.\n"
+            dest: /etc/motd
+          when: 
+            - inventory_hostname in groups['kubeworker']
+            - kubeadm_join_result.rc == 0
+        ```
+=== "Bad"
+    !!! failure ""
+        ```yaml
+        - name: Set motd message for k8s worker node
+          copy:
+            content: "This host is used as k8s worker.\n"
+            dest: /etc/motd
+          when: inventory_hostname in groups['kubeworker'] and kubeadm_join_result.rc == 0
+        ```
 
-- import_tasks: configuration.yml
-  tags:
-    - configure
-```
+When using conditions on *blocks*, move the `when` statement to the top, below the *name* parameter, to improve readability.
 
-Try to use the same tags across your roles, this way you would be able to run only e.g. *installation* tasks from multiple roles.
+=== "Good"
+    !!! success ""
+        ```yaml
+        - name: Install, configure, and start Apache
+          when: ansible_facts['distribution'] == 'CentOS'
+          block:
+            - name: Install httpd and memcached
+              ansible.builtin.yum:
+                name:
+                  - httpd
+                  - memcached
+                state: present
+
+            - name: Apply the foo config template
+              ansible.builtin.template:
+                src: templates/src.j2
+                dest: /etc/foo.conf
+
+            - name: Start service bar and enable it
+              ansible.builtin.service:
+                name: bar
+                state: started
+                enabled: true
+        ```
+=== "Bad"
+    !!! failure ""
+        ```yaml
+        - name: Install, configure, and start Apache
+          block:
+            - name: Install httpd and memcached
+              ansible.builtin.yum:
+                name:
+                - httpd
+                - memcached
+                state: present
+
+            - name: Apply the foo config template
+              ansible.builtin.template:
+                src: templates/src.j2
+                dest: /etc/foo.conf
+
+            - name: Start service bar and enable it
+              ansible.builtin.service:
+                name: bar
+                state: started
+                enabled: True
+          when: ansible_facts['distribution'] == 'CentOS'
+        ```
+
+Avoid the use of `when: foo_result is changed` whenever possible. Use handlers, and, if necessary, handler chains to achieve this same result.
 
 ## Loops
 

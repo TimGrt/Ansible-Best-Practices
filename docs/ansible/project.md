@@ -161,7 +161,10 @@ YAML files are saved with the extension `.yml`.
     Also, *ansible-lint* checks role names to ensure they conform these requirements, which must be disabled otherwise.
 
 ## YAML Syntax
- 
+
+Following a basic YAML coding style accross the whole team, improves readability and reusability.
+
+### Indentation
 Two spaces are used to indent everything, e.g. list items or dictionary keys.
 
 === "Good"
@@ -236,8 +239,64 @@ The so-called YAML "one-line" syntax is not used, neither for passing parameters
             state: present
         ```
 
+### Booleans
+Use `true` and `false` for boolean values in playbooks.  
+Do not use the Ansible-specific `yes` and `no` as boolean values in YAML as these are completely custom extensions used by Ansible and are not part of the YAML spec. Also, avoid the use of the Python-style `True` and `False` for boolean values.
+
+=== "Good"
+    !!! success ""
+        ```yaml
+        - name: Start and enable service httpd
+          ansible.builtin.service:
+            name: httpd
+            enabled: true
+            state: started
+        ```
+=== "Bad"
+    !!! failure ""
+        ```yaml
+        - name: Start and enable service httpd
+          ansible.builtin.service:
+            name: httpd
+            enabled: yes
+            state: started
+        ```
+
+*YAML 1.1* allows all variants whereas *YAML 1.2* allows only *true/false*, you can avoid a massive migration effort for when it becomes the default.
+
+Use the `| bool` filter when using bare variables (expressions consisting of just one variable reference without any operator) in `when` conditions.
+
+=== "Good"
+    !!! success ""
+        Using a variable `upgrade_allowed` with the default value `false`, task is executed when overwritten with `true` value.
+        ```yaml
+        - name: Upgrade all packages, excluding kernel & foo related packages
+          ansible.builtin.yum:
+            name: '*'
+            state: latest
+            exclude: kernel*,foo*
+          when: upgrade_allowed | bool
+        ```
+=== "Bad"
+    !!! failure ""
+        ```yaml
+        - name: Upgrade all packages, excluding kernel & foo related packages
+          ansible.builtin.yum:
+            name: '*'
+            state: latest
+            exclude: kernel*,foo*
+          when: upgrade_allowed
+        ```
+
+### Quoting
+
+Do not use quotes unless you have to, especially for short module-keyword-like strings like *present*, *absent*, etc.
+
+
+
 ## Comments
 
 Use loads of comments!  
-Still, commented code is generally to be avoided. Playbooks or task files are not committed, if they contain commented out code.  
+Well, the *name* parameter should desribe your task in detail, but if your task uses multiple filters or regexes, comments should be used for further explanation.  
+Commented code is generally to be avoided. Playbooks or task files are not committed, if they contain commented out code.  
 

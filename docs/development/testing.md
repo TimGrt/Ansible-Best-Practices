@@ -4,6 +4,16 @@
 !!! warning
     **Work in Progress** - More description necessary.
 
+## Syntax check
+
+The whole playbook (and all roles and tasks) need to, minimally, pass a basic ansible-playbook syntax check run.
+
+```bash
+ansible-playbook main.yml --syntax-check
+```
+
+Running this as a step in a CI Pipeline is advisable.
+
 ## Molecule
 
 Molecule project is designed to aid in the development and testing of Ansible roles, provides support for testing with multiple instances, operating systems and distributions, virtualization providers, test frameworks and testing scenarios.  
