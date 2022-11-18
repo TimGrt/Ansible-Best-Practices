@@ -12,9 +12,8 @@ extra_css:
   - stylesheets/extra.css
   - stylesheets/tables.css
 extra_javascript:
-  - https://unpkg.com/mermaid/dist/mermaid.min.js
   - extra/refresh-on-toggle-dark-light.js
-  - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
   - extra/tablesort.js
 markdown_extensions:
   - admonition
@@ -30,11 +29,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.details
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:mermaid2.fence_mermaid
+  - pymdownx.superfences
   - tables
   - toc:
       title: On this page
@@ -54,11 +49,6 @@ plugins:
       enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
       fallback_to_build_date: true
       locale: de
-  - mermaid2:
-      arguments:
-        theme: |
-          ^(JSON.parse(__md_get("__palette").index == 1)) ? 'dark' : 'light'
-        securityLevel: 'loose'
   - print-site:
       add_cover_page: true
       add_print_site_banner: true
@@ -76,6 +66,7 @@ theme:
   language: de
   favicon: assets/computacenter-logo.png
   features:
+    - content.code.annotate
     - navigation.indexes
     - navigation.instant
     - navigation.sections
