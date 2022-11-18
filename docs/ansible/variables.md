@@ -100,7 +100,7 @@ Inside of the `vars.yml` file, define all of the variables needed, including any
         ??? info "I can still read the credentials...?"
             Obviously, you wouldn't be able to read the content of the file `group_vars/database_servers/vault.yml`, as the file would be encrypted.  
             **This only demonstrates how the variables are referencing each other.**  
-            The encrypted file looks something like this:
+            The encrypted `vault.yml` file looks something like this:
             ```yaml
             $ANSIBLE_VAULT;1.1;AES256
             30653164396132376333316665656131666165613863343330616666376264353830323234623631

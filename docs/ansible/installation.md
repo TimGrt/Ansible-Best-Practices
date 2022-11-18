@@ -13,7 +13,10 @@ If more special modules are needed, the complete *ansible* package can be instal
 pip3 install ansible
 ```
 
-It makes the most sense to install only the *ansible-core* package and to install the few collections necessary for the project via `ansible-galaxy`. This way you have an up-to-date, lean installation without unnecessary modules and plugins.  
+!!! tip
+    It makes sense to install only the *ansible-core* package. Afterwards, install the few collections necessary for your project via `ansible-galaxy`. 
+    This way you have an up-to-date, lean installation without unnecessary modules and plugins. 
+
 Thereby the [chapter Project > Collections](project.md#collections) is to be considered. If a container runtime is available, the complete installation can also be bundled in a container image (so-called *Execution Environment*).
 
 ## Execution environments

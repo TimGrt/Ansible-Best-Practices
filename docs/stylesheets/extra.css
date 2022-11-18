@@ -3,3 +3,7 @@
     --md-primary-fg-color--light: #009DDC;
     --md-primary-fg-color--dark:  #24387F;
   }
+
+  :root {
+    --md-tooltip-width: 500px;
+  }

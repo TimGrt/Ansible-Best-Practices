@@ -48,7 +48,7 @@ Each task must be idempotent, if non-idempotent modules are used (*command*, *sh
 
 ### *command* vs. *shell* module
 
-In most of the use cases, both shell and command modules perform the same job. However, there are few main differences between these two modules. The *command* module uses the Python interpreter on the target node (as all other modules), the *shell* module runs a real shell on the target (pipeing and redirections are available, as well as access to environment variables).
+In most of the use cases, both shell and command modules perform the same job. However, there are few main differences between these two modules. The [*command*](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html){:target="_blank"} module uses the Python interpreter on the target node (as all other modules), the [*shell*](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html){:target="_blank"} module runs a real shell on the target (pipeing and redirections are available, as well as access to environment variables).
 
 !!! tip
     Always try to use the `command` module over the `shell` module, if you do not explicitly need shell functionality.
@@ -157,6 +157,47 @@ Use the *full qualified collection names (FQCN)* for modules, they are supported
 
 In Ansible 2.10, many plugins and modules have migrated to Collections on Ansible Galaxy. Your playbooks should continue to work without any changes. Using the FQCN in your playbooks ensures the explicit and authoritative indicator of which collection to use as some collections may contain duplicate module names.
 
+## Permissions
+
+When using modules like `copy` or `template` you can (and should) set permissions for the files/templates deployed with the `mode` parameter.
+
+For those used to */usr/bin/chmod*, remember that modes are actually octal numbers. You must either add a **leading zero** so that Ansible’s YAML parser knows it is an octal number (like `0644` or `01777`) or quote it (like `"644"` or `"1777"`) so Ansible receives a string and can do its own conversion from string into number.
+
+!!! warning
+    Giving Ansible a number without following one of these rules will end up with a decimal number which will have unexpected results.
+
+=== "Good"
+    !!! success ""
+        ```yaml
+        - name: Copy index.html template
+          ansible.builtin.template:
+            src: welcome.html
+            dest: /var/www/html/index.html
+            mode: 0644
+            owner: apache
+            group: apache
+          become: true
+        ```
+=== "Bad"
+    !!! failure ""
+        Missing leading zero:
+        ```yaml
+        - name: copy index
+          template:
+            src: welcome.html
+            dest: /var/www/html/index.html
+            mode: 644
+            owner: apache
+            group: apache
+          become: true
+        ```
+        This leads to these permissions!
+        ```bash
+        [root@demo /]# ll /var/www/html/
+        total 68
+        --w----r-T 1 apache apache 67691 Nov 18 14:30 index.html
+        ```
+
 ## State definition
 The `state` parameter is optional to a lot of modules. Whether `state: present` or `state: absent`, it’s always best to leave that parameter in your playbooks to make it clear, especially as some modules support additional states.
 
@@ -243,6 +284,70 @@ Avoid the use of `when: foo_result is changed` whenever possible. Use handlers, 
 !!! warning
     **Work in Progress** - More description necessary.
 
+Converting from `with_<lookup>` to `loop` is described with a [Migration Guide](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html#migrating-from-with-x-to-loop){:target="_blank"} in the Ansible documentation
+
+### Limit loop output
+
+When looping over complex data structures, the console output of your task can be enormous. To limit the displayed output, use the `label` directive with `loop_control`. For example, this tasks creates users with multiple parameters in a loop:
+
+```yaml
+- name: Create local users
+  user:
+    name: "{{ item.name }}"
+    groups: "{{ item.groups }}"
+    append: "{{ item.append }}"
+    comment: "{{ item.comment }}"
+    generate_ssh_key: true
+    password_expire_max: "{{ item.password_expire_max }}"
+  loop: "{{ user_list }}"
+  loop_control:
+    label: "{{ item.name }}" # (1)!
+```
+
+1.  Content of variable `user_list`:
+    ```yaml
+    user_list:
+      - name: tgruetz
+        groups: admins,docker
+        append: false
+        comment: Tim Grützmacher
+        shell: /bin/bash
+        password_expire_max: 180
+      - name: joschmi
+        groups: developers,docker
+        append: true
+        comment: Jonathan Schmidt
+        shell: /bin/zsh
+        password_expire_max: 90
+      - name: mfrink
+        groups: developers
+        append: true
+        comment: Mathias Frink
+        shell: /bin/bash
+        password_expire_max: 90
+    ```
+
+Running the playbook results in the following task output, only the content of the *name* parameter is shown instead of all key-value pairs in the list item.
+
+=== "Good"
+    !!! success ""
+        ```bash
+        TASK [common : Create local users] *********************************************
+        Friday 18 November 2022  12:18:01 +0100 (0:00:01.955)       0:00:03.933 *******
+        changed: [demo] => (item=tgruetz)
+        changed: [demo] => (item=joschmi)
+        changed: [demo] => (item=mfrink)
+        ```
+=== "Bad"
+    !!! failure ""
+        Not using the `label` in the `loop_control` dictionary results in a very long output:
+        ```bash
+        TASK [common : Create local users] *********************************************
+        Friday 18 November 2022  12:22:40 +0100 (0:00:01.512)       0:00:03.609 *******
+        changed: [demo] => (item={'name': 'tgruetz', 'groups': 'admins,docker', 'append': False, 'comment': 'Tim Grützmacher', 'shell': '/bin/bash', 'password_expire_max': 90})
+        changed: [demo] => (item={'name': 'joschmi', 'groups': 'developers,docker', 'append': True, 'comment': 'Jonathan Schmidt', 'shell': '/bin/zsh', 'password_expire_max': 90})
+        changed: [demo] => (item={'name': 'mfrink', 'groups': 'developers', 'append': True, 'comment': 'Mathias Frink', 'shell': '/bin/bash', 'password_expire_max': 90})
+        ```
 
 ## Filter
 

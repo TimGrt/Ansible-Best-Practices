@@ -8,7 +8,7 @@ This topic is split into three main sections, each section covers a different ad
 * [:octicons-plug-16: &nbsp; Extending](testing.md) - Create your own custom modules and plugins
 
 
-# Tools
+## Tools
 
 Each section above make use of an additional tool to support you during your Ansible content development, in most cases the standalone installation, as well as a custom container-based installation and usage method is described.  
 

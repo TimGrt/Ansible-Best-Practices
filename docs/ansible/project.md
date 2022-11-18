@@ -162,7 +162,7 @@ YAML files are saved with the extension `.yml`.
 
 ## YAML Syntax
 
-Following a basic YAML coding style accross the whole team, improves readability and reusability.
+Following a basic YAML coding style accross the whole team improves readability and reusability.
 
 ### Indentation
 Two spaces are used to indent everything, e.g. list items or dictionary keys.
@@ -272,7 +272,7 @@ Use the `| bool` filter when using bare variables (expressions consisting of jus
         ```yaml
         - name: Upgrade all packages, excluding kernel & foo related packages
           ansible.builtin.yum:
-            name: '*'
+            name: "*"
             state: latest
             exclude: kernel*,foo*
           when: upgrade_allowed | bool
@@ -282,7 +282,7 @@ Use the `| bool` filter when using bare variables (expressions consisting of jus
         ```yaml
         - name: Upgrade all packages, excluding kernel & foo related packages
           ansible.builtin.yum:
-            name: '*'
+            name: "*"
             state: latest
             exclude: kernel*,foo*
           when: upgrade_allowed
@@ -290,9 +290,8 @@ Use the `| bool` filter when using bare variables (expressions consisting of jus
 
 ### Quoting
 
-Do not use quotes unless you have to, especially for short module-keyword-like strings like *present*, *absent*, etc.
-
-
+Do not use quotes unless you have to, especially for short module-keyword-like strings like *present*, *absent*, etc.  
+When using quotes, use the same *type* of quotes throughout your playbooks. Always use **double quotes** (`"`), whenever possible.
 
 ## Comments
 
