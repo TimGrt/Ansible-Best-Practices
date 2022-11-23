@@ -20,14 +20,14 @@ The variable name should be self-explanatory (*as brief as possible, as detailed
 * *Boolean* values are provided with lowercase `true` or `false`
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```yaml
         download_directory: ~/.local/bin
         create_key: true
         needs_agent: false
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         ```yaml
         dir: ~/.local/bin
         create_key: yes
@@ -43,7 +43,7 @@ When referencing *list* or *dictionary* variables, try to use the *bracket notat
 Bracket notation always works and you can use variables inside the brackets. Dot notation can cause problems because some keys collide with attributes and methods of python dictionaries. 
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         Simple variable reference:
         ```yaml
         - name: Deploy configuration file
@@ -58,7 +58,7 @@ Bracket notation always works and you can use variables inside the brackets. Dot
             msg: "{{ ansible_facts[interface_name]['ipv4']['address'] }}"
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         Not using whitespaces around variable name.
         ```yaml
         - name: Deploy configuration file
@@ -83,7 +83,7 @@ For example, to store sensitive variables in `group_vars`, create the subdirecto
 Inside of the `vars.yml` file, define all of the variables needed, including any sensitive ones. Next, copy all of the sensitive variables over to the `vault.yml` file and prefix these variables with `vault_`. Adjust the variables in the *vars* file to point to the matching *vault_* variables using Jinja2 syntax, and ensure that the vault file is vault encrypted.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```yaml
         ---
         # file: group_vars/database_servers/vars.yml
@@ -117,7 +117,7 @@ Inside of the `vars.yml` file, define all of the variables needed, including any
             31386635613238613233
             ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         ```yaml
         # file: group_vars/database_servers.yml
         username: admin

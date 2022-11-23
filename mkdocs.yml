@@ -62,6 +62,8 @@ theme:
   custom_dir: docs/overrides
   icon:
     repo: fontawesome/brands/github
+    admonition:
+      example: octicons/terminal-24
   logo: assets/computacenter-logo-white.png
   language: de
   favicon: assets/computacenter-logo.png

@@ -97,7 +97,7 @@ Folder- and file-names consisting of multiple words are separated with hyphens (
 YAML files are saved with the extension `.yml`. 
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```bash
         .
         ├── ansible.cfg
@@ -126,7 +126,7 @@ YAML files are saved with the extension `.yml`.
                     └── main.yml
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         Playbook-name without hyphens and wrong file extension, role folders or task files inconsistent, with underscores and wrong extension.
         ```bash
         .
@@ -168,7 +168,7 @@ Following a basic YAML coding style accross the whole team improves readability 
 Two spaces are used to indent everything, e.g. list items or dictionary keys.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         Playbook:
         ```yaml
         - name: Demo play
@@ -186,7 +186,7 @@ Two spaces are used to indent everything, e.g. list items or dictionary keys.
           - 3.de.pool.ntp.org
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         Playbook with roles **not** indented by two whitespaces.
         ```yaml
         - name: Demo play
@@ -207,7 +207,7 @@ Two spaces are used to indent everything, e.g. list items or dictionary keys.
 The so-called YAML "one-line" syntax is not used, neither for passing parameters in tasks, nor for lists or dictionaries.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```yaml
         - name: Install the latest version of Apache from the testing repo
           ansible.builtin.yum:
@@ -225,7 +225,7 @@ The so-called YAML "one-line" syntax is not used, neither for passing parameters
             state: present
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         Task with *One-line* syntax:
         ```yaml
         - name: Install the latest version of Apache from the testing repo
@@ -244,7 +244,7 @@ Use `true` and `false` for boolean values in playbooks.
 Do not use the Ansible-specific `yes` and `no` as boolean values in YAML as these are completely custom extensions used by Ansible and are not part of the YAML spec. Also, avoid the use of the Python-style `True` and `False` for boolean values.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```yaml
         - name: Start and enable service httpd
           ansible.builtin.service:
@@ -253,7 +253,7 @@ Do not use the Ansible-specific `yes` and `no` as boolean values in YAML as thes
             state: started
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         ```yaml
         - name: Start and enable service httpd
           ansible.builtin.service:
@@ -267,7 +267,7 @@ Do not use the Ansible-specific `yes` and `no` as boolean values in YAML as thes
 Use the `| bool` filter when using bare variables (expressions consisting of just one variable reference without any operator) in `when` conditions.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         Using a variable `upgrade_allowed` with the default value `false`, task is executed when overwritten with `true` value.
         ```yaml
         - name: Upgrade all packages, excluding kernel & foo related packages
@@ -278,7 +278,7 @@ Use the `| bool` filter when using bare variables (expressions consisting of jus
           when: upgrade_allowed | bool
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         ```yaml
         - name: Upgrade all packages, excluding kernel & foo related packages
           ansible.builtin.yum:
@@ -299,3 +299,26 @@ Use loads of comments!
 Well, the *name* parameter should desribe your task in detail, but if your task uses multiple filters or regexes, comments should be used for further explanation.  
 Commented code is generally to be avoided. Playbooks or task files are not committed, if they contain commented out code.  
 
+!!! bad-practice "Bad"
+    Why is the second task commented? Is it not necessary anymore? Does it not work as expected? 
+    ```yaml
+    - name: Change port to {{ grafana_port }}
+      community.general.ini_file:
+        path: /etc/grafana/grafana.ini
+        section: server
+        option: http_port
+        value: "{{ grafana_port }}"
+      become: true
+      notify: restart grafana
+
+    # - name: Change theme to {{ grafana_theme }}
+    #   ansible.builtin.lineinfile:
+    #     path: /etc/grafana/grafana.ini
+    #     regexp: '.*default_theme ='
+    #     line: "default_theme = {{ grafana_theme }}"
+    #   become: yes
+    #   notify: restart grafana
+    ```
+    !!! good-practice "Comment commented tasks"
+        If you really have to comment the whole task, add a description why, when and by whom it was commented.
+    

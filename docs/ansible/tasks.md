@@ -67,7 +67,7 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
 ### *failed_when* and *changed_when*
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```yaml
         - name: Install webserver package
           ansible.builtin.yum:
@@ -75,7 +75,7 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
             state: present
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         This task never reports a changed state or fails when an error occurs.
         ```yaml
         - name: Install webserver package
@@ -90,7 +90,7 @@ It is possible to leave off the *name* for a given task, though it is recommende
 Write task names in the imperative (e.g. *"Ensure service is running"*), this communicates the action of the task. Start with a capital letter.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```yaml
         - name: Install webserver package
           ansible.builtin.yum:
@@ -98,7 +98,7 @@ Write task names in the imperative (e.g. *"Ensure service is running"*), this co
             state: present
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         ```yaml
         - yum:
             name: httpd
@@ -140,7 +140,7 @@ changed: [kubemaster]
 Use the *full qualified collection names (FQCN)* for modules, they are supported since Version 2.9 and ensures your tasks are set for the future.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```yaml
         - name: Install webserver package
           ansible.builtin.yum:
@@ -148,7 +148,7 @@ Use the *full qualified collection names (FQCN)* for modules, they are supported
             state: present
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         ```yaml
         - yum:
             name: httpd
@@ -167,7 +167,7 @@ For those used to */usr/bin/chmod*, remember that modes are actually octal numbe
     Giving Ansible a number without following one of these rules will end up with a decimal number which will have unexpected results.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```yaml
         - name: Copy index.html template
           ansible.builtin.template:
@@ -179,7 +179,7 @@ For those used to */usr/bin/chmod*, remember that modes are actually octal numbe
           become: true
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         Missing leading zero:
         ```yaml
         - name: copy index
@@ -206,7 +206,7 @@ The `state` parameter is optional to a lot of modules. Whether `state: present` 
 If the `when:` condition results in a line that is very long, and is an `and` expression, then break it into a list of conditions.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```yaml
         - name: Set motd message for k8s worker node
           ansible.builtin.copy:
@@ -217,7 +217,7 @@ If the `when:` condition results in a line that is very long, and is an `and` ex
             - kubeadm_join_result.rc == 0
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         ```yaml
         - name: Set motd message for k8s worker node
           copy:
@@ -229,7 +229,7 @@ If the `when:` condition results in a line that is very long, and is an `and` ex
 When using conditions on *blocks*, move the `when` statement to the top, below the *name* parameter, to improve readability.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```yaml
         - name: Install, configure, and start Apache
           when: ansible_facts['distribution'] == 'CentOS'
@@ -253,7 +253,7 @@ When using conditions on *blocks*, move the `when` statement to the top, below t
                 enabled: true
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         ```yaml
         - name: Install, configure, and start Apache
           block:
@@ -330,7 +330,7 @@ When looping over complex data structures, the console output of your task can b
 Running the playbook results in the following task output, only the content of the *name* parameter is shown instead of all key-value pairs in the list item.
 
 === "Good"
-    !!! success ""
+    !!! good-practice-no-title ""
         ```bash
         TASK [common : Create local users] *********************************************
         Friday 18 November 2022  12:18:01 +0100 (0:00:01.955)       0:00:03.933 *******
@@ -339,7 +339,7 @@ Running the playbook results in the following task output, only the content of t
         changed: [demo] => (item=mfrink)
         ```
 === "Bad"
-    !!! failure ""
+    !!! bad-practice-no-title ""
         Not using the `label` in the `loop_control` dictionary results in a very long output:
         ```bash
         TASK [common : Create local users] *********************************************

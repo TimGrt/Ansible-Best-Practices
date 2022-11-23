@@ -101,5 +101,5 @@ Separate the two plays into their respective playbooks files and reference them 
 # file k8s-installation.yml
 
 - import_playbooks: k8s-control-plane-playbook.yml
-- import_playbooks: 8s-worker-node-playbook.yml
+- import_playbooks: k8s-worker-node-playbook.yml
 ```
