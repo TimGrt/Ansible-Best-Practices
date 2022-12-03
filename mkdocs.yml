@@ -9,12 +9,14 @@ extra:
       link: https://gitlab.ccloud.ninja/tgruetzmacher/documentation-as-code
       name: Projekt im Gitlab
 extra_css:
-  - stylesheets/extra.css
-  - stylesheets/tables.css
+  - assets/stylesheets/snow.css
+  - assets/stylesheets/extra.css
+  - assets/stylesheets/tables.css
 extra_javascript:
-  - extra/refresh-on-toggle-dark-light.js
+  - assets/javascripts/extra/snow.min.js
+  - assets/javascripts/extra/refresh-on-toggle-dark-light.js
   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
-  - extra/tablesort.js
+  - assets/javascripts/extra/tablesort.js
 markdown_extensions:
   - admonition
   - attr_list
@@ -52,21 +54,21 @@ plugins:
   - print-site:
       add_cover_page: true
       add_print_site_banner: true
-      cover_page_template: "docs/assets/cover-page.tpl"
+      cover_page_template: "docs/assets/pdf/cover-page.tpl"
       enabled: !ENV [ENABLED_PRINT_SITE, True]
       path_to_pdf: "docs/assets/ansible-best-practices.pdf"
       print_page_title: ""
-      print_site_banner_template: "docs/assets/print-banner.tpl"
+      print_site_banner_template: "docs/assets/pdf/print-banner.tpl"
 theme:
   name: material
-  custom_dir: docs/overrides
+  custom_dir: docs/assets/overrides
   icon:
     repo: fontawesome/brands/github
     admonition:
       example: octicons/terminal-24
-  logo: assets/computacenter-logo-white.png
+  logo: assets/images/computacenter-logo-white.png
   language: de
-  favicon: assets/computacenter-logo.png
+  favicon: assets/images/computacenter-logo.png
   features:
     - content.code.annotate
     - navigation.indexes
@@ -76,16 +78,18 @@ theme:
     - search.highlight
     - search.suggest
   palette:
-    - scheme: default
-      primary: grey
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
       toggle:
-        icon: material/toggle-switch-off-outline 
-        name: Switch to dark mode
-    - scheme: slate
+        icon: material/lightbulb
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
       primary: red
       toggle:
-        icon: material/toggle-switch
-        name: Switch to light mode
+        icon: material/lightbulb-outline
+        name: Switch to dark mode
 repo_url: https://github.com/TimGrt/Ansible-Best-Practices
 repo_name: TimGrt/Ansible-Best-Practices
 # Navigation definition
