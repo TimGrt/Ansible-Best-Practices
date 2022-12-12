@@ -50,13 +50,13 @@ docker build -t ansible-lint .
 
 After building the image, the image can be used. Inside of the Ansible project directory, run this command (e.g. this lints the `site.yml` playbook).
 ```bash
-docker run --rm -v $(pwd):/data tgxi/ansible-lint site.yml
+docker run --rm -v $(pwd):/data ansible-lint site.yml
 ```
 
 The output for example is something like this, *ansible-lint* reports a warning regarding unnecessary white-spaces in a line, as well as an error regarding unset file permissions (fix could be setting `mode: 0644` in the task):
 
 ```bash
-$ docker run --rm -v $(pwd):/data tgxi/ansible-lint site.yml 
+$ docker run --rm -v $(pwd):/data ansible-lint site.yml 
 WARNING  Overriding detected file kind 'yaml' with 'playbook' for given positional argument: site.yml
 WARNING  Listing 2 violation(s) that are fatal
 yaml: trailing spaces (trailing-spaces)
