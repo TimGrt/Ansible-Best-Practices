@@ -16,4 +16,4 @@ Ansible is simple, flexible, and powerful. Like any powerful tool, there are man
 Those are **opinionated** guidelines based on the experience of many projects. They are not meant to be followed blindly if they don’t fit the reader’s specific use case or needs. Take them as an inspiration and adjust them to your needs, still let us know your good and best practices, we all can learn.
 
 !!! tip "Versioning"
-    This guide is updated regularly, last update on **{{ git_revision_date_localized }}**.
+    This guide is updated constantly, last update on **{{ git_revision_date_localized }}**.
