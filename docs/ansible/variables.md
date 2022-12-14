@@ -126,6 +126,89 @@ Inside of the `vars.yml` file, define all of the variables needed, including any
 
 Defining variables this way makes sure that you can still find them with *grep*.
 
+!!! There are modules which will print the values of encrypted variables into STDOUT while using them or with higher verbosity. Be sure to check the parameters and return values of all modules which use encrypted variables.
+
+A good example is the ansible.builtin.user Module it automatically obfuscates every value for password parameter. 
+For the nature of itself, the ansible.builtin.debug module on the other hand is a bad example.
+
+=== "Good"
+    !!! good-practice-no-title ""
+        ```yaml
+        ---
+        # example with variables from above
+        - name: Using no_log parameter
+          hosts: database_servers
+          become: true
+          tasks:
+            - name: Add user
+              ansible.builtin.user:
+                name: "{{ username }}"
+                password: "{{ password }}"
+            - name: Debugging a vaulted Variable with no_log
+              ansible.builtin.debug:
+                var: password
+              no_log: true
+        ```
+        ??? info "Ansible stdout"
+        ```bash
+        ansible-playbook nolog.yml -v
+        
+                PLAY [Using no_log parameter] ****************************************************************************************************************************************************************************************
+
+        TASK [Gathering Facts] **************************************************************************************************************************************************************************************
+        ok: [database_servers]
+
+        TASK [Add user] *********************************************************************************************************************************************************************************************
+        [WARNING]: The input password appears not to have been hashed. The 'password' argument must be encrypted for this module to work properly.
+        ok: [localhost] => {"append": false, "changed": false, "comment": "", "group": 100, "home": "/home/admin", "move_home": false, "name": "admin", "password": "NOT_LOGGING_PASSWORD", "shell": "/bin/sh", "state": "present", "uid": 1001}
+
+        TASK [Debugging a vaulted Variable with no_log] *************************************************************************************************************************************************************
+        ok: [database_servers] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+
+
+        PLAY RECAP **************************************************************************************************************************************************************************************************
+        database_servers                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+        ```
+=== "Bad"
+    !!! bad-practice-no-title ""
+        ```yaml
+        # example with variables from above
+        - name: Not using no_log parameter
+          hosts: database_servers
+          become: true
+          tasks:
+            - name: Add user
+              ansible.builtin.user:
+                name: "{{ username }}"
+                password: "{{ password }}"
+
+            - name: Debugging a vaulted Variable
+              ansible.builtin.debug:
+                var: password
+        ```
+        ??? info "Ansible stdout"
+        ```bash
+        ansible-playbook nolog.yml -v
+        
+                PLAY [Not using no_log parameter] ****************************************************************************************************************************************************************************************
+
+        TASK [Gathering Facts] **************************************************************************************************************************************************************************************
+        ok: [database_servers]
+
+        TASK [Add user] *********************************************************************************************************************************************************************************************
+        [WARNING]: The input password appears not to have been hashed. The 'password' argument must be encrypted for this module to work properly.
+        ok: [localhost] => {"append": false, "changed": false, "comment": "", "group": 100, "home": "/home/admin", "move_home": false, "name": "admin", "password": "NOT_LOGGING_PASSWORD", "shell": "/bin/sh", "state": "present", "uid": 1001}
+
+        TASK [Debugging a vaulted Variable] *************************************************************************************************************************************************************************
+        ok: [database_servers] => {
+            "password": "ex4mple"
+        }
+
+        PLAY RECAP **************************************************************************************************************************************************************************************************
+        database_servers                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+        ```
+
+
 Encrypting files can be done with this command:
 
 ```bash
