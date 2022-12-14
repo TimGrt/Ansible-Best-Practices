@@ -124,8 +124,7 @@ Inside of the `vars.yml` file, define all of the variables needed, including any
         password: ex4mple
         ```
 
-Defining variables this way makes sure that you can still find them with *grep*.
-
+Defining variables this way makes sure that you can still find them with *grep*.  
 Encrypting files can be done with this command:
 
 ```bash
@@ -140,3 +139,116 @@ ansible-vault view group_vars/database_servers/vault.yml
 ```bash
 ansible-vault edit group_vars/database_servers/vault.yml
 ```
+
+!!! warning
+    There are modules which will print the values of encrypted variables into STDOUT while using them or with higher verbosity. Be sure to check the parameters and return values of all modules which use encrypted variables!
+
+A good example is the `ansible.builtin.user` module, it automatically obfuscates the value for the *password* parameter, replacing it with the string `NOT_LOGGING_PASSWORD`.  
+The `ansible.builtin.debug` module on the other hand is a bad example, it will output the password in clear-text (well, by design, but this is not what you would expect)!
+
+!!! success
+    Always add the **`no_log: true`** key-value-pair for tasks that run the risk of leaking vault-encrypted content!
+
+=== "Good"
+    !!! good-practice-no-title ""
+        ```yaml hl_lines="13"
+        ---
+        - name: Using no_log parameter
+          hosts: database_servers
+          tasks:
+            - name: Add user
+              ansible.builtin.user:
+                name: "{{ username }}"
+                password: "{{ password }}"
+            
+            - name: Debugging a vaulted variable with no_log
+              ansible.builtin.debug:
+                msg: "{{ password }}"
+              no_log: true
+        ```
+        ??? info "Output of playbook run"
+            Using the *stdout_callback: community.general.yaml* for better readability, see [Ansible configuration](project.md#ansible-configuration) for more info.       
+            ```bash hl_lines="22"
+            $ ansible-playbook nolog.yml -v
+            
+            [...]
+
+            TASK [Add user] *********************************************
+            [WARNING]: The input password appears not to have been hashed. The 'password'
+            argument must be encrypted for this module to work properly.
+            ok: [db_server1] => changed=false 
+              append: false
+              comment: ''
+              group: 1002
+              home: /home/admin
+              move_home: false
+              name: admin
+              password: NOT_LOGGING_PASSWORD
+              shell: /bin/bash
+              state: present
+              uid: 1002
+
+            ASK [Debugging a vaulted Variable with no_log] *************
+            ok: [db_server1] => 
+              censored: 'the output has been hidden due to the fact that ''no_log: true'' was specified for this result'
+
+            [...]
+
+            ```
+            The *debug* task does not print the value of the password, the output is censored.
+
+            !!! hint
+                Observing the outout from the *"Add user"* task, you can see that the value of the *password* parameter is not shown. 
+                The *warning* from the *"Add user"* task stating an unencrypted password is related to not having hashed the password. You can achieve this by using the *password_hash* filter:
+                ```yaml
+                password: "{{ vault_password | password_hash('sha512', 'mysecretsalt') }}"
+                ```
+                This example uses the string `mysecretsalt` for salting, in cryptography, a salt is random data that is used as an additional input to a one-way function. Consider using a variable for the salt and treat it the same as the password itself!
+                ```yaml
+                password: "{{ vault_password | password_hash('sha512', vault_salt) }}"
+                ```
+                In this example, the salt is stored in a variable, the same way as the password itself. If you hashed the password, the warning will disappear.
+=== "Bad"
+    !!! bad-practice-no-title ""
+        ```yaml hl_lines="13"
+        - name: Not using no_log parameter
+          hosts: database_servers
+          become: true
+          tasks:
+            - name: Add user
+              ansible.builtin.user:
+                name: "{{ username }}"
+                password: "{{ password }}"
+
+            - name: Debugging a vaulted Variable
+              ansible.builtin.debug:
+                msg: "{{ password }}"
+        ​
+        ```
+        ??? info "Output of playbook run"
+            ```bash hl_lines="22"
+            $ ansible-playbook nolog.yml -v
+            
+            [...]
+
+            TASK [Add user] *********************************************
+            [WARNING]: The input password appears not to have been hashed. The 'password'
+            argument must be encrypted for this module to work properly.
+            ok: [db_server1] => changed=false 
+              append: false
+              comment: ''
+              group: 1002
+              home: /home/admin
+              move_home: false
+              name: admin
+              password: NOT_LOGGING_PASSWORD
+              shell: /bin/bash
+              state: present
+              uid: 1002
+
+            ASK [Debugging a vaulted Variable with no_log] *************
+            ok: [db_server1] => 
+              msg: ex4mple
+
+            [...]
+            ```
