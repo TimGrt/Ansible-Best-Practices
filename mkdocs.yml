@@ -9,11 +9,9 @@ extra:
       link: https://gitlab.ccloud.ninja/tgruetzmacher/documentation-as-code
       name: Projekt im Gitlab
 extra_css:
-  - assets/stylesheets/snow.css
   - assets/stylesheets/extra.css
   - assets/stylesheets/tables.css
 extra_javascript:
-  - assets/javascripts/extra/snow.min.js
   - assets/javascripts/extra/refresh-on-toggle-dark-light.js
   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
   - assets/javascripts/extra/tablesort.js
@@ -78,18 +76,16 @@ theme:
     - search.highlight
     - search.suggest
   palette:
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: black
-      toggle:
-        icon: material/lightbulb
-        name: Switch to light mode
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
+    - scheme: default
       primary: red
       toggle:
         icon: material/lightbulb-outline
         name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light mode
 repo_url: https://github.com/TimGrt/Ansible-Best-Practices
 repo_name: TimGrt/Ansible-Best-Practices
 # Navigation definition
