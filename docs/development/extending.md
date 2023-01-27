@@ -163,5 +163,8 @@ collections/
 Now, the filter can be used:
 
 ```yaml
-sorted_ip_list: "{{ ip_list | sort_ip }}"
+sorted_ip_list: "{{ ip_list | computacenter.utils.sort_ip }}"
 ```
+
+!!! tip
+    The usage of the FQCN for your Plugin is mandatory!
