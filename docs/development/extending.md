@@ -4,6 +4,160 @@ Ansible is easily customizable, you can extend Ansible by adding custom modules 
 You might wonder whether you need a module or a plugin. Ansible modules are units of code that can control system resources or execute system commands. Ansible provides a module library that you can execute directly on remote hosts or through playbooks.  
 Similar to modules are plugins, which are pieces of code that extend core Ansible functionality. Ansible uses a plugin architecture to enable a rich, flexible, and expandable feature set. It ships with several plugins and lets you easily use your own plugins.
 
+## Custom facts
+
+The `setup` module in Ansible automatically discovers a standard set of facts about each host. If you want to add custom values to your facts, you can provide permanent custom facts using the `facts.d` directory or even write a custom facts module.
+
+### Static facts
+
+The easiest method is to add an `.ini` file to `/etc/ansible/facts.d` on the remote host, e.g.
+
+```ini title="/etc/ansible/facts.d/general.fact"
+[owner]
+name=Computacenter AG
+community=Ansible Community
+
+[environment]
+stage=production
+```
+
+!!! warning
+    Ensure the file is **not** executable, this will break the `ansible.builtin.setup` module!
+
+For example, running an ad-hoc command against an example host with the custom fact:
+
+```bash
+$ ansible -i inventory test -m ansible.builtin.setup -a filter=ansible_local
+ubuntu | SUCCESS => {
+     "ansible_facts": {
+        "ansible_local": {
+            "general": {
+                "environment": {
+                    "stage": "production"
+                },
+                "owner": {
+                    "community": "Ansible Community",
+                    "name": "Computacenter AG"
+                }
+            }
+        },
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false
+}
+```
+
+The parent key for the custom fact is the name of the file, the lower keys are the section names of the *ini* file.
+
+
+!!! hint
+    The key in `ansible_facts` for custom content is always `ansible_local`, this has nothing to do with running locally.
+
+### Dynamic facts
+
+You can also use `facts.d` to execute a script on the remote host, generating dynamic custom facts to the *ansible_local* namespace. Consider the following points when creating dynamic custom facts:
+
+* must return JSON data
+* must have the `.fact` extension (therefor add the correct Shebang)
+* is executable by the Ansible connection user
+* dependencies must be installed on the remote host
+
+For example, a custom fact returning information about running or exited Docker containers on the remote host can look like this:
+
+```python title="/etc/ansible/facts.d/docker-containers.fact"
+#!/usr/bin/env python3
+import docker, json
+
+client = docker.from_env()
+
+def exited_containers():
+    exited_containers = []
+
+    for container in client.containers.list(all=True,filters={"status": "exited"}):
+        exited_containers.append({"id": container.short_id, "name": container.name, "image": container.image.tags[0]})
+
+    return exited_containers
+
+def running_containers():
+    running_containers = []
+
+    for container in client.containers.list():
+        running_containers.append({"id": container.short_id, "name": container.name, "image": container.image.tags[0]})
+
+    return running_containers
+
+
+def main():
+    
+    container_facts = {"running": running_containers(), "exited": exited_containers()}
+    print(json.dumps(container_facts))
+
+if __name__ == '__main__':
+   main()
+```
+
+The custom fact returns a JSON dictionary with two lists, `running` and `exited`. Every list item has the Container ID, name and image.
+Executing fact gathering for example returns this:
+
+```bash
+$ ansible -i inventory test -m setup -a filter=ansible_local
+ubuntu | SUCCESS => {
+    "ansible_facts": {
+        "ansible_local": {
+            "docker-containers": {
+                "exited": [
+                    {
+                        "id": "a6bfc512b842",
+                        "image": "timgrt/rockylinux8-ansible:latest",
+                        "name": "rocky-linux"
+                    }
+                ],
+                "running": [
+                    {
+                        "id": "f3731d560625",
+                        "image": "local/timgrt/ansible-best-practices:latest",
+                        "name": "ansible-best-practices"
+                    }
+                ]
+            }
+        },
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false
+}
+```
+
+In the example, we have one running container and one stopped container.
+
+??? example "Additional info"
+    Running `docker ps` on the target host
+    ```bash
+    $ docker ps -a
+    CONTAINER ID   IMAGE                                 COMMAND                  CREATED             STATUS                           PORTS                  NAMES
+    a6bfc512b842   timgrt/rockylinux8-ansible:latest     "/usr/lib/systemd/sy…"   About an hour ago   Exited (137) About an hour ago                          rocky-linux
+    f3731d560625   local/timgrt/ansible-best-practices   "/bin/sh -c 'python …"   4 hours ago         Up 4 hours                       0.0.0.0:8080->80/tcp   ansible-best-practices
+    ```
+    Executing the script standalone (using a JSON module for better readability):
+    ```bash
+    $ /etc/ansible/facts.d/docker-containers.fact | python3 -m json.tool
+    {
+        "running": [
+            {
+                "id": "f3731d560625",
+                "name": "ansible-best-practices",
+                "image": "local/timgrt/ansible-best-practices:latest"
+            }
+        ],
+        "exited": [
+            {
+                "id": "a6bfc512b842",
+                "name": "rocky-linux",
+                "image": "timgrt/rockylinux8-ansible:latest"
+            }
+        ]
+    }
+    ```
+
 ## Store custom content
 
 Custom modules can be stored in the `library` folder in your project root directory, plugins need to be stored in folders called `<plugin type>_plugins`, e.g. `filter_plugins`. These locations are still valid, but it is **recommended** to store custom content in a *collection*, this way you have all your custom content in a single location (folder).
