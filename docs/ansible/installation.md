@@ -1,6 +1,6 @@
 # Installation
 
-## 
+## Standard install method
 The latest version can only be obtained via the Python package manager, the *ansible-core* package contains the binaries and 69 standard modules.
 
 ```bash
