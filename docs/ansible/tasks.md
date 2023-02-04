@@ -157,7 +157,14 @@ Use the *full qualified collection names (FQCN)* for modules, they are supported
 
 In Ansible 2.10, many plugins and modules have migrated to Collections on Ansible Galaxy. Your playbooks should continue to work without any changes. Using the FQCN in your playbooks ensures the explicit and authoritative indicator of which collection to use as some collections may contain duplicate module names.
 
-## Permissions
+## Module parameters
+
+### Module defaults
+
+The `module_defaults` keyword can be used at the play, block, and task level. Any module arguments explicitly specified in a task will override any established default for that module argument.  
+It makes the most sense to define the *module defaults* at [*play* level, take a look in that section](playbook.md#module-defaults) for an example and things to consider.
+
+### Permissions
 
 When using modules like `copy` or `template` you can (and should) set permissions for the files/templates deployed with the `mode` parameter.
 
@@ -198,7 +205,7 @@ For those used to */usr/bin/chmod*, remember that modes are actually octal numbe
         --w----r-T 1 apache apache 67691 Nov 18 14:30 index.html
         ```
 
-## State definition
+### State definition
 The `state` parameter is optional to a lot of modules. Whether `state: present` or `state: absent`, it’s always best to leave that parameter in your playbooks to make it clear, especially as some modules support additional states.
 
 ## Conditionals

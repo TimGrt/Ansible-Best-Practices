@@ -30,9 +30,8 @@ The `site.yml` file contains references to the other playbooks:
 
 The *lower-level* playbooks contains actual [*plays*](playbook.md#plays):
 
-```yaml
+```yaml title="playbooks/database.yml"
 ---
-# playbooks/database
 
 - name: Install and configure PostgreSQL database
   hosts: postgres_servers
@@ -62,8 +61,7 @@ Either you need only static importing of roles and you can use the roles section
 
 Avoid putting multiple plays in a playbook, if not really necessary. As every play most likely targets a different host group, create a separate playbook file for it. This way you achieve to most flexibility.
 
-```yaml
-# file k8s-installation.yml
+```yaml title="k8s-installation.yml"
 - name: Initialize Control-Plane Nodes
   hosts: kubemaster
   become: true
@@ -79,8 +77,7 @@ Avoid putting multiple plays in a playbook, if not really necessary. As every pl
 
 Separate the two plays into their respective playbooks files and reference them in an overall playbook file:
 
-```yaml
-# file k8s-control-plane-playbook.yml
+```yaml title="k8s-control-plane-playbook.yml"
 - name: Initialize Control-Plane Nodes
   hosts: kubemaster
   become: true
@@ -88,8 +85,7 @@ Separate the two plays into their respective playbooks files and reference them 
     - k8s-control-plane
 ```
 
-```yaml
-# file k8s-worker-node-playbook.yml
+```yaml title="k8s-worker-node-playbook.yml"
 - name: Install and configure Worker Nodes
   hosts: kubeworker
   become: true
@@ -97,9 +93,91 @@ Separate the two plays into their respective playbooks files and reference them 
     - k8s-worker-nodes
 ```
 
-```yaml
+```yaml title="k8s-installation.yml"
 # file k8s-installation.yml
 
 - import_playbooks: k8s-control-plane-playbook.yml
 - import_playbooks: k8s-worker-node-playbook.yml
 ```
+
+### Module defaults
+
+If your playbook uses modules which need the be called with the same set of parameters or arguments, you can define these as *module_defaults*.  
+The defaults can be set at *play*, *block* or *task* level.
+
+Module defaults are defined by [*grouping* together modules that share common sets of parameters](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_module_defaults.html#module-defaults-groups){:target="_blank"}, especially for modules making heavy use of API-interaction such as cloud modules.  
+
+Since **ansible-core 2.12**, collections can define their own groups in the `meta/runtime.yml` file. *module_defaults* does not take the collections keyword into account, so the *fully qualified group name* must be used for new groups in module_defaults.
+
+=== "Good"
+    !!! good-practice-no-title ""
+        ```yaml hl_lines="4 5 6 7 8"
+        - name: Demo play with modules which need to call the same arguments
+          hosts: aci
+          module_defaults:
+            group/cisco.aci.all:
+              host: "{{ apic_api }}"
+              username: "{{ apic_user }}"
+              password: "{{ apic_password }}"
+              validate_certs: false
+          tasks:
+            - name: Get system info
+              cisco.aci.aci_system:
+                state: query
+
+            - name: Create a new demo tenant
+              cisco.aci.aci_tenant:
+                name: demo-tenant
+                description: Tenant for demo purposes
+                state: present
+        ```
+=== "Bad"
+    !!! bad-practice-no-title ""
+        Authentication parameters are repeated in every task.
+        ```yaml
+        - name: Demo play with modules which need to call the same arguments
+          hosts: aci
+          tasks:
+            - name: Get system info
+              cisco.aci.aci_system:
+                host: "{{ apic_api }}"
+                username: "{{ apic_user }}"
+                password: "{{ apic_password }}"
+                validate_certs: false
+                state: query
+
+            - name: Create a new demo tenant
+              cisco.aci.aci_tenant:
+                host: "{{ apic_api }}"
+                username: "{{ apic_user }}"
+                password: "{{ apic_password }}"
+                validate_certs: false
+                name: demo-tenant
+                description: Tenant for demo purposes
+                state: present
+        ```
+
+To identify the correct group (*remember, these are **not** inventory groups*), take a look at the `meta/runtime.yml` of the desired collection. It needs to define the `action_groups` list, for example:
+
+```yaml title="~/.ansible/collections/ansible_collections/cisco/aci/meta/runtime.yml"
+---
+requires_ansible: '>=2.9.10'
+action_groups:
+  all:
+    - aci_aaa_custom_privilege
+    - aci_aaa_domain
+    - aci_aaa_role
+    - aci_aaa_ssh_auth
+    - aci_aaa_user
+    - aci_aaa_user_certificate
+    - aci_aaa_user_domain
+    - aci_aaa_user_role
+    - aci_access_port_block_to_access_port
+    ...
+```
+
+The *group* is called `all`, therefor the module defaults groups needs to be `group/cisco.aci.all`.
+
+
+!!! note
+    Any module defaults set at the play level (and block/task level when using `include_role` or `import_role`) will apply to **any** roles used, which may cause unexpected behavior in the role.
