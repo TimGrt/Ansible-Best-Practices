@@ -66,9 +66,22 @@ For example, a custom fact returning information about running or exited Docker 
 
 ```python title="/etc/ansible/facts.d/docker-containers.fact"
 #!/usr/bin/env python3
-import docker, json
 
-client = docker.from_env()
+# DEPENDENCY: requires Python module 'docker', install e.g. with 'pip3 install docker' or install 'python3-docker' rpm with package manager
+
+import json
+
+try:
+    import docker
+except ModuleNotFoundError:
+    print(json.dumps({"error": "Python docker module not found! Install requirements!"}))
+    raise SystemExit()
+
+try:
+    client = docker.from_env()
+except docker.errors.DockerException:
+    print(json.dumps({"error": "Docker Client not instantiated! Is Docker running?"}))
+    raise SystemExit()
 
 def exited_containers():
     exited_containers = []
@@ -88,7 +101,7 @@ def running_containers():
 
 
 def main():
-    
+
     container_facts = {"running": running_containers(), "exited": exited_containers()}
     print(json.dumps(container_facts))
 
@@ -97,6 +110,26 @@ if __name__ == '__main__':
 ```
 
 The custom fact returns a JSON dictionary with two lists, `running` and `exited`. Every list item has the Container ID, name and image.
+
+??? warning
+    Using the fact requires the Python docker module (mind the `import docker` statement) and the Docker service running on the target node.  
+    Otherwise, an error message is returned, e.g.:
+
+    ```bash
+    "ansible_local": {
+            "docker-containers": {
+                "error": "Python docker module not found! Install requirements!"
+            }
+        }
+    ```
+    ```bash
+    "ansible_local": {
+            "docker-containers": {
+                "error": "Docker Client not instantiated! Is Docker running?"
+            }
+        }
+    ```
+
 Executing fact gathering for example returns this:
 
 ```bash
