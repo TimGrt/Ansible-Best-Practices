@@ -22,7 +22,7 @@ stage=production
 ```
 
 !!! warning
-    Ensure the file is **not** executable, this will break the `ansible.builtin.setup` module!
+    Ensure the file has the `.fact` extension and is **not** executable, this will break the `ansible.builtin.setup` module!
 
 For example, running an ad-hoc command against an example host with the custom fact:
 
