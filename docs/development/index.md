@@ -5,7 +5,7 @@ This topic is split into three main sections, each section covers a different ad
 
 * [:octicons-verified-16: &nbsp; Linting](linting.md) - Installation and usage of the community backed Ansible Best Practice checker
 * [:octicons-stopwatch-16: &nbsp; Testing](testing.md) - How to test your Ansible content during development
-* [:octicons-plug-16: &nbsp; Extending](testing.md) - Create your own custom modules and plugins
+* [:octicons-plug-16: &nbsp; Extending](extending.md) - Create your own custom modules and plugins
 
 
 ## Tools
