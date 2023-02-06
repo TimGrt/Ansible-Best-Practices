@@ -1,7 +1,8 @@
 # The Zen of Ansible  
 
-*20 aphorisms for Ansible*
+**20 aphorisms for Ansible**
 
+```Text
 1. Ansible is not Python.
 2. YAML sucks for coding.
 3. Playbooks are not for programming.
@@ -22,17 +23,17 @@
 18. Just because something works, doesn’t mean it can’t be improved.
 19. Friction should be eliminated whenever possible.
 20. Automation is a journey that never ends.
-
+```
 
 Your Ansible automation content doesn’t necessarily have to follow this guidance, but they’re good ideas to keep in mind. These aphorisms are opinions that can be debated and sometimes can be contradictory. What matters is that they communicate a mindset for getting the most from Ansible and your automation.
 
 Let me take you deeper into each of the aphorisms and explain what they mean to your automation practice.
 
+--------
 
-## Ansible is not Python. 
+## Ansible is not Python
 
 YAML sucks for coding. Playbooks are not for programming. Ansible users are (most probably) not programmers.  
-
 
 These aphorisms are at the heart of why applying guidelines for a programming language to good Ansible automation content didn’t seem right to me. As I said, it would give the wrong impression and would reinforce a mindset we don't recommend – that Ansible is a programming language for coding your playbooks. 
 
@@ -47,10 +48,7 @@ If you are a programmer creating Ansible modules and plugins, assume you are not
 
 ## Clear, Concise, Simple
 
- is better than cluttered. 
-
-Concise is better than verbose. Simple is better than complex. Readability counts.  
-
+Clear is better than cluttered. Concise is better than verbose. Simple is better than complex. Readability counts.  
 
 These are really just interpretations of aphorisms in “The Zen of Python”. The last one is taken directly from it because you can’t improve on perfection.
 
@@ -59,31 +57,34 @@ In the original Ansible best practices talk, we recommended users optimize for r
 These aphorisms don’t just apply to those writing playbooks and creating roles. If you are a module developer, think about how your work can assist users, be clear and concise, do things simply and just get things done.
 
 
-## Helping users get things done matters most. User experience beats ideological purity.  
+## Helping users
 
+Helping users get things done matters most. User experience beats ideological purity.  
 
 Whether you are creating modules, plugins and collections or writing playbooks or designing a cross domain hybrid automation workflow – Ansible is for helping you get things done. Always consider and look to maximize the user experience. Don’t get caught up and beholden to some strict interpretation of standards or ideological purity that shifts the burden on the end user. 
 
 
-## “Magic” conquers the manual.  
+## It's a kind of Magic
 
-Arthur C. Clarke wrote, “Any sufficiently advanced technology is indistinguishable from magic.”
+“Magic” conquers the manual Arthur C. Clarke wrote, “Any sufficiently advanced technology is indistinguishable from magic.”
 
 The “magic” in Ansible is its playbook engine and module system. It is how Ansible provides powerful and flexible capabilities in a straightforward and accessible way by abstracting users from all of the complex implementation details that lie beneath. This frees users from doing time consuming and error prone manual operations or writing brittle one-off scripts and code, enabling them the time to put their valuable expertise to use where it is needed.
 
 Design automation that amazes users can make difficult or tedious tasks easy and almost effortless. Look to provide powerful time saving capabilities that are quick to deploy and utilize them to get things done.
 
 
-## When giving users options, use convention over configuration.  
+## Convention over configuration
 
+When giving users options, use convention over configuration.  
 
 I am a big proponent of convention over configuration and don’t think it gets enough consideration in the Ansible community. Convention over configuration is a design paradigm that attempts to decrease the number of decisions that a developer is required to make without necessarily losing flexibility so they don't have to repeat themselves. It was popularized by Ruby on Rails.
 
 A playbook developer utilizing your work should only need to specify unique and unconventional aspects of their automation tasks and workflows and no more. Look to reduce the number of decisions and implementation details a user needs to make. Take the time to handle the most common use cases for them. Look to provide as many sensible defaults with modules, plugins and roles as possible. Optimize for users to get things done quickly. 
 
 
-## Declarative is better than imperative – most of the time.  
+## Declarative
 
+Declarative is better than imperative – most of the time.
 
 This aphorism is particularly for Ansible Content Collection developers. Ansible is a desired state engine by design. Think declaratively first. If there truly is no way to design something declaratively, then use imperative (procedural) means. 
 
@@ -92,8 +93,9 @@ Declarative means that configuration is guaranteed by a set of facts instead of 
 This aphorism is an example of the “user experience beats ideological purity” aphorism in practice. Rather than strictly adhering to a declarative approach to automation, Ansible incorporates declarative and imperative means. This mix offers you the flexibility to focus on what you need to do, rather than strictly adhere to one paradigm. 
  
 
-## Focus avoids complexity. Complexity kills productivity.  
+##  Avoid complexity
 
+Focus avoids complexity. Complexity kills productivity.
 
 Remember that complexity kills productivity. The Ansible team at Red Hat really means it and believes that. That's not just a marketing slogan. Automation can crush complexity and give you the one thing you can’t get enough of ⎯ time. 
 
@@ -102,8 +104,9 @@ Follow Linux principles of doing one thing, and one thing well. Keep roles and p
 We strive to reduce complexity in how we've designed Ansible and encourage you to do the same. Strive for simplification in what you automate. 
 
 
-## If the implementation is hard to explain, it's a bad idea.  
+## Hard explanation !?
 
+If the implementation is hard to explain, it's a bad idea.  
 
 This aphorism, like “readability counts”, is also taken directly from “The Zen of Python” because you cannot improve upon perfection.
 
@@ -114,8 +117,9 @@ Ansible is designed for how real people think and work. Recall earlier when I sa
 This will help you identify a bad idea sooner and avoid the types of friction that will slow down you and your organization over time.
 
 
-## Every shell command and UI interaction is an opportunity to automate.  
+## Opportunity to automate!
 
+Every shell command and UI interaction is an opportunity to automate.
 
 This aphorism comes from my personal experience talking about Ansible and automation for many years. Sometimes I am asked what they should automate. Other times, I am challenged that an automation tool like Ansible is unnecessary or does not apply to what they are doing. No matter if we were talking about RHEL, Windows, networking infrastructure, security, edge devices, or cloud services, my response has essentially been the same over the years. I have repeated it so often, that I have jokingly formulated the point into my own theorem on automation. So call it “Appnel's Theorem on Automation” if you will.
 
@@ -124,14 +128,18 @@ If you are wondering what should be automated, look for anything anyone is typin
 Given a sufficient number of things to automate is identified, start with those that cause the most pain and those that you can get done quickly. Remember you want to create a virtuous cycle of releasing reliability, feedback and building trust across your organization. Showing progress and business value quickly will help do that.
 
 
-## Just because something works, doesn’t mean it can’t be improved. Friction should be eliminated whenever possible.  
+## Can't be improved?
+
+Just because something works, doesn’t mean it can’t be improved. Friction should be eliminated whenever possible.  
 
 This first aphorism just so happens to be a quote from the movie Black Panther, and it elegantly expresses some important wisdom when it comes to Ansible automation.
 
 Always iterate and adapt to real world feedback from your operations. Optimize readability. Continue to find ways to simplify and reduce friction in your organization and its processes. As changes are introduced into your environments and IT policies over time, they will create new friction and pain points. They will also create new opportunities to apply your automation practices to eliminate them.
 
 
-## Automation is a journey that never ends.  
+## Never ending story...
+
+Automation is a journey that never ends.
 
 Heraclitus, a Greek philosopher, said "change is the only constant in life. Nothing endures but change." 
 
@@ -144,7 +152,7 @@ Automation creates opportunities and we at Red Hat see opportunities for automat
 So the question I pose to you is: Where will your automation journey lead you?
 
 
-## Further Reading  
+## Further Reading
 
 If you want to dive more deeply into the application of the zen of Ansible and its origins, I recommend these resources.
 
@@ -153,4 +161,4 @@ The Ansible Community of Practice (CoP) has assembled a comprehensive repository
 
 ### Source
 
-*https://www.ansible.com/blog/the-zen-of-ansible*
+[Ansible Blog - The Zen of Ansible](https://www.ansible.com/blog/the-zen-of-ansible)
