@@ -92,6 +92,9 @@ repo_name: TimGrt/Ansible-Best-Practices
 # Navigation definition
 nav:
   - "Overview": index.md
+  - "Mindset":
+    - mindset/index.md
+    - "The zen of Anisble": mindset/zen.md
   - "Ansible": 
     - ansible/index.md
     - "Installation": ansible/installation.md
@@ -106,6 +109,4 @@ nav:
     - "Linting": development/linting.md
     - "Testing": development/testing.md
     - "Extending": development/extending.md
-  - "Mindset":
-    - mindset/index.md
-    - "The zen of Anisble": mindset/zen.md
+  

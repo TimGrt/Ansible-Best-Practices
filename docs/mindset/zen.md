@@ -29,7 +29,9 @@ Your Ansible automation content doesn’t necessarily have to follow this guidan
 Let me take you deeper into each of the aphorisms and explain what they mean to your automation practice.
 
 
-## Ansible is not Python. YAML sucks for coding. Playbooks are not for programming. Ansible users are (most probably) not programmers.  
+## Ansible is not Python. 
+
+YAML sucks for coding. Playbooks are not for programming. Ansible users are (most probably) not programmers.  
 
 
 These aphorisms are at the heart of why applying guidelines for a programming language to good Ansible automation content didn’t seem right to me. As I said, it would give the wrong impression and would reinforce a mindset we don't recommend – that Ansible is a programming language for coding your playbooks. 
@@ -43,7 +45,11 @@ By Ansible not being a programming language, all parts of your organization can 
 If you are a programmer creating Ansible modules and plugins, assume you are not the target audience for what you are developing and your target audience won’t have the same skills and resources you possess.
 
 
-## Clear is better than cluttered. Concise is better than verbose. Simple is better than complex. Readability counts.  
+## Clear, Concise, Simple
+
+ is better than cluttered. 
+
+Concise is better than verbose. Simple is better than complex. Readability counts.  
 
 
 These are really just interpretations of aphorisms in “The Zen of Python”. The last one is taken directly from it because you can’t improve on perfection.
