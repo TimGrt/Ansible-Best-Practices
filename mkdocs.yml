@@ -80,12 +80,12 @@ theme:
     - scheme: default
       primary: red
       toggle:
-        icon: material/lightbulb-outline
+        icon: material/weather-night
         name: Switch to dark mode
     - scheme: slate
       primary: black
       toggle:
-        icon: material/lightbulb
+        icon: material/weather-sunny
         name: Switch to light mode
 repo_url: https://github.com/TimGrt/Ansible-Best-Practices
 repo_name: TimGrt/Ansible-Best-Practices
