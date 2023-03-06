@@ -1,5 +1,4 @@
-# Development
-
+# Mindset
 
 This topic is split into one main sections, each section covers a different additional mindset to developing Ansible content.
 

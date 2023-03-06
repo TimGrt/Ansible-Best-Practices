@@ -2,7 +2,7 @@
 
 New playbook functionality is always added in a role. Roles should only serve a defined purpose that is unambiguous by the role name.
 The role name should be short and unique. It is separated with hyphens, if it consists of several words.
- 
+
 ## Readme
 
 Every role must have a role-specific `README.md` describing scope and focus of the role. Use the following example:
