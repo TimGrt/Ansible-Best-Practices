@@ -1,12 +1,10 @@
 # Development
 
-
 This topic is split into three main sections, each section covers a different additional tool to consider when *developing* your Ansible content.
 
 * [:octicons-verified-16: &nbsp; Linting](linting.md) - Installation and usage of the community backed Ansible Best Practice checker
 * [:octicons-stopwatch-16: &nbsp; Testing](testing.md) - How to test your Ansible content during development
 * [:octicons-plug-16: &nbsp; Extending](extending.md) - Create your own custom modules and plugins
-
 
 ## Tools
 

@@ -37,4 +37,3 @@ all:
         rocky8:
           ansible_connection: docker
 ```
- 

@@ -25,7 +25,7 @@ Running this as a step in a CI Pipeline is advisable.
 ## Molecule
 
 Molecule project is designed to aid in the development and testing of Ansible roles, provides support for testing with multiple instances, operating systems and distributions, virtualization providers, test frameworks and testing scenarios.  
-Molecule is mostly used to test roles in isolation (although it is possible to test multiple roles or playbooks at once). To test against a fresh system, molecule uses Docker to provision virtualized test hosts, run commands on them and assert the success. Molecule does not connect via ssh to the container, instead it uses an Ansible installation inside the container. It is therefor necessary to use a custom build container image. 
+Molecule is mostly used to test roles in isolation (although it is possible to test multiple roles or playbooks at once). To test against a fresh system, molecule uses Docker to provision virtualized test hosts, run commands on them and assert the success. Molecule does not connect via ssh to the container, instead it uses an Ansible installation inside the container. It is therefor necessary to use a custom build container image.
 
 Take a look at the [Molecule documentation](https://molecule.readthedocs.io/en/latest/index.html#){ target="_blank" } for a full overview.
 
@@ -159,7 +159,6 @@ roles/
         For example, running `molecule converge` would create a container (if not already created), prepare it (if not already prepared), run the *converge* stage and lint the role.  
         Remove the list items you don't need if necessary.
 
-
 === "Playbook file"
     !!! example "converge.yml"
         The *role* to test must be defined here, change `role-name` to the actual name.
@@ -176,7 +175,7 @@ roles/
 === "Preparation stage"
     !!! example "prepare.yml"
         Adds an **optional** preparation stage (referenced by `prepare` in the *scenario* definition).  
-        For example, if you want to test SSH Key-Pair creation in your container (this is also used by the *user* module to create SSH keys), install the necessary packages before running the role itself. 
+        For example, if you want to test SSH Key-Pair creation in your container (this is also used by the *user* module to create SSH keys), install the necessary packages before running the role itself.
 
         ```yaml
         ---
@@ -226,6 +225,7 @@ roles/
 ### Usage
 
 Molecule is executed from within the role you want to test, change directory:
+
 ```bash
 cd roles/webserver-demo
 ```
@@ -233,16 +233,19 @@ cd roles/webserver-demo
 From here, run the molecule scenario.
 
 To only create the defined containers, but not run the Ansible tasks:
+
 ```bash
 molecule create
 ```
 
 To run the Ansible tasks of the role (if the container does not exist, it will be created):
+
 ```bash
 molecule converge
 ```
 
 To execute a full test circle (existing containers are deleted, re-created and Ansible tasks are executed, containers are deleted(!) afterwards):
+
 ```bash
 molecule test
 ```

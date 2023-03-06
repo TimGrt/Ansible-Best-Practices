@@ -50,10 +50,10 @@ roles_path = .roles
 ## Playbook definition
 
 Don't put too much logic in your playbook, put it in your roles (or even in custom modules).  
-A playbook **could** contain `pre_tasks`, `roles`, `tasks` and `post_tasks` sections, try to limit your playbooks to a **list of a roles**. 
+A playbook **could** contain `pre_tasks`, `roles`, `tasks` and `post_tasks` sections, try to limit your playbooks to a **list of a roles**.
 
 !!! warning
-    Avoid using both *roles* and *tasks *sections, the latter possibly containing `import_role` or `include_role` tasks. The order of execution between *roles* and *tasks* isn’t obvious, and hence mixing them should be avoided.  
+    Avoid using both *roles* and *tasks* sections, the latter possibly containing `import_role` or `include_role` tasks. The order of execution between *roles* and *tasks* isn’t obvious, and hence mixing them should be avoided.
 
 Either you need only static importing of roles and you can use the roles section, or you need dynamic inclusion and you should use only the tasks section. Of course, for very simple cases, you can just use tasks without roles (but playbooks/projects grow quickly, refactor to roles early).
 
@@ -177,7 +177,6 @@ action_groups:
 ```
 
 The *group* is called `all`, therefor the module defaults groups needs to be `group/cisco.aci.all`.
-
 
 !!! note
     Any module defaults set at the play level (and block/task level when using `include_role` or `import_role`) will apply to **any** roles used, which may cause unexpected behavior in the role.
