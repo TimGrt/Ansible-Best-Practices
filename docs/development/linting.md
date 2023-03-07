@@ -8,6 +8,7 @@ Ansible Lint is installed through the Python packet manager:
 
 !!! note
     *Ansible Lint* always needs *Ansible* itself
+
 ```bash
 pip3 install ansible-lint
 ```
@@ -58,6 +59,7 @@ docker build -t ansible-lint .
 ```
 
 After building the image, the image can be used. Inside of the Ansible project directory, run this command (e.g. this lints the `site.yml` playbook).
+
 ```bash
 docker run --rm -v $(pwd):/data ansible-lint site.yml
 ```
@@ -105,7 +107,7 @@ Lining can and should be done automatically, this way you can't forget to check 
 
 A nice way to check for best practices during your Git worflow is the usage of a *pre-commit* hook. These hooks can be simple bash script, which are run whenever you are commiting changes locally to the staging area.
 
-The following script can be used as a starting point, it uses *ansible-lint* from inside a container (see [Lint in Docker Image](linting.md#lint-in-docker-image) how to build it) and also checks for unencrypted files in your commit. 
+The following script can be used as a starting point, it uses *ansible-lint* from inside a container (see [Lint in Docker Image](linting.md#lint-in-docker-image) how to build it) and also checks for unencrypted files in your commit.
 
 ??? example ".git/hooks/pre-commit"
 
@@ -182,6 +184,7 @@ The following script can be used as a starting point, it uses *ansible-lint* fro
     ```
 
 ### CI Pipeline
+
 Running *ansible-lint* through a CI pipeline automatically when merging changes to the Git repository is **highly advisable**.
 
 A possible pipeline in Gitlab may look like this, utilizing the container image above:

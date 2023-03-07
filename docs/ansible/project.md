@@ -1,6 +1,7 @@
 # Project
 
 ## Version Control
+
 Keep your playbooks and inventory file in git (or another version control system), and commit when you make changes to them. This way you have an audit trail describing when and why you changed the rules that are automating your infrastructure.
 
 !!! tip
@@ -94,7 +95,7 @@ pip3 install -r requirements.txt
 ### Filenames
 
 Folder- and file-names consisting of multiple words are separated with hyphens (e.g. `roles/grafana-deployment/tasks/grafana-installation.yml`).  
-YAML files are saved with the extension `.yml`. 
+YAML files are saved with the extension `.yml`.
 
 === "Good"
     !!! good-practice-no-title ""
@@ -165,6 +166,7 @@ YAML files are saved with the extension `.yml`.
 Following a basic YAML coding style accross the whole team improves readability and reusability.
 
 ### Indentation
+
 Two spaces are used to indent everything, e.g. list items or dictionary keys.
 
 === "Good"
@@ -240,6 +242,7 @@ The so-called YAML "one-line" syntax is not used, neither for passing parameters
         ```
 
 ### Booleans
+
 Use `true` and `false` for boolean values in playbooks.  
 Do not use the Ansible-specific `yes` and `no` as boolean values in YAML as these are completely custom extensions used by Ansible and are not part of the YAML spec. Also, avoid the use of the Python-style `True` and `False` for boolean values.
 
@@ -300,7 +303,7 @@ Well, the *name* parameter should desribe your task in detail, but if your task 
 Commented code is generally to be avoided. Playbooks or task files are not committed, if they contain commented out code.  
 
 !!! bad-practice "Bad"
-    Why is the second task commented? Is it not necessary anymore? Does it not work as expected? 
+    Why is the second task commented? Is it not necessary anymore? Does it not work as expected?
     ```yaml
     - name: Change port to {{ grafana_port }}
       community.general.ini_file:
@@ -321,4 +324,3 @@ Commented code is generally to be avoided. Playbooks or task files are not commi
     ```
     !!! good-practice "Comment commented tasks"
         If you really have to comment the whole task, add a description why, when and by whom it was commented.
-    

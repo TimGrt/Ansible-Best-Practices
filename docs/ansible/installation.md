@@ -1,6 +1,7 @@
 # Installation
 
 ## Standard install method
+
 The latest version can only be obtained via the Python package manager, the *ansible-core* package contains the binaries and 69 standard modules.
 
 ```bash
@@ -14,8 +15,8 @@ pip3 install ansible
 ```
 
 !!! tip
-    It makes sense to install only the *ansible-core* package. Afterwards, install the few collections necessary for your project via `ansible-galaxy`. 
-    This way you have an up-to-date, lean installation without unnecessary modules and plugins. 
+    It makes sense to install only the *ansible-core* package. Afterwards, install the few collections necessary for your project via `ansible-galaxy`.
+    This way you have an up-to-date, lean installation without unnecessary modules and plugins.
 
 Thereby the [chapter Project > Collections](project.md#collections) is to be considered. If a container runtime is available, the complete installation can also be bundled in a container image (so-called *Execution Environment*).
 
@@ -70,7 +71,7 @@ Define at least the definition file for the Execution Environment and other file
         botocore>=1.12.249
         boto3>=1.9.249
         openshift>=0.6.2
-        requests-oauthlib 
+        requests-oauthlib
         ```
 === "Cross-Platform requirements"
     !!! example "bindep.txt"
@@ -97,6 +98,7 @@ demo/openshift-ee                 latest    2ea9d5d7b185   10 seconds ago       
 ```
 
 ### Ansible Runner
+
 Using the EE requires a binary which can make use of the Container images, it is not possible to run them with the `ansible-playbook` binary. You have to use (and install) either the `ansible-navigator` or the `ansible-runner` binary.
 
 ```bash
@@ -148,5 +150,6 @@ localhost | SUCCESS => {
 ```
 
 ### Ansible Navigator
-The `ansible-navigator` is text-based user interface (TUI) for the Red Hat Ansible Automation Platform. It is a command based tool for creating, reviewing, and troubleshooting Ansible content, including inventories, playbooks, and collections. 
+
+The `ansible-navigator` is text-based user interface (TUI) for the Red Hat Ansible Automation Platform. It is a command based tool for creating, reviewing, and troubleshooting Ansible content, including inventories, playbooks, and collections.
 The Navigator also makes use of the Execution Environments and provides an easier to use interface to interact with EEs.
