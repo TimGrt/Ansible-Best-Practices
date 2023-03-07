@@ -40,7 +40,7 @@ The variable name should be self-explanatory (*as brief as possible, as detailed
 After a variable is defined, use *Jinja2* syntax to reference it. Jinja2 variables use *double curly braces* (`{{` and `}}`).  
 Use spaces after and before the double curly braces and the variable name.  
 When referencing *list* or *dictionary* variables, try to use the *bracket notation* instead of the *dot notation*.
-Bracket notation always works and you can use variables inside the brackets. Dot notation can cause problems because some keys collide with attributes and methods of python dictionaries. 
+Bracket notation always works and you can use variables inside the brackets. Dot notation can cause problems because some keys collide with attributes and methods of python dictionaries.
 
 === "Good"
     !!! good-practice-no-title ""
@@ -136,6 +136,7 @@ Once a variable file is encrypted, it should **not** be decrypted again (because
 ```bash
 ansible-vault view group_vars/database_servers/vault.yml
 ```
+
 ```bash
 ansible-vault edit group_vars/database_servers/vault.yml
 ```
@@ -160,7 +161,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
               ansible.builtin.user:
                 name: "{{ username }}"
                 password: "{{ password }}"
-            
+
             - name: Debugging a vaulted variable with no_log
               ansible.builtin.debug:
                 msg: "{{ password }}"

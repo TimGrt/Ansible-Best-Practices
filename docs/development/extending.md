@@ -49,7 +49,6 @@ ubuntu | SUCCESS => {
 
 The parent key for the custom fact is the name of the file, the lower keys are the section names of the *ini* file.
 
-
 !!! hint
     The key in `ansible_facts` for custom content is always `ansible_local`, this has nothing to do with running locally.
 
@@ -253,7 +252,6 @@ The first two paths are the default locations for collections, paths are separat
     computacenter.utils 1.0.0
     ```
 
-
 ## Developing modules
 
 Modules are reusable, standalone scripts that can be used by the Ansible API, the *ansible* command, or the *ansible-playbook* command.   Modules provide a defined interface. Each module accepts arguments and returns information to Ansible by printing a JSON string to stdout before exiting. **Modules execute on the target system (usually that means on a remote system) in separate processes.** Modules are technically plugins, but for historical reasons we do not usually talk about “module plugins”.
@@ -281,6 +279,7 @@ Depending on the type of plugin you want to create, different considerations nee
 This file may be used as a minimal starting point, it includes a small example:
 
 !!! example "cc_filter_plugins.py"
+
     ```python
     from __future__ import absolute_import, division, print_function
     __metaclass__ = type

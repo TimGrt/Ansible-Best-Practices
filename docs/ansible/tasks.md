@@ -14,6 +14,7 @@ Logically related tasks are to be separated into individual files, the `main.yml
 ```
 
 The file name of a task file should describe the content.
+
 ```yaml
 ---
 # tasks/main.yml
@@ -22,6 +23,7 @@ The file name of a task file should describe the content.
 ```
 
 ## Tags
+
 Don't use too many tags, it gets confusing very quickly.  
 Tags should only be allowed for imported task files within the `main.yml` of a role. Tags at the task level in sub-task files should be avoided.
 
@@ -44,7 +46,7 @@ Try to use the same tags across your roles, this way you would be able to run on
 Each task must be idempotent, if non-idempotent modules are used (*command*, *shell*, *raw*) these tasks must be developed via appropriate parameters or conditions to an idempotent mode of operation.  
 
 !!! tip
-    In general, the use of non-idempotent modules should be reduced to a necessary minimum. 
+    In general, the use of non-idempotent modules should be reduced to a necessary minimum.
 
 ### *command* vs. *shell* module
 
@@ -62,7 +64,6 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
 
 !!! warning
     **Work in Progress** - More description necessary.
-
 
 ### *failed_when* and *changed_when*
 
@@ -206,6 +207,7 @@ For those used to */usr/bin/chmod*, remember that modes are actually octal numbe
         ```
 
 ### State definition
+
 The `state` parameter is optional to a lot of modules. Whether `state: present` or `state: absent`, it’s always best to leave that parameter in your playbooks to make it clear, especially as some modules support additional states.
 
 ## Conditionals
@@ -219,7 +221,7 @@ If the `when:` condition results in a line that is very long, and is an `and` ex
           ansible.builtin.copy:
             content: "This host is used as k8s worker.\n"
             dest: /etc/motd
-          when: 
+          when:
             - inventory_hostname in groups['kubeworker']
             - kubeadm_join_result.rc == 0
         ```
@@ -311,7 +313,8 @@ When looping over complex data structures, the console output of your task can b
     label: "{{ item.name }}" # (1)!
 ```
 
-1.  Content of variable `user_list`:
+1. Content of variable `user_list`:
+
     ```yaml
     user_list:
       - name: tgruetz
