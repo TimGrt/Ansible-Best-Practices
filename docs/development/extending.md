@@ -215,7 +215,11 @@ collections/
             └── roles
 ```
 
-Create subfolders beneath the `plugins` folder, `modules` for modules and e.g. `filter` for filter plugins. Take a look into the included `README.md` in the *plugins* folder.
+Create subfolders beneath the `plugins` folder, `modules` for modules and e.g. `filter` for filter plugins. Take a look into the included `README.md` in the *plugins* folder. Store your custom content in python files in the respective folders.
+
+!!! tip
+    Only underscores (`_`) are allowed for filenames inside collections!  
+    Naming a file `cc-filter-plugins.py` will result in an error!
 
 ### Listing (custom) collections
 
@@ -271,6 +275,9 @@ All plugins must
 * conform to Ansible’s configuration and documentation standards ([*how to use your plugin*](https://docs.ansible.com/ansible/latest/dev_guide/developing_plugins.html#plugin-configuration-documentation-standards){:target="_blank"})
 
 Depending on the type of plugin you want to create, different considerations need to be taken, the next subsections give a brief overview with a small example. Always use the latest Ansible documentation for additional information.
+
+!!! tip
+    The usage of the FQCN for your Plugin is mandatory!
 
 ### Filter plugins
 
@@ -342,29 +349,23 @@ collections/
             └── roles
 ```
 
-!!! tip
-    Only underscores (`_`) are allowed for filenames inside collections!  
-    Naming the file `cc-filter-plugins.py` will result in an error!
-
 Now, the filter can be used:
 
 ```yaml
 sorted_ip_list: "{{ ip_list | computacenter.utils.sort_ip }}"
 ```
 
-!!! tip
-    The usage of the FQCN for your Plugin is mandatory!
-
 ### Dynamic inventory plugins
 
 Ansible can pull informations from different sources, like ServiceNow, Cisco etc. If your source is not covered with the integrated inventory plugins, you can create your own.
 
-For more informations take a look at [Ansible docs - Developing inventory plugin](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html)
+For more informations take a look at [Ansible docs - Developing inventory plugin](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html){:target="_blank"}.
 
 **Key things to note:**
-- The DOCUMENTATION section is required and used by the plugin. Note how the options here reflect exactly the options we specified in the csv_inventory.yaml file in the previous step.
-- The NAME should exactly match the name of the plugin everywhere else.
-- For details on the imports and base classes/helpers.
+
+* The DOCUMENTATION section is required and used by the plugin. Note how the options here reflect exactly the options we specified in the csv_inventory.yaml file in the previous step.
+* The NAME should exactly match the name of the plugin everywhere else.
+* For details on the imports and base classes/helpers.
 
 Documentaion -> Declare option that are needed in the plugin.
 Examples -> Example with parameter for a inventory file to run the script.
@@ -452,6 +453,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable):
 ```
 
 The Python file needs to be stored in a collection, e.g.:
+
 ```bash
 collections/
 └── ansible_collections
@@ -464,20 +466,18 @@ collections/
             │       └── cc_dyn_inv_plugin.py
 ```
 
-To run this script, it needed a inventory file with the right entries, like the description at examples.
+To run this script, create a inventory file with the correct entries, as in the *examples* section of the inventory script.
 
-```bash
+```yaml
 # inventory.yml
-    plugin: custom.inventory.cisco_prime
-    api_user: "user123"
-    api_pass: "password123"
-    api_host_url: "host.domain.tld"
-
-$ ansible-playbook -i inventory.yml main.yml
+plugin: custom.inventory.cisco_prime
+api_user: "user123"
+api_pass: "password123"
+api_host_url: "host.domain.tld"
 ```
 
-!!! tip
-    Only underscores (`_`) are allowed for filenames inside collections! Naming the file `cc-dyn-inv-plugin.py` will result in an error!
+Run your playbook, referencing the custom inventory plugin file:
 
-!!! tip
-    The usage of the FQCN for your Plugin is mandatory!
+```bash
+ansible-playbook -i inventory.yml main.yml
+```
