@@ -464,6 +464,7 @@ collections/
             │   ├── README.md
             │   └── inventory
             │       └── cc_dyn_inv_plugin.py
+            └── roles
 ```
 
 To run this script, create a inventory file with the correct entries, as in the *examples* section of the inventory script.

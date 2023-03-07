@@ -1,7 +1,6 @@
 # Inventory
 
-!!! warning
-    **Work in Progress** - More description necessary.
+An *inventory* is a list of managed nodes, or hosts, that Ansible deploys and configures. The inventory can either be static or dynamic.
 
 ## Convert INI to YAML
 
@@ -37,3 +36,17 @@ all:
         rocky8:
           ansible_connection: docker
 ```
+
+## Static inventory
+
+!!! warning
+    **Work in Progress** - More description necessary.
+
+## Dynamic inventory
+
+!!! warning
+    **Work in Progress** - More description necessary.
+
+### Custom dynamic inventory
+
+In case no suitable inventory plugin exists, you can easily write your own. Take a look at the [Ansible Development - Extending](extending.md#dynamic-inventory-plugins) section for additional information.
