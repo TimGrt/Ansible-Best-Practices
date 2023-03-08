@@ -361,15 +361,22 @@ Ansible can pull informations from different sources, like ServiceNow, Cisco etc
 
 For more informations take a look at [Ansible docs - Developing inventory plugin](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html){:target="_blank"}.
 
-**Key things to note:**
+!!! warning "Key things to note"
+   * The DOCUMENTATION section is required and used by the plugin. Note how the options here reflect exactly the options we specified in the csv_inventory.yaml file in the previous step.
+   * The NAME should exactly match the name of the plugin everywhere else.
+   * For details on the imports and base classes/helpers.
 
-* The DOCUMENTATION section is required and used by the plugin. Note how the options here reflect exactly the options we specified in the csv_inventory.yaml file in the previous step.
-* The NAME should exactly match the name of the plugin everywhere else.
-* For details on the imports and base classes/helpers.
 
-Documentaion -> Declare option that are needed in the plugin.
-Examples -> Example with parameter for a inventory file to run the script.
-Python Code -> Different methods like verify_file, parse and more.
+Here is a short overview of the three "main areas" of python code and a short explanation of what they do:
+
+* Documentation :material-arrow-right: Declare option that are needed in the plugin.
+[More about documentation](https://docs.ansible.com/ansible/latest/dev_guide/developing_plugins.html#plugin-configuration-documentation-standards)
+
+* Examples :material-arrow-right: Example with parameter for a inventory file to run the script.
+
+* Python Code :material-arrow-right: Different methods like verify_file, parse and more.
+[More information about class and function here](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html#developing-an-inventory-plugin)
+
 
 ```python
 from __future__ import absolute_import, division, print_function
@@ -395,17 +402,17 @@ options:
   plugin:
     description:
       - The name of the Cisco Prime API Inventory Plugin.
-      - This should always be C(custom.inventory.cisco_prime).
+      - This should always be C(computacenter.utils.cc_cisco_prime).
     required: true
     type: str
-    choices: [ custom.inventory.cisco_prime ]
+    choices: [ computacenter.utils.cc_cisco_prime ]
 ...
 """
 
 EXAMPLES = r"""
 ---
 # Inventory File
-plugin: custom.inventory.cisco_prime
+plugin: computacenter.utils.cc_cisco_prime
 api_user: "user123"
 api_pass: "password123"
 api_host_url: "host.domain.tld"
@@ -423,7 +430,7 @@ from ansible.plugins.inventory import (
 
 class InventoryModule(BaseInventoryPlugin, Constructable):
 
-    NAME = 'custom.inventory.cisco_prime'  # used internally by Ansible, it should match the file name but not required
+    NAME = 'computacenter.utils.cc_cisco_prime'  # used internally by Ansible, it should match the file name but not required
 
     def verify_file(self, path):
         valid = False
@@ -463,7 +470,7 @@ collections/
             ├── plugins
             │   ├── README.md
             │   └── inventory
-            │       └── cc_dyn_inv_plugin.py
+            │       └── cc_cisco_prime.py
             └── roles
 ```
 
@@ -471,7 +478,7 @@ To run this script, create a inventory file with the correct entries, as in the 
 
 ```yaml
 # inventory.yml
-plugin: custom.inventory.cisco_prime
+plugin: computacenter.utils.cc_cisco_prime
 api_user: "user123"
 api_pass: "password123"
 api_host_url: "host.domain.tld"
