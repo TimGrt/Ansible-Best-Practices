@@ -362,102 +362,99 @@ Ansible can pull informations from different sources, like ServiceNow, Cisco etc
 For more informations take a look at [Ansible docs - Developing inventory plugin](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html){:target="_blank"}.
 
 !!! warning "Key things to note"
-   * The DOCUMENTATION section is required and used by the plugin. Note how the options here reflect exactly the options we specified in the csv_inventory.yaml file in the previous step.
-   * The NAME should exactly match the name of the plugin everywhere else.
-   * For details on the imports and base classes/helpers.
+    * The DOCUMENTATION section is required and used by the plugin. Note how the options here reflect exactly the options we specified in the csv_inventory.yaml file in the previous step.
+    * The NAME should exactly match the name of the plugin everywhere else.
+    * For details on the imports and base classes/helpers. [Github ansible inventory python code](https://github.com/ansible/ansible/tree/devel/lib/ansible/inventory)
 
 
-Here is a short overview of the three "main areas" of python code and a short explanation of what they do:
+This file may be used as a minimal starting point, it includes a small example:
 
-* Documentation :material-arrow-right: Declare option that are needed in the plugin.
-[More about documentation](https://docs.ansible.com/ansible/latest/dev_guide/developing_plugins.html#plugin-configuration-documentation-standards)
+!!! example "cc_cisco_prime.py"
+    ```python
+    from __future__ import absolute_import, division, print_function
 
-* Examples :material-arrow-right: Example with parameter for a inventory file to run the script.
+    __metaclass__ = type
 
-* Python Code :material-arrow-right: Different methods like verify_file, parse and more.
-[More information about class and function here](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html#developing-an-inventory-plugin)
-
-
-```python
-from __future__ import absolute_import, division, print_function
-
-__metaclass__ = type
-
-DOCUMENTATION = r"""
-name: cisco_prime.py
-author:
-  - Kevin Blase
-  - Jonathan Schmidt
-short_description: Inventory source for Cisco Prime API.
-description:
-  - Builds inventory from Cisco Prime API.
-  - Requires a configuration file ending in C(prime.yml) or C(prime.yaml).
-    See the example section for more details.
-version_added: 1.0.0
-extends_documentation_fragment:
-  - ansible.builtin.constructed
-notes:
-  - Nothing
-options:
-  plugin:
+    # (1)!
+    DOCUMENTATION = '''
+    name: cisco_prime.py 
+    author:
+      - Kevin Blase
+      - Jonathan Schmidt
+    short_description: Inventory source for Cisco Prime API.
     description:
-      - The name of the Cisco Prime API Inventory Plugin.
-      - This should always be C(computacenter.utils.cc_cisco_prime).
-    required: true
-    type: str
-    choices: [ computacenter.utils.cc_cisco_prime ]
-...
-"""
+      - Builds inventory from Cisco Prime API.
+      - Requires a configuration file ending in C(prime.yml) or C(prime.yaml).
+        See the example section for more details.
+    version_added: 1.0.0
+    extends_documentation_fragment:
+      - ansible.builtin.constructed
+    notes:
+      - Nothing
+    options:
+      plugin:
+        description:
+          - The name of the Cisco Prime API Inventory Plugin.
+          - This should always be C(computacenter.utils.cc_cisco_prime).
+        required: true
+        type: str
+        choices: [ computacenter.utils.cc_cisco_prime ]
+    '''
 
-EXAMPLES = r"""
----
-# Inventory File
-plugin: computacenter.utils.cc_cisco_prime
-api_user: "user123"
-api_pass: "password123"
-api_host_url: "host.domain.tld"
-"""
+    # (2)!
+    EXAMPLES = '''
+    ---
+    Inventory File
+    plugin: computacenter.utils.cc_cisco_prime
+    api_user: user123
+    api_pass: password123
+    api_host_url: host.domain.tld
+    '''
 
-import requests
-# import traceback
-# from ansible.errors import AnsibleParserError
-from ansible.inventory.group import to_safe_group_name
-from ansible.plugins.inventory import (
-    BaseInventoryPlugin,
-    Constructable,
-    to_safe_group_name,
-)
+    import requests
+    from ansible.errors import AnsibleParserError
+    from ansible.inventory.group import to_safe_group_name
+    from ansible.plugins.inventory import (
+        BaseInventoryPlugin,
+        Constructable,
+        to_safe_group_name,
+    )
 
-class InventoryModule(BaseInventoryPlugin, Constructable):
+    class InventoryModule(BaseInventoryPlugin, Constructable):
 
-    NAME = 'computacenter.utils.cc_cisco_prime'  # used internally by Ansible, it should match the file name but not required
+        NAME = 'computacenter.utils.cc_cisco_prime'  # used internally by Ansible, it should match the file name but not required
+        
+        def verify_file(self, path): # (3)!
+            valid = False
+            if super(InventoryModule, self).verify_file(path):
+                if path.endswith(('prime.yaml', 'prime.yml')):
+                    valid = True
+                else:
+                    self.display.vvv(
+                        'Skipping due to inventory source not ending in "prime.yaml" nor "prime.yml"')
+            return valid
 
-    def verify_file(self, path):
-        valid = False
-        if super(InventoryModule, self).verify_file(path):
-            if path.endswith(('prime.yaml', 'prime.yml')):
-                valid = True
-            else:
-                self.display.vvv(
-                    'Skipping due to inventory source not ending in "prime.yaml" nor "prime.yml"')
-        return valid
+        def add_host(self, hostname, host_vars):
+            self.inventory.add_host(hostname, group='all')
 
-    def add_host(self, hostname, host_vars):
-        self.inventory.add_host(hostname, group='all')
+            for var_name, var_value in host_vars.items():
+                self.inventory.set_variable(hostname, var_name, var_value)
 
-        for var_name, var_value in host_vars.items():
-            self.inventory.set_variable(hostname, var_name, var_value)
+            strict = self.get_option('strict')
 
-        strict = self.get_option('strict')
+            # Add variables created by the user's Jinja2 expressions to the host
+            self._set_composite_vars(self.get_option('compose'), host_vars, hostname, strict=True)
 
-        # Add variables created by the user's Jinja2 expressions to the host
-        self._set_composite_vars(self.get_option('compose'), host_vars, hostname, strict=True)
+            # Create user-defined groups using variables and Jinja2 conditionals
+            self._add_host_to_composed_groups(self.get_option('groups'), host_vars, hostname, strict=strict)
+            self._add_host_to_keyed_groups(self.get_option('keyed_groups'), host_vars, hostname, strict=strict)
+    ...
+    ```
 
-        # Create user-defined groups using variables and Jinja2 conditionals
-        self._add_host_to_composed_groups(self.get_option('groups'), host_vars, hostname, strict=strict)
-        self._add_host_to_keyed_groups(self.get_option('keyed_groups'), host_vars, hostname, strict=strict)
-...
-```
+    1. Declare option that are needed in the plugin. [More about documentation](https://docs.ansible.com/ansible/latest/dev_guide/developing_plugins.html#plugin-configuration-documentation-standards)
+    2. Example with parameter for a inventory file to run the script.
+    3. Different methods like verify_file, parse and more.[More information about class and function here](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html#developing-an-inventory-plugin)
+
 
 The Python file needs to be stored in a collection, e.g.:
 
