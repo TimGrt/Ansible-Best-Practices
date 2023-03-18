@@ -1,6 +1,6 @@
 ---
 name: 🐛 Bug report
-description: Create a report to help us improve
+description: Create a report to help us improve.
 labels: ["bug"]
 body:
 - type: markdown
@@ -78,6 +78,7 @@ body:
   attributes:
     label: What Ansible version are you using?
     description: When reporting a bug with the documented Best Practice, which Ansible version are you using when executing the described guidance.
+    placeholder: Run 'ansible --version' and input the complete output here.
     render: bash
   validations:
     required: false
