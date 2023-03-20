@@ -4,6 +4,72 @@ Ansible is easily customizable, you can extend Ansible by adding custom modules 
 You might wonder whether you need a module or a plugin. Ansible modules are units of code that can control system resources or execute system commands. Ansible provides a module library that you can execute directly on remote hosts or through playbooks.  
 Similar to modules are plugins, which are pieces of code that extend core Ansible functionality. Ansible uses a plugin architecture to enable a rich, flexible, and expandable feature set. It ships with several plugins and lets you easily use your own plugins.
 
+## Store custom content
+
+Custom modules can be stored in the `library` folder in your project root directory, plugins need to be stored in folders called `<plugin type>_plugins`, e.g. `filter_plugins`. These locations are still valid, but it is **recommended** to store custom content in a *collection*, this way you have all your custom content in a single location (folder).
+
+You can store custom collections with your Ansible project, create it with the *ansible-galaxy* utility and provide the `--init-path` parameter. The folder `collections/ansible_collections` will automatically be picked up by Ansible (although your custom collection is not shown by the `ansible-galaxy collection list` command, adjust the `ansible.cfg` for that, take a look into the next subsection).
+
+```bash
+ansible-galaxy collection init computacenter.utils --init-path collections/ansible_collections
+```
+
+This creates the following structure:
+
+```bash
+collections/
+└── ansible_collections
+    └── computacenter
+        └── utils
+            ├── README.md
+            ├── docs
+            ├── galaxy.yml
+            ├── plugins
+            │   └── README.md
+            └── roles
+```
+
+Create subfolders beneath the `plugins` folder, `modules` for modules and e.g. `filter` for filter plugins. Take a look into the included `README.md` in the *plugins* folder. Store your custom content in python files in the respective folders.
+
+!!! tip
+    Only underscores (`_`) are allowed for filenames inside collections!  
+    Naming a file `cc-filter-plugins.py` will result in an error!
+
+### Listing (custom) collections
+
+When storing custom collections alongside your project and you want to list all collections, you need to adjust your Ansible configuration. You will be able to use your custom collection nevertheless, this is more a quality of life change.
+
+Adjust the `collections_paths` parameter in the `defaults` section of your `ansible.cfg`:
+
+```ini
+[defaults]
+collections_paths = ~/.ansible/collections:/usr/share/ansible/collections:./collections
+```
+
+The first two paths are the default locations for collections, paths are separated with colons.
+
+??? example "Listing collections"
+    Using a custom collection in the project folder `test` with adjusted configuration file.
+    ```bash
+    $ ansible-galaxy collection list
+
+    # /home/tgruetz/.ansible/collections/ansible_collections
+    Collection        Version
+    ----------------- -------
+    ansible.netcommon 4.1.0  
+    ansible.posix     1.4.0  
+    ansible.utils     2.8.0  
+    cisco.aci         2.3.0  
+    cisco.ios         4.2.0  
+    community.docker  3.3.2  
+    community.general 6.1.0  
+
+    # /home/tgruetz/test/collections/ansible_collections
+    Collection          Version
+    ------------------- -------
+    computacenter.utils 1.0.0
+    ```
+
 ## Custom facts
 
 The `setup` module in Ansible automatically discovers a standard set of facts about each host. If you want to add custom values to your facts, you can provide permanent custom facts using the `facts.d` directory or even write a custom facts module.
@@ -188,72 +254,6 @@ In the example, we have one running container and one stopped container.
             }
         ]
     }
-    ```
-
-## Store custom content
-
-Custom modules can be stored in the `library` folder in your project root directory, plugins need to be stored in folders called `<plugin type>_plugins`, e.g. `filter_plugins`. These locations are still valid, but it is **recommended** to store custom content in a *collection*, this way you have all your custom content in a single location (folder).
-
-You can store custom collections with your Ansible project, create it with the *ansible-galaxy* utility and provide the `--init-path` parameter. The folder `collections/ansible_collections` will automatically be picked up by Ansible (although your custom collection is not shown by the `ansible-galaxy collection list` command, adjust the `ansible.cfg` for that, take a look into the next subsection).
-
-```bash
-ansible-galaxy collection init computacenter.utils --init-path collections/ansible_collections
-```
-
-This creates the following structure:
-
-```bash
-collections/
-└── ansible_collections
-    └── computacenter
-        └── utils
-            ├── README.md
-            ├── docs
-            ├── galaxy.yml
-            ├── plugins
-            │   └── README.md
-            └── roles
-```
-
-Create subfolders beneath the `plugins` folder, `modules` for modules and e.g. `filter` for filter plugins. Take a look into the included `README.md` in the *plugins* folder. Store your custom content in python files in the respective folders.
-
-!!! tip
-    Only underscores (`_`) are allowed for filenames inside collections!  
-    Naming a file `cc-filter-plugins.py` will result in an error!
-
-### Listing (custom) collections
-
-When storing custom collections alongside your project and you want to list all collections, you need to adjust your Ansible configuration. You will be able to use your custom collection nevertheless, this is more a quality of life change.
-
-Adjust the `collections_paths` parameter in the `defaults` section of your `ansible.cfg`:
-
-```ini
-[defaults]
-collections_paths = ~/.ansible/collections:/usr/share/ansible/collections:./collections
-```
-
-The first two paths are the default locations for collections, paths are separated with colons.
-
-??? example "Listing collections"
-    Using a custom collection in the project folder `test` with adjusted configuration file.
-    ```bash
-    $ ansible-galaxy collection list
-
-    # /home/tgruetz/.ansible/collections/ansible_collections
-    Collection        Version
-    ----------------- -------
-    ansible.netcommon 4.1.0  
-    ansible.posix     1.4.0  
-    ansible.utils     2.8.0  
-    cisco.aci         2.3.0  
-    cisco.ios         4.2.0  
-    community.docker  3.3.2  
-    community.general 6.1.0  
-
-    # /home/tgruetz/test/collections/ansible_collections
-    Collection          Version
-    ------------------- -------
-    computacenter.utils 1.0.0
     ```
 
 ## Developing modules
