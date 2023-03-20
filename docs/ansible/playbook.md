@@ -180,3 +180,52 @@ The *group* is called `all`, therefor the module defaults groups needs to be `gr
 
 !!! note
     Any module defaults set at the play level (and block/task level when using `include_role` or `import_role`) will apply to **any** roles used, which may cause unexpected behavior in the role.
+
+## Collections in playbooks
+
+In a playbook, you can control the collections Ansible searches for modules and action plugins to execute.
+
+!!! quote "tl;dr"
+    This is not recommended, try to avoid this.
+
+```yaml
+- name: Initialize Control-Plane Nodes
+  hosts: kubemaster
+  collections:
+    - kubernetes.core
+    - computacenter.utils
+  become: true
+  roles:
+    - k8s-control-plane
+```
+
+With that you could omit the *provider.collection* part when using modules, by default you would reference a module with the [FQCN](tasks.md#modules-and-collections):
+
+```yaml
+- name: Check if Weave is already installed
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: DaemonSet
+    name: weave-net
+    namespace: kube-system
+  register: weave_daemonset
+```
+
+With the `collections` list defined as part of the play definition, you could write your tasks like this:
+
+```yaml
+- name: Check if Weave is already installed
+  k8s_info:
+    api_version: v1
+    kind: DaemonSet
+    name: weave-net
+    namespace: kube-system
+  register: weave_daemonset
+```
+
+!!! warning
+    If your playbook uses both the collections keyword and one or more roles, the roles do not inherit the collections set by the playbook!  
+    The collections keyword merely creates an ordered *search path* for non-namespaced plugin and role references. It does not install content or otherwise change Ansible’s behavior around the loading of plugins or roles. Note that an FQCN is still required for non-action or module plugins (for example, lookups, filters, tests).
+
+!!! tip
+    It is preferable to use a module or plugin’s FQCN over the `collections` keyword!

@@ -22,6 +22,62 @@ The file name of a task file should describe the content.
 - import_tasks: install-kubeadm.yml
 ```
 
+## Naming tasks
+
+It is possible to leave off the *name* for a given task, though it is recommended to provide a description about why something is being done instead. This description is shown when the playbook is run.  
+Write task names in the imperative (e.g. *"Ensure service is running"*), this communicates the action of the task. Start with a capital letter.
+
+=== "Good"
+    !!! good-practice-no-title ""
+        ```yaml
+        - name: Install webserver package
+          ansible.builtin.yum:
+            name: httpd
+            state: present
+        ```
+=== "Bad"
+    !!! bad-practice-no-title ""
+        ```yaml
+        - yum:
+            name: httpd
+            state: present
+        ```
+        Using name parameter, but not starting with capital letter, nor desrcibing the task properly.
+        ```yaml
+        - name: install package
+          yum:
+            name: httpd
+            state: present
+        ```
+
+### Prefix task names in sub-task files
+
+It is a common practice to have `tasks/main.yml` file including other tasks files, which we’ll call *sub-tasks* files. Make sure that the tasks' names in these sub-tasks files are prefixed with a shortcut reminding of the sub-tasks file’s name. Especially in a complex role with multiple (sub-)tasks file, it becomes difficult to understand which task belongs to which file.  
+
+For example, having a sub-task file `tasks/kubeadm-setup.yml` with every task in it having a short reminder to which file it belongs.
+
+```yaml
+- name: kubeadm-setup | Install kubeadm, kubelet and kubectl
+  ansible.builtin.yum:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+```
+
+The log output will then look like this:
+
+```bash
+...
+TASK [k8s-bootstrap: kubeadm-setup | Install kubeadm, kubelet and kubectl] **********
+changed: [kubemaster]
+...
+```
+
+!!! note
+    If you move around your tasks often during development phase, it may be difficult to keep this up to date.
+
 ## Tags
 
 Don't use too many tags, it gets confusing very quickly.  
@@ -85,58 +141,7 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
           failed_when: false
         ```
 
-## Naming tasks
-
-It is possible to leave off the *name* for a given task, though it is recommended to provide a description about why something is being done instead. This description is shown when the playbook is run.  
-Write task names in the imperative (e.g. *"Ensure service is running"*), this communicates the action of the task. Start with a capital letter.
-
-=== "Good"
-    !!! good-practice-no-title ""
-        ```yaml
-        - name: Install webserver package
-          ansible.builtin.yum:
-            name: httpd
-            state: present
-        ```
-=== "Bad"
-    !!! bad-practice-no-title ""
-        ```yaml
-        - yum:
-            name: httpd
-            state: present
-        ```
-        Using name parameter, but not starting with capital letter, nor desrcibing the task properly.
-        ```yaml
-        - name: install package
-          yum:
-            name: httpd
-            state: present
-        ```
-
-### Prefix task names in sub-task files
-
-It is a common practice to have `tasks/main.yml` file including other tasks files, which we’ll call *sub-tasks* files. Make sure that the tasks' names in these sub-tasks files are prefixed with a shortcut reminding of the sub-tasks file’s name. Especially in a complex role with multiple (sub-)tasks file, it becomes difficult to understand which task belongs to which file.  
-
-```yaml
-- name: kubeadm-setup | Install kubeadm, kubelet and kubectl
-  ansible.builtin.yum:
-    name:
-      - kubelet
-      - kubeadm
-      - kubectl
-    state: present
-```
-
-The log output will then look like this:
-
-```bash
-...
-TASK [k8s-bootstrap: kubeadm-setup | Install kubeadm, kubelet and kubectl] **********
-changed: [kubemaster]
-...
-```
-
-## FQCN
+## Modules (and Collections)
 
 Use the *full qualified collection names (FQCN)* for modules, they are supported since Version 2.9 and ensures your tasks are set for the future.
 
@@ -156,7 +161,7 @@ Use the *full qualified collection names (FQCN)* for modules, they are supported
             state: present
         ```
 
-In Ansible 2.10, many plugins and modules have migrated to Collections on Ansible Galaxy. Your playbooks should continue to work without any changes. Using the FQCN in your playbooks ensures the explicit and authoritative indicator of which collection to use as some collections may contain duplicate module names.
+In Ansible 2.10, many plugins and modules have migrated to **Collections** on Ansible Galaxy. Your playbooks should continue to work without any changes. Using the FQCN in your playbooks ensures the explicit and authoritative indicator of which collection to use as some collections may contain duplicate module names.
 
 ## Module parameters
 

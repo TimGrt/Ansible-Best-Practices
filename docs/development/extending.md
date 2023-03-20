@@ -362,14 +362,15 @@ Ansible can pull informations from different sources, like ServiceNow, Cisco etc
 For more informations take a look at [Ansible docs - Developing inventory plugin](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html){:target="_blank"}.
 
 !!! warning "Key things to note"
+
     * The DOCUMENTATION section is required and used by the plugin. Note how the options here reflect exactly the options we specified in the csv_inventory.yaml file in the previous step.
     * The NAME should exactly match the name of the plugin everywhere else.
     * For details on the imports and base classes/helpers take a look at the [python code in Github](https://github.com/ansible/ansible/tree/devel/lib/ansible/inventory){:target="_blank"}
 
-
 This file may be used as a minimal starting point, it includes a small example:
 
 !!! example "cc_cisco_prime.py"
+
     ```python
     from __future__ import absolute_import, division, print_function
 
@@ -454,7 +455,6 @@ This file may be used as a minimal starting point, it includes a small example:
     1. Declare option that are needed in the plugin. [More about documentation](https://docs.ansible.com/ansible/latest/dev_guide/developing_plugins.html#plugin-configuration-documentation-standards){:target="_blank"}
     2. Example with parameter for a inventory file to run the script.
     3. Different methods like verify_file, parse and more. [Additional information about class and function here](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html#developing-an-inventory-plugin){:target="_blank"}
-
 
 The Python file needs to be stored in a collection, e.g.:
 
