@@ -12,12 +12,75 @@ Keep your playbooks and inventory file in git (or another version control system
 Always use a project-specific `ansible.cfg` in the parent directory of your project. The following configuration can be used as a starting point:
 
 ```ini
+[defaults]
 # Define inventory, no need to provide '-i' anymore.
 inventory = inventory/production.ini
 
-# Playbook-Output in YAML instead of JSON, needs additional collection.
-stdout_callback = community.general.yaml
+# Playbook-Output in YAML instead of JSON
+callback_result_format = yaml
 ```
+
+### Show check mode
+
+The following parameter enables displaying markers when running in check mode.
+
+```ini
+[defaults]
+check_mode_markers = true
+```
+
+The markers are `DRY RUN` at the beginning and ending of playbook execution (when calling `ansible-playbook --check`) and `CHECK MODE` as a suffix at every play and task that is run in check mode.
+
+??? example
+
+    ```bash
+    $ ansible-playbook -i inventory.ini playbook.yml -C
+
+    DRY RUN ******************************************************************
+
+    PLAY [Install and configure Worker Nodes] [CHECK MODE] *******************
+
+    TASK [Gathering Facts] [CHECK MODE] **************************************
+    ok: [k8s-worker1]
+    ok: [k8s-worker2]
+    ok: [k8s-worker2]
+
+    ...
+
+    ```
+
+### Show task path when failed
+
+For easier development when handling with very big playbooks, it may be useful to know which file holds the failed task. To display the path to the file containing the failed task and the line number, add this parameter:
+
+```ini
+[defaults]
+show_task_path_on_failure = true
+```
+
+??? example
+
+    When set to `true`:
+    ```bash
+    ...
+
+    TASK [Set motd message for k8s worker node] **************************************************
+    task path: /home/timgrt/kubernetes-installation/roles/kube-worker/tasks/configure.yml:39
+    fatal: [k8s-worker1]: FAILED! => 
+    ...
+
+    ```
+    When set to `false`:
+    ```bash
+    ...
+
+    TASK [Set motd message for k8s worker node] ****************************************************
+    fatal: [k8s-worker1]: FAILED! => 
+    ...
+
+    ```
+
+Even if you don't set this, the path is displayed automatically for every task when running with `-vv` or greater verbosity, but you'll need to run the playbook again.
 
 ## Dependencies
 
