@@ -290,27 +290,33 @@ This file may be used as a minimal starting point, it includes a small example:
     ```python
     from __future__ import absolute_import, division, print_function
     __metaclass__ = type
-    
-    from ansible.errors import AnsibleError # (1)!
-    from ansible.module_utils.common.text.converters import to_native, to_text # (2)!
 
-    import types
+    from ansible.errors import AnsibleError# (1)!
+    from ansible.module_utils.common.text.converters import to_native# (2)!
 
     try:
-        import netaddr # (3)!
-    except ImportError as e:
-        raise AnsibleError('Missing dependency! - %s' % to_native(e))
+        import netaddr# (3)!
+    except ImportError as imp_exc:
+        NETADDR_IMPORT_ERROR = imp_exc
+    else:
+        NETADDR_IMPORT_ERROR = None
 
 
-    def sort_ip(unsorted_ip_list): # (4)!
-    # Function sorts a given list of IP addresses
-    
-        if not isinstance(unsorted_ip_list, list): # (5)!
+    def sort_ip(unsorted_ip_list):# (4)!
+        # Function sorts a given list of IP addresses
+
+        if NETADDR_IMPORT_ERROR:
+            raise AnsibleError('netaddr libary must be installed to use this plugin') from NETADDR_IMPORT_ERROR
+
+        if not isinstance(unsorted_ip_list, list):# (5)!
             raise AnsibleError("Filter needs list input, got '%s'" % type(unsorted_ip_list))
         else:
-            sorted_ip_list = sorted(unsorted_ip_list, key=netaddr.IPAddress) # (6)!
-            
-        return sorted_ip_list # (7)!
+            try:
+                sorted_ip_list = sorted(unsorted_ip_list, key=netaddr.IPAddress)# (6)!
+            except netaddr.core.AddrFormatError as e:
+                raise AnsibleError('Error from netaddr library, %s' % to_native(e))
+
+        return sorted_ip_list# (7)!
 
 
     class FilterModule(object): # (8)!
@@ -377,39 +383,38 @@ This file may be used as a minimal starting point, it includes a small example:
     __metaclass__ = type
 
     # (1)!
-    DOCUMENTATION = '''
-    name: cisco_prime.py 
-    author:
-      - Kevin Blase
-      - Jonathan Schmidt
-    short_description: Inventory source for Cisco Prime API.
-    description:
-      - Builds inventory from Cisco Prime API.
-      - Requires a configuration file ending in C(prime.yml) or C(prime.yaml).
-        See the example section for more details.
-    version_added: 1.0.0
-    extends_documentation_fragment:
-      - ansible.builtin.constructed
-    notes:
-      - Nothing
-    options:
-      plugin:
+    DOCUMENTATION = r'''
+        name: cc_cisco_prime
+        author:
+        - Kevin Blase (@FlachDerPlatte)
+        - Jonathan Schmidt (@SchmidtJonathan1)
+        short_description: Inventory source for Cisco Prime API.
         description:
-          - The name of the Cisco Prime API Inventory Plugin.
-          - This should always be C(computacenter.utils.cc_cisco_prime).
-        required: true
-        type: str
-        choices: [ computacenter.utils.cc_cisco_prime ]
+        - Builds inventory from Cisco Prime API.
+        - Requires a configuration file ending in C(prime.yml) or C(prime.yaml).
+            See the example section for more details.
+        version_added: 1.0.0
+        extends_documentation_fragment:
+        - ansible.builtin.constructed
+        notes:
+        - Nothing
+        options:
+        plugin:
+            description:
+            - The name of the Cisco Prime API Inventory Plugin.
+            - This should always be C(computacenter.utils.cc_cisco_prime).
+            required: true
+            type: str
+            choices: [ computacenter.utils.cc_cisco_prime ]
     '''
 
     # (2)!
-    EXAMPLES = '''
-    ---
-    Inventory File
-    plugin: computacenter.utils.cc_cisco_prime
-    api_user: user123
-    api_pass: password123
-    api_host_url: host.domain.tld
+    EXAMPLES = r'''
+        # Inventory File in YAML format
+        plugin: computacenter.utils.cc_cisco_prime
+        api_user: user123
+        api_pass: password123
+        api_host_url: host.domain.tld
     '''
 
     import requests
