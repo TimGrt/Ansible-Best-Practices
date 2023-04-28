@@ -66,8 +66,8 @@ docker run --rm -v $(pwd):/data ansible-lint site.yml
 
 The output for example is something like this, *ansible-lint* reports a warning regarding unnecessary white-spaces in a line, as well as an error regarding unset file permissions (fix could be setting `mode: 0644` in the task):
 
-```bash
-$ docker run --rm -v $(pwd):/data ansible-lint site.yml 
+```{ .bash .no-copy }
+$ docker run --rm -v $(pwd):/data ansible-lint site.yml
 WARNING  Overriding detected file kind 'yaml' with 'playbook' for given positional argument: site.yml
 WARNING  Listing 2 violation(s) that are fatal
 yaml: trailing spaces (trailing-spaces)
@@ -182,6 +182,83 @@ The following script can be used as a starting point, it uses *ansible-lint* fro
     fi
     exit $EXIT_STATUS
     ```
+
+The most convenient way is the use of the [pre-commit framework](https://pre-commit.com/){:target="_blank"}, install the *pre-commit* utility:
+
+```bash
+pip3 install pre-commit
+```
+
+Install all hooks of the `.pre-commit-config.yaml` file:
+
+```bash
+pre-commit install
+```
+
+You can run all hooks at any time with the following command:
+
+```bash
+pre-commit run -a
+```
+
+??? example "Example output"
+
+    ```{ .bash .no-copy }
+    $ pre-commit run -a
+    check yaml...............................................................Passed
+    check for merge conflicts................................................Passed
+    trim trailing whitespace.................................................Passed
+    don't commit to branch...................................................Passed
+    fix requirements.txt.................................(no files to check)Skipped
+    markdownlint-docker......................................................Passed
+    Check files for non-compliant names......................................Passed
+    Ansible-lint.............................................................Failed
+    - hook id: ansible-lint
+    - exit code: 2
+
+    [...output cut for readability...]
+
+    Read documentation for instructions on how to ignore specific rule violations.
+
+                          Rule Violation Summary  
+    count tag                           profile rule associated tags  
+        3 role-name                     basic   deprecations, metadata
+        1 name[missing]                 basic   idiom  
+        2 yaml[comments]                basic   formatting, yaml  
+        1 yaml[new-line-at-end-of-file] basic   formatting, yaml  
+
+    Failed after min profile: 7 failure(s), 0 warning(s) on 30 files.
+    ```
+
+Use the following configuration as a starting point, take a look at [https://pre-commit.com/hooks.html](https://pre-commit.com/hooks.html){:target="_blank"} for additional hooks for your use-case.
+
+```yaml
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-yaml
+      - id: check-merge-conflict
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: no-commit-to-branch
+      - id: requirements-txt-fixer
+  - repo: https://github.com/timgrt/pre-commit-hooks
+    rev: v0.2.0
+    hooks:
+      - id: check-file-names
+      - id: check-vault-files
+  - repo: https://github.com/ansible-community/ansible-lint
+    rev: v6.15.0
+    hooks:
+      - id: ansible-lint
+```
+
+Run the `autoupdate` command to update all revisions to the latest state:
+
+```bash
+pre-commit autoupdate
+```
 
 ### CI Pipeline
 
