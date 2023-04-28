@@ -6,6 +6,7 @@ repos:
       - id: check-merge-conflict
       - id: check-yaml
       - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
       - id: no-commit-to-branch
       - id: requirements-txt-fixer
   - repo: https://github.com/igorshubovych/markdownlint-cli

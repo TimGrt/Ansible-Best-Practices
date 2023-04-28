@@ -168,16 +168,16 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
               no_log: true
         ```
         ??? info "Output of playbook run"
-            Using the *stdout_callback: community.general.yaml* for better readability, see [Ansible configuration](project.md#ansible-configuration) for more info.       
+            Using the *stdout_callback: community.general.yaml* for better readability, see [Ansible configuration](project.md#ansible-configuration) for more info.  
             ```bash hl_lines="22"
             $ ansible-playbook nolog.yml -v
-            
+
             [...]
 
             TASK [Add user] *********************************************
             [WARNING]: The input password appears not to have been hashed. The 'password'
             argument must be encrypted for this module to work properly.
-            ok: [db_server1] => changed=false 
+            ok: [db_server1] => changed=false
               append: false
               comment: ''
               group: 1002
@@ -190,7 +190,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
               uid: 1002
 
             ASK [Debugging a vaulted Variable with no_log] *************
-            ok: [db_server1] => 
+            ok: [db_server1] =>
               censored: 'the output has been hidden due to the fact that ''no_log: true'' was specified for this result'
 
             [...]
@@ -199,7 +199,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
             The *debug* task does not print the value of the password, the output is censored.
 
             !!! hint
-                Observing the outout from the *"Add user"* task, you can see that the value of the *password* parameter is not shown. 
+                Observing the outout from the *"Add user"* task, you can see that the value of the *password* parameter is not shown.
                 The *warning* from the *"Add user"* task stating an unencrypted password is related to not having hashed the password. You can achieve this by using the *password_hash* filter:
                 ```yaml
                 password: "{{ vault_password | password_hash('sha512', 'mysecretsalt') }}"
@@ -229,13 +229,13 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
         ??? info "Output of playbook run"
             ```bash hl_lines="22"
             $ ansible-playbook nolog.yml -v
-            
+
             [...]
 
             TASK [Add user] *********************************************
             [WARNING]: The input password appears not to have been hashed. The 'password'
             argument must be encrypted for this module to work properly.
-            ok: [db_server1] => changed=false 
+            ok: [db_server1] => changed=false
               append: false
               comment: ''
               group: 1002
@@ -248,8 +248,22 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
               uid: 1002
 
             ASK [Debugging a vaulted Variable with no_log] *************
-            ok: [db_server1] => 
+            ok: [db_server1] =>
               msg: ex4mple
 
             [...]
             ```
+
+### Prevent unintentional commits
+
+Use a *pre-commit hook* to prevent accidentially committing unencrypted sensitive content. The easiest way would be to use the *pre-commit* framework/tool with the following configuration:
+
+```yaml title=".pre-commit-config.yaml"
+repos:
+  - repo: https://github.com/timgrt/pre-commit-hooks
+      rev: v0.2.0
+      hooks:
+        - id: check-vault-files
+```
+
+Take a look at the [development section](linting.md#git-pre-commit-hook) for additional information.
