@@ -66,7 +66,7 @@ show_task_path_on_failure = true
 
     TASK [Set motd message for k8s worker node] **************************************************
     task path: /home/timgrt/kubernetes-installation/roles/kube-worker/tasks/configure.yml:39
-    fatal: [k8s-worker1]: FAILED! => 
+    fatal: [k8s-worker1]: FAILED! =>
     ...
 
     ```
@@ -75,7 +75,7 @@ show_task_path_on_failure = true
     ...
 
     TASK [Set motd message for k8s worker node] ****************************************************
-    fatal: [k8s-worker1]: FAILED! => 
+    fatal: [k8s-worker1]: FAILED! =>
     ...
 
     ```
@@ -97,7 +97,7 @@ This makes sure that required collections can be installed, if only the *ansible
 collections:
   - community.general
   - ansible.posix
-  
+
   - name: cisco.ios
     version: '>=3.1.0'  
 ```

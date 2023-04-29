@@ -8,7 +8,7 @@ body:
     value: |
       **Thank you for taking the time to open this Issue!**
 
-      💡 **Please note** 
+      💡 **Please note**
       This Issue type is meant for suggesting features to the MkDocs deployment itself. For missing
       documentation or guidance, please use the [Documentation request](https://github.com/TimGrt/Ansible-Best-Practices/issues/new?assignees=&labels=feature&template=documentation_request.yml) issue type.
 

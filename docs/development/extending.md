@@ -320,7 +320,7 @@ This file may be used as a minimal starting point, it includes a small example:
 
 
     class FilterModule(object): # (8)!
-        
+
         def filters(self):
             return {
                 # Sorting list of IP Addresses
@@ -429,7 +429,7 @@ This file may be used as a minimal starting point, it includes a small example:
     class InventoryModule(BaseInventoryPlugin, Constructable):
 
         NAME = 'computacenter.utils.cc_cisco_prime'  # used internally by Ansible, it should match the file name but not required
-        
+
         def verify_file(self, path): # (3)!
             valid = False
             if super(InventoryModule, self).verify_file(path):
