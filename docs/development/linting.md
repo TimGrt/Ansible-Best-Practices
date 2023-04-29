@@ -7,11 +7,46 @@
 Ansible Lint is installed through the Python packet manager:
 
 !!! note
-    *Ansible Lint* always needs *Ansible* itself
+    *Ansible Lint* always needs *Ansible* itself, *ansible-core* is enough.
 
 ```bash
 pip3 install ansible-lint
 ```
+
+## Configuration
+
+Minimal configuration is necessary, use the following as a starting point in your project directory:
+
+```yaml title=".ansible-lint"
+---
+profile: shared
+
+# Silence infos, warnings and don't show summary
+quiet: true
+
+skip_list:
+  - role-name
+
+# Enable some useful rules which are opt-in
+enable_list:
+  - args
+  - empty-string-compare
+  - no-log-password
+  - no-same-owner
+```
+
+Profiles gradually increase the strictness of rules, from lowest to highest, every profile extends to previous:
+
+Strictness | Profile name | Description
+---------- | ------------ | -----------
+1 | min | ensures that Ansible can load content, rules in this profile are mandatory
+2 | basic | prevents common coding issues and enforces standard styles and formatting
+3 | moderate | ensures that content adheres to best practices for making content easier to read and maintain
+4 | safety | avoids module calls that can have non-determinant outcomes or security concerns
+5 | **shared** | for packaging and publishing to *galaxy.ansible.com*, *automation-hub*, or a private instance
+6 | production | for inclusion in AAP as *validated* or *certified* content
+
+Take a look at the [official documentation](https://ansible-lint.readthedocs.io/configuring/){:target="_blank"} for more information.
 
 ## Usage
 

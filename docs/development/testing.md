@@ -105,6 +105,7 @@ roles/
             volumes:
               - /sys/fs/cgroup:/sys/fs/cgroup:ro
             privileged: true
+            cgroupns_mode: host
             command: "/usr/sbin/init"
             pre_build_image: true # (5)!
         provisioner:
@@ -116,7 +117,7 @@ roles/
           config_options:
             defaults:
               interpreter_python: auto_silent
-              callbacks_enabled: profile_tasks, timer, yaml # (8)!
+              callback_whitelist: profile_tasks, timer, yaml # (8)!
           inventory:
             links:
               group_vars: ../../../../inventory/group_vars/ # (9)!
@@ -142,7 +143,7 @@ roles/
           destroy_sequence:
             - destroy
         ```
-        
+
         1. List of hosts to provision by *molecule*, copy the list item and use a unique name if you want to deploy multiple containers.
         2. The *name* of your container, for better identification you could use e.g. `demo.${USER}.molecule` which uses your username from environment variable    substitution, showing who deployed the container for what purpose.
         3. Additional *groups* the host should be part of, using a custom `molecule` group for referencing in `converge.yml`.  
@@ -154,7 +155,7 @@ roles/
         8. Adds a timer to every task and the overall playbook run, as well as formatting the Ansible output to YAML for better readability.  
         Install necessary collections with `ansible-galaxy collection install ansible.posix community.general`.
         9. If you want your container to inherit variables from *group_vars*, reference the location of your *group_vars* (here they are stored in the subfolder *inventory* of the project, searching begins in the scenario folder *defaults*). Delete the *inventory* key and all content if you don't need this.
-        10. This runs the Best-Practice checker *ansible-lint* in the *converge* and *test* sequence, must be installed separately, see [Linting](linting.md) for more information. 
+        10. This runs the Best-Practice checker *ansible-lint* in the *converge* and *test* sequence, must be installed separately, see [Linting](linting.md) for more information.
         11. A scenario allows Molecule to test a role in a particular way, these are the stages when executing Molecule.  
         For example, running `molecule converge` would create a container (if not already created), prepare it (if not already prepared), run the *converge* stage and lint the role.  
         Remove the list items you don't need if necessary.
@@ -229,7 +230,7 @@ Molecule is executed from within the role you want to test, change directory:
 ```bash
 cd roles/webserver-demo
 ```
-  
+
 From here, run the molecule scenario.
 
 To only create the defined containers, but not run the Ansible tasks:
