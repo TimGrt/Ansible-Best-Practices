@@ -29,7 +29,11 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - tables
   - toc:
       title: On this page
@@ -106,6 +110,7 @@ nav:
     - "Tasks": ansible/tasks.md
   - "Ansible Development":
     - development/index.md
+    - "Version Control": development/git.md
     - "Linting": development/linting.md
     - "Testing": development/testing.md
     - "Extending": development/extending.md
