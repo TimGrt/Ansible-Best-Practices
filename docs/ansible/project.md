@@ -228,7 +228,7 @@ YAML files are saved with the extension `.yml`.
 
 ## YAML Syntax
 
-Following a basic YAML coding style accross the whole team improves readability and reusability.
+Following a basic YAML coding style across the whole team improves readability and reusability.
 
 ### Indentation
 
@@ -364,7 +364,7 @@ When using quotes, use the same *type* of quotes throughout your playbooks. Alwa
 ## Comments
 
 Use loads of comments!  
-Well, the *name* parameter should desribe your task in detail, but if your task uses multiple filters or regexes, comments should be used for further explanation.  
+Well, the *name* parameter should describe your task in detail, but if your task uses multiple filters or regex's, comments should be used for further explanation.  
 Commented code is generally to be avoided. Playbooks or task files are not committed, if they contain commented out code.  
 
 !!! bad-practice "Bad"

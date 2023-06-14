@@ -29,7 +29,7 @@ collections/
             └── roles
 ```
 
-Create subfolders beneath the `plugins` folder, `modules` for modules and e.g. `filter` for filter plugins. Take a look into the included `README.md` in the *plugins* folder. Store your custom content in python files in the respective folders.
+Create subfolder beneath the `plugins` folder, `modules` for modules and e.g. `filter` for filter plugins. Take a look into the included `README.md` in the *plugins* folder. Store your custom content in python files in the respective folders.
 
 !!! tip
     Only underscores (`_`) are allowed for filenames inside collections!  
@@ -123,7 +123,7 @@ The parent key for the custom fact is the name of the file, the lower keys are t
 You can also use `facts.d` to execute a script on the remote host, generating dynamic custom facts to the *ansible_local* namespace. Consider the following points when creating dynamic custom facts:
 
 * must return JSON data
-* must have the `.fact` extension (therefor add the correct Shebang)
+* must have the `.fact` extension (add the correct Shebang!)
 * is executable by the Ansible connection user
 * dependencies must be installed on the remote host
 
@@ -306,7 +306,7 @@ This file may be used as a minimal starting point, it includes a small example:
         # Function sorts a given list of IP addresses
 
         if NETADDR_IMPORT_ERROR:
-            raise AnsibleError('netaddr libary must be installed to use this plugin') from NETADDR_IMPORT_ERROR
+            raise AnsibleError('netaddr library must be installed to use this plugin') from NETADDR_IMPORT_ERROR
 
         if not isinstance(unsorted_ip_list, list):# (5)!
             raise AnsibleError("Filter needs list input, got '%s'" % type(unsorted_ip_list))
@@ -330,9 +330,9 @@ This file may be used as a minimal starting point, it includes a small example:
 
     1. This is the most generic [AnsibleError object](https://github.com/ansible/ansible/blob/devel/lib/ansible/errors/__init__.py){:target="_blank"}, depending on the specific plugin type you’re developing you may want to use different ones.
     2. Use this to convert plugin output to convert output into Python’s unicode type (*to_text*) or for wrapping other exceptions into error messages (*to_native*).
-    3. This is a non-standard dependency, the user needs to install this beforehand (e.g. `pip3 install netaddr --user`), therefor surrounding it with *try-execpt*. **Document necessary requirements!**
+    3. This is a non-standard dependency, the user needs to install this beforehand (e.g. `pip3 install netaddr --user`), therefor surrounding it with *try-except*. **Document necessary requirements!**
     4. Example plugin definition, this sorts a given list of IP addresses ( Jinja2 *sort* filter does not work correctly with IPs), it expects a list.
-    5. Testing if input is a *list*, otherwise return an error message. Maybe another error type (e.g. *AnsibleFilterTypeError*) is more approriate? What other exceptions need to be caught?
+    5. Testing if input is a *list*, otherwise return an error message. Maybe another error type (e.g. *AnsibleFilterTypeError*) is more appropriate? What other exceptions need to be caught?
     6. This line sorts the list with the [*built-in Python sorted()*](https://docs.python.org/3/library/functions.html#sorted){:target="_blank"} library, the key specifies the comparison key for each list element, it uses the *netaddr* library.
     7. The function returns a sorted list of IPs.
     8. Main class, this is called by Ansible's *PluginLoader*.
@@ -363,9 +363,9 @@ sorted_ip_list: "{{ ip_list | computacenter.utils.sort_ip }}"
 
 ### Inventory plugins
 
-Ansible can pull informations from different sources, like ServiceNow, Cisco etc. If your source is not covered with the integrated inventory plugins, you can create your own.
+Ansible can pull information from different sources, like ServiceNow, Cisco etc. If your source is not covered with the integrated inventory plugins, you can create your own.
 
-For more informations take a look at [Ansible docs - Developing inventory plugin](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html){:target="_blank"}.
+For more information take a look at [Ansible docs - Developing inventory plugin](https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html){:target="_blank"}.
 
 !!! warning "Key things to note"
 

@@ -67,7 +67,7 @@ The following *Dockerfile* can be used to build a Docker Container image which b
     # Enable colored output
     ENV TERM xterm-256color
 
-    # Defining Ansible environment variable to not output depreaction warnings. This is not useful in the linting container.
+    # Defining Ansible environment variable to not output deprecation warnings. This is not useful in the linting container.
     # This overwrites the value in the ansible.cfg from volume mount
     ENV ANSIBLE_DEPRECATION_WARNINGS=false
 
@@ -140,7 +140,7 @@ Lining can and should be done automatically, this way you can't forget to check 
 
 ### Git pre-commit hook
 
-A nice way to check for best practices during your Git worflow is the usage of a *pre-commit* hook. These hooks can be simple bash script, which are run whenever you are commiting changes locally to the staging area or a framework/utility like [pre-commit](https://pre-commit.com/){:target="_blank"}.
+A nice way to check for best practices during your Git workflow is the usage of a *pre-commit* hook. These hooks can be simple bash script, which are run whenever you are committing changes locally to the staging area or a framework/utility like [pre-commit](https://pre-commit.com/){:target="_blank"}.
 
 Take a look at the [Version Control section](git.md#pre-commit) for installing and configuring *pre-commit* hooks.
 

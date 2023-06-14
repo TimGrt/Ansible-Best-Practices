@@ -3,18 +3,30 @@ repos:
     rev: v4.4.0
     hooks:
       - id: check-merge-conflict
+        name: Check for merge conflict markers
       - id: check-yaml
+        name: Check YAML syntax
         args: [--unsafe]
       - id: trailing-whitespace
+        name: Remove trailing whitespaces
         args: [--markdown-linebreak-ext=md]
       - id: no-commit-to-branch
+        name: Ensure committing to allowed branch
       - id: requirements-txt-fixer
+        name: Sort entries in requirements.txt
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.33.0
+    rev: v0.34.0
     hooks:
-      - id: markdownlint-docker
+      - id: markdownlint
+        name: Lint Markdown files
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.22.0
+    rev: 0.23.2
     hooks:
       - id: check-github-actions
       - id: check-github-workflows
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.4
+    hooks:
+      - id: codespell
+        name: Run codespell checker
+        entry: codespell -L aci
