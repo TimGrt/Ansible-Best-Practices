@@ -176,7 +176,7 @@ action_groups:
     ...
 ```
 
-The *group* is called `all`, therefor the module defaults groups needs to be `group/cisco.aci.all`.
+The *group* is called `all`, therefore the module defaults groups needs to be `group/cisco.aci.all`.
 
 !!! note
     Any module defaults set at the play level (and block/task level when using `include_role` or `import_role`) will apply to **any** roles used, which may cause unexpected behavior in the role.

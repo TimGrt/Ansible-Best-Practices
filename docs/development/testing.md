@@ -25,7 +25,7 @@ Running this as a step in a CI Pipeline is advisable.
 ## Molecule
 
 Molecule project is designed to aid in the development and testing of Ansible roles, provides support for testing with multiple instances, operating systems and distributions, virtualization providers, test frameworks and testing scenarios.  
-Molecule is mostly used to test roles in isolation (although it is possible to test multiple roles or playbooks at once). To test against a fresh system, molecule uses Docker to provision virtualized test hosts, run commands on them and assert the success. Molecule does not connect via ssh to the container, instead it uses an Ansible installation inside the container. It is therefor necessary to use a custom build container image.
+Molecule is mostly used to test roles in isolation (although it is possible to test multiple roles or playbooks at once). To test against a fresh system, molecule uses Docker to provision virtualized test hosts, run commands on them and assert the success. Molecule does not connect via ssh to the container, instead it uses an Ansible installation inside the container. It is therefore necessary to use a custom build container image.
 
 Take a look at the [Molecule documentation](https://molecule.readthedocs.io/en/latest/index.html#){ target="_blank" } for a full overview.
 

@@ -1,6 +1,6 @@
 # Version Control
 
-Ansible content should be treated as any project containing source code, therefor using version control is always recommended. This guide focuses on *Git* as it is the most widespread tool.
+Ansible content should be treated as any project containing source code, therefore using version control is always recommended. This guide focuses on *Git* as it is the most widespread tool.
 
 ## Branching concept
 
@@ -193,6 +193,7 @@ Now, push your changes to the upstream repository.
 
 ```bash
 $ git push -u origin
+...
 ```
 
 In the upstream repository, open a *merge request* from your *hotfix* branch to the *main* branch.

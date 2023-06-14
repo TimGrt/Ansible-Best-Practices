@@ -123,7 +123,7 @@ The parent key for the custom fact is the name of the file, the lower keys are t
 You can also use `facts.d` to execute a script on the remote host, generating dynamic custom facts to the *ansible_local* namespace. Consider the following points when creating dynamic custom facts:
 
 * must return JSON data
-* must have the `.fact` extension (therefor add the correct Shebang)
+* must have the `.fact` extension (add the correct Shebang!)
 * is executable by the Ansible connection user
 * dependencies must be installed on the remote host
 
