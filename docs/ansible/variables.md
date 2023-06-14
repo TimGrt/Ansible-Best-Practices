@@ -131,7 +131,7 @@ Encrypting files can be done with this command:
 ansible-vault encrypt group_vars/database_servers/vault.yml
 ```
 
-Once a variable file is encrypted, it should **not** be decrypted again (because it may get commited unencrypted). View or edit the file like this:
+Once a variable file is encrypted, it should **not** be decrypted again (because it may get committed unencrypted). View or edit the file like this:
 
 ```bash
 ansible-vault view group_vars/database_servers/vault.yml
@@ -199,7 +199,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
             The *debug* task does not print the value of the password, the output is censored.
 
             !!! hint
-                Observing the outout from the *"Add user"* task, you can see that the value of the *password* parameter is not shown.
+                Observing the output from the *"Add user"* task, you can see that the value of the *password* parameter is not shown.
                 The *warning* from the *"Add user"* task stating an unencrypted password is related to not having hashed the password. You can achieve this by using the *password_hash* filter:
                 ```yaml
                 password: "{{ vault_password | password_hash('sha512', 'mysecretsalt') }}"
@@ -256,7 +256,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
 
 ### Prevent unintentional commits
 
-Use a *pre-commit hook* to prevent accidentially committing unencrypted sensitive content. The easiest way would be to use the *pre-commit* framework/tool with the following configuration:
+Use a *pre-commit hook* to prevent accidentally committing unencrypted sensitive content. The easiest way would be to use the *pre-commit* framework/tool with the following configuration:
 
 ```yaml title=".pre-commit-config.yaml"
 repos:

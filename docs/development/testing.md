@@ -190,7 +190,7 @@ roles/
                 state: present
         ```
 
-        Remember, you are using a Docker image, not every package from the distribution is installed by default to minimze the image size.
+        Remember, you are using a Docker image, not every package from the distribution is installed by default to minimize the image size.
 
 === "Verification"
     !!! example "verify.yml"

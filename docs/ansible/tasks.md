@@ -42,7 +42,7 @@ Write task names in the imperative (e.g. *"Ensure service is running"*), this co
             name: httpd
             state: present
         ```
-        Using name parameter, but not starting with capital letter, nor desrcibing the task properly.
+        Using name parameter, but not starting with capital letter, nor describing the task properly.
         ```yaml
         - name: install package
           yum:
@@ -106,12 +106,12 @@ Each task must be idempotent, if non-idempotent modules are used (*command*, *sh
 
 ### *command* vs. *shell* module
 
-In most of the use cases, both shell and command modules perform the same job. However, there are few main differences between these two modules. The [*command*](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html){:target="_blank"} module uses the Python interpreter on the target node (as all other modules), the [*shell*](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html){:target="_blank"} module runs a real shell on the target (pipeing and redirections are available, as well as access to environment variables).
+In most of the use cases, both shell and command modules perform the same job. However, there are few main differences between these two modules. The [*command*](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html){:target="_blank"} module uses the Python interpreter on the target node (as all other modules), the [*shell*](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html){:target="_blank"} module runs a real shell on the target (pipes and redirects are available, as well as access to environment variables).
 
 !!! tip
     Always try to use the `command` module over the `shell` module, if you do not explicitly need shell functionality.
 
-Parsing shell metacharacters can lead to unexpected commands being executed if quoting is not done correctly so it is more secure to use the command module when possible. To sanitize any variables passed to the shell module, you should use `{{ var | quote }}` instead of  
+Parsing shell meta-characters can lead to unexpected commands being executed if quoting is not done correctly so it is more secure to use the command module when possible. To sanitize any variables passed to the shell module, you should use `{{ var | quote }}` instead of  
 just `{{ var }}` to make sure they do not include evil things like semicolons.
 
 ### *creates* and *removes*

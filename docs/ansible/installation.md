@@ -166,7 +166,7 @@ Define at least the definition file for the Execution Environment and other file
         subversion [platform:dpkg]
         ```
 
-For more information, go to the [Ansible Builder Documenction](https://ansible-builder.readthedocs.io/en/stable/){ target=_blank }
+For more information, go to the [Ansible Builder Documentation](https://ansible-builder.readthedocs.io/en/stable/){ target=_blank }
 
 To build the EE, run this command (assuming you have Docker installed, by default Podman is used):
 

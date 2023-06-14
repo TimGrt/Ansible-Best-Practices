@@ -5,7 +5,7 @@ Ansible content should be treated as any project containing source code, therefo
 ## Branching concept
 
 Branches are a part of your everyday development process, they are effectively a pointer to a snapshot of your changes. When you want to add a new feature or fix a bug, you spawn a new branch to encapsulate your changes. This makes it harder for unstable code to get merged into the main code base, and it gives you the chance to clean up your future's history before merging it into the main branch.  
-We are using to following branches:
+We are using the following branches:
 
 * main (protected, only merge commits are allowed)
 * dev (protected, force-pushes are allowed)
@@ -98,7 +98,7 @@ $ git push -u origin
 
 ### Bugfix request
 
-In case you need to fix a bug in a role or playbook, fork a new branch from *dev* and prefix your branch-name with `bugfix/` and provide a short, but meaningful description of the unwanted behaviour.  
+In case you need to fix a bug in a role or playbook, fork a new branch from *dev* and prefix your branch-name with `bugfix/` and provide a short, but meaningful description of the unwanted behavior.  
 
 !!! info
     The steps are the same as for a feature branch, only the branch-name should indicate that a bug is to be fixed.
@@ -255,7 +255,7 @@ pre-commit autoupdate
 !!! success
     *pre-commit* will now run on every commit.
 
-You can run all hooks at any time with the following command, without commiting:
+You can run all hooks at any time with the following command, without committing:
 
 ```bash
 pre-commit run -a
@@ -291,7 +291,7 @@ pre-commit run -a
     ```
 
 !!! hint
-    The first time pre-commit runs on a file it will automatically download, install, and run the hook. Note that running a hook for the first time may be slow. but will be faster in subsquent iterations.
+    The first time pre-commit runs on a file it will automatically download, install, and run the hook. Note that running a hook for the first time may be slow. but will be faster in subsequent iterations.
 
 #### Offline
 
@@ -372,4 +372,3 @@ The following script can be used as a starting point, it uses *ansible-lint* fro
     fi
     exit $EXIT_STATUS
     ```
-
