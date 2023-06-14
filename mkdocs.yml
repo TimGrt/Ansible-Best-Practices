@@ -58,7 +58,6 @@ plugins:
       add_print_site_banner: true
       cover_page_template: "docs/assets/pdf/cover-page.tpl"
       enabled: !ENV [ENABLED_PRINT_SITE, True]
-      path_to_pdf: "docs/assets/ansible-best-practices.pdf"
       print_page_title: ""
       print_site_banner_template: "docs/assets/pdf/print-banner.tpl"
 theme:
