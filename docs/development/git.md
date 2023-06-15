@@ -2,6 +2,47 @@
 
 Ansible content should be treated as any project containing source code, therefore using version control is always recommended. This guide focuses on *Git* as it is the most widespread tool.
 
+## Workflow
+
+### From/to remote repo
+
+``` mermaid
+sequenceDiagram
+  Upstream Repository->>Workspace: git clone
+  Upstream Repository->>Workspace: git pull
+  Upstream Repository->>Local Repository: git fetch
+  Local Repository->>Upstream Repository: git push
+  Local Repository->>Upstream Repository: git push <branch>
+```
+
+### From local repo
+
+``` mermaid
+sequenceDiagram
+  Local Repository->>Workspace: git checkout -b <branch>
+  Local Repository->>Workspace: git switch/checkout <branch>
+  Local Repository->>Workspace: git reset --hard
+  Local Repository->>Staging Area: git reset --soft HEAD
+```
+
+### Workspace to local repo
+
+``` mermaid
+sequenceDiagram
+  Workspace->>Staging Area: git add
+  Workspace->>Staging Area: git add -A
+  Staging Area->>Local Repository: git commit -m "Text"
+```
+
+### Workspace stash
+
+``` mermaid
+sequenceDiagram 
+  Workspace->>Stash: git stash
+  Stash->>Wokspace: git stash apply
+  Stash->>Wokspace: git stash pop
+```
+
 ## Branching concept
 
 Branches are a part of your everyday development process, they are effectively a pointer to a snapshot of your changes. When you want to add a new feature or fix a bug, you spawn a new branch to encapsulate your changes. This makes it harder for unstable code to get merged into the main code base, and it gives you the chance to clean up your future's history before merging it into the main branch.  
