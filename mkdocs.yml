@@ -1,7 +1,7 @@
 # MkDocs configuration file
 site_name: Ansible Best Practices
 site_description: Best Practices and Style Guide for Ansible Projects
-copyright: Copyright &copy; Computacenter 2022
+copyright: Copyright &copy; Computacenter 2023
 edit_uri: ""
 extra:
   social:
