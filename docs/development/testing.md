@@ -50,15 +50,25 @@ Install dependencies (an own Ansible is necessary, `ansible-lint` is optional, b
 pip3 install --upgrade pip
 pip3 install ansible-core
 pip3 install molecule
-pip3 install molecule-docker
+pip3 install molecule-plugins[docker]
 pip3 install ansible-lint
 ```
 
+Molecule plugins contains the following provider:
+
+* azure
+* containers
+* docker
+* ec2
+* gce
+* podman
+* vagrant
+
 !!! note
     Currently (21.05.2022), there is a bug when trying to login with `molecule login` command. Use version 3.5.2 of the molecule package!  
-    This is fixed in version 4.0.3, update if possible.
+    This is fixed in version >4.0.3, update if possible.
 
-Python package `molecule-docker` requires the modules of the *community.docker* collection. When you only installed `ansible-core`, you'll need to install the collection separately:
+Python package `molecule-plugins[docker]` requires the modules of the *community.docker* collection. When you only installed `ansible-core`, you'll need to install the collection separately:
 
 ```bash
 ansible-galaxy collection install community.docker
@@ -67,6 +77,12 @@ ansible-galaxy collection install community.docker
 Use `deactivate` to leave your VE.
 
 ### Configuration
+
+There are two different ways to create a working folder. A manual creation like in the example below or with the bash command:
+
+```bash 
+molecule init role computacenter.webserver-demo --driver-name docker
+```
 
 You may use these example configurations as a starting point. It expects that the [Docker image](https://hub.docker.com/r/timgrt/centos7-ansible) is already present (use `docker pull timgrt/centos7-ansible`) and `ansible-lint` is installed. See the install instructions above.
 
