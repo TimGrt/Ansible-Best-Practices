@@ -58,6 +58,7 @@ body:
       - Playbook
       - Roles
       - Tasks
+      - Version Control
       - Linting
       - Testing
       - Extending
