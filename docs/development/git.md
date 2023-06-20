@@ -2,45 +2,76 @@
 
 Ansible content should be treated as any project containing source code, therefore using version control is always recommended. This guide focuses on *Git* as it is the most widespread tool.
 
+## Installation
+
+Most Linux distributions already have *Git* installed, otherwise install the package with the package manager of the system, for example:
+
+```bash
+sudo yum install git
+```
+
+## Configuration
+
+Git needs some minimal configuration, most important you need to tell Git who you are.
+
+```bash
+git config --global user.name "Your Name"
+```
+
+```bash
+git config --global user.email "your.mail@computacenter.com"
+```
+
+Every commit you make can now be traced back to you, this enables collaborating work on Ansible projects.
+
 ## Workflow
 
-### From/to remote repo
+ Git has multiple *states* that your files can reside in:
 
-``` mermaid
+* *untracked*
+* *modified*
+* *staged*
+* *committed*
+
+The files *flow* through different sections of your Git project:
+
+* **Working Directory** - also called *Working tree*, this is basically your filesystem where you are developing
+* **Staging Area** - also called *Index*, the files that will go into your next commit
+* **Local Repository** - the `.git` folder where metadata and objects are stored for your project.
+* **Remote Repository** - the (optional, but recommended) *upstream* repository
+
+!!! success
+    Although this seems complicated, don't worry, in most cases Git is fairly easy.
+
+The basic Git workflow goes something like this:
+
+1. You modify files in your working tree.
+2. You selectively stage just those changes you want to be part of your next commit, which adds only those changes to the staging area.
+3. You do a commit, which takes the files as they are in the staging area and stores that snapshot permanently to your Git directory.
+
+The commands you will be using the most and how the files in different states flow through the stages is shown below:
+
+``` .mermaid
 sequenceDiagram
-  Upstream Repository->>Workspace: git clone
-  Upstream Repository->>Workspace: git pull
-  Upstream Repository->>Local Repository: git fetch
-  Local Repository->>Upstream Repository: git push
-  Local Repository->>Upstream Repository: git push <branch>
-```
-
-### From local repo
-
-``` mermaid
-sequenceDiagram
-  Local Repository->>Workspace: git checkout -b <branch>
-  Local Repository->>Workspace: git switch/checkout <branch>
-  Local Repository->>Workspace: git reset --hard
-  Local Repository->>Staging Area: git reset --soft HEAD
-```
-
-### Workspace to local repo
-
-``` mermaid
-sequenceDiagram
-  Workspace->>Staging Area: git add
-  Workspace->>Staging Area: git add -A
-  Staging Area->>Local Repository: git commit -m "Text"
-```
-
-### Workspace stash
-
-``` mermaid
-sequenceDiagram 
-  Workspace->>Stash: git stash
-  Stash->>Wokspace: git stash apply
-  Stash->>Wokspace: git stash pop
+  box Remote
+  participant UR as Upstream Repository
+  end
+  box Local
+  participant LR as Local Repository
+  participant SG as Staging Area
+  participant WS as Working Directory
+  participant SH as Stash
+  end
+  UR->>WS: git clone
+  UR->>WS: git pull
+  UR->>LR: git fetch
+  LR->>WS: git checkout -b <branch-name>
+  WS->>SG: git add <file>
+  WS->>SG: git add -A
+  SG->>LR: git commit -m "Commit message"
+  LR->>UR: git push
+  WS->>SH: git stash
+  SH->>WS: git stash pop
 ```
 
 ## Branching concept
@@ -60,7 +91,7 @@ The *main* branch is the *production-code*, forking (a *feature* or *bugfix* bra
 
 Creating a new feature should be done with a fork of the *latest* stage of the dev branch, prefix your branch-name with `feature/` and provide a short, but meaningful description of the new feature.
 
-``` mermaid
+``` { .mermaid }
 gitGraph
    commit
    commit
@@ -117,7 +148,7 @@ $ git add -A
 $ git commit -m "Added tasks to configure Postgres High-Availability."
 ```
 
-As the last step, before pushing your changes to the upstream repository and opening a *merge request*, ensure that the latest changes from the *dev* branch (which were made by others during your feature development) are also in your branch and no merge conflicts arise.  
+As the last step, before pushing your changes to the UR and opening a *merge request*, ensure that the latest changes from the *dev* branch (which were made by others during your feature development) are also in your branch and no merge conflicts arise.  
 Do the following steps:
 
 ```bash
@@ -230,14 +261,14 @@ $ git add -A
 $ git commit -m "Fixes Issue #31, will restore prod environment."
 ```
 
-Now, push your changes to the upstream repository.
+Now, push your changes to the UR.
 
 ```bash
 $ git push -u origin
 ...
 ```
 
-In the upstream repository, open a *merge request* from your *hotfix* branch to the *main* branch.
+In the UR, open a *merge request* from your *hotfix* branch to the *main* branch.
 
 !!! note
     After rolling out the changes to the production environment and ensuring the hotfix works as expected, open a new merge request against the *dev* branch to ensure the fixes are also available in the development stage.
@@ -361,7 +392,7 @@ The following script can be used as a starting point, it uses *ansible-lint* fro
       FILES_TO_LINT=$(git diff --cached --name-only)
       # Running with shared profile, see https://ansible-lint.readthedocs.io/profiles/
       if [ -z "$FILES_TO_LINT" ] ; then
-        echo "# No files linting found. Add files to staging area with 'git add <file>'."
+        echo "# No files linting found. Add files to SG area with 'git add <file>'."
       else
         docker run --rm -v $(pwd):/data ansible-lint $FILES_TO_LINT
         if [ ! $? = 0 ]; then
