@@ -28,7 +28,7 @@ The variable name should be self-explanatory (*as brief as possible, as detailed
         ```
 === "Bad"
     !!! bad-practice-no-title ""
-        ```yaml
+        ``` { .yaml .no-copy }
         dir: ~/.local/bin
         create_key: yes
         needsAgent: no
@@ -60,14 +60,14 @@ Bracket notation always works and you can use variables inside the brackets. Dot
 === "Bad"
     !!! bad-practice-no-title ""
         Not using whitespaces around variable name.
-        ```yaml
+        ``` { .yaml .no-copy }
         - name: Deploy configuration file
           ansible.builtin.template:
             src: foo.cfg.j2
             dest: "{{remote_install_path}}/foo.cfg"
         ```
         Not using whitespaces and using dot-notation.
-        ```yaml
+        ``` { .yaml .no-copy }
         - name: Output IPv4 address of eth0 interface
           ansible.builtin.debug:
             msg: "{{ansible_facts.eth0.ipv4.address}}"
@@ -101,7 +101,7 @@ Inside of the `vars.yml` file, define all of the variables needed, including any
             Obviously, you wouldn't be able to read the content of the file `group_vars/database_servers/vault.yml`, as the file would be encrypted.  
             **This only demonstrates how the variables are referencing each other.**  
             The encrypted `vault.yml` file looks something like this:
-            ```yaml
+            ``` { .yaml .no-copy }
             $ANSIBLE_VAULT;1.1;AES256
             30653164396132376333316665656131666165613863343330616666376264353830323234623631
             6361303062336532303665643765336464656164363662370a663834313837303437323332336631
@@ -118,7 +118,7 @@ Inside of the `vars.yml` file, define all of the variables needed, including any
             ```
 === "Bad"
     !!! bad-practice-no-title ""
-        ```yaml
+        ``` { .bash .no-copy }
         # file: group_vars/database_servers.yml
         username: admin
         password: ex4mple
@@ -169,7 +169,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
         ```
         ??? info "Output of playbook run"
             Using the *stdout_callback: community.general.yaml* for better readability, see [Ansible configuration](project.md#ansible-configuration) for more info.  
-            ```bash hl_lines="22"
+            ``` { .bash .no-copy .hl_lines="22" }
             $ ansible-playbook nolog.yml -v
 
             [...]
@@ -211,7 +211,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
                 In this example, the salt is stored in a variable, the same way as the password itself. If you hashed the password, the warning will disappear.
 === "Bad"
     !!! bad-practice-no-title ""
-        ```yaml hl_lines="13"
+        ``` { .yaml .no-copy hl_lines="13" }
         - name: Not using no_log parameter
           hosts: database_servers
           become: true
@@ -227,7 +227,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
         ​
         ```
         ??? info "Output of playbook run"
-            ```bash hl_lines="22"
+            ``` { .bash .no-copy .hl_lines="22" }
             $ ansible-playbook nolog.yml -v
 
             [...]
@@ -261,7 +261,7 @@ Use a *pre-commit hook* to prevent accidentally committing unencrypted sensitive
 ```yaml title=".pre-commit-config.yaml"
 repos:
   - repo: https://github.com/timgrt/pre-commit-hooks
-      rev: v0.2.0
+      rev: v0.2.1
       hooks:
         - id: check-vault-files
 ```

@@ -68,7 +68,7 @@ ansible-galaxy role init roles/demo
 
 This would create the following directory:
 
-```bash
+``` { .bash .no-copy }
 roles/demo/
 ├── defaults
 │   └── main.yml
@@ -96,7 +96,7 @@ At least the folders (and content) `tests` (a sample inventory and playbook for 
 
 Consider the following role skeleton, note the missing *vars* and *test* folder and the newly added [Molecule folder](testing.md#molecule).
 
-```bash
+``` { .bash .no-copy }
 roles/role-skeleton/
 ├── defaults
 │   └── main.yml

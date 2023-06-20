@@ -25,14 +25,14 @@ Most OS package managers like *apt* or *yum* also provide the `ansible-core` or 
 ??? example "Installing Ansible with OS package manager"
     Even in fairly recent distributions the Ansible versions are not up to date:
 
-    ```bash title="Python package manager" hl_lines="3"
+    ``` { .bash .no-copy .title="Python package manager" .hl_lines="3" }
     $ pip3 show ansible-core
     Name: ansible-core
     Version: 2.14.3
     ...
     ```
 
-    ```bash title="RockyLinux 8.7 (RHEL 8)" hl_lines="4"
+    ``` { .bash .no-copy .title="RockyLinux 8.7 (RHEL 8)" .hl_lines="4" }
     $ dnf info ansible-core
     Available Packages
     Name         : ansible-core
@@ -45,7 +45,7 @@ Most OS package managers like *apt* or *yum* also provide the `ansible-core` or 
     ...
     ```
 
-    ```bash title="Ubuntu 22.04" hl_lines="3"
+    ``` { .bash .no-copy .title="Ubuntu 22.04" .hl_lines="3" }
     $ apt info ansible-core
     Package: ansible-core
     Version: 2.12.0-1ubuntu0.1
@@ -176,7 +176,7 @@ ansible-builder build --tag=demo/openshift-ee --container-runtime=docker
 
 The resulting container images can be viewed with the `docker images` command:
 
-```bash
+``` { .bash .no-copy }
 $ docker images
 REPOSITORY                        TAG       IMAGE ID       CREATED              SIZE
 demo/openshift-ee                 latest    2ea9d5d7b185   10 seconds ago       1.14GB
@@ -206,7 +206,7 @@ Most parameters should be self-explanatory:
 
 The output looks like expected:
 
-```bash
+``` { .bash .no-copy }
 $ ansible-runner run --container-image demo/openshift-ee /tmp -m setup --hosts localhost
 [WARNING]: No inventory was parsed, only implicit localhost is available
 localhost | SUCCESS => {

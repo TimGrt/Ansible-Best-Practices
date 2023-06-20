@@ -3,7 +3,7 @@
 Tasks should always be inside of a role. Do not use tasks in a play directly.  
 Logically related tasks are to be separated into individual files, the `main.yml` of a role only imports other task files.
 
-```bash
+``` { .bash .no-copy }
 .
 └── roles
     └── k8s-bootstrap
@@ -37,13 +37,13 @@ Write task names in the imperative (e.g. *"Ensure service is running"*), this co
         ```
 === "Bad"
     !!! bad-practice-no-title ""
-        ```yaml
+        ``` { .yaml .no-copy }
         - yum:
             name: httpd
             state: present
         ```
         Using name parameter, but not starting with capital letter, nor describing the task properly.
-        ```yaml
+        ``` { .yaml .no-copy }
         - name: install package
           yum:
             name: httpd
@@ -68,7 +68,7 @@ For example, having a sub-task file `tasks/kubeadm-setup.yml` with every task in
 
 The log output will then look like this:
 
-```bash
+``` { .bash .no-copy }
 ...
 TASK [k8s-bootstrap: kubeadm-setup | Install kubeadm, kubelet and kubectl] **********
 changed: [kubemaster]
@@ -134,7 +134,7 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
 === "Bad"
     !!! bad-practice-no-title ""
         This task never reports a changed state or fails when an error occurs.
-        ```yaml
+        ``` { .yaml .no-copy }
         - name: Install webserver package
           shell: sudo yum install http
           changed_when: false
@@ -155,7 +155,7 @@ Use the *full qualified collection names (FQCN)* for modules, they are supported
         ```
 === "Bad"
     !!! bad-practice-no-title ""
-        ```yaml
+        ``` { .yaml .no-copy }
         - yum:
             name: httpd
             state: present
@@ -194,7 +194,7 @@ For those used to */usr/bin/chmod*, remember that modes are actually octal numbe
 === "Bad"
     !!! bad-practice-no-title ""
         Missing leading zero:
-        ```yaml
+        ``` { .yaml .no-copy }
         - name: copy index
           template:
             src: welcome.html
@@ -205,7 +205,7 @@ For those used to */usr/bin/chmod*, remember that modes are actually octal numbe
           become: true
         ```
         This leads to these permissions!
-        ```bash
+        ``` { .bash .no-copy }
         [root@demo /]# ll /var/www/html/
         total 68
         --w----r-T 1 apache apache 67691 Nov 18 14:30 index.html
@@ -232,7 +232,7 @@ If the `when:` condition results in a line that is very long, and is an `and` ex
         ```
 === "Bad"
     !!! bad-practice-no-title ""
-        ```yaml
+        ``` { .yaml .no-copy }
         - name: Set motd message for k8s worker node
           copy:
             content: "This host is used as k8s worker.\n"
@@ -268,7 +268,7 @@ When using conditions on *blocks*, move the `when` statement to the top, below t
         ```
 === "Bad"
     !!! bad-practice-no-title ""
-        ```yaml
+        ``` { .yaml .no-copy }
         - name: Install, configure, and start Apache
           block:
             - name: Install httpd and memcached
@@ -356,7 +356,7 @@ Running the playbook results in the following task output, only the content of t
 === "Bad"
     !!! bad-practice-no-title ""
         Not using the `label` in the `loop_control` dictionary results in a very long output:
-        ```bash
+        ``` { .bash .no-copy }
         TASK [common : Create local users] *********************************************
         Friday 18 November 2022  12:22:40 +0100 (0:00:01.512)       0:00:03.609 *******
         changed: [demo] => (item={'name': 'tgruetz', 'groups': 'admins,docker', 'append': False, 'comment': 'Tim Grützmacher', 'shell': '/bin/bash', 'password_expire_max': 90})

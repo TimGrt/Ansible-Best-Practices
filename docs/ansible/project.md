@@ -35,7 +35,7 @@ The markers are `DRY RUN` at the beginning and ending of playbook execution (whe
 
 ??? example
 
-    ```bash
+    ``` { .bash .no-copy }
     $ ansible-playbook -i inventory.ini playbook.yml -C
 
     DRY RUN ******************************************************************
@@ -63,7 +63,8 @@ show_task_path_on_failure = true
 ??? example
 
     When set to `true`:
-    ```bash
+
+    ``` { .bash .no-copy }
     ...
 
     TASK [Set motd message for k8s worker node] **************************************************
@@ -72,8 +73,10 @@ show_task_path_on_failure = true
     ...
 
     ```
+
     When set to `false`:
-    ```bash
+
+    ``` { .bash .no-copy }
     ...
 
     TASK [Set motd message for k8s worker node] ****************************************************
@@ -128,7 +131,7 @@ pip3 install -r requirements.txt
 
 ## Directory structure
 
-```bash
+``` { .bash .no-copy }
 .
 ├── ansible.cfg
 ├── hosts
@@ -164,7 +167,7 @@ YAML files are saved with the extension `.yml`.
 
 === "Good"
     !!! good-practice-no-title ""
-        ```bash
+        ``` { .bash .no-copy }
         .
         ├── ansible.cfg
         ├── hosts
@@ -194,7 +197,7 @@ YAML files are saved with the extension `.yml`.
 === "Bad"
     !!! bad-practice-no-title ""
         Playbook-name without hyphens and wrong file extension, role folders or task files inconsistent, with underscores and wrong extension.
-        ```bash
+        ``` { .bash .no-copy }
         .
         ├── ansible.cfg
         ├── hosts
@@ -255,7 +258,7 @@ Two spaces are used to indent everything, e.g. list items or dictionary keys.
 === "Bad"
     !!! bad-practice-no-title ""
         Playbook with roles **not** indented by two whitespaces.
-        ```yaml
+        ``` { .yaml .no-copy }
         - name: Demo play
           hosts: database_servers
           roles:
@@ -263,7 +266,7 @@ Two spaces are used to indent everything, e.g. list items or dictionary keys.
           - postgres
         ```
         List in variable-file indented with four whitespaces:
-        ```yaml
+        ``` { .yaml .no-copy }
         ntp_server_list:
             - 0.de.pool.ntp.org
             - 1.de.pool.ntp.org
@@ -294,12 +297,12 @@ The so-called YAML "one-line" syntax is not used, neither for passing parameters
 === "Bad"
     !!! bad-practice-no-title ""
         Task with *One-line* syntax:
-        ```yaml
+        ```{ .yaml .no-copy }
         - name: Install the latest version of Apache from the testing repo
           yum: name=httpd enablerepo=testing state=present
         ```
         List in task with *One-line* syntax:
-        ```yaml
+        ```{ .yaml .no-copy }
         - name: Install a list of packages
           yum:
             name: ['nginx', 'postgresql', 'postgresql-server']
@@ -322,7 +325,7 @@ Do not use the Ansible-specific `yes` and `no` as boolean values in YAML as thes
         ```
 === "Bad"
     !!! bad-practice-no-title ""
-        ```yaml
+        ```{ .yaml .no-copy }
         - name: Start and enable service httpd
           ansible.builtin.service:
             name: httpd
@@ -347,7 +350,7 @@ Use the `| bool` filter when using bare variables (expressions consisting of jus
         ```
 === "Bad"
     !!! bad-practice-no-title ""
-        ```yaml
+        ```{ .yaml .no-copy }
         - name: Upgrade all packages, excluding kernel & foo related packages
           ansible.builtin.yum:
             name: "*"
@@ -369,7 +372,7 @@ Commented code is generally to be avoided. Playbooks or task files are not commi
 
 !!! bad-practice "Bad"
     Why is the second task commented? Is it not necessary anymore? Does it not work as expected?
-    ```yaml
+    ```{ .yaml .no-copy }
     - name: Change port to {{ grafana_port }}
       community.general.ini_file:
         path: /etc/grafana/grafana.ini
