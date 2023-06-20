@@ -16,7 +16,7 @@ ansible-galaxy collection init computacenter.utils --init-path collections/ansib
 
 This creates the following structure:
 
-```bash
+``` { .bash .no-copy }
 collections/
 └── ansible_collections
     └── computacenter
@@ -50,7 +50,7 @@ The first two paths are the default locations for collections, paths are separat
 
 ??? example "Listing collections"
     Using a custom collection in the project folder `test` with adjusted configuration file.
-    ```bash
+    ``` { .bash .no-copy }
     $ ansible-galaxy collection list
 
     # /home/tgruetz/.ansible/collections/ansible_collections
@@ -92,7 +92,7 @@ stage=production
 
 For example, running an ad-hoc command against an example host with the custom fact:
 
-```bash
+``` { .bash .no-copy }
 $ ansible -i inventory test -m ansible.builtin.setup -a filter=ansible_local
 ubuntu | SUCCESS => {
      "ansible_facts": {
@@ -180,14 +180,14 @@ The custom fact returns a JSON dictionary with two lists, `running` and `exited`
     Using the fact requires the Python docker module (mind the `import docker` statement) and the Docker service running on the target node.  
     Otherwise, an error message is returned, e.g.:
 
-    ```bash
+    ``` { .bash .no-copy }
     "ansible_local": {
             "docker-containers": {
                 "error": "Python docker module not found! Install requirements!"
             }
         }
     ```
-    ```bash
+    ``` { .bash .no-copy }
     "ansible_local": {
             "docker-containers": {
                 "error": "Docker Client not instantiated! Is Docker running?"
@@ -197,7 +197,7 @@ The custom fact returns a JSON dictionary with two lists, `running` and `exited`
 
 Executing fact gathering for example returns this:
 
-```bash
+``` { .bash .no-copy }
 $ ansible -i inventory test -m setup -a filter=ansible_local
 ubuntu | SUCCESS => {
     "ansible_facts": {
@@ -229,14 +229,14 @@ In the example, we have one running container and one stopped container.
 
 ??? example "Additional info"
     Running `docker ps` on the target host
-    ```bash
+    ``` { .bash .no-copy }
     $ docker ps -a
     CONTAINER ID   IMAGE                                 COMMAND                  CREATED             STATUS                           PORTS                  NAMES
     a6bfc512b842   timgrt/rockylinux8-ansible:latest     "/usr/lib/systemd/sy…"   About an hour ago   Exited (137) About an hour ago                          rocky-linux
     f3731d560625   local/timgrt/ansible-best-practices   "/bin/sh -c 'python …"   4 hours ago         Up 4 hours                       0.0.0.0:8080->80/tcp   ansible-best-practices
     ```
     Executing the script standalone (using a JSON module for better readability):
-    ```bash
+    ``` { .bash .no-copy }
     $ /etc/ansible/facts.d/docker-containers.fact | python3 -m json.tool
     {
         "running": [
@@ -330,7 +330,7 @@ This file may be used as a minimal starting point, it includes a small example:
 
     1. This is the most generic [AnsibleError object](https://github.com/ansible/ansible/blob/devel/lib/ansible/errors/__init__.py){:target="_blank"}, depending on the specific plugin type you’re developing you may want to use different ones.
     2. Use this to convert plugin output to convert output into Python’s unicode type (*to_text*) or for wrapping other exceptions into error messages (*to_native*).
-    3. This is a non-standard dependency, the user needs to install this beforehand (e.g. `pip3 install netaddr --user`), therefor surrounding it with *try-except*. **Document necessary requirements!**
+    3. This is a non-standard dependency, the user needs to install this beforehand (e.g. `pip3 install netaddr --user`), therefore surrounding it with *try-except*. **Document necessary requirements!**
     4. Example plugin definition, this sorts a given list of IP addresses ( Jinja2 *sort* filter does not work correctly with IPs), it expects a list.
     5. Testing if input is a *list*, otherwise return an error message. Maybe another error type (e.g. *AnsibleFilterTypeError*) is more appropriate? What other exceptions need to be caught?
     6. This line sorts the list with the [*built-in Python sorted()*](https://docs.python.org/3/library/functions.html#sorted){:target="_blank"} library, the key specifies the comparison key for each list element, it uses the *netaddr* library.
@@ -340,7 +340,7 @@ This file may be used as a minimal starting point, it includes a small example:
 
 The Python file needs to be stored in a collection, e.g.:
 
-```bash
+``` { .bash .no-copy }
 collections/
 └── ansible_collections
     └── computacenter
@@ -463,7 +463,7 @@ This file may be used as a minimal starting point, it includes a small example:
 
 The Python file needs to be stored in a collection, e.g.:
 
-```bash
+``` { .bash .no-copy }
 collections/
 └── ansible_collections
     └── computacenter

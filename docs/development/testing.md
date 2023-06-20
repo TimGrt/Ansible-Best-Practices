@@ -85,14 +85,14 @@ Use `deactivate` to leave your VE.
     molecule init scenario --driver-name docker
     ```
 
-    After the creation of the molecule folder, copy paste the file contents of the different configuration files below into the newly created YAML files. If you 
+    After the creation of the molecule folder, copy paste the file contents of the different configuration files below into the newly created YAML files. If you
     do not use the *init scenario* command, you need to create the folders and files yourself.
 
 You may use these example configurations as a starting point. It expects that the [Docker image](https://hub.docker.com/r/timgrt/centos7-ansible) is already present (use `docker pull timgrt/centos7-ansible`) and `ansible-lint` is installed. See the install instructions above.
 
 The *molecule* configuration files are kept in the role folder you want to test. Create the directory `molecule/default` and at least the `molecule.yml` and `converge.yml`:
 
-```bash hl_lines="5 6 7 8"
+``` { .bash .no-copy .hl_lines="5 6 7 8" }
 roles/
 └── webserver-demo
     ├── defaults
