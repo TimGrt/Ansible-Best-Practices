@@ -79,13 +79,14 @@ Use `deactivate` to leave your VE.
 ### Configuration
 
 !!! note
-    For a manual creation of the molecule working directory, run the following bash command at your current ansible role folder:
+    For a automatic creation of the molecule working directory, run the following bash command **inside** your current Ansible role folder:
 
     ```bash
     molecule init scenario --driver-name docker
     ```
 
-    After the creation of the molecule folder copy past the file content from below inside the new created yml files.
+    After the creation of the molecule folder, copy paste the file contents of the different configuration files below into the newly created YAML files. If you 
+    do not use the *init scenario* command, you need to create the folders and files yourself.
 
 You may use these example configurations as a starting point. It expects that the [Docker image](https://hub.docker.com/r/timgrt/centos7-ansible) is already present (use `docker pull timgrt/centos7-ansible`) and `ansible-lint` is installed. See the install instructions above.
 
