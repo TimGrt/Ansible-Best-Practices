@@ -17,7 +17,7 @@ rocky8 ansible_connection=docker
 
 You can convert your existing inventory to the YAML format with the `ansible-inventory` utility.
 
-```bash
+```console
 ansible-inventory -i inventory.ini -y --list > inventory.yml
 ```
 

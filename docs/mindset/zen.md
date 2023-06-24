@@ -1,6 +1,6 @@
 # The Zen of Ansible  
 
-```Text title="20 aphorisms for Ansible"
+```text title="20 aphorisms for Ansible"
 1. Ansible is not Python.
 2. YAML sucks for coding.
 3. Playbooks are not for programming.

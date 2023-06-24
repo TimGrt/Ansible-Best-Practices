@@ -16,7 +16,7 @@ Consider the following list for testing your Ansible content, with increasing co
 
 The whole playbook (and all roles and tasks) need to, minimally, pass a basic ansible-playbook syntax check run.
 
-```bash
+```console
 ansible-playbook main.yml --syntax-check
 ```
 
@@ -34,19 +34,19 @@ Take a look at the [Molecule documentation](https://molecule.readthedocs.io/en/l
 The described configuration below expects the Docker container runtime on the Ansible Controller (other drivers are available), the binary and dependencies are installed through the *Python package manager*.  
 Use a *Python Virtual environment* (requires the `python3-venv` package) to encapsulate the installation from the rest of your Controller.
 
-```bash
+```console
 python3 -m venv molecule-venv
 ```
 
 Activate the VE:
 
-```bash
+```console
 source molecule-virtualenv/bin/activate
 ```
 
 Install dependencies (an own Ansible is necessary, `ansible-lint` is optional, but useful):
 
-```bash
+```console
 pip3 install --upgrade pip
 pip3 install ansible-core
 pip3 install molecule
@@ -70,7 +70,7 @@ Molecule plugins contains the following provider:
 
 Python package `molecule-plugins[docker]` requires the modules of the *community.docker* collection. When you only installed `ansible-core`, you'll need to install the collection separately:
 
-```bash
+```console
 ansible-galaxy collection install community.docker
 ```
 
@@ -81,7 +81,7 @@ Use `deactivate` to leave your VE.
 !!! note
     For a automatic creation of the molecule working directory, run the following bash command **inside** your current Ansible role folder:
 
-    ```bash
+    ```console
     molecule init scenario --driver-name docker
     ```
 
@@ -92,7 +92,7 @@ You may use these example configurations as a starting point. It expects that th
 
 The *molecule* configuration files are kept in the role folder you want to test. Create the directory `molecule/default` and at least the `molecule.yml` and `converge.yml`:
 
-``` { .bash .no-copy .hl_lines="5 6 7 8" }
+``` { .console .no-copy .hl_lines="5 6 7 8" }
 roles/
 └── webserver-demo
     ├── defaults
@@ -247,7 +247,7 @@ roles/
 
 Molecule is executed from within the role you want to test, change directory:
 
-```bash
+```console
 cd roles/webserver-demo
 ```
 
@@ -255,18 +255,18 @@ From here, run the molecule scenario.
 
 To only create the defined containers, but not run the Ansible tasks:
 
-```bash
+```console
 molecule create
 ```
 
 To run the Ansible tasks of the role (if the container does not exist, it will be created):
 
-```bash
+```console
 molecule converge
 ```
 
 To execute a full test circle (existing containers are deleted, re-created and Ansible tasks are executed, containers are deleted(!) afterwards):
 
-```bash
+```console
 molecule test
 ```

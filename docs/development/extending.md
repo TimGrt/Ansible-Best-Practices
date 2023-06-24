@@ -10,13 +10,13 @@ Custom modules can be stored in the `library` folder in your project root direct
 
 You can store custom collections with your Ansible project, create it with the *ansible-galaxy* utility and provide the `--init-path` parameter. The folder `collections/ansible_collections` will automatically be picked up by Ansible (although your custom collection is not shown by the `ansible-galaxy collection list` command, adjust the `ansible.cfg` for that, take a look into the next subsection).
 
-```bash
+```console
 ansible-galaxy collection init computacenter.utils --init-path collections/ansible_collections
 ```
 
 This creates the following structure:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 collections/
 └── ansible_collections
     └── computacenter
@@ -50,7 +50,7 @@ The first two paths are the default locations for collections, paths are separat
 
 ??? example "Listing collections"
     Using a custom collection in the project folder `test` with adjusted configuration file.
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     $ ansible-galaxy collection list
 
     # /home/tgruetz/.ansible/collections/ansible_collections
@@ -92,7 +92,7 @@ stage=production
 
 For example, running an ad-hoc command against an example host with the custom fact:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ ansible -i inventory test -m ansible.builtin.setup -a filter=ansible_local
 ubuntu | SUCCESS => {
      "ansible_facts": {
@@ -180,14 +180,14 @@ The custom fact returns a JSON dictionary with two lists, `running` and `exited`
     Using the fact requires the Python docker module (mind the `import docker` statement) and the Docker service running on the target node.  
     Otherwise, an error message is returned, e.g.:
 
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     "ansible_local": {
             "docker-containers": {
                 "error": "Python docker module not found! Install requirements!"
             }
         }
     ```
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     "ansible_local": {
             "docker-containers": {
                 "error": "Docker Client not instantiated! Is Docker running?"
@@ -197,7 +197,7 @@ The custom fact returns a JSON dictionary with two lists, `running` and `exited`
 
 Executing fact gathering for example returns this:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ ansible -i inventory test -m setup -a filter=ansible_local
 ubuntu | SUCCESS => {
     "ansible_facts": {
@@ -229,14 +229,14 @@ In the example, we have one running container and one stopped container.
 
 ??? example "Additional info"
     Running `docker ps` on the target host
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     $ docker ps -a
     CONTAINER ID   IMAGE                                 COMMAND                  CREATED             STATUS                           PORTS                  NAMES
     a6bfc512b842   timgrt/rockylinux8-ansible:latest     "/usr/lib/systemd/sy…"   About an hour ago   Exited (137) About an hour ago                          rocky-linux
     f3731d560625   local/timgrt/ansible-best-practices   "/bin/sh -c 'python …"   4 hours ago         Up 4 hours                       0.0.0.0:8080->80/tcp   ansible-best-practices
     ```
     Executing the script standalone (using a JSON module for better readability):
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     $ /etc/ansible/facts.d/docker-containers.fact | python3 -m json.tool
     {
         "running": [
@@ -340,7 +340,7 @@ This file may be used as a minimal starting point, it includes a small example:
 
 The Python file needs to be stored in a collection, e.g.:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 collections/
 └── ansible_collections
     └── computacenter
@@ -463,7 +463,7 @@ This file may be used as a minimal starting point, it includes a small example:
 
 The Python file needs to be stored in a collection, e.g.:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 collections/
 └── ansible_collections
     └── computacenter
@@ -488,6 +488,6 @@ api_host_url: "host.domain.tld"
 
 Run your playbook, referencing the custom inventory plugin file:
 
-```bash
+```console
 ansible-playbook -i inventory.yml main.yml
 ```

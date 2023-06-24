@@ -3,7 +3,7 @@
 Tasks should always be inside of a role. Do not use tasks in a play directly.  
 Logically related tasks are to be separated into individual files, the `main.yml` of a role only imports other task files.
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 .
 └── roles
     └── k8s-bootstrap
@@ -68,7 +68,7 @@ For example, having a sub-task file `tasks/kubeadm-setup.yml` with every task in
 
 The log output will then look like this:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 ...
 TASK [k8s-bootstrap: kubeadm-setup | Install kubeadm, kubelet and kubectl] **********
 changed: [kubemaster]
@@ -205,7 +205,7 @@ For those used to */usr/bin/chmod*, remember that modes are actually octal numbe
           become: true
         ```
         This leads to these permissions!
-        ``` { .bash .no-copy }
+        ``` { .console .no-copy }
         [root@demo /]# ll /var/www/html/
         total 68
         --w----r-T 1 apache apache 67691 Nov 18 14:30 index.html
@@ -346,7 +346,7 @@ Running the playbook results in the following task output, only the content of t
 
 === "Good"
     !!! good-practice-no-title ""
-        ```bash
+        ```console
         TASK [common : Create local users] *********************************************
         Friday 18 November 2022  12:18:01 +0100 (0:00:01.955)       0:00:03.933 *******
         changed: [demo] => (item=tgruetz)
@@ -356,7 +356,7 @@ Running the playbook results in the following task output, only the content of t
 === "Bad"
     !!! bad-practice-no-title ""
         Not using the `label` in the `loop_control` dictionary results in a very long output:
-        ``` { .bash .no-copy }
+        ``` { .console .no-copy }
         TASK [common : Create local users] *********************************************
         Friday 18 November 2022  12:22:40 +0100 (0:00:01.512)       0:00:03.609 *******
         changed: [demo] => (item={'name': 'tgruetz', 'groups': 'admins,docker', 'append': False, 'comment': 'Tim Grützmacher', 'shell': '/bin/bash', 'password_expire_max': 90})

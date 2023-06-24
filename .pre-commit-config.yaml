@@ -15,7 +15,7 @@ repos:
       - id: requirements-txt-fixer
         name: Sort entries in requirements.txt
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.34.0
+    rev: v0.35.0
     hooks:
       - id: markdownlint
         name: Lint Markdown files
@@ -25,7 +25,7 @@ repos:
       - id: check-github-actions
       - id: check-github-workflows
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.4
+    rev: v2.2.5
     hooks:
       - id: codespell
         name: Run codespell checker
