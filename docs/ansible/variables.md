@@ -118,7 +118,7 @@ Inside of the `vars.yml` file, define all of the variables needed, including any
             ```
 === "Bad"
     !!! bad-practice-no-title ""
-        ``` { .bash .no-copy }
+        ``` { .console .no-copy }
         # file: group_vars/database_servers.yml
         username: admin
         password: ex4mple
@@ -127,17 +127,17 @@ Inside of the `vars.yml` file, define all of the variables needed, including any
 Defining variables this way makes sure that you can still find them with *grep*.  
 Encrypting files can be done with this command:
 
-```bash
+```console
 ansible-vault encrypt group_vars/database_servers/vault.yml
 ```
 
 Once a variable file is encrypted, it should **not** be decrypted again (because it may get committed unencrypted). View or edit the file like this:
 
-```bash
+```console
 ansible-vault view group_vars/database_servers/vault.yml
 ```
 
-```bash
+```console
 ansible-vault edit group_vars/database_servers/vault.yml
 ```
 
@@ -169,7 +169,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
         ```
         ??? info "Output of playbook run"
             Using the *stdout_callback: community.general.yaml* for better readability, see [Ansible configuration](project.md#ansible-configuration) for more info.  
-            ``` { .bash .no-copy .hl_lines="22" }
+            ``` { .console .no-copy .hl_lines="22" }
             $ ansible-playbook nolog.yml -v
 
             [...]
@@ -227,7 +227,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
         ​
         ```
         ??? info "Output of playbook run"
-            ``` { .bash .no-copy .hl_lines="22" }
+            ``` { .console .no-copy .hl_lines="22" }
             $ ansible-playbook nolog.yml -v
 
             [...]

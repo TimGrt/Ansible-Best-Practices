@@ -62,13 +62,13 @@ Tim Grützmacher - <tim.gruetzmacher@computacenter.com>
 
 The `ansible-galaxy` utility can be used to create the role *skeleton* with the following command:
 
-```bash
+```console
 ansible-galaxy role init roles/demo
 ```
 
 This would create the following directory:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 roles/demo/
 ├── defaults
 │   └── main.yml
@@ -96,7 +96,7 @@ At least the folders (and content) `tests` (a sample inventory and playbook for 
 
 Consider the following role skeleton, note the missing *vars* and *test* folder and the newly added [Molecule folder](testing.md#molecule).
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 roles/role-skeleton/
 ├── defaults
 │   └── main.yml

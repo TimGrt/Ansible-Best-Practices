@@ -4,14 +4,14 @@
 
 The latest version can only be obtained via the Python package manager, the *ansible-core* package contains the binaries and 69 standard modules.
 
-```bash
+```console
 pip3 install ansible-core
 ```
 
 The included modules can be listed with `ansible-doc --list ansible.builtin`.  
 If more special modules are needed, the complete *ansible* package can be installed, this corresponds to the "old" installation method (*batteries included*).
 
-```bash
+```console
 pip3 install ansible
 ```
 
@@ -25,14 +25,14 @@ Most OS package managers like *apt* or *yum* also provide the `ansible-core` or 
 ??? example "Installing Ansible with OS package manager"
     Even in fairly recent distributions the Ansible versions are not up to date:
 
-    ``` { .bash .no-copy .title="Python package manager" .hl_lines="3" }
+    ``` { .console .no-copy .title="Python package manager" .hl_lines="3" }
     $ pip3 show ansible-core
     Name: ansible-core
     Version: 2.14.3
     ...
     ```
 
-    ``` { .bash .no-copy .title="RockyLinux 8.7 (RHEL 8)" .hl_lines="4" }
+    ``` { .console .no-copy .title="RockyLinux 8.7 (RHEL 8)" .hl_lines="4" }
     $ dnf info ansible-core
     Available Packages
     Name         : ansible-core
@@ -45,7 +45,7 @@ Most OS package managers like *apt* or *yum* also provide the `ansible-core` or 
     ...
     ```
 
-    ``` { .bash .no-copy .title="Ubuntu 22.04" .hl_lines="3" }
+    ``` { .console .no-copy .title="Ubuntu 22.04" .hl_lines="3" }
     $ apt info ansible-core
     Package: ansible-core
     Version: 2.12.0-1ubuntu0.1
@@ -60,7 +60,7 @@ Most OS package managers like *apt* or *yum* also provide the `ansible-core` or 
 The recommended installation method is through the Python package manager, necessary modules and plugins not included in the `ansible-core` binary are installed through *collections*.  
 Additional collections (the included collection is called *ansible.builtin*) are installed with the `ansible-galaxy` command-line utility:
 
-```bash
+```console
 ansible-galaxy collection install community.general
 ```
 
@@ -72,7 +72,7 @@ By default, collections are installed into a (hidden) folder in the home directo
 
 If you want to store collections alongside you project, create a folder `collections` in your project directory and install collections by providing the `--collections-path` (`-p`) argument:
 
-```bash
+```console
 ansible-galaxy collection install community.general --collections-path ./collections/
 ```
 
@@ -80,7 +80,7 @@ ansible-galaxy collection install community.general --collections-path ./collect
 
 Show the name and version of each collection installed in the `collections_path`:
 
-```bash
+```console
 ansible-galaxy collection list
 ```
 
@@ -88,7 +88,7 @@ ansible-galaxy collection list
 
 To upgrade installed collections use the `--upgrade` (`-U`) argument:
 
-```bash
+```console
 ansible-galaxy collection install community.general --upgrade
 ```
 
@@ -101,7 +101,7 @@ Download the collection tarball from [Galaxy](https://galaxy.ansible.com/){ targ
 3. Copy the archive to the remote server.
 4. Install the collection with the `ansible-galaxy` CLI utility, use the `--offline` argument:
 
-    ```bash
+    ```console
     ansible-galaxy collection install ~/community-general-6.4.0.tar.gz --offline
     ```
 
@@ -115,7 +115,7 @@ Ansible Builder is a tool that aids in the creation of Ansible Execution Environ
 
 To build an EE, install `ansible-builder` from the Python Package Manager:
 
-```bash
+```console
 pip3 install ansible-builder
 ```
 
@@ -150,7 +150,7 @@ Define at least the definition file for the Execution Environment and other file
         ```
 === "Python Dependencies"
     !!! example "requirements.txt"
-        ```txt
+        ```text
         awxkit>=13.0.0
         boto>=2.49.0
         botocore>=1.12.249
@@ -161,7 +161,7 @@ Define at least the definition file for the Execution Environment and other file
 === "Cross-Platform requirements"
     !!! example "bindep.txt"
         If there are RPMS necessary, put them here.
-        ```txt
+        ```text
         subversion [platform:rpm]
         subversion [platform:dpkg]
         ```
@@ -170,13 +170,13 @@ For more information, go to the [Ansible Builder Documentation](https://ansible-
 
 To build the EE, run this command (assuming you have Docker installed, by default Podman is used):
 
-```bash
+```console
 ansible-builder build --tag=demo/openshift-ee --container-runtime=docker
 ```
 
 The resulting container images can be viewed with the `docker images` command:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ docker images
 REPOSITORY                        TAG       IMAGE ID       CREATED              SIZE
 demo/openshift-ee                 latest    2ea9d5d7b185   10 seconds ago       1.14GB
@@ -186,13 +186,13 @@ demo/openshift-ee                 latest    2ea9d5d7b185   10 seconds ago       
 
 Using the EE requires a binary which can make use of the Container images, it is not possible to run them with the `ansible-playbook` binary. You have to use (and install) either the `ansible-navigator` or the `ansible-runner` binary.
 
-```bash
+```console
 pip3 install ansible-runner
 ```
 
 To use the Ansible from the container image, e.g. run this command which executes an ad hoc command (*setup* module) against localhost:
 
-```bash
+```console
 ansible-runner run --container-image demo/openshift-ee /tmp -m setup --hosts localhost
 ```
 
@@ -206,7 +206,7 @@ Most parameters should be self-explanatory:
 
 The output looks like expected:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ ansible-runner run --container-image demo/openshift-ee /tmp -m setup --hosts localhost
 [WARNING]: No inventory was parsed, only implicit localhost is available
 localhost | SUCCESS => {

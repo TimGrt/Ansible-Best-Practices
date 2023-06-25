@@ -9,7 +9,7 @@ Ansible Lint is installed through the Python packet manager:
 !!! note
     *Ansible Lint* always needs *Ansible* itself, *ansible-core* is enough.
 
-```bash
+```console
 pip3 install ansible-lint
 ```
 
@@ -89,19 +89,19 @@ The following *Dockerfile* can be used to build a Docker Container image which b
 
 Build the container image, the command expects that the *Dockerfile* is present in the current directory:
 
-```bash
+```console
 docker build -t ansible-lint .
 ```
 
 After building the image, the image can be used. Inside of the Ansible project directory, run this command (e.g. this lints the `site.yml` playbook).
 
-```bash
+```console
 docker run --rm -v $(pwd):/data ansible-lint site.yml
 ```
 
 The output for example is something like this, *ansible-lint* reports a warning regarding unnecessary white-spaces in a line, as well as an error regarding unset file permissions (fix could be setting `mode: 0644` in the task):
 
-```{ .bash .no-copy }
+```{ .console .no-copy }
 $ docker run --rm -v $(pwd):/data ansible-lint site.yml
 WARNING  Overriding detected file kind 'yaml' with 'playbook' for given positional argument: site.yml
 WARNING  Listing 2 violation(s) that are fatal
@@ -122,7 +122,7 @@ Finished with 1 failure(s), 1 warning(s) on 460 files.
 
 To simplify the usage, consider adding an *alias* to your `.bashrc`, e.g.:
 
-```bash
+```console
 # .bashrc
 # User specific aliases and functions
 alias lint="docker run --rm -v $(pwd):/data ansible-lint"
@@ -130,7 +130,7 @@ alias lint="docker run --rm -v $(pwd):/data ansible-lint"
 
 After running `source ~/.bashrc` you can use the alias:
 
-```bash
+```console
 lint site.yml
 ```
 

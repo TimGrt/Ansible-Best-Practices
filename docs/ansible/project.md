@@ -35,7 +35,7 @@ The markers are `DRY RUN` at the beginning and ending of playbook execution (whe
 
 ??? example
 
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     $ ansible-playbook -i inventory.ini playbook.yml -C
 
     DRY RUN ******************************************************************
@@ -64,7 +64,7 @@ show_task_path_on_failure = true
 
     When set to `true`:
 
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     ...
 
     TASK [Set motd message for k8s worker node] **************************************************
@@ -76,7 +76,7 @@ show_task_path_on_failure = true
 
     When set to `false`:
 
-    ``` { .bash .no-copy }
+    ``` { .console .no-copy }
     ...
 
     TASK [Set motd message for k8s worker node] ****************************************************
@@ -109,7 +109,7 @@ collections:
 
 Install all collections from the *requirements*-file:
 
-```bash
+```console
 ansible-galaxy collection install -r requirements.yml
 ```
 
@@ -117,7 +117,7 @@ ansible-galaxy collection install -r requirements.yml
 
 Always provide a `requirements.txt` with **all** Python packages need by modules used within your project.
 
-```txt
+```text
 boto
 openshift>=0.6
 PyYAML>=3.11
@@ -125,13 +125,13 @@ PyYAML>=3.11
 
 Install all dependencies from the *requirements*-file:
 
-```bash
+```console
 pip3 install -r requirements.txt
 ```
 
 ## Directory structure
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 .
 ├── ansible.cfg
 ├── hosts
@@ -167,7 +167,7 @@ YAML files are saved with the extension `.yml`.
 
 === "Good"
     !!! good-practice-no-title ""
-        ``` { .bash .no-copy }
+        ``` { .console .no-copy }
         .
         ├── ansible.cfg
         ├── hosts
@@ -197,7 +197,7 @@ YAML files are saved with the extension `.yml`.
 === "Bad"
     !!! bad-practice-no-title ""
         Playbook-name without hyphens and wrong file extension, role folders or task files inconsistent, with underscores and wrong extension.
-        ``` { .bash .no-copy }
+        ``` { .console .no-copy }
         .
         ├── ansible.cfg
         ├── hosts

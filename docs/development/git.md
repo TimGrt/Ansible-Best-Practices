@@ -6,7 +6,7 @@ Ansible content should be treated as any project containing source code, therefo
 
 Most Linux distributions already have *Git* installed, otherwise install the package with the package manager of the system, for example:
 
-```bash
+```console
 sudo yum install git
 ```
 
@@ -14,11 +14,11 @@ sudo yum install git
 
 Git needs some minimal configuration, most important you need to tell Git who you are.
 
-```bash
+```console
 git config --global user.name "Your Name"
 ```
 
-```bash
+```console
 git config --global user.email "your.mail@computacenter.com"
 ```
 
@@ -119,7 +119,7 @@ gitGraph
 
 The complete workflow with *git* commands looks something like this:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ git checkout dev
 Switched to branch 'dev'
 Your branch is behind 'origin/dev' by 3 commits, and can be fast-forwarded.
@@ -140,7 +140,7 @@ The single steps in order:
 
 Start developing, save your work in a commit (or multiple commits).
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ git status
 ...
 $ git add -A
@@ -151,7 +151,7 @@ $ git commit -m "Added tasks to configure Postgres High-Availability."
 As the last step, before pushing your changes to the UR and opening a *merge request*, ensure that the latest changes from the *dev* branch (which were made by others during your feature development) are also in your branch and no merge conflicts arise.  
 Do the following steps:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ git checkout dev
 Switched to branch 'dev'
 Your branch is behind 'origin/dev' by 2 commits, and can be fast-forwarded.
@@ -232,7 +232,7 @@ gitGraph
 
 The complete workflow with *git* commands looks something like this:
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ git checkout main
 Switched to branch 'main'
 Your branch is behind 'origin/main' by 11 commits, and can be fast-forwarded.
@@ -253,7 +253,7 @@ The single steps in order:
 
 After creating (and testing!) the fixes, save your work in a commit (or multiple commits).
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ git status
 ...
 $ git add -A
@@ -263,7 +263,7 @@ $ git commit -m "Fixes Issue #31, will restore prod environment."
 
 Now, push your changes to the UR.
 
-``` { .bash .no-copy }
+``` { .console .no-copy }
 $ git push -u origin
 ...
 ```
@@ -283,7 +283,7 @@ Pre-commit hooks can be used to enforce code formatting or run tests before a co
 
 The most convenient way is the use of the [pre-commit framework](https://pre-commit.com/){:target="_blank"}, install the *pre-commit* utility:
 
-```bash
+```console
 pip3 install pre-commit
 ```
 
@@ -315,13 +315,13 @@ Take a look at [https://pre-commit.com/hooks.html](https://pre-commit.com/hooks.
 
 Install all hooks of the `.pre-commit-config.yaml` file:
 
-```bash
+```console
 pre-commit install
 ```
 
 Run the `autoupdate` command to update all revisions to the latest state:
 
-```bash
+```console
 pre-commit autoupdate
 ```
 
@@ -330,13 +330,13 @@ pre-commit autoupdate
 
 You can run all hooks at any time with the following command, without committing:
 
-```bash
+```console
 pre-commit run -a
 ```
 
 ??? example "Example output"
 
-    ```{ .bash .no-copy }
+    ```{ .console .no-copy }
     $ pre-commit run -a
     check yaml...............................................................Passed
     check for merge conflicts................................................Passed
