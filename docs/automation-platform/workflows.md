@@ -9,7 +9,7 @@ Transferring information across workflow steps can't be done by the `set_fact` m
 !!! quote "Possible Use-case"
     Think of a first workflow step searching for an available IP address in an IPAM tool. The second workflow step can't know this IP before the workflow itself starts, therefore this information needs to be transferred from the first workflow step to the second one.
 
-In addition to the workflow `extra_vars`, jobs ran as part of a workflow can inherit variables in the *artifacts* dictionary of a parent job in the workflow These can be defined by the [`set_stats` module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/set_stats_module.html){:target="_blank"}.
+In addition to the workflow `extra_vars`, jobs ran as part of a workflow can inherit variables in the *artifacts* dictionary of a parent job in the workflow. These artifacts can be defined by the [`set_stats` module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/set_stats_module.html){:target="_blank"}.
 
 !!! info
     The point of set_stats in workflows is to have a vehicle to pass data via `--extra-vars` to the next job template.
