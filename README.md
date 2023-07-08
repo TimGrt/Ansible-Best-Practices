@@ -8,6 +8,12 @@ A collection of Best Practices for Ansible projects in MkDocs, published to [Git
 docker pull ghcr.io/timgrt/ansible-best-practices:latest
 ```
 
+Start a container from the image, the webserver is available at Port 8080:
+
+```bash
+docker run -d -p 8080:80/tcp --name best-practice-guide ghcr.io/timgrt/ansible-best-practices:latest
+```
+
 ## Manual build
 
 The project contains the source files for an MkDocs project, a *Dockerfile* is provided which bundles all requirements and displays the resulting content in a webserver.
@@ -24,30 +30,6 @@ Start a container from the image, the webserver is available at Port 8080:
 docker run -d -p 8080:80/tcp --name ansible-guide best-practice-guide
 ```
 
-Go to `http://localhost:8080` to view the Best-Practice Guide.
-
 ## Development
 
-Create a Python virtual environment:
-
-```bash
-python3 -m venv mkdocs-venv
-```
-
-Activate:
-
-```bash
-source mkdocs-venv/bin/activate
-```
-
-Install MkDocs dependencies:
-
-```bash
-pip3 install -r requirements.txt
-```
-
-Run Live-Preview server (available on Port 8000):
-
-```bash
-mkdocs serve
-```
+We document our Coding Guidelines in the [Contributing Guidelines](https://github.com/TimGrt/Ansible-Best-Practices/blob/main/.github/CONTRIBUTING.md), this document also includes instructions on how the setup a development environment.
