@@ -44,7 +44,7 @@ markdown_extensions:
       custom_checkbox: true
 plugins:
   - search:
-      lang: de
+      lang: en
       separator: '[\s]'
   - awesome-pages
   - autolinks
@@ -52,7 +52,7 @@ plugins:
     # This plugin needs a Git executable and the .git folder
       enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
       fallback_to_build_date: true
-      locale: de
+      locale: en
   - print-site:
       add_cover_page: true
       add_print_site_banner: true
@@ -68,7 +68,7 @@ theme:
     admonition:
       example: octicons/terminal-24
   logo: assets/images/computacenter-logo-white.png
-  language: de
+  language: en
   favicon: assets/images/computacenter-logo.png
   features:
     - content.code.annotate
@@ -113,4 +113,6 @@ nav:
     - "Linting": development/linting.md
     - "Testing": development/testing.md
     - "Extending": development/extending.md
-
+  - "Ansible Automation Platform":
+    - automation-platform/index.md
+    - "Workflows": automation-platform/workflows.md

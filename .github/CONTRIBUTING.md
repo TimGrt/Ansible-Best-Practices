@@ -31,6 +31,7 @@ make clean
 ## Documentation Guidelines
 
 To ensure that the *Best Practice Guide* has a common *look and feel* take a look and follow the next guidelines when contributing to the documentation.
+
 ### Basic rules
 
 The *Ansible Best Practice Guide* should follow a common *style*, it should be easy to read and strive to explain good practices without being too technical (although explaining the technical reasoning behind a proposed practice should be done if necessary).  
@@ -72,7 +73,7 @@ Use to correct [*lexer*](https://pygments.org/docs/lexers/) for highlighting the
 
 For example, a code block containing a playbook may look like this:
 
-~~~markdown
+````markdown
 ```yaml
 - name: Example playbook
   hosts: localhost
@@ -81,11 +82,11 @@ For example, a code block containing a playbook may look like this:
       ansible.builtin.debug:
         msg: "{{ ansible_default_ipv4.address }}
 ```
-~~~
+````
 
 > As this Guide should show Good and Best Practices, always ensure that your Ansible example content follows the rules that this guide proposes!
 
-If you want to add a *filename* to your example content, use the `title="<custom title>"` option. The [MkDocs Material documentation](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#usage) shows even more possibilities (annotations, line numbers, highlighting specific lines, ...), use what is available! 
+If you want to add a *filename* to your example content, use the `title="<custom title>"` option. The [MkDocs Material documentation](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#usage) shows even more possibilities (annotations, line numbers, highlighting specific lines, ...), use what is available!
 
 A special case are *Mermaid* diagrams, these are also enclosed by backticks in a code block (`mermaid`), but are rendered differently.
 Take a look at the [MkDocs Material documentation](https://squidfunk.github.io/mkdocs-material/reference/diagrams/#usage) for usage instructions.
@@ -94,11 +95,11 @@ Take a look at the [MkDocs Material documentation](https://squidfunk.github.io/m
 
 By default, every code block has a small *copy* button in the top-right corner, if your code block e.g. contains only example output from the shell, it should not by copyable. Disable the copy button **per** code block with `.no-copy`, the syntax is slightly different:
 
-~~~markdown
+````markdown
 ``` { .console .no-copy}
 # Code block content
 ```
-~~~
+````
 
 > Always pose yourself the question, can the code block content be pasted into the shell as is?  
 > If not, it should not by copyable!
