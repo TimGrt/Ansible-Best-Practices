@@ -117,4 +117,5 @@ nav:
     - "Extending": development/extending.md
   - "Ansible Automation Platform":
     - automation-platform/index.md
+    - "Credentials": automation-platform/credentials.md
     - "Workflows": automation-platform/workflows.md
