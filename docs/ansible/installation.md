@@ -111,7 +111,7 @@ Execution Environments are container images that serve as Ansible control nodes.
 
 ### Ansible Builder
 
-Ansible Builder is a tool that aids in the creation of Ansible Execution Environments. It does this by using the dependency information defined in various Ansible Content Collections, as well as by the user. Ansible Builder will produce a directory that acts as the build context for the container image build, which will contain the *Containerfile* (*Dockerfile*), along with any other files that need to be added to the image. There is no need to write a single line of Dockerfile, which makes it easy to build and use Execution Environments (EE).
+Ansible Builder is a tool that aids in the creation of Ansible Execution Environments. It does this by using the dependency information defined in various Ansible Content Collections, as well as by the user. Ansible Builder will produce a directory that acts as the build context for the container image build, which will contain the *Containerfile* (*Dockerfile*), along with any other files that need to be added to the image. There is no need to write a single line of Dockerfile, which makes it easy to build and use Execution Environments.
 
 To build an EE, install `ansible-builder` from the Python Package Manager:
 
