@@ -59,3 +59,33 @@ An example task may look like this:
     Depending on the module used, you may leave out the `username` and `password` key, environment variables are evaluated first.  Take a look at the module documentation if this is possible, otherwise use the *lookup* plugin as shown above.
 
 Additional information can be found in the [Ansible documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/credential_types.html){:target="_blank"}.
+
+### Automation and templating
+
+Creating a custom credential with a playbook can be tricky as you need to provide the special, reserved curly braces character as part of the *Injector Configuration*.  
+During the playbook run, Ansible will try to template the values which will fail as they are undefined (and you want the *literal* string representation anyway). Therefore, prefix the values with `!unsafe` to prevent templating the values.
+
+```yaml hl_lines="19 20"
+- name: Create custom Credential type for DELL OME
+  awx.awx.credential_type:
+    name: Dell EMC OpenManage Enterprise
+    description: Sets environment variables for logging in to OpenManage Enterprise
+    inputs:
+      fields:
+          - id: username
+            type: string
+            label: Username
+          - id: password
+            type: string
+            label: Password
+            secret: true
+        required:
+          - username
+          - password
+    injectors:
+      env:
+        OME_PASSWORD: !unsafe "{{ password }}"
+        OME_USERNAME: !unsafe "{{ username }}"
+```
+
+Take a look at [Disable variable templating](variables.md#disable-variable-templating) for additional information.
