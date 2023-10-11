@@ -267,3 +267,32 @@ repos:
 ```
 
 Take a look at the [development section](linting.md#git-pre-commit-hook) for additional information.
+
+## Disable variable templating
+
+Sometimes, it is necessary to provide special characters like curly braces. The most common use cases include passwords that allow special characters like `{` or `%`, and JSON arguments that look like templates but should not be templated.  
+
+```{ .yaml .no-copy }
+---
+examplepassword: !unsafe 234%234{435lkj{{lkjsdf
+```
+
+!!! abstract
+    When handling values returned by lookup plugins, Ansible uses a data type called `unsafe` to block templating. Marking data as unsafe prevents malicious users from abusing Jinja2 templates to execute arbitrary code on target machines. The Ansible implementation `!unsafe` ensures that these values are never templated. You can use the same unsafe data type in variables you define, to prevent templating errors and information disclosure.
+
+For complex variables such as hashes or arrays, use `!unsafe` on the individual elements, take a look at [this example for AWX/AAP automation](credentials.md#automation-and-templating).
+
+For Jinja2 templates this behavior can be achieved with the `{% raw %}` and `{% endraw %}` tags.  
+Consider the following *template* where *name_of_receiver_group* should be replaced with a variable you set elsewhere, but *details* contains stuff which should stay as it is:
+
+```{ .yaml .title="templates/alertmanager.yml.j2" .no-copy }
+receivers:
+- name: "{{ name_of_receiver_group }}"
+  opsgenie_configs:
+  - api_key: 123-123-123-123-123
+    send_resolved: false
+    {% raw %}
+    # protecting the go templates inside the raw section.
+    details: { details: "{{ .CommonAnnotations.SortedPairs.Values | join \" \" }}" }
+    {% endraw %}
+```
