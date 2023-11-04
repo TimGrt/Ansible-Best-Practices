@@ -8,7 +8,7 @@ MD026: false
 
 # MD033/no-inline-html - Inline HTML
 MD033:
-  allowed_elements: [figure, figcaption]
+  allowed_elements: [nobr, figure, figcaption]
 
 # MD038/no-space-in-code - Spaces inside code span elements
 MD038: false
