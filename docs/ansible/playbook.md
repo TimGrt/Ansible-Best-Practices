@@ -229,3 +229,72 @@ With the `collections` list defined as part of the play definition, you could wr
 
 !!! tip
     It is preferable to use a module or plugin’s FQCN over the `collections` keyword!
+
+## Executing playbooks
+
+To run your playbook, use the `ansible-playbook` command.
+
+```console
+ansible-playbook playbook.yml
+```
+
+Some useful command-line parameters when executing your playbook are the following
+
+* `-C` or `--check` runs the playbook without making any modifications
+* `-D` or `--diff` shows the differences when changing (small) files and templates
+* `--step` runs one-step-at-a-time, you need to confirm each task before running
+* `--list-tags` lists all available tags
+* `--list-tasks` lists all tasks that would be executed
+
+### With Ansible Navigator
+
+To ensure that your Ansible Content works when running it locally during development and when running it in AAP or AWX later, it is advisable to execute it with the same Execution Environment. The *ansible-playbook* command can't run these, this is where the Navigator comes in.  
+
+The Ansible (Content) Navigator is a command-line tool and a text-based user interface (TUI) for creating, reviewing, running and troubleshooting Ansible content, including inventories, playbooks, collections, documentation and container images (execution environments). Take a look at the [Installation section](installation.md#ansible-navigator) on how to install the utility and dependencies.
+
+Use the following minimal configuration for the Navigator and store it in your project root directory:
+
+!!! example "ansible-navigator.yml"
+
+    ```yaml
+    ---
+    ansible-navigator:
+      execution-environment:
+        image: ghcr.io/ansible-community/community-ee-base:latest # (1)!
+        pull:
+          policy: missing
+      logging:
+        level: warning
+        file: logs/ansible-navigator.log
+      mode: stdout # (2)!
+      playbook-artifact:
+        enable: true
+        save-as: "logs/{playbook_status}-{playbook_name}-{time_stamp}.json" # (3)!
+    ```
+
+    1. Specifies the name of the execution environment image to use, change this, if you want to use your own. The *pull policy* will download the image if it is not already present (this also means no updated images will be downloaded!).  
+    To build and use your own Execution Environment take a look at the section [Installation > Execution Environments](installation.md#execution-environments).
+    2. Specifies the user-interface mode, with `stdout` it will output to standard-out as with the usual `ansible-playbook` command. Use `interactive` to use the TUI. You can provide the CLI-parameter `-m` or `--mode` to overwrite the configuration.
+    3. Specifies the name for artifacts created from completed playbooks. For example, for a successful run of the `site.yml` playbook a log file like `logs/successful-site-2023-11-01T12:20:20.907856+00:00.json`. For failed runs it would be `logs/failed-site-2023-11-01T12:29:17.020432+00:00.json`. With the *replay* command, you now can observe output of previous playbook runs, e.g. `ansible-navigator replay logs/failed-site-2023-11-01T12\:29\:33.129179+00\:00.json`.
+
+You can also use the Navigator configuration for **all** your projects, save it as a hidden file in your home directory (e.g. `~/.ansible-navigator.yml`).
+
+Take a look at the [official Ansible Navigator Documentation](https://ansible.readthedocs.io/projects/navigator/settings/){:target="_blank"} for all other configuration options.
+
+!!! warning
+    With the configuration above, playbook artifacts (logs), as well as the Navigator Log-file, will be stored in a `logs` folder in your playbook directory. **Consider ignoring the folder from Git tracking.**
+
+    ```bash title=".gitignore"
+    logs/
+    ```
+
+Executing a playbook with the Navigator is as easy as before, just run it like this:
+
+```console
+ansible-navigator run site.yml
+```
+
+Append any CLI-parameters (e.g. `-i inventory.ini`) that you are used to as when executing it with *ansible-playbook*.
+
+!!! tip
+    Using the *Interactive* mode (the *TUI*) is encouraged, try around!
