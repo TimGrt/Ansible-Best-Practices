@@ -1,1 +1,4 @@
-ve-mkdocs-dev
+# Python VE build by Makefile
+ve-mkdocs-dev/
+# Build folder when running 'mkdocs build'
+site/
