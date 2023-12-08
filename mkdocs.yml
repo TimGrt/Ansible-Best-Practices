@@ -58,7 +58,9 @@ plugins:
       enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
       fallback_to_build_date: true
       locale: en
+  - privacy
   - print-site:
+    # This plugin should always defined as the last one
       add_cover_page: true
       add_print_site_banner: true
       cover_page_template: "docs/assets/pdf/cover-page.tpl"
