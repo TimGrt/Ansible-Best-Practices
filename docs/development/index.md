@@ -2,10 +2,29 @@
 
 This topic is split into four main sections, each section covers a different additional tool to consider when *developing* your Ansible content.
 
-* [:octicons-git-pull-request-16: &nbsp; Version Control](git.md) - Small guide for version controlling playbooks
-* [:octicons-verified-16: &nbsp; Linting](linting.md) - Installation and usage of the community backed Ansible Best Practice checker
-* [:octicons-stopwatch-16: &nbsp; Testing](testing.md) - How to test your Ansible content during development
-* [:octicons-plug-16: &nbsp; Extending](extending.md) - Create your own custom modules and plugins
+<div class="grid cards" markdown>
+
+* [:octicons-git-pull-request-16: &nbsp; Version Control](git.md)
+
+    ---
+    Small guide for version controlling playbooks.
+
+* [:octicons-verified-16: &nbsp; Linting](linting.md)
+
+    ---
+    Installation and usage of the community backed Ansible Best Practice checker.
+
+* [:octicons-stopwatch-16: &nbsp; Testing](testing.md)
+
+    ---
+    How to test your Ansible content during development.
+
+* [:octicons-plug-16: &nbsp; Extending](extending.md)
+
+    ---
+    How to create your own custom modules and plugins.
+
+</div>
 
 ## Tools
 
