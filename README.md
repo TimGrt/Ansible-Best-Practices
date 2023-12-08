@@ -1,6 +1,6 @@
 # Ansible-Best-Practices
 
-[![Markdown Lint](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml) [![Deploy to Github pages & Container registry](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/cd.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/cd.yml)
+[![Markdown Lint](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml) [![Deploy to Github pages & Container registry](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/cd.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/cd.yml) [![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 
 A collection of Best Practices for Ansible projects in MkDocs, published to [Github pages](https://timgrt.github.io/Ansible-Best-Practices) and [Github Container Registry](https://github.com/TimGrt/Ansible-Best-Practices/pkgs/container/ansible-best-practices).  
 
