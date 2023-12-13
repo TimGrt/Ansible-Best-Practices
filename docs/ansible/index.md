@@ -19,11 +19,6 @@ This topic is split into seven main sections, each section covers a different as
     ---
     How to define your inventory and target hosts
 
-* [:octicons-multi-select-16: &nbsp; Variables](variables.md)
-
-    ---
-    All about variables, where to store them, naming conventions and encryption
-
 * [:octicons-rocket-16: &nbsp; Playbook](playbook.md)
 
     ---
@@ -38,5 +33,10 @@ This topic is split into seven main sections, each section covers a different as
 
     ---
     Everything about tasks, module usage, tags, loops and filters
+
+* [:octicons-multi-select-16: &nbsp; Variables](variables.md)
+
+    ---
+    All about variables, where to store them, naming conventions and encryption
 
 </div>
