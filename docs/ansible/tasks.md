@@ -215,6 +215,56 @@ For those used to */usr/bin/chmod*, remember that modes are actually octal numbe
 
 The `state` parameter is optional to a lot of modules. Whether `state: present` or `state: absent`, it’s always best to leave that parameter in your playbooks to make it clear, especially as some modules support additional states.
 
+## Files vs. Templates
+
+Ansible differentiates between *files* for static content (deployed with `copy` module) and *templates* for content, which should be rendered dynamically with Jinja2 (deployed with `template` module).  
+
+!!! tip
+    In almost every case, use *templates*, deployed via `template` module.  
+
+Even if there currently is nothing in the file that is being templated, if there is the possibility in the future that it might be added, having the file handled by the `template` module makes adding that functionality much simpler than if the file is initially handled by the `copy` module( and then needs to be moved before it can be edited).
+
+Additionally, you now can add a *marker*, indicating that manual changes to the file will be lost:
+
+=== "Template"
+
+    ```yaml+jinja
+    {{ ansible_managed | ansible.builtin.comment }}
+    ```
+
+=== "Rendered output"
+
+    ```cfg
+    #
+    # Ansible Managed
+    #
+    ```
+
+??? info "`ansible.builtin.comment` filter"
+    By default, `{{ ansible_managed }}` is replaced by the string `Ansible Managed` as is (can be adjusted in the [`ansible.cfg`)](https://docs.ansible.com/ansible/latest/reference_appendices/config.html#default-managed-str){:target="_blank"}.  
+    In most cases, the appropriate *comment* symbol must be prefixed, this should be done with the `ansible.builtin.comment` filter.  
+    For example, `.xml` files need to be commented differently, which can be configured:
+
+    === "Template"
+
+        ```yaml+jinja
+        {{ ansible_managed | ansible.builtin.comment('xml') }}
+        ```
+
+    === "Rendered output"
+        ```xml
+        <!--
+        -
+        - Ansible managed
+        -
+        -->
+        ```
+
+    You can also use the `decorate` parameter to choose the symbol yourself.  
+    Take a look at the [Ansible documentation for additional information](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/comment_filter.html){:target="_blank"}.
+
+When using the `template` module, append `.j2` to the template file name. Keep filenames and templates as close to the name on the destination system as possible.
+
 ## Conditionals
 
 If the `when:` condition results in a line that is very long, and is an `and` expression, then break it into a list of conditions.

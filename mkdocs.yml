@@ -1,4 +1,4 @@
-# MkDocs configuration file
+# code: language=yaml
 site_name: Ansible Best Practices
 site_description: Best Practices and Style Guide for Ansible Projects
 copyright: Copyright &copy; Computacenter 2023
@@ -52,7 +52,7 @@ plugins:
   - search:
       lang: en
       separator: '[\s]'
-  - autolinks
+  - autolinks:
   - git-revision-date-localized:
     # This plugin needs a Git executable and the .git folder
       enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
@@ -110,10 +110,10 @@ nav:
     - "Installation": ansible/installation.md
     - "Project": ansible/project.md
     - "Inventory": ansible/inventory.md
-    - "Variables": ansible/variables.md
     - "Playbook": ansible/playbook.md
     - "Roles": ansible/roles.md
     - "Tasks": ansible/tasks.md
+    - "Variables": ansible/variables.md
   - "Ansible Development":
     - development/index.md
     - "Version Control": development/git.md
