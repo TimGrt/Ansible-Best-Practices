@@ -1,0 +1,3 @@
+- name: Output IPv4 address of interface {{ interface_name }}
+  ansible.builtin.debug:
+    msg: "{{ ansible_facts[interface_name]['ipv4']['address'] }}"

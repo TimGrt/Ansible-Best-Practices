@@ -241,19 +241,11 @@ Two spaces are used to indent everything, e.g. list items or dictionary keys.
     !!! good-practice-no-title ""
         Playbook:
         ```yaml
-        - name: Demo play
-          hosts: database_servers
-          roles:
-            - common
-            - postgres
+        --8<-- "example-multiple-plays-playbook.yml"
         ```
         Variable-file:
         ```yaml
-        ntp_server_list:
-          - 0.de.pool.ntp.org
-          - 1.de.pool.ntp.org
-          - 2.de.pool.ntp.org
-          - 3.de.pool.ntp.org
+        --8<-- "example-list-variable-file.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""
@@ -279,20 +271,10 @@ The so-called YAML "one-line" syntax is not used, neither for passing parameters
 === "Good"
     !!! good-practice-no-title ""
         ```yaml
-        - name: Install the latest version of Apache from the testing repo
-          ansible.builtin.yum:
-            name: httpd
-            enablerepo: testing
-            state: present
+        --8<-- "example-install-package-from-repo-task.yml"
         ```
         ```yaml
-        - name: Install a list of packages
-          ansible.builtin.yum:
-            name:
-              - nginx
-              - postgresql
-              - postgresql-server
-            state: present
+        --8<-- "example-multiple-packages-install-task.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""
@@ -317,11 +299,7 @@ Do not use the Ansible-specific `yes` and `no` as boolean values in YAML as thes
 === "Good"
     !!! good-practice-no-title ""
         ```yaml
-        - name: Start and enable service httpd
-          ansible.builtin.service:
-            name: httpd
-            enabled: true
-            state: started
+        --8<-- "example-boolean-task.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""
@@ -341,12 +319,7 @@ Use the `| bool` filter when using bare variables (expressions consisting of jus
     !!! good-practice-no-title ""
         Using a variable `upgrade_allowed` with the default value `false`, task is executed when overwritten with `true` value.
         ```yaml
-        - name: Upgrade all packages, excluding kernel & foo related packages
-          ansible.builtin.yum:
-            name: "*"
-            state: latest
-            exclude: kernel*,foo*
-          when: upgrade_allowed | bool
+        --8<-- "example-boolean-condition-task.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""

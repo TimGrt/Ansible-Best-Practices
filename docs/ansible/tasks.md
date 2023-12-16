@@ -15,11 +15,8 @@ Logically related tasks are to be separated into individual files, the `main.yml
 
 The file name of a task file should describe the content.
 
-```yaml
----
-# tasks/main.yml
-- import_tasks: prerequisites.yml
-- import_tasks: install-kubeadm.yml
+```yaml title="roles/k8s-bootstrap/tasks/main.yml"
+--8<-- "example-role-main-task.yml"
 ```
 
 ## Naming tasks
@@ -30,10 +27,7 @@ Write task names in the imperative (e.g. *"Ensure service is running"*), this co
 === "Good"
     !!! good-practice-no-title ""
         ```yaml
-        - name: Install webserver package
-          ansible.builtin.yum:
-            name: httpd
-            state: present
+        --8<-- "example-install-package-task.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""
@@ -78,21 +72,21 @@ changed: [kubemaster]
 !!! note
     If you move around your tasks often during development phase, it may be difficult to keep this up to date.
 
+    !!! tip
+        You can check for this rule with *ansible-lint* by enabling it in the config:
+
+        ```yaml title=".ansible-lint"
+        enable_list:
+          - name[prefix]
+        ```
+
 ## Tags
 
 Don't use too many tags, it gets confusing very quickly.  
 Tags should only be allowed for imported task files within the `main.yml` of a role. Tags at the task level in sub-task files should be avoided.
 
-```yaml
----
-# tasks/main.yml
-- import_tasks: installation.yml
-  tags:
-    - install
-
-- import_tasks: configuration.yml
-  tags:
-    - configure
+```yaml title="tasks/main.yml"
+--8<-- "example-main-with-tags-task.yml"
 ```
 
 Try to use the same tags across your roles, this way you would be able to run only e.g. *installation* tasks from multiple roles.
@@ -123,6 +117,9 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
 
 ### *failed_when* and *changed_when*
 
+!!! warning
+    **Work in Progress** - More description necessary.
+
 === "Good"
     !!! good-practice-no-title ""
         ```yaml
@@ -148,10 +145,7 @@ Use the *full qualified collection names (FQCN)* for modules, they are supported
 === "Good"
     !!! good-practice-no-title ""
         ```yaml
-        - name: Install webserver package
-          ansible.builtin.yum:
-            name: httpd
-            state: present
+        --8<-- "example-install-package-task.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""
@@ -174,22 +168,16 @@ It makes the most sense to define the *module defaults* at [*play* level, take a
 
 When using modules like `copy` or `template` you can (and should) set permissions for the files/templates deployed with the `mode` parameter.
 
-For those used to */usr/bin/chmod*, remember that modes are actually octal numbers. You must either add a **leading zero** so that Ansible’s YAML parser knows it is an octal number (like `0644` or `01777`) or quote it (like `"644"` or `"1777"`) so Ansible receives a string and can do its own conversion from string into number.
+For those used to */usr/bin/chmod*, remember that modes are actually octal numbers.  
+Add a **leading zero** (or `1` for setting sticky bit), showing Ansible’s YAML parser it is an octal number **and** quote it (like `"0644"` or `"1777"`), this way Ansible receives a string and can do its own conversion from string into number.
 
 !!! warning
-    Giving Ansible a number without following one of these rules will end up with a decimal number which will have unexpected results.
+    Giving Ansible a number without following one of these rules will end up with a decimal number which can have unexpected results.
 
 === "Good"
     !!! good-practice-no-title ""
         ```yaml
-        - name: Copy index.html template
-          ansible.builtin.template:
-            src: welcome.html
-            dest: /var/www/html/index.html
-            mode: 0644
-            owner: apache
-            group: apache
-          become: true
+        --8<-- "example-copy-template-task.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""
@@ -272,13 +260,7 @@ If the `when:` condition results in a line that is very long, and is an `and` ex
 === "Good"
     !!! good-practice-no-title ""
         ```yaml
-        - name: Set motd message for k8s worker node
-          ansible.builtin.copy:
-            content: "This host is used as k8s worker.\n"
-            dest: /etc/motd
-          when:
-            - inventory_hostname in groups['kubeworker']
-            - kubeadm_join_result.rc == 0
+        --8<-- "example-multiple-when-conditions-task.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""
@@ -295,26 +277,7 @@ When using conditions on *blocks*, move the `when` statement to the top, below t
 === "Good"
     !!! good-practice-no-title ""
         ```yaml
-        - name: Install, configure, and start Apache
-          when: ansible_facts['distribution'] == 'CentOS'
-          block:
-            - name: Install httpd and memcached
-              ansible.builtin.yum:
-                name:
-                  - httpd
-                  - memcached
-                state: present
-
-            - name: Apply the foo config template
-              ansible.builtin.template:
-                src: templates/src.j2
-                dest: /etc/foo.conf
-
-            - name: Start service bar and enable it
-              ansible.builtin.service:
-                name: bar
-                state: started
-                enabled: true
+        --8<-- "example-block-with-when-tasks.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""
@@ -355,17 +318,7 @@ Converting from `with_<lookup>` to `loop` is described with a [Migration Guide](
 When looping over complex data structures, the console output of your task can be enormous. To limit the displayed output, use the `label` directive with `loop_control`. For example, this tasks creates users with multiple parameters in a loop:
 
 ```yaml
-- name: Create local users
-  user:
-    name: "{{ item.name }}"
-    groups: "{{ item.groups }}"
-    append: "{{ item.append }}"
-    comment: "{{ item.comment }}"
-    generate_ssh_key: true
-    password_expire_max: "{{ item.password_expire_max }}"
-  loop: "{{ user_list }}"
-  loop_control:
-    label: "{{ item.name }}" # (1)!
+--8<-- "example-loop-label-task.yml"
 ```
 
 1. Content of variable `user_list`:

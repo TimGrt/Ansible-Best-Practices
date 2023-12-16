@@ -1,0 +1,7 @@
+- name: Install a list of packages
+  ansible.builtin.yum:
+    name:
+      - nginx
+      - postgresql
+      - postgresql-server
+    state: present

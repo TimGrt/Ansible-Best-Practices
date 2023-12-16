@@ -1,0 +1,6 @@
+---
+# Main playbook including all other playbooks
+
+- ansible.builtin.import_playbook: playbooks/database.yml # noqa name[play]
+- ansible.builtin.import_playbook: playbooks/webserver.yml # noqa name[play]
+- ansible.builtin.import_playbook: playbooks/loadbalancer.yml # noqa name[play]

@@ -19,6 +19,11 @@ repos:
     hooks:
       - id: markdownlint
         name: Lint Markdown files
+  - repo: https://github.com/ansible-community/ansible-lint
+    rev: v6.22.1
+    hooks:
+      - id: ansible-lint
+        name: Run ansible-lint on documentation examples
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.27.3
     hooks:
