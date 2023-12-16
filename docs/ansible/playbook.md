@@ -7,7 +7,7 @@
 The *main* playbook should have a recognizable name, e.g. referencing the projects name or scope.
 If you have multiple playbooks, create a new folder `playbooks` and store all playbooks there, except the *main* playbook (here called `site.yml`).
 
-```console
+```{ .console .no-copy }
 .
 ├── ansible.cfg
 ├── site.yml
@@ -20,24 +20,22 @@ If you have multiple playbooks, create a new folder `playbooks` and store all pl
 The `site.yml` file contains references to the other playbooks:
 
 ```yaml
----
-# Main playbook including all other playbooks
-
-- import_playbook: playbooks/database.yml
-- import_playbook: playbooks/webserver.yml
-- import_playbook: playbooks/loadbalancer.yml
+--8<-- "example-site-playbook.yml"
 ```
+
+??? hint
+    The file `site.yml` only references other playbooks, still, the *ansible-lint* utility would trigger, as every *play* should have the `name` parameter.  
+    While this is correct (and you should always name your **actual** *plays*), the *name* parameter on *import* statements is **not shown anyway**, as they are pre-processed at the time playbooks are parsed.  
+
+    !!! success
+        Therefore, silencing the linter in this particular case with the `noqa` statement is acceptable.  
+
+    In contrast, *include* statements like `ansible.builtin.include_tasks` should have the `name` parameter, as these statements are processed when they are encountered during the execution of the playbook.
 
 The *lower-level* playbooks contains actual [*plays*](playbook.md#plays):
 
 ```yaml title="playbooks/database.yml"
----
-
-- name: Install and configure PostgreSQL database
-  hosts: postgres_servers
-  roles:
-    - postgres
-
+--8<-- "example-database-playbook.yml"
 ```
 
 To be able to run the overall playbook, as well as the imported playbooks, add this parameter to your `ansible.cfg`, otherwise roles are not found:
@@ -61,43 +59,22 @@ Either you need only static importing of roles and you can use the roles section
 
 Avoid putting multiple plays in a playbook, if not really necessary. As every play most likely targets a different host group, create a separate playbook file for it. This way you achieve to most flexibility.
 
-```yaml title="k8s-installation.yml"
-- name: Initialize Control-Plane Nodes
-  hosts: kubemaster
-  become: true
-  roles:
-    - k8s-control-plane
-
-- name: Install and configure Worker Nodes
-  hosts: kubeworker
-  become: true
-  roles:
-    - k8s-worker-nodes
+```{ .yaml title="k8s-installation.yml" .no-copy }
+--8<-- "example-multiple-plays.yml"
 ```
 
 Separate the two plays into their respective playbooks files and reference them in an overall playbook file:
 
 ```yaml title="k8s-control-plane-playbook.yml"
-- name: Initialize Control-Plane Nodes
-  hosts: kubemaster
-  become: true
-  roles:
-    - k8s-control-plane
+--8<-- "example-k8s-control-plane-playbook.yml"
 ```
 
 ```yaml title="k8s-worker-node-playbook.yml"
-- name: Install and configure Worker Nodes
-  hosts: kubeworker
-  become: true
-  roles:
-    - k8s-worker-nodes
+--8<-- "example-k8s-worker-node-playbook.yml"
 ```
 
 ```yaml title="k8s-installation.yml"
-# file k8s-installation.yml
-
-- import_playbooks: k8s-control-plane-playbook.yml
-- import_playbooks: k8s-worker-node-playbook.yml
+--8<-- "example-k8s-installation-playbook.yml"
 ```
 
 ### Module defaults
@@ -112,29 +89,12 @@ Since **ansible-core 2.12**, collections can define their own groups in the `met
 === "Good"
     !!! good-practice-no-title ""
         ```yaml hl_lines="4 5 6 7 8"
-        - name: Demo play with modules which need to call the same arguments
-          hosts: aci
-          module_defaults:
-            group/cisco.aci.all:
-              host: "{{ apic_api }}"
-              username: "{{ apic_user }}"
-              password: "{{ apic_password }}"
-              validate_certs: false
-          tasks:
-            - name: Get system info
-              cisco.aci.aci_system:
-                state: query
-
-            - name: Create a new demo tenant
-              cisco.aci.aci_tenant:
-                name: demo-tenant
-                description: Tenant for demo purposes
-                state: present
+        --8<-- "example-module-defaults-playbook.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""
         Authentication parameters are repeated in every task.
-        ```yaml
+        ```{ .yaml .no-copy }
         - name: Demo play with modules which need to call the same arguments
           hosts: aci
           tasks:
@@ -159,7 +119,7 @@ Since **ansible-core 2.12**, collections can define their own groups in the `met
 
 To identify the correct group (*remember, these are **not** inventory groups*), take a look at the `meta/runtime.yml` of the desired collection. It needs to define the `action_groups` list, for example:
 
-```yaml title="~/.ansible/collections/ansible_collections/cisco/aci/meta/runtime.yml"
+```{ .yaml title="~/.ansible/collections/ansible_collections/cisco/aci/meta/runtime.yml" .no-copy }
 ---
 requires_ansible: '>=2.9.10'
 action_groups:
@@ -188,7 +148,7 @@ In a playbook, you can control the collections Ansible searches for modules and 
 !!! quote "tl;dr"
     This is not recommended, try to avoid this.
 
-```yaml
+```{ .yaml .no-copy }
 - name: Initialize Control-Plane Nodes
   hosts: kubemaster
   collections:
@@ -202,18 +162,12 @@ In a playbook, you can control the collections Ansible searches for modules and 
 With that you could omit the *provider.collection* part when using modules, by default you would reference a module with the [FQCN](tasks.md#modules-and-collections):
 
 ```yaml
-- name: Check if Weave is already installed
-  kubernetes.core.k8s_info:
-    api_version: v1
-    kind: DaemonSet
-    name: weave-net
-    namespace: kube-system
-  register: weave_daemonset
+--8<-- "example-k8s-waeve-task.yml"
 ```
 
 With the `collections` list defined as part of the play definition, you could write your tasks like this:
 
-```yaml
+```{ .yaml .no-copy }
 - name: Check if Weave is already installed
   k8s_info:
     api_version: v1

@@ -46,16 +46,11 @@ Bracket notation always works and you can use variables inside the brackets. Dot
     !!! good-practice-no-title ""
         Simple variable reference:
         ```yaml
-        - name: Deploy configuration file
-          ansible.builtin.template:
-            src: foo.cfg.j2
-            dest: "{{ remote_install_path }}/foo.cfg"
+        --8<-- "example-simple-variable-task.yml"
         ```
         Bracket-notation and using variable (*interface_name*) inside:
         ```yaml
-        - name: Output IPv4 address of {{ interface_name }} interface
-          ansible.builtin.debug:
-            msg: "{{ ansible_facts[interface_name]['ipv4']['address'] }}"
+        --8<-- "example-bracket-notation-variable-task.yml"
         ```
 === "Bad"
     !!! bad-practice-no-title ""
@@ -153,19 +148,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
 === "Good"
     !!! good-practice-no-title ""
         ```yaml hl_lines="13"
-        ---
-        - name: Using no_log parameter
-          hosts: database_servers
-          tasks:
-            - name: Add user
-              ansible.builtin.user:
-                name: "{{ username }}"
-                password: "{{ password }}"
-
-            - name: Debugging a vaulted variable with no_log
-              ansible.builtin.debug:
-                msg: "{{ password }}"
-              no_log: true
+        --8<-- "example-no-log-variable-playbook.yml"
         ```
         ??? info "Output of playbook run"
             Using the *stdout_callback: community.general.yaml* for better readability, see [Ansible configuration](project.md#ansible-configuration) for more info.  

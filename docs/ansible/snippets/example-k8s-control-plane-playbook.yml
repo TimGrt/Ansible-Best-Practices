@@ -1,0 +1,6 @@
+---
+- name: Initialize Control-Plane Nodes
+  hosts: kubemaster
+  become: true
+  roles:
+    - k8s-control-plane

@@ -86,6 +86,16 @@ For example, a code block containing a playbook may look like this:
 
 > As this Guide should show Good and Best Practices, always ensure that your Ansible example content follows the rules that this guide proposes!
 
+Store your code example in the `snippets` folder of the section and include it like this:
+
+> Add `task` or `playbook` to the filename, e.g. `example-copy-template-task.yml` or `example-site-playbook.yml`. This ensures *ansible-lint* identifies the file correctly!
+
+```yaml
+--8<-- "<filename-of-the-example>"
+```
+
+The *snippet* is added to the rendered output, the *pre-commit* configuration automatically lints all examples in the `snippets` folder, ensuring best practices are followed.
+
 If you want to add a *filename* to your example content, use the `title="<custom title>"` option. The [MkDocs Material documentation](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#usage) shows even more possibilities (annotations, line numbers, highlighting specific lines, ...), use what is available!
 
 A special case are *Mermaid* diagrams, these are also enclosed by backticks in a code block (`mermaid`), but are rendered differently.
@@ -93,7 +103,7 @@ Take a look at the [MkDocs Material documentation](https://squidfunk.github.io/m
 
 #### Copy or not to copy
 
-By default, every code block has a small *copy* button in the top-right corner, if your code block e.g. contains only example output from the shell, it should not by copyable. Disable the copy button **per** code block with `.no-copy`, the syntax is slightly different:
+By default, every code block has a small *copy* button in the top-right corner, if your code block e.g. contains only example output from the shell or shows unwanted behavior, it should not by copyable. Disable the copy button **per** code block with `.no-copy`, the syntax is slightly different:
 
 ````markdown
 ``` { .console .no-copy}

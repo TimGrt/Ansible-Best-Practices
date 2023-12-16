@@ -25,7 +25,7 @@ Your Ansible automation content doesn’t necessarily have to follow this guidan
     If the implementation is hard to explain, it's a bad idea.
     Every shell command and UI interaction is an opportunity to automate.
     Just because something works, doesn’t mean it can’t be improved.
-    1Friction should be eliminated whenever possible.
+    Friction should be eliminated whenever possible.
     Automation is a journey that never ends.
     ```
 
