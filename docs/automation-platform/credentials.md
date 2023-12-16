@@ -48,11 +48,7 @@ Save your credential type, create a new credential of this type and attach it to
 An example task may look like this:
 
 ```yaml
-- name: Retrieve basic inventory of all devices
-  dellemc.openmanage.ome_device_info:
-    hostname: "{{ ansible_host }}"
-    username: "{{ lookup('env', 'OME_USERNAME') }}"
-    password: "{{ lookup('env', 'OME_PASSWORD') }}"
+--8<-- "example-credentials-from-env-task.yml"
 ```
 
 !!! tip
@@ -66,26 +62,7 @@ Creating a custom credential with a playbook can be tricky as you need to provid
 During the playbook run, Ansible will try to template the values which will fail as they are undefined (and you want the *literal* string representation anyway). Therefore, prefix the values with `!unsafe` to prevent templating the values.
 
 ```yaml hl_lines="19 20"
-- name: Create custom Credential type for DELL OME
-  awx.awx.credential_type:
-    name: Dell EMC OpenManage Enterprise
-    description: Sets environment variables for logging in to OpenManage Enterprise
-    inputs:
-      fields:
-          - id: username
-            type: string
-            label: Username
-          - id: password
-            type: string
-            label: Password
-            secret: true
-        required:
-          - username
-          - password
-    injectors:
-      env:
-        OME_PASSWORD: !unsafe "{{ password }}"
-        OME_USERNAME: !unsafe "{{ username }}"
+--8<-- "example-custom-credential-task.yml"
 ```
 
 Take a look at [Disable variable templating](variables.md#disable-variable-templating) for additional information.

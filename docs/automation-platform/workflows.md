@@ -19,10 +19,7 @@ In addition to the workflow `extra_vars`, jobs ran as part of a workflow can inh
 The first playbook (Job Template) in the workflow run defines a variable in the `data` dictionary.
 
 ```yaml title="Task of playbook in Workflow node 1"
-- name: Setting stat of free IP address for subsequent workflow step
-  ansible.builtin.set_stats:
-    data:
-      available_ip: "{{ ipam_returned_ip }}"
+--8<-- "example-set-stats-task.yml"
 ```
 
 !!! bug
@@ -34,9 +31,7 @@ The first playbook (Job Template) in the workflow run defines a variable in the 
 The second playbook (Job Template) in the workflow run references the variable of the `data` dictionary.
 
 ```yaml title="Task of playbook in Workflow node 2"
-- name: Output available IP address from previous workflow step
-  ansible.builtin.debug:
-    msg: "{{ available_ip }}"
+--8<-- "example-debug-stats-task.yml"
 ```
 
 ### Display custom stats
