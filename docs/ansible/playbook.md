@@ -60,7 +60,7 @@ Either you need only static importing of roles and you can use the roles section
 Avoid putting multiple plays in a playbook, if not really necessary. As every play most likely targets a different host group, create a separate playbook file for it. This way you achieve to most flexibility.
 
 ```{ .yaml title="k8s-installation.yml" .no-copy }
---8<-- "example-multiple-plays.yml"
+--8<-- "example-multiple-plays-playbook.yml"
 ```
 
 Separate the two plays into their respective playbooks files and reference them in an overall playbook file:
