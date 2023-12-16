@@ -104,7 +104,6 @@ nav:
   - "Overview": index.md
   - "Mindset":
     - mindset/index.md
-    - "The Zen of Ansible": mindset/zen.md
   - "Ansible":
     - ansible/index.md
     - "Installation": ansible/installation.md
