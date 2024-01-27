@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-Thank you for taking the time to contributing to the *Ansible Best Practice Guide*!
+Thank you for taking the time to contribute to the *Ansible Best Practice Guide*!
 
 ## Pull Request Guidelines
 
