@@ -1,0 +1,8 @@
+- name: Set motd message for k8s worker node
+  ansible.builtin.copy:
+    content: "This host is used as k8s worker.\n"
+    dest: /etc/motd
+    mode: "0644"
+  when:
+    - inventory_hostname in groups['kubeworker']
+    - kubeadm_join_result.rc == 0

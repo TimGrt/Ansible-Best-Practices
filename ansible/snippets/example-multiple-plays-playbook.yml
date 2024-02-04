@@ -1,0 +1,12 @@
+---
+- name: Initialize Control-Plane Nodes
+  hosts: kubemaster
+  become: true
+  roles:
+    - k8s-control-plane
+
+- name: Install and configure Worker Nodes
+  hosts: kubeworker
+  become: true
+  roles:
+    - k8s-worker-nodes

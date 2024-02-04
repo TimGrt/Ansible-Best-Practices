@@ -1,0 +1,6 @@
+---
+- name: Install Apache from the testing repo
+  ansible.builtin.yum:
+    name: httpd
+    enablerepo: testing
+    state: present

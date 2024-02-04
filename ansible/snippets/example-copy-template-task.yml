@@ -1,0 +1,8 @@
+- name: Copy index.html template
+  ansible.builtin.template:
+    src: welcome.html
+    dest: /var/www/html/index.html
+    mode: "0644"
+    owner: apache
+    group: apache
+  become: true

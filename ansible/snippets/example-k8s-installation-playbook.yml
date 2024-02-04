@@ -1,0 +1,3 @@
+---
+- ansible.builtin.import_playbook: k8s-control-plane-playbook.yml # noqa name[play]
+- ansible.builtin.import_playbook: k8s-worker-node-playbook.yml # noqa name[play]

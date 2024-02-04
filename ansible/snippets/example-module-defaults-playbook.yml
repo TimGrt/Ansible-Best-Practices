@@ -1,0 +1,19 @@
+---
+- name: Demo play with modules which need to call the same arguments
+  hosts: aci
+  module_defaults:
+    group/cisco.aci.all:
+      host: "{{ apic_api }}"
+      username: "{{ apic_user }}"
+      password: "{{ apic_password }}"
+      validate_certs: false
+  tasks:
+    - name: Get system info
+      cisco.aci.aci_system:
+        state: query
+
+    - name: Create a new demo tenant
+      cisco.aci.aci_tenant:
+        name: demo-tenant
+        description: Tenant for demo purposes
+        state: present

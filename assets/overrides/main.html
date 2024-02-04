@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block announce %}
+  <!-- Add announcement here, including arbitrary HTML -->
+  <!-- <span class="twemoji">{% include ".icons/octicons/comment-discussion-24.svg" %}</span> &nbsp;Anmerkungen und eure Best Practices sind gern gesehen! -->
+  <span class="twemoji">{% include ".icons/octicons/tools-24.svg" %}</span> &nbsp;Work in Progress! <span class="twemoji">{% include ".icons/octicons/question-24.svg" %}</span> <b>Missing something? <a href="https://github.com/TimGrt/Ansible-Best-Practices/issues/new/choose" target="_blank">Open an issue!</a></b>
+{% endblock %}
+
+{% block content %}
+
+{% if page.url_to_print_page %}
+    <a href="{{ page.url_to_print_page }}" title="Print Site" class="md-content__button md-icon">
+        {% include ".icons/material/file-pdf-box.svg" %}
+    </a>
+{% endif %}
+
+{{ super() }}
+{% endblock content %}
