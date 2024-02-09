@@ -10,5 +10,12 @@
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {}
 	},
+	"runArgs": [
+		"--userns=keep-id"
+	  ],
+	"containerUser": "vscode",
+	"containerEnv": {
+		"HOME": "/home/vscode"
+	},
 	"postAttachCommand": ["echo", "Run 'mkdocs serve' to preview the MkDocs project."]
 }
