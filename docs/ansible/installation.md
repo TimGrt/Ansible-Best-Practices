@@ -303,7 +303,7 @@ If you want to use the Navigator with EEs, you'll need a *container runtime*, in
 
 With the Navigator you, for example, can inspect **all locally available* Execution Environments
 
-Take a look at the [Playbooks section](playbook.md#ansible-navigator) on how to run playbooks in Execution Environments with the Navigator.
+Take a look at the [Playbooks section](playbook.md#with-ansible-navigator) on how to run playbooks in Execution Environments with the Navigator.
 
 Some `ansible-navigator` commands map to `ansible` commands (prefix every Navigator command with `ansible-navigator`):
 
