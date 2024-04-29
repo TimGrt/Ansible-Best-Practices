@@ -24,4 +24,4 @@ Those are **opinionated** guidelines based on the experience of many projects. T
 Searching for something specific? Use the **Search** at the top!
 
 !!! tip "Versioning"
-    This guide is updated constantly, last update on **{{ git_revision_date_localized }}**.
+    This guide is updated constantly, last update on **{{ git_site_revision_date_localized }}**.
