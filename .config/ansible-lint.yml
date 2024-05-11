@@ -12,6 +12,7 @@ exclude_paths:
   - mkdocs.yml
   - example-site-playbook.yml # Contains references to non-existent playbooks
   - example-k8s-installation-playbook.yml # Contains references to non-existent playbooks
+  - example-module-defaults-playbook.yml # Module defaults can't be linted yet
 
 mock_roles:
   - postgres
