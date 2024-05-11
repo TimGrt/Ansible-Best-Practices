@@ -41,7 +41,7 @@ ifneq ($(shell pwd)/$(PYTHON), $(shell which python))
 	@echo -e "$(COLOUR_YELLOW)## Python VE is not activated!$(COLOUR_END)"
 	@echo -e "$(COLOUR_GREEN)## Run$(COLOUR_END) source $(VENV_NAME)/bin/activate $(COLOUR_GREEN)first.$(COLOUR_END)"
 endif
-	@echo -e "$(COLOUR_GREEN)## Run$(COLOUR_END) mkdocs serve$(COLOUR_GREEN) for a live preview.$(COLOUR_END)"
+	@echo -e "$(COLOUR_GREEN)## Run$(COLOUR_END) mkdocs serve -o$(COLOUR_GREEN) for a live preview.$(COLOUR_END)"
 
 clean: ## Cleanup the project folders
 	$(info $(COLOUR_BLUE)## Cleaning up things...$(COLOUR_END))
