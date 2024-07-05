@@ -118,27 +118,28 @@ You may use these example configurations as a starting point. It expects that th
               - molecule
               - rocky
             image: docker.io/timgrt/rockylinux9-ansible:latest # (4)!
-            tmpfs:
-              - /run
-              - /tmp
             volumes:
               - /sys/fs/cgroup:/sys/fs/cgroup:ro
             command: "/usr/sbin/init"
             pre_build_image: true # (5)!
+            exposed_ports:
+              - 80/tcp
+            published_ports: # (6)!
+              - 8080:80/tcp
         provisioner:
           name: ansible
           options:
-            D: true # (6)!
+            D: true # (7)!
           connection_options:
-            ansible_user: ansible # (7)!
+            ansible_user: ansible # (8)!
           config_options:
             defaults:
               interpreter_python: auto_silent
-              callback_whitelist: profile_tasks, timer, yaml # (8)!
+              callback_whitelist: profile_tasks, timer, yaml # (9)!
           inventory:
             links:
-              group_vars: ../../../../inventory/group_vars/ # (9)!
-        scenario: # (10)!
+              group_vars: ../../../../inventory/group_vars/ # (10)!
+        scenario: # (11)!
           create_sequence:
             - create
             - prepare
@@ -191,12 +192,13 @@ You may use these example configurations as a starting point. It expects that th
             * [Debian 10](https://hub.docker.com/r/timgrt/debian10-ansible){ target="_blank" }
             * [OpenSuse 15](https://hub.docker.com/r/timgrt/opensuse15-ansible){ target="_blank" }
         5. Container image must be present before running Molecule, pull it with `podman pull docker.io/timgrt/rockylinux9-ansible:latest`
-        6. Enables *diff* mode, set to `false` if you don't want that.
-        7. Uses the *ansible* user to connect to the container (defined in the container image), this way you can test with `become`. Otherwise you would connect with the *root* user, most likely this is not what you would do in production.
-        8. Adds a timer to every task and the overall playbook run, as well as formatting the Ansible output to YAML for better readability.  
+        6. When running a webserver inside the container (on port 80), this will publish the container port 80 to the host port 8080. Now, you can check the webserver content by using `http://localhost:8080` (or use the IP of your host).
+        7. Enables *diff* mode, set to `false` if you don't want that.
+        8. Uses the *ansible* user to connect to the container (defined in the container image), this way you can test with `become`. Otherwise you would connect with the *root* user, most likely this is not what you would do in production.
+        9. Adds a timer to every task and the overall playbook run, as well as formatting the Ansible output to YAML for better readability.  
         Install necessary collections with `ansible-galaxy collection install ansible.posix community.general`.
-        9. If you want your container to inherit variables from *group_vars*, reference the location of your *group_vars* (here they are stored in the subfolder *inventory* of the project, searching begins in the scenario folder *defaults*). Delete the *inventory* key and all content if you don't need this.
-        10. A scenario allows Molecule to test a role in a particular way, these are the stages when executing Molecule.  
+        10. If you want your container to inherit variables from *group_vars*, reference the location of your *group_vars* (here they are stored in the subfolder *inventory* of the project, searching begins in the scenario folder *defaults*). Delete the *inventory* key and all content if you don't need this.
+        11. A scenario allows Molecule to test a role in a particular way, these are the stages when executing Molecule.  
         For example, running `molecule converge` would create a container (if not already created), prepare it (if not already prepared) and run the *converge* stage/playbook.  
 
 === "Playbook file"
