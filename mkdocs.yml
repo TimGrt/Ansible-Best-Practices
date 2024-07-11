@@ -1,7 +1,7 @@
 # code: language=yaml
 site_name: Ansible Best Practices
 site_description: Best Practices and Style Guide for Ansible Projects
-copyright: Copyright &copy; Computacenter 2024
+copyright: Copyright &copy; Tim Grützmacher 2024
 edit_uri: ""
 extra:
   social:
@@ -74,9 +74,9 @@ theme:
     repo: fontawesome/brands/github
     admonition:
       example: octicons/terminal-24
-  logo: assets/images/computacenter-logo-white.png
+  logo: assets/images/ansible-logo-black.png
   language: en
-  favicon: assets/images/computacenter-logo.png
+  favicon: assets/images/ansible-logo-black.png
   features:
     - content.code.annotate
     - content.code.copy

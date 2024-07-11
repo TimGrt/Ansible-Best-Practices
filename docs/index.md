@@ -1,10 +1,10 @@
 # Best Practices
 
-This document aims to gather good and best practices from Ansible practitioners and projects at Computacenter. It strives to give all Ansible users a guideline from which to start their automation journey in good conditions.
+This document aims to gather good and best practices from Ansible practitioners and experience from multiple Ansible projects. It strives to give all Ansible users a guideline from which to start their automation journey in good conditions.
 
 <figure markdown>
-  [![CC Logo](assets/images/computacenter.png#only-light){ width="300" }](https://www.computacenter.com/de-de){:target="_blank"}
-  [![CC Logo](assets/images/computacenter-white.png#only-dark){ width="300" }](https://www.computacenter.com/de-de){:target="_blank"}
+  ![CC Logo](assets/images/ansible-community-logo-black.png#only-light){ width="500" }
+  ![CC Logo](assets/images/ansible-community-logo-white.png#only-dark){ width="500" }
   <figcaption></figcaption>
 </figure>
 
