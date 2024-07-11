@@ -7,7 +7,7 @@
 </div>
 
 <p>
-    <img src="../assets/images/computacenter.png" width=500/>
+    <img src="../assets/images/ansible-community-logo-black.png" width=500/>
 </p>
 
 {% if config.site_description %}
