@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="../assets/images/ansible-logo-black.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.34">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
     
     
       
@@ -611,6 +611,8 @@
       
         
       
+        
+      
     
     
       
@@ -729,6 +731,27 @@
   
   <span class="md-ellipsis">
     Extending
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/monitoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitoring & Troubleshooting
   </span>
   
 
@@ -1055,6 +1078,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#development-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Monitoring & Troubleshooting
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1073,7 +1105,7 @@
           <li class="md-nav__item">
   <a href="#automation-platform" class="md-nav__link">
     <span class="md-ellipsis">
-      16. Ansible Automation Platform
+      17. Ansible Automation Platform
     </span>
   </a>
   
@@ -1082,7 +1114,7 @@
           <li class="md-nav__item">
   <a href="#automation-platform-credentials" class="md-nav__link">
     <span class="md-ellipsis">
-      17. Credentials
+      18. Credentials
     </span>
   </a>
   
@@ -1091,7 +1123,7 @@
           <li class="md-nav__item">
   <a href="#automation-platform-workflows" class="md-nav__link">
     <span class="md-ellipsis">
-      18. Workflows
+      19. Workflows
     </span>
   </a>
   
@@ -1185,7 +1217,7 @@
 <p>Searching for something specific? Use the <strong>Search</strong> at the top!</p>
 <div class="admonition tip">
 <p class="admonition-title">Versioning</p>
-<p>This guide is updated constantly, last update on <strong><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 11, 2024</span></strong>.</p>
+<p>This guide is updated constantly, last update on <strong><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 8, 2024</span></strong>.</p>
 </div>
 <!-- markdownlint-disable --></section>
                         <h1 class='nav-section-title' id='section-mindset'>
@@ -1890,13 +1922,13 @@ List in variable-file indented with four whitespaces:
 <div class="admonition good-practice-no-title">
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#ansible-project-__codelineno-17-1"></a><span class="nn">---</span>
 <a id="__codelineno-17-2" name="__codelineno-17-2" href="#ansible-project-__codelineno-17-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Apache from the testing repo</span>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#ansible-project-__codelineno-17-3"></a><span class="w">  </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#ansible-project-__codelineno-17-3"></a><span class="w">  </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-17-4" name="__codelineno-17-4" href="#ansible-project-__codelineno-17-4"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
 <a id="__codelineno-17-5" name="__codelineno-17-5" href="#ansible-project-__codelineno-17-5"></a><span class="w">    </span><span class="nt">enablerepo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testing</span>
 <a id="__codelineno-17-6" name="__codelineno-17-6" href="#ansible-project-__codelineno-17-6"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#ansible-project-__codelineno-18-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install a list of packages</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#ansible-project-__codelineno-18-2"></a><span class="w">  </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#ansible-project-__codelineno-18-2"></a><span class="w">  </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-18-3" name="__codelineno-18-3" href="#ansible-project-__codelineno-18-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span>
 <a id="__codelineno-18-4" name="__codelineno-18-4" href="#ansible-project-__codelineno-18-4"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
 <a id="__codelineno-18-5" name="__codelineno-18-5" href="#ansible-project-__codelineno-18-5"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql</span>
@@ -1909,11 +1941,11 @@ List in variable-file indented with four whitespaces:
 <div class="admonition bad-practice-no-title">
 <p>Task with <em>One-line</em> syntax:
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#ansible-project-__codelineno-19-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install the latest version of Apache from the testing repo</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#ansible-project-__codelineno-19-2"></a><span class="w">  </span><span class="nt">yum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name=httpd enablerepo=testing state=present</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#ansible-project-__codelineno-19-2"></a><span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name=httpd enablerepo=testing state=present</span>
 </code></pre></div>
 List in task with <em>One-line</em> syntax:
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#ansible-project-__codelineno-20-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install a list of packages</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#ansible-project-__codelineno-20-2"></a><span class="w">  </span><span class="nt">yum</span><span class="p">:</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#ansible-project-__codelineno-20-2"></a><span class="w">  </span><span class="nt">package</span><span class="p">:</span>
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#ansible-project-__codelineno-20-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;nginx&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;postgresql&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;postgresql-server&#39;</span><span class="p p-Indicator">]</span>
 <a id="__codelineno-20-4" name="__codelineno-20-4" href="#ansible-project-__codelineno-20-4"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div></p>
@@ -1956,7 +1988,7 @@ Do not use the Ansible-specific <code>yes</code> and <code>no</code> as boolean 
 <div class="admonition good-practice-no-title">
 <p>Using a variable <code>upgrade_allowed</code> with the default value <code>false</code>, task is executed when overwritten with <code>true</code> value.
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#ansible-project-__codelineno-23-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Upgrade all packages, excluding kernel &amp; foo related packages</span><span class="w"> </span><span class="c1"># noqa package-latest</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#ansible-project-__codelineno-23-2"></a><span class="w">  </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#ansible-project-__codelineno-23-2"></a><span class="w">  </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-23-3" name="__codelineno-23-3" href="#ansible-project-__codelineno-23-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*&quot;</span>
 <a id="__codelineno-23-4" name="__codelineno-23-4" href="#ansible-project-__codelineno-23-4"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
 <a id="__codelineno-23-5" name="__codelineno-23-5" href="#ansible-project-__codelineno-23-5"></a><span class="w">    </span><span class="nt">exclude</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kernel*,foo*</span>
@@ -1967,7 +1999,7 @@ Do not use the Ansible-specific <code>yes</code> and <code>no</code> as boolean 
 <div class="tabbed-block">
 <div class="admonition bad-practice-no-title">
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#ansible-project-__codelineno-24-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Upgrade all packages, excluding kernel &amp; foo related packages</span>
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#ansible-project-__codelineno-24-2"></a><span class="w">  </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#ansible-project-__codelineno-24-2"></a><span class="w">  </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-24-3" name="__codelineno-24-3" href="#ansible-project-__codelineno-24-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*&quot;</span>
 <a id="__codelineno-24-4" name="__codelineno-24-4" href="#ansible-project-__codelineno-24-4"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
 <a id="__codelineno-24-5" name="__codelineno-24-5" href="#ansible-project-__codelineno-24-5"></a><span class="w">    </span><span class="nt">exclude</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kernel*,foo*</span>
@@ -2440,7 +2472,7 @@ Write task names in the imperative (e.g. <em>"Ensure service is running"</em>), 
 <div class="tabbed-block">
 <div class="admonition good-practice-no-title">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#ansible-tasks-__codelineno-2-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install webserver package</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#ansible-tasks-__codelineno-2-2"></a><span class="w">  </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#ansible-tasks-__codelineno-2-2"></a><span class="w">  </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#ansible-tasks-__codelineno-2-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#ansible-tasks-__codelineno-2-4"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div>
@@ -2448,13 +2480,13 @@ Write task names in the imperative (e.g. <em>"Ensure service is running"</em>), 
 </div>
 <div class="tabbed-block">
 <div class="admonition bad-practice-no-title">
-<p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#ansible-tasks-__codelineno-3-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">yum</span><span class="p">:</span>
+<p><div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#ansible-tasks-__codelineno-3-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">package</span><span class="p">:</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#ansible-tasks-__codelineno-3-2"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#ansible-tasks-__codelineno-3-3"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div>
 Using name parameter, but not starting with capital letter, nor describing the task properly.
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#ansible-tasks-__codelineno-4-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install package</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#ansible-tasks-__codelineno-4-2"></a><span class="w">  </span><span class="nt">yum</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#ansible-tasks-__codelineno-4-2"></a><span class="w">  </span><span class="nt">package</span><span class="p">:</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#ansible-tasks-__codelineno-4-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#ansible-tasks-__codelineno-4-4"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div></p>
@@ -2466,7 +2498,7 @@ Using name parameter, but not starting with capital letter, nor describing the t
 <p>It is a common practice to have <code>tasks/main.yml</code> file including other tasks files, which we’ll call <em>sub-tasks</em> files. Make sure that the tasks' names in these sub-tasks files are prefixed with a shortcut reminding of the sub-tasks file’s name. Especially in a complex role with multiple (sub-)tasks file, it becomes difficult to understand which task belongs to which file.  </p>
 <p>For example, having a sub-task file <code>tasks/kubeadm-setup.yml</code> with every task in it having a short reminder to which file it belongs.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#ansible-tasks-__codelineno-5-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubeadm-setup | Install kubeadm, kubelet and kubectl</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#ansible-tasks-__codelineno-5-2"></a><span class="w">  </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#ansible-tasks-__codelineno-5-2"></a><span class="w">  </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#ansible-tasks-__codelineno-5-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#ansible-tasks-__codelineno-5-4"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubelet</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#ansible-tasks-__codelineno-5-5"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubeadm</span>
@@ -2533,7 +2565,7 @@ just <code>{{ var }}</code> to make sure they do not include evil things like se
 <div class="tabbed-block">
 <div class="admonition good-practice-no-title">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#ansible-tasks-__codelineno-9-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install webserver package</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#ansible-tasks-__codelineno-9-2"></a><span class="w">  </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#ansible-tasks-__codelineno-9-2"></a><span class="w">  </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#ansible-tasks-__codelineno-9-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#ansible-tasks-__codelineno-9-4"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div>
@@ -2558,7 +2590,7 @@ just <code>{{ var }}</code> to make sure they do not include evil things like se
 <div class="tabbed-block">
 <div class="admonition good-practice-no-title">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#ansible-tasks-__codelineno-11-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install webserver package</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#ansible-tasks-__codelineno-11-2"></a><span class="w">  </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#ansible-tasks-__codelineno-11-2"></a><span class="w">  </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#ansible-tasks-__codelineno-11-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#ansible-tasks-__codelineno-11-4"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div>
@@ -2566,7 +2598,7 @@ just <code>{{ var }}</code> to make sure they do not include evil things like se
 </div>
 <div class="tabbed-block">
 <div class="admonition bad-practice-no-title">
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#ansible-tasks-__codelineno-12-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">yum</span><span class="p">:</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#ansible-tasks-__codelineno-12-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">package</span><span class="p">:</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#ansible-tasks-__codelineno-12-2"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#ansible-tasks-__codelineno-12-3"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div>
@@ -2710,7 +2742,7 @@ Take a look at the <a href="https://docs.ansible.com/ansible/latest/collections/
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#ansible-tasks-__codelineno-22-2"></a><span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible_facts[&#39;distribution&#39;] == &#39;CentOS&#39;</span>
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#ansible-tasks-__codelineno-22-3"></a><span class="w">  </span><span class="nt">block</span><span class="p">:</span>
 <a id="__codelineno-22-4" name="__codelineno-22-4" href="#ansible-tasks-__codelineno-22-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install httpd and memcached</span>
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#ansible-tasks-__codelineno-22-5"></a><span class="w">      </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#ansible-tasks-__codelineno-22-5"></a><span class="w">      </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-22-6" name="__codelineno-22-6" href="#ansible-tasks-__codelineno-22-6"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span>
 <a id="__codelineno-22-7" name="__codelineno-22-7" href="#ansible-tasks-__codelineno-22-7"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
 <a id="__codelineno-22-8" name="__codelineno-22-8" href="#ansible-tasks-__codelineno-22-8"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">memcached</span>
@@ -2735,7 +2767,7 @@ Take a look at the <a href="https://docs.ansible.com/ansible/latest/collections/
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#ansible-tasks-__codelineno-23-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install, configure, and start Apache</span>
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#ansible-tasks-__codelineno-23-2"></a><span class="w">  </span><span class="nt">block</span><span class="p">:</span>
 <a id="__codelineno-23-3" name="__codelineno-23-3" href="#ansible-tasks-__codelineno-23-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install httpd and memcached</span>
-<a id="__codelineno-23-4" name="__codelineno-23-4" href="#ansible-tasks-__codelineno-23-4"></a><span class="w">      </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#ansible-tasks-__codelineno-23-4"></a><span class="w">      </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-23-5" name="__codelineno-23-5" href="#ansible-tasks-__codelineno-23-5"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span>
 <a id="__codelineno-23-6" name="__codelineno-23-6" href="#ansible-tasks-__codelineno-23-6"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
 <a id="__codelineno-23-7" name="__codelineno-23-7" href="#ansible-tasks-__codelineno-23-7"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">memcached</span>
@@ -3944,7 +3976,7 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#development-testing-__codelineno-11-4"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#development-testing-__codelineno-11-5"></a><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#development-testing-__codelineno-11-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install OpenSSH for ssh-keygen</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#development-testing-__codelineno-11-7"></a><span class="w">      </span><span class="nt">ansible.builtin.yum</span><span class="p">:</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#development-testing-__codelineno-11-7"></a><span class="w">      </span><span class="nt">ansible.builtin.package</span><span class="p">:</span>
 <a id="__codelineno-11-8" name="__codelineno-11-8" href="#development-testing-__codelineno-11-8"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openssh</span>
 <a id="__codelineno-11-9" name="__codelineno-11-9" href="#development-testing-__codelineno-11-9"></a><span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div>
@@ -4433,6 +4465,283 @@ Executing the script standalone (using a JSON module for better readability):
 <p>Run your playbook, referencing the custom inventory plugin file:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#development-extending-__codelineno-18-1"></a><span class="go">ansible-playbook -i inventory.yml main.yml</span>
 </code></pre></div>
+<!-- markdownlint-disable --></section><section class="print-page" id="development-monitoring"><h1 id="development-monitoring-monitoring-troubleshooting">Monitoring &amp; Troubleshooting</h1>
+<p>This section describes different methods to monitor or troubleshoot your Ansible playbook runs.<br />
+When you need metrics about playbook execution and machine resource consumption, <a href="https://docs.ansible.com/ansible/latest/plugins/callback.html" target="_blank">callback plugins</a> can help you drill down into the data and troubleshoot issues.</p>
+<h2 id="development-monitoring-how-long-does-it-take">How long does it take?</h2>
+<p>To measure the time spent for tasks and the overall playbook run, multiple callback plugins are available.
+Install the necessary collections which include the desired callback plugins:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#development-monitoring-__codelineno-0-1"></a><span class="go">ansible-galaxy collection install ansible.posix</span>
+</code></pre></div>
+<p>The following plugins are available and useful for different purposes.</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/ansible/posix/timer_callback.html#ansible-collections-ansible-posix-timer-callback" target="_blank">ansible.posix.timer</a> - Adds <strong>total play duration</strong> to the play stats.</li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/ansible/posix/profile_tasks_callback.html#ansible-collections-ansible-posix-profile-tasks-callback" target="_blank">ansible.posix.profile_tasks</a> - For <strong>timing individual tasks</strong> and overall execution time.</li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/ansible/posix/profile_roles_callback.html#ansible-collections-ansible-posix-profile-roles-callback" target="_blank">ansible.posix.profile_roles</a> - Adds timing information to roles.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To use the callback plugins, they need to be <strong>enabled</strong>.</p>
+</div>
+<p>For example, to show the start-time and duration for every task, you can use the <code>timer</code> and <code>profile_tasks</code> callback plugin.
+Add the following block to your <code>ansible.cfg</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#development-monitoring-__codelineno-1-1"></a><span class="k">[defaults]</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#development-monitoring-__codelineno-1-2"></a><span class="na">callbacks_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ansible.posix.timer, ansible.posix.profile_tasks</span>
+</code></pre></div>
+<details class="example">
+<summary>Example output</summary>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#development-monitoring-__codelineno-2-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span>create-workshop-environment.yml
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#development-monitoring-__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#development-monitoring-__codelineno-2-3"></a><span class="go">PLAY [Create Workshop environment] ****************************************************************************************************</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#development-monitoring-__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#development-monitoring-__codelineno-2-5"></a><span class="go">TASK [Gathering Facts] ****************************************************************************************************************</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#development-monitoring-__codelineno-2-6"></a><span class="go">Saturday 07 September 2024  16:05:19 +0200 (0:00:00.004)       0:00:00.004 ****</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#development-monitoring-__codelineno-2-7"></a><span class="go">ok: [localhost]</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#development-monitoring-__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#development-monitoring-__codelineno-2-9"></a><span class="go">TASK [Get package facts] **************************************************************************************************************</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#development-monitoring-__codelineno-2-10"></a><span class="go">Saturday 07 September 2024  16:05:20 +0200 (0:00:00.836)       0:00:00.840 ****</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#development-monitoring-__codelineno-2-11"></a><span class="go">ok: [localhost]</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#development-monitoring-__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#development-monitoring-__codelineno-2-13"></a><span class="go">[...cut for readability...]</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#development-monitoring-__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#development-monitoring-__codelineno-2-15"></a><span class="go">PLAY RECAP ****************************************************************************************************************************</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#development-monitoring-__codelineno-2-16"></a><span class="go">localhost                  : ok=10   changed=6    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0  </span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#development-monitoring-__codelineno-2-17"></a><span class="go">node1                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  </span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#development-monitoring-__codelineno-2-18"></a><span class="go">node2                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  </span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#development-monitoring-__codelineno-2-19"></a><span class="go">node3                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  </span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#development-monitoring-__codelineno-2-20"></a>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#development-monitoring-__codelineno-2-21"></a><span class="go">Playbook run took 0 days, 0 hours, 0 minutes, 43 seconds</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#development-monitoring-__codelineno-2-22"></a><span class="go">Saturday 07 September 2024  16:06:03 +0200 (0:00:02.318)       0:00:43.633 ****</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#development-monitoring-__codelineno-2-23"></a><span class="go">===============================================================================</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#development-monitoring-__codelineno-2-24"></a><span class="go">Install SSH daemon ------------------------------------------------------------------------------------------------------------ 25.25s</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#development-monitoring-__codelineno-2-25"></a><span class="go">Start managed node containers, publish 3 ports for each container -------------------------------------------------------------- 3.67s</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#development-monitoring-__codelineno-2-26"></a><span class="go">Gathering Facts ---------------------------------------------------------------------------------------------------------------- 2.92s</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#development-monitoring-__codelineno-2-27"></a><span class="go">Start SSH daemon --------------------------------------------------------------------------------------------------------------- 2.64s</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#development-monitoring-__codelineno-2-28"></a><span class="go">Add public key of workshop SSH keypair to authorized_keys of ansible user ------------------------------------------------------ 2.32s</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#development-monitoring-__codelineno-2-29"></a><span class="go">Remove /run/nologin to be able to login as unprivileged user ------------------------------------------------------------------- 2.20s</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#development-monitoring-__codelineno-2-30"></a><span class="go">Create OpenSSH keypair for accessing managed nodes ----------------------------------------------------------------------------- 1.38s</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#development-monitoring-__codelineno-2-31"></a><span class="go">Get package facts -------------------------------------------------------------------------------------------------------------- 0.84s</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#development-monitoring-__codelineno-2-32"></a><span class="go">Gathering Facts ---------------------------------------------------------------------------------------------------------------- 0.84s</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#development-monitoring-__codelineno-2-33"></a><span class="go">Pull image for managed node containers ----------------------------------------------------------------------------------------- 0.52s</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#development-monitoring-__codelineno-2-34"></a><span class="go">Create workshop inventory file ------------------------------------------------------------------------------------------------- 0.28s</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#development-monitoring-__codelineno-2-35"></a><span class="go">Deploy ansible.cfg to home directory ------------------------------------------------------------------------------------------- 0.19s</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#development-monitoring-__codelineno-2-36"></a><span class="go">Create folder for workshop inventory ------------------------------------------------------------------------------------------- 0.18s</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#development-monitoring-__codelineno-2-37"></a><span class="go">Add block to ssh_config for easy SSH access to managed nodes ------------------------------------------------------------------- 0.17s</span>
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#development-monitoring-__codelineno-2-38"></a><span class="go">Check for existing SSH keypair ------------------------------------------------------------------------------------------------- 0.14s</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#development-monitoring-__codelineno-2-39"></a><span class="go">Install Podman ----------------------------------------------------------------------------------------------------------------- 0.03s</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#development-monitoring-__codelineno-2-40"></a><span class="go">Backup file of .ansible.cfg created -------------------------------------------------------------------------------------------- 0.02s</span>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#development-monitoring-__codelineno-2-41"></a><span class="go">Check if OpenSSH keypair does not match target configuration ------------------------------------------------------------------- 0.02s</span>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#development-monitoring-__codelineno-2-42"></a><span class="go">Abort playbook if keypair was found and does not match target configuration ---------------------------------------------------- 0.02s</span>
+</code></pre></div>
+</details>
+<h2 id="development-monitoring-how-much-resources-are-consumed">How much resources are consumed?</h2>
+<p>To measure system resources used by Ansible, you can use the following <em>callback plugins</em>, both are utilizing <em>cgroups</em>.</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/community/general/cgroup_memory_recap_callback.html" target="_blank">community.general.cgroup_memory_recap</a> - profiles maximum memory usage of individual tasks and displays a recap at the end</li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/ansible/posix/cgroup_perf_recap_callback.html" target="_blank">ansible.posix.cgroup_perf_recap</a> - profiles system activity of Ansible and individual tasks and displays a recap at the end of the playbook execution.</li>
+</ul>
+<p><em>cgroups</em> (abbreviated from control groups) is a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, etc) of a collection of processes. You can use the <em>cgroup-tools</em> (for Fedora-based systems the package is called <em>libcgroup-tools</em>) utilities to create a <em>cgroup</em> profile and interact with cgroups.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Installing <code>cgroup-tools</code> and creating the <em>cgroup</em>-profile requires <em>sudo</em> permissions.</p>
+</div>
+<p>Install the <em>cgroup-tools</em> which contains command-line programs, services and a daemon for manipulating control groups using the libcgroup library.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#development-monitoring-__codelineno-3-1"></a><span class="go">sudo apt install cgroup-tools</span>
+</code></pre></div>
+<p>Create a <em>cgroup</em> which includes the CPU Accounting, the memory (RAM) and the PIDs subsystem:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#development-monitoring-__codelineno-4-1"></a><span class="go">sudo cgcreate -a ${USER}:${USER} -t ${USER}:${USER} -g cpuacct,memory,pids:ansible_profile</span>
+</code></pre></div>
+<p>Install the necessary collections which include the desired callback plugins:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#development-monitoring-__codelineno-5-1"></a><span class="go">ansible-galaxy collection install ansible.posix community.general</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To use the callback plugins, they need to be <strong>enabled</strong> and configured.</p>
+</div>
+<h3 id="development-monitoring-show-ram-usage">Show RAM usage</h3>
+<p>To show the memory usage for every task, you can use the <code>cgroup_memory_recap</code> callback plugin.
+Add the following block to your <code>ansible.cfg</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#development-monitoring-__codelineno-6-1"></a><span class="k">[defaults]</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#development-monitoring-__codelineno-6-2"></a><span class="na">callbacks_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">community.general.cgroup_memory_recap</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#development-monitoring-__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#development-monitoring-__codelineno-6-4"></a><span class="k">[callback_cgroupmemrecap]</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#development-monitoring-__codelineno-6-5"></a><span class="na">cur_mem_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/sys/fs/cgroup/memory/ansible_profile/memory.usage_in_bytes</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#development-monitoring-__codelineno-6-6"></a><span class="na">max_mem_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/sys/fs/cgroup/memory/ansible_profile/memory.max_usage_in_bytes</span>
+</code></pre></div>
+<p>The <em>cgexec</em> program executes a task command (in our case a playbook run) with arguments in given control groups (in our case the <em>memory</em> group only).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#development-monitoring-__codelineno-7-1"></a><span class="go">cgexec -g memory:ansible_profile ansible-playbook playbook.yml</span>
+</code></pre></div>
+<details class="example">
+<summary>Example output</summary>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#development-monitoring-__codelineno-8-1"></a><span class="gp">$ </span>cgexec<span class="w"> </span>-g<span class="w"> </span>memory:ansible_profile<span class="w"> </span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span>create-workshop-environment.yml
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#development-monitoring-__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#development-monitoring-__codelineno-8-3"></a><span class="go">PLAY [Create Workshop environment] ******************************************************</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#development-monitoring-__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#development-monitoring-__codelineno-8-5"></a><span class="go">TASK [Gathering Facts] ******************************************************************</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#development-monitoring-__codelineno-8-6"></a><span class="go">ok: [localhost]</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#development-monitoring-__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#development-monitoring-__codelineno-8-8"></a><span class="go">TASK [Get package facts] ****************************************************************</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#development-monitoring-__codelineno-8-9"></a><span class="go">ok: [localhost]</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#development-monitoring-__codelineno-8-10"></a>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#development-monitoring-__codelineno-8-11"></a><span class="go">[...cut for readability...]</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#development-monitoring-__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#development-monitoring-__codelineno-8-13"></a><span class="go">PLAY RECAP ******************************************************************************</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#development-monitoring-__codelineno-8-14"></a><span class="go">localhost                  : ok=10   changed=6    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0  </span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#development-monitoring-__codelineno-8-15"></a><span class="go">node1                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  </span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#development-monitoring-__codelineno-8-16"></a><span class="go">node2                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  </span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#development-monitoring-__codelineno-8-17"></a><span class="go">node3                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  </span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#development-monitoring-__codelineno-8-18"></a>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#development-monitoring-__codelineno-8-19"></a>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#development-monitoring-__codelineno-8-20"></a><span class="go">CGROUP MEMORY RECAP *********************************************************************</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#development-monitoring-__codelineno-8-21"></a><span class="go">Execution Maximum: 281.57MB</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#development-monitoring-__codelineno-8-22"></a>
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#development-monitoring-__codelineno-8-23"></a><span class="go">Gathering Facts (299e2579-3d81-65cc-ccd9-00000000001f): 148.23MB</span>
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#development-monitoring-__codelineno-8-24"></a><span class="go">Get package facts (299e2579-3d81-65cc-ccd9-000000000006): 220.73MB</span>
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#development-monitoring-__codelineno-8-25"></a><span class="go">Install Podman (299e2579-3d81-65cc-ccd9-000000000007): 166.30MB</span>
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#development-monitoring-__codelineno-8-26"></a><span class="go">Pull image for managed node containers (299e2579-3d81-65cc-ccd9-000000000008): 220.42MB</span>
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#development-monitoring-__codelineno-8-27"></a><span class="go">Start managed node containers, publish 3 ports for each container (299e2579-3d81-65cc-ccd9-000000000009): 227.33MB</span>
+<a id="__codelineno-8-28" name="__codelineno-8-28" href="#development-monitoring-__codelineno-8-28"></a><span class="go">Create folder for workshop inventory (299e2579-3d81-65cc-ccd9-00000000000a): 190.53MB</span>
+<a id="__codelineno-8-29" name="__codelineno-8-29" href="#development-monitoring-__codelineno-8-29"></a><span class="go">Create workshop inventory file (299e2579-3d81-65cc-ccd9-00000000000b): 203.59MB</span>
+<a id="__codelineno-8-30" name="__codelineno-8-30" href="#development-monitoring-__codelineno-8-30"></a><span class="go">Add block to ssh_config for easy SSH access to managed nodes (299e2579-3d81-65cc-ccd9-00000000000c): 192.20MB</span>
+<a id="__codelineno-8-31" name="__codelineno-8-31" href="#development-monitoring-__codelineno-8-31"></a><span class="go">Deploy ansible.cfg to home directory (299e2579-3d81-65cc-ccd9-00000000000d): 185.89MB</span>
+<a id="__codelineno-8-32" name="__codelineno-8-32" href="#development-monitoring-__codelineno-8-32"></a><span class="go">Backup file of .ansible.cfg created (299e2579-3d81-65cc-ccd9-00000000000e): 168.18MB</span>
+<a id="__codelineno-8-33" name="__codelineno-8-33" href="#development-monitoring-__codelineno-8-33"></a><span class="go">Check for existing SSH keypair (299e2579-3d81-65cc-ccd9-00000000000f): 191.01MB</span>
+<a id="__codelineno-8-34" name="__codelineno-8-34" href="#development-monitoring-__codelineno-8-34"></a><span class="go">Check if OpenSSH keypair does not match target configuration (299e2579-3d81-65cc-ccd9-000000000011): 168.10MB</span>
+<a id="__codelineno-8-35" name="__codelineno-8-35" href="#development-monitoring-__codelineno-8-35"></a><span class="go">Abort playbook if keypair was found and does not match target configuration (299e2579-3d81-65cc-ccd9-000000000012): 168.20MB</span>
+<a id="__codelineno-8-36" name="__codelineno-8-36" href="#development-monitoring-__codelineno-8-36"></a><span class="go">Create OpenSSH keypair for accessing managed nodes (299e2579-3d81-65cc-ccd9-000000000014): 210.39MB</span>
+<a id="__codelineno-8-37" name="__codelineno-8-37" href="#development-monitoring-__codelineno-8-37"></a><span class="go">Gathering Facts (299e2579-3d81-65cc-ccd9-000000000060): 251.42MB</span>
+<a id="__codelineno-8-38" name="__codelineno-8-38" href="#development-monitoring-__codelineno-8-38"></a><span class="go">Install SSH daemon (299e2579-3d81-65cc-ccd9-000000000017): 275.68MB</span>
+<a id="__codelineno-8-39" name="__codelineno-8-39" href="#development-monitoring-__codelineno-8-39"></a><span class="go">Start SSH daemon (299e2579-3d81-65cc-ccd9-000000000018): 281.44MB</span>
+<a id="__codelineno-8-40" name="__codelineno-8-40" href="#development-monitoring-__codelineno-8-40"></a><span class="go">Remove /run/nologin to be able to login as unprivileged user (299e2579-3d81-65cc-ccd9-000000000019): 250.57MB</span>
+<a id="__codelineno-8-41" name="__codelineno-8-41" href="#development-monitoring-__codelineno-8-41"></a><span class="go">Add public key of workshop SSH keypair to authorized_keys of ansible user (299e2579-3d81-65cc-ccd9-00000000001a): 273.89MB</span>
+</code></pre></div>
+</details>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Create an <em>alias</em> for the <em>cgexec...</em> part:</p>
+<div class="admonition example">
+<p class="admonition-title">~/.bash_aliases</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#development-monitoring-__codelineno-9-1"></a><span class="go">alias ansible-playbook-profile=&#39;cgexec -g memory:ansible_profile ansible-playbook&#39;</span>
+</code></pre></div>
+</div>
+<p>First time usage requires <code>source ~/.bash_aliases</code>, now you can run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#development-monitoring-__codelineno-10-1"></a><span class="go">ansible-playbook-profile -i inventory playbook.yml</span>
+</code></pre></div>
+</div>
+<h3 id="development-monitoring-show-ram-cpu-pids-usage">Show RAM, CPU &amp; PIDs usage</h3>
+<p>To show the memory and CPU usage, as well as forked processes for every task, you can use the <code>cgroup_perf_recap</code> callback plugin.
+Add the following block to your <code>ansible.cfg</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#development-monitoring-__codelineno-11-1"></a><span class="k">[defaults]</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#development-monitoring-__codelineno-11-2"></a><span class="na">callbacks_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ansible.posix.cgroup_perf_recap</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#development-monitoring-__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#development-monitoring-__codelineno-11-4"></a><span class="k">[callback_cgroup_perf_recap]</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#development-monitoring-__codelineno-11-5"></a><span class="na">control_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ansible_profile</span>
+</code></pre></div>
+<p>The <em>cgexec</em> program executes a task command (in our case a playbook run) with arguments in given control groups.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#development-monitoring-__codelineno-12-1"></a><span class="go">cgexec -g cpuacct,memory,pids:ansible_profile ansible-playbook playbook.yml</span>
+</code></pre></div>
+<details class="example">
+<summary>Example output</summary>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#development-monitoring-__codelineno-13-1"></a><span class="gp">$ </span>cgexec<span class="w"> </span>-g<span class="w"> </span>cpuacct,memory,pids:ansible_profile<span class="w"> </span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span>create-workshop-environment.yml
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#development-monitoring-__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#development-monitoring-__codelineno-13-3"></a><span class="go">PLAY [Create Workshop environment] *****************************************************************************</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#development-monitoring-__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#development-monitoring-__codelineno-13-5"></a><span class="go">TASK [Gathering Facts] *****************************************************************************************</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#development-monitoring-__codelineno-13-6"></a><span class="go">ok: [localhost]</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#development-monitoring-__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#development-monitoring-__codelineno-13-8"></a><span class="go">TASK [Get package facts] ***************************************************************************************</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#development-monitoring-__codelineno-13-9"></a><span class="go">ok: [localhost]</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#development-monitoring-__codelineno-13-10"></a>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#development-monitoring-__codelineno-13-11"></a><span class="go">[...cut for readability...]</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#development-monitoring-__codelineno-13-12"></a>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#development-monitoring-__codelineno-13-13"></a><span class="go">PLAY RECAP *****************************************************************************************************</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#development-monitoring-__codelineno-13-14"></a><span class="go">localhost                  : ok=10   changed=6    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0  </span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#development-monitoring-__codelineno-13-15"></a><span class="go">node1                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  </span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#development-monitoring-__codelineno-13-16"></a><span class="go">node2                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  </span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#development-monitoring-__codelineno-13-17"></a><span class="go">node3                      : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  </span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#development-monitoring-__codelineno-13-18"></a>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#development-monitoring-__codelineno-13-19"></a>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#development-monitoring-__codelineno-13-20"></a><span class="go">CGROUP PERF RECAP **********************************************************************************************</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#development-monitoring-__codelineno-13-21"></a><span class="go">Memory Execution Maximum: 286.29MB</span>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#development-monitoring-__codelineno-13-22"></a><span class="go">cpu Execution Maximum: 302.46%</span>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#development-monitoring-__codelineno-13-23"></a><span class="go">pids Execution Maximum: 43.00</span>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#development-monitoring-__codelineno-13-24"></a>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#development-monitoring-__codelineno-13-25"></a><span class="go">memory:</span>
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#development-monitoring-__codelineno-13-26"></a><span class="go">Gathering Facts (299e2579-3d81-800b-f0f1-00000000001f): 109.20MB</span>
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#development-monitoring-__codelineno-13-27"></a><span class="go">Get package facts (299e2579-3d81-800b-f0f1-000000000006): 182.14MB</span>
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#development-monitoring-__codelineno-13-28"></a><span class="go">Install Podman (299e2579-3d81-800b-f0f1-000000000007): 120.23MB</span>
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#development-monitoring-__codelineno-13-29"></a><span class="go">Pull image for managed node containers (299e2579-3d81-800b-f0f1-000000000008): 216.32MB</span>
+<a id="__codelineno-13-30" name="__codelineno-13-30" href="#development-monitoring-__codelineno-13-30"></a><span class="go">Start managed node containers, publish 3 ports for each container (299e2579-3d81-800b-f0f1-000000000009): 224.69MB</span>
+<a id="__codelineno-13-31" name="__codelineno-13-31" href="#development-monitoring-__codelineno-13-31"></a><span class="go">Create folder for workshop inventory (299e2579-3d81-800b-f0f1-00000000000a): 159.62MB</span>
+<a id="__codelineno-13-32" name="__codelineno-13-32" href="#development-monitoring-__codelineno-13-32"></a><span class="go">Create workshop inventory file (299e2579-3d81-800b-f0f1-00000000000b): 206.01MB</span>
+<a id="__codelineno-13-33" name="__codelineno-13-33" href="#development-monitoring-__codelineno-13-33"></a><span class="go">Add block to ssh_config for easy SSH access to managed nodes (299e2579-3d81-800b-f0f1-00000000000c): 162.30MB</span>
+<a id="__codelineno-13-34" name="__codelineno-13-34" href="#development-monitoring-__codelineno-13-34"></a><span class="go">Deploy ansible.cfg to home directory (299e2579-3d81-800b-f0f1-00000000000d): 162.27MB</span>
+<a id="__codelineno-13-35" name="__codelineno-13-35" href="#development-monitoring-__codelineno-13-35"></a><span class="go">Backup file of .ansible.cfg created (299e2579-3d81-800b-f0f1-00000000000e): 162.33MB</span>
+<a id="__codelineno-13-36" name="__codelineno-13-36" href="#development-monitoring-__codelineno-13-36"></a><span class="go">Check for existing SSH keypair (299e2579-3d81-800b-f0f1-00000000000f): 162.94MB</span>
+<a id="__codelineno-13-37" name="__codelineno-13-37" href="#development-monitoring-__codelineno-13-37"></a><span class="go">Check if OpenSSH keypair does not match target configuration (299e2579-3d81-800b-f0f1-000000000011): 163.47MB</span>
+<a id="__codelineno-13-38" name="__codelineno-13-38" href="#development-monitoring-__codelineno-13-38"></a><span class="go">Abort playbook if keypair was found and does not match target configuration (299e2579-3d81-800b-f0f1-000000000012): 166.45MB</span>
+<a id="__codelineno-13-39" name="__codelineno-13-39" href="#development-monitoring-__codelineno-13-39"></a><span class="go">Create OpenSSH keypair for accessing managed nodes (299e2579-3d81-800b-f0f1-000000000014): 216.06MB</span>
+<a id="__codelineno-13-40" name="__codelineno-13-40" href="#development-monitoring-__codelineno-13-40"></a><span class="go">Gathering Facts (299e2579-3d81-800b-f0f1-000000000060): 250.53MB</span>
+<a id="__codelineno-13-41" name="__codelineno-13-41" href="#development-monitoring-__codelineno-13-41"></a><span class="go">Install SSH daemon (299e2579-3d81-800b-f0f1-000000000017): 271.96MB</span>
+<a id="__codelineno-13-42" name="__codelineno-13-42" href="#development-monitoring-__codelineno-13-42"></a><span class="go">Start SSH daemon (299e2579-3d81-800b-f0f1-000000000018): 268.99MB</span>
+<a id="__codelineno-13-43" name="__codelineno-13-43" href="#development-monitoring-__codelineno-13-43"></a><span class="go">Remove /run/nologin to be able to login as unprivileged user (299e2579-3d81-800b-f0f1-000000000019): 246.32MB</span>
+<a id="__codelineno-13-44" name="__codelineno-13-44" href="#development-monitoring-__codelineno-13-44"></a><span class="go">Add public key of workshop SSH keypair to authorized_keys of ansible user (299e2579-3d81-800b-f0f1-00000000001a): 273.55MB</span>
+<a id="__codelineno-13-45" name="__codelineno-13-45" href="#development-monitoring-__codelineno-13-45"></a>
+<a id="__codelineno-13-46" name="__codelineno-13-46" href="#development-monitoring-__codelineno-13-46"></a><span class="go">cpu:</span>
+<a id="__codelineno-13-47" name="__codelineno-13-47" href="#development-monitoring-__codelineno-13-47"></a><span class="go">Gathering Facts (299e2579-3d81-800b-f0f1-00000000001f): 92.82%</span>
+<a id="__codelineno-13-48" name="__codelineno-13-48" href="#development-monitoring-__codelineno-13-48"></a><span class="go">Get package facts (299e2579-3d81-800b-f0f1-000000000006): 101.37%</span>
+<a id="__codelineno-13-49" name="__codelineno-13-49" href="#development-monitoring-__codelineno-13-49"></a><span class="go">Install Podman (299e2579-3d81-800b-f0f1-000000000007): 0.00%</span>
+<a id="__codelineno-13-50" name="__codelineno-13-50" href="#development-monitoring-__codelineno-13-50"></a><span class="go">Pull image for managed node containers (299e2579-3d81-800b-f0f1-000000000008): 77.08%</span>
+<a id="__codelineno-13-51" name="__codelineno-13-51" href="#development-monitoring-__codelineno-13-51"></a><span class="go">Start managed node containers, publish 3 ports for each container (299e2579-3d81-800b-f0f1-000000000009): 82.08%</span>
+<a id="__codelineno-13-52" name="__codelineno-13-52" href="#development-monitoring-__codelineno-13-52"></a><span class="go">Create folder for workshop inventory (299e2579-3d81-800b-f0f1-00000000000a): 0.00%</span>
+<a id="__codelineno-13-53" name="__codelineno-13-53" href="#development-monitoring-__codelineno-13-53"></a><span class="go">Create workshop inventory file (299e2579-3d81-800b-f0f1-00000000000b): 101.61%</span>
+<a id="__codelineno-13-54" name="__codelineno-13-54" href="#development-monitoring-__codelineno-13-54"></a><span class="go">Add block to ssh_config for easy SSH access to managed nodes (299e2579-3d81-800b-f0f1-00000000000c): 0.00%</span>
+<a id="__codelineno-13-55" name="__codelineno-13-55" href="#development-monitoring-__codelineno-13-55"></a><span class="go">Deploy ansible.cfg to home directory (299e2579-3d81-800b-f0f1-00000000000d): 0.00%</span>
+<a id="__codelineno-13-56" name="__codelineno-13-56" href="#development-monitoring-__codelineno-13-56"></a><span class="go">Backup file of .ansible.cfg created (299e2579-3d81-800b-f0f1-00000000000e): 0.00%</span>
+<a id="__codelineno-13-57" name="__codelineno-13-57" href="#development-monitoring-__codelineno-13-57"></a><span class="go">Check for existing SSH keypair (299e2579-3d81-800b-f0f1-00000000000f): 0.00%</span>
+<a id="__codelineno-13-58" name="__codelineno-13-58" href="#development-monitoring-__codelineno-13-58"></a><span class="go">Check if OpenSSH keypair does not match target configuration (299e2579-3d81-800b-f0f1-000000000011): 0.00%</span>
+<a id="__codelineno-13-59" name="__codelineno-13-59" href="#development-monitoring-__codelineno-13-59"></a><span class="go">Abort playbook if keypair was found and does not match target configuration (299e2579-3d81-800b-f0f1-000000000012): 0.00%</span>
+<a id="__codelineno-13-60" name="__codelineno-13-60" href="#development-monitoring-__codelineno-13-60"></a><span class="go">Create OpenSSH keypair for accessing managed nodes (299e2579-3d81-800b-f0f1-000000000014): 101.40%</span>
+<a id="__codelineno-13-61" name="__codelineno-13-61" href="#development-monitoring-__codelineno-13-61"></a><span class="go">Gathering Facts (299e2579-3d81-800b-f0f1-000000000060): 144.79%</span>
+<a id="__codelineno-13-62" name="__codelineno-13-62" href="#development-monitoring-__codelineno-13-62"></a><span class="go">Install SSH daemon (299e2579-3d81-800b-f0f1-000000000017): 302.46%</span>
+<a id="__codelineno-13-63" name="__codelineno-13-63" href="#development-monitoring-__codelineno-13-63"></a><span class="go">Start SSH daemon (299e2579-3d81-800b-f0f1-000000000018): 245.07%</span>
+<a id="__codelineno-13-64" name="__codelineno-13-64" href="#development-monitoring-__codelineno-13-64"></a><span class="go">Remove /run/nologin to be able to login as unprivileged user (299e2579-3d81-800b-f0f1-000000000019): 151.99%</span>
+<a id="__codelineno-13-65" name="__codelineno-13-65" href="#development-monitoring-__codelineno-13-65"></a><span class="go">Add public key of workshop SSH keypair to authorized_keys of ansible user (299e2579-3d81-800b-f0f1-00000000001a): 175.70%</span>
+<a id="__codelineno-13-66" name="__codelineno-13-66" href="#development-monitoring-__codelineno-13-66"></a>
+<a id="__codelineno-13-67" name="__codelineno-13-67" href="#development-monitoring-__codelineno-13-67"></a><span class="go">pids:</span>
+<a id="__codelineno-13-68" name="__codelineno-13-68" href="#development-monitoring-__codelineno-13-68"></a><span class="go">Gathering Facts (299e2579-3d81-800b-f0f1-00000000001f): 9.00</span>
+<a id="__codelineno-13-69" name="__codelineno-13-69" href="#development-monitoring-__codelineno-13-69"></a><span class="go">Get package facts (299e2579-3d81-800b-f0f1-000000000006): 9.00</span>
+<a id="__codelineno-13-70" name="__codelineno-13-70" href="#development-monitoring-__codelineno-13-70"></a><span class="go">Install Podman (299e2579-3d81-800b-f0f1-000000000007): 8.00</span>
+<a id="__codelineno-13-71" name="__codelineno-13-71" href="#development-monitoring-__codelineno-13-71"></a><span class="go">Pull image for managed node containers (299e2579-3d81-800b-f0f1-000000000008): 21.00</span>
+<a id="__codelineno-13-72" name="__codelineno-13-72" href="#development-monitoring-__codelineno-13-72"></a><span class="go">Start managed node containers, publish 3 ports for each container (299e2579-3d81-800b-f0f1-000000000009): 22.00</span>
+<a id="__codelineno-13-73" name="__codelineno-13-73" href="#development-monitoring-__codelineno-13-73"></a><span class="go">Create folder for workshop inventory (299e2579-3d81-800b-f0f1-00000000000a): 9.00</span>
+<a id="__codelineno-13-74" name="__codelineno-13-74" href="#development-monitoring-__codelineno-13-74"></a><span class="go">Create workshop inventory file (299e2579-3d81-800b-f0f1-00000000000b): 11.00</span>
+<a id="__codelineno-13-75" name="__codelineno-13-75" href="#development-monitoring-__codelineno-13-75"></a><span class="go">Add block to ssh_config for easy SSH access to managed nodes (299e2579-3d81-800b-f0f1-00000000000c): 8.00</span>
+<a id="__codelineno-13-76" name="__codelineno-13-76" href="#development-monitoring-__codelineno-13-76"></a><span class="go">Deploy ansible.cfg to home directory (299e2579-3d81-800b-f0f1-00000000000d): 12.00</span>
+<a id="__codelineno-13-77" name="__codelineno-13-77" href="#development-monitoring-__codelineno-13-77"></a><span class="go">Backup file of .ansible.cfg created (299e2579-3d81-800b-f0f1-00000000000e): 9.00</span>
+<a id="__codelineno-13-78" name="__codelineno-13-78" href="#development-monitoring-__codelineno-13-78"></a><span class="go">Check for existing SSH keypair (299e2579-3d81-800b-f0f1-00000000000f): 11.00</span>
+<a id="__codelineno-13-79" name="__codelineno-13-79" href="#development-monitoring-__codelineno-13-79"></a><span class="go">Check if OpenSSH keypair does not match target configuration (299e2579-3d81-800b-f0f1-000000000011): 11.00</span>
+<a id="__codelineno-13-80" name="__codelineno-13-80" href="#development-monitoring-__codelineno-13-80"></a><span class="go">Abort playbook if keypair was found and does not match target configuration (299e2579-3d81-800b-f0f1-000000000012): 14.00</span>
+<a id="__codelineno-13-81" name="__codelineno-13-81" href="#development-monitoring-__codelineno-13-81"></a><span class="go">Create OpenSSH keypair for accessing managed nodes (299e2579-3d81-800b-f0f1-000000000014): 17.00</span>
+<a id="__codelineno-13-82" name="__codelineno-13-82" href="#development-monitoring-__codelineno-13-82"></a><span class="go">Gathering Facts (299e2579-3d81-800b-f0f1-000000000060): 41.00</span>
+<a id="__codelineno-13-83" name="__codelineno-13-83" href="#development-monitoring-__codelineno-13-83"></a><span class="go">Install SSH daemon (299e2579-3d81-800b-f0f1-000000000017): 43.00</span>
+<a id="__codelineno-13-84" name="__codelineno-13-84" href="#development-monitoring-__codelineno-13-84"></a><span class="go">Start SSH daemon (299e2579-3d81-800b-f0f1-000000000018): 33.00</span>
+<a id="__codelineno-13-85" name="__codelineno-13-85" href="#development-monitoring-__codelineno-13-85"></a><span class="go">Remove /run/nologin to be able to login as unprivileged user (299e2579-3d81-800b-f0f1-000000000019): 29.00</span>
+<a id="__codelineno-13-86" name="__codelineno-13-86" href="#development-monitoring-__codelineno-13-86"></a><span class="go">Add public key of workshop SSH keypair to authorized_keys of ansible user (299e2579-3d81-800b-f0f1-00000000001a): 37.00</span>
+</code></pre></div>
+</details>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Create an <em>alias</em> for the <em>cgexec...</em> part:</p>
+<div class="admonition example">
+<p class="admonition-title">~/.bash_aliases</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#development-monitoring-__codelineno-14-1"></a><span class="go">alias ansible-playbook-profile=&#39;cgexec -g cpuacct,memory,pids:ansible_profilee ansible-playbook&#39;</span>
+</code></pre></div>
+</div>
+<p>First time usage requires <code>source ~/.bash_aliases</code>, now you can run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#development-monitoring-__codelineno-15-1"></a><span class="go">ansible-playbook-profile -i inventory playbook.yml</span>
+</code></pre></div>
+</div>
 <!-- markdownlint-disable --></section><h1 class='nav-section-title-end'>Ended: Ansible Development</h1>
                         <h1 class='nav-section-title' id='section-ansible-automation-platform'>
                             Ansible Automation Platform <a class='headerlink' href='#section-ansible-automation-platform' title='Permanent link'>↵</a>
