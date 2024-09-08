@@ -32,14 +32,14 @@ Write task names in the imperative (e.g. *"Ensure service is running"*), this co
 === "Bad"
     !!! bad-practice-no-title ""
         ``` { .yaml .no-copy }
-        - yum:
+        - package:
             name: httpd
             state: present
         ```
         Using name parameter, but not starting with capital letter, nor describing the task properly.
         ``` { .yaml .no-copy }
         - name: install package
-          yum:
+          package:
             name: httpd
             state: present
         ```
@@ -150,7 +150,7 @@ Use the *full qualified collection names (FQCN)* for modules, they are supported
 === "Bad"
     !!! bad-practice-no-title ""
         ``` { .yaml .no-copy }
-        - yum:
+        - package:
             name: httpd
             state: present
         ```

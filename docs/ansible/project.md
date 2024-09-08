@@ -281,12 +281,12 @@ The so-called YAML "one-line" syntax is not used, neither for passing parameters
         Task with *One-line* syntax:
         ```{ .yaml .no-copy }
         - name: Install the latest version of Apache from the testing repo
-          yum: name=httpd enablerepo=testing state=present
+          package: name=httpd enablerepo=testing state=present
         ```
         List in task with *One-line* syntax:
         ```{ .yaml .no-copy }
         - name: Install a list of packages
-          yum:
+          package:
             name: ['nginx', 'postgresql', 'postgresql-server']
             state: present
         ```
