@@ -122,6 +122,7 @@ nav:
     - "Linting": development/linting.md
     - "Testing": development/testing.md
     - "Extending": development/extending.md
+    - "Monitoring & Troubleshooting": development/monitoring.md
   - "Ansible Automation Platform":
     - automation-platform/index.md
     - "Credentials": automation-platform/credentials.md

@@ -12,6 +12,7 @@ jobs:
   deploy:
     name: Deploy MkDocs project to Github pages
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,6 +28,7 @@ jobs:
   publish_to_github_packages:
     name: Publish to Github Container registry
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     permissions:
       contents: read
       packages: write

@@ -52,7 +52,7 @@ For example, having a sub-task file `tasks/kubeadm-setup.yml` with every task in
 
 ```yaml
 - name: kubeadm-setup | Install kubeadm, kubelet and kubectl
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name:
       - kubelet
       - kubeadm
@@ -124,7 +124,7 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
     !!! good-practice-no-title ""
         ```yaml
         - name: Install webserver package
-          ansible.builtin.yum:
+          ansible.builtin.package:
             name: httpd
             state: present
         ```
@@ -285,7 +285,7 @@ When using conditions on *blocks*, move the `when` statement to the top, below t
         - name: Install, configure, and start Apache
           block:
             - name: Install httpd and memcached
-              ansible.builtin.yum:
+              ansible.builtin.package:
                 name:
                 - httpd
                 - memcached
