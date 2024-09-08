@@ -1,6 +1,6 @@
 ---
 - name: Install Apache from the testing repo
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name: httpd
     enablerepo: testing
     state: present

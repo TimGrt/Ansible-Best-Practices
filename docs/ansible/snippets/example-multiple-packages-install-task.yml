@@ -1,5 +1,5 @@
 - name: Install a list of packages
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name:
       - nginx
       - postgresql

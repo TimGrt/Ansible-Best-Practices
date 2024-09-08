@@ -226,7 +226,7 @@ You may use these example configurations as a starting point. It expects that th
           become: true
           tasks:
             - name: Install OpenSSH for ssh-keygen
-              ansible.builtin.yum:
+              ansible.builtin.package:
                 name: openssh
                 state: present
         ```

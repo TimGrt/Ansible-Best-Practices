@@ -325,7 +325,7 @@ Use the `| bool` filter when using bare variables (expressions consisting of jus
     !!! bad-practice-no-title ""
         ```{ .yaml .no-copy }
         - name: Upgrade all packages, excluding kernel & foo related packages
-          ansible.builtin.yum:
+          ansible.builtin.package:
             name: "*"
             state: latest
             exclude: kernel*,foo*
