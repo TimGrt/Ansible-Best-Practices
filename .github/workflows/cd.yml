@@ -5,14 +5,18 @@ on:
   push:
     branches:
       - main
+    types:
+      - closed
   pull_request:
     branches:
       - main
+    types:
+      - closed
 jobs:
   deploy:
     name: Deploy MkDocs project to Github pages
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,8 +31,8 @@ jobs:
 
   publish_to_github_packages:
     name: Publish to Github Container registry
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     permissions:
       contents: read
       packages: write
