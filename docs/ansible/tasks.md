@@ -19,6 +19,92 @@ The file name of a task file should describe the content.
 --8<-- "example-role-main-task.yml"
 ```
 
+## import vs. include
+
+!!! quote ""
+
+    <div class="grid" markdown>
+
+    !!! good-practice-no-title "Syntax or linting errors found"
+
+        Using *static* `ansible.builtin.import_tasks`:
+
+        ```{ .yaml title="roles/prerequisites/tasks/main.yml" .no-copy}
+        ---
+        - ansible.builtin.import_tasks: prerequisites.yml
+        - ansible.builtin.import_tasks: install-kubeadm.yml
+        ```
+
+        Task-file with syntax error (module-parameters are not indented correctly):
+
+        ```{ .yaml title="install-kubeadm.yml" hl_lines="3 4" .no-copy}
+        - name: Install Kubernetes Repository
+          ansible.builtin.template:
+          src: kubernetes.repo.j2
+          dest: /etc/yum.repos.d/kubernetes.repo
+        ```
+
+        Running playbook with `--syntax-check` or running `ansible-lint`:
+
+        ```{ .console .no-copy}
+        $ ansible-playbook k8s-install.yml --syntax-check
+        ERROR! conflicting action statements: ansible.builtin.template, src
+
+        The error appears to be in '/home/timgrt/kubernetes-installation/roles/k8s-bootstrap/tasks/install-kubeadm.yml': line 3, column 3, but may
+        be elsewhere in the file depending on the exact syntax problem.
+
+        The offending line appears to be:
+
+
+        - name: Install Kubernetes Repository
+          ^ here
+        $ ansible-lint k8s-install.yml
+        WARNING  Listing 1 violation(s) that are fatal
+        syntax-check[specific]: conflicting action statements: ansible.builtin.template, src
+        roles/k8s-bootstrap/tasks/install-kubeadm.yml:3:3
+
+
+                          Rule Violation Summary  
+        count tag                    profile rule associated tags
+            1 syntax-check[specific] min     core, unskippable  
+
+        Failed: 1 failure(s), 0 warning(s) on 12 files.
+        ```
+
+    !!! bad-practice-no-title "Syntax or linting errors **NOT** found!"
+
+        Using *dynamic* `ansible.builtin.include_tasks`:
+
+        ```{ .yaml title="roles/prerequisites/tasks/main.yml" .no-copy}
+        ---
+        - ansible.builtin.include_tasks: prerequisites.yml
+        - ansible.builtin.include_tasks: install-kubeadm.yml
+        ```
+
+        Task-file with syntax error (module-parameters are not indented correctly):
+
+        ```{ .yaml title="install-kubeadm.yml" hl_lines="3 4" .no-copy}
+        - name: Install Kubernetes Repository
+          ansible.builtin.template:
+          src: kubernetes.repo.j2
+          dest: /etc/yum.repos.d/kubernetes.repo
+        ```
+        Running playbook with `--syntax-check` or running `ansible-lint`:
+
+        ```{ .console .no-copy}
+        $ ansible-playbook k8s-install.yml --syntax-check
+
+        playbook: k8s-install.yml
+        $ ansible-lint k8s-install.yml
+
+        Passed: 0 failure(s), 0 warning(s) on 12 files. Last profile that met the validation criteria was 'production'.
+        ```
+
+        !!! danger
+            As the `--syntax-check` or `ansible-lint` are doing a static *code* analysis and the task-files are **not** included statically, possible syntax errors are not recognized!
+
+    </div>
+
 ## Naming tasks
 
 It is possible to leave off the *name* for a given task, though it is recommended to provide a description about why something is being done instead. This description is shown when the playbook is run.  
