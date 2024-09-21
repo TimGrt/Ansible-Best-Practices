@@ -24,6 +24,11 @@ This topic is split into four main sections, each section covers a different add
     ---
     How to create your own custom modules and plugins.
 
+* [:octicons-meter-16: &nbsp; Monitoring & Troubleshooting](monitoring.md)
+
+    ---
+    How to monitor your playbook for resource consumption or time taken.
+
 </div>
 
 ## Tools
