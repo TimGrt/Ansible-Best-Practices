@@ -1,7 +1,7 @@
 # Tasks
 
-Tasks should always be inside of a role. Do not use tasks in a play directly.  
-Logically related tasks are to be separated into individual files, the `main.yml` of a role only imports other task files.
+**Tasks should always be inside of a role.** Do not use tasks in a play directly.  
+Logically related tasks are to be separated into individual files, the `main.yml` of a role only **imports** other task files.
 
 ``` { .console .no-copy }
 .
@@ -19,7 +19,24 @@ The file name of a task file should describe the content.
 --8<-- "example-role-main-task.yml"
 ```
 
+??? info "`noqa` statement"
+    The file `main.yml` only references other task-files, still, the *ansible-lint* utility would trigger, as every *task* should have the `name` parameter.  
+    While this is correct (and you should always name your **actual** *tasks*), the *name* parameter on *import* statements is **not shown anyway**, as they are pre-processed at the time playbooks are parsed. Take a look at the following section regarding *import vs. include*.  
+
+    !!! success
+        Therefore, silencing the linter in this particular case with the `noqa` statement is acceptable.  
+
+    In contrast, *include* statements like `ansible.builtin.include_tasks` should have the `name` parameter, as these statements are processed when they are encountered during the execution of the playbook.
+
 ## import vs. include
+
+Ansible offers two ways to reuse tasks: *statically* with `ansible.builtin.import_tasks` and *dynamically* with `ansible.builtin.include_tasks`.  
+Each approach to re-using distributed Ansible artifacts has advantages and limitations, take a look at the [Ansible documentation for an in-depth comparison of the two statements](https://docs.ansible.com/ansible/devel/playbook_guide/playbooks_reuse.html#comparing-includes-and-imports-dynamic-and-static-reuse){:target="_blank"}.  
+
+!!! tip
+    In most cases, use the static `ansible.builtin.import_tasks` statement, it has more advantages than disadvantages.
+
+One of the biggest disadvantages of the dynamic *include_tasks* statement, syntax errors are not found by easily with `--syntax-check` or by using *ansible-lint*. You may end up with a failed playbook, although all your testing looked fine. Take a look at the following example, the recommended `ansible.builtin.import_tasks` statement on the left, the `ansible.builtin.include_tasks` statement on the right.
 
 !!! quote ""
 
@@ -103,7 +120,12 @@ The file name of a task file should describe the content.
         !!! danger
             As the `--syntax-check` or `ansible-lint` are doing a static *code* analysis and the task-files are **not** included statically, possible syntax errors are not recognized!
 
+        Your playbook will fail when running it live, revealing the syntax error.
+
     </div>
+
+!!! info
+    There are also big differences in resource consumption and performance, *imports* are quite lean and fast, while *includes* require a lot of management and accounting.
 
 ## Naming tasks
 
@@ -128,42 +150,6 @@ Write task names in the imperative (e.g. *"Ensure service is running"*), this co
           package:
             name: httpd
             state: present
-        ```
-
-### Prefix task names in sub-task files
-
-It is a common practice to have `tasks/main.yml` file including other tasks files, which we’ll call *sub-tasks* files. Make sure that the tasks' names in these sub-tasks files are prefixed with a shortcut reminding of the sub-tasks file’s name. Especially in a complex role with multiple (sub-)tasks file, it becomes difficult to understand which task belongs to which file.  
-
-For example, having a sub-task file `tasks/kubeadm-setup.yml` with every task in it having a short reminder to which file it belongs.
-
-```yaml
-- name: kubeadm-setup | Install kubeadm, kubelet and kubectl
-  ansible.builtin.package:
-    name:
-      - kubelet
-      - kubeadm
-      - kubectl
-    state: present
-```
-
-The log output will then look like this:
-
-``` { .console .no-copy }
-...
-TASK [k8s-bootstrap: kubeadm-setup | Install kubeadm, kubelet and kubectl] **********
-changed: [kubemaster]
-...
-```
-
-!!! note
-    If you move around your tasks often during development phase, it may be difficult to keep this up to date.
-
-    !!! tip
-        You can check for this rule with *ansible-lint* by enabling it in the config:
-
-        ```yaml title=".ansible-lint"
-        enable_list:
-          - name[prefix]
         ```
 
 ## Tags
