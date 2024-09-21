@@ -23,9 +23,9 @@ The `site.yml` file contains references to the other playbooks:
 --8<-- "example-site-playbook.yml"
 ```
 
-??? hint
+??? info "`noqa` statement"
     The file `site.yml` only references other playbooks, still, the *ansible-lint* utility would trigger, as every *play* should have the `name` parameter.  
-    While this is correct (and you should always name your **actual** *plays*), the *name* parameter on *import* statements is **not shown anyway**, as they are pre-processed at the time playbooks are parsed.  
+    While this is correct (and you should always name your **actual** *plays*), the *name* parameter on *import* statements is **not shown anyway**, as they are pre-processed at the time playbooks are parsed. Take a look at [*import vs. include* in the *tasks* section](tasks.md#import-vs-include)  
 
     !!! success
         Therefore, silencing the linter in this particular case with the `noqa` statement is acceptable.  
