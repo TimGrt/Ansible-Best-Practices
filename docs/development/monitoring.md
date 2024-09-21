@@ -304,7 +304,7 @@ cgexec -g cpuacct,memory,pids:ansible_profile ansible-playbook playbook.yml
 
     !!! example "~/.bash_aliases"
         ```console
-        alias ansible-playbook-profile='cgexec -g cpuacct,memory,pids:ansible_profilee ansible-playbook'
+        alias ansible-playbook-profile='cgexec -g cpuacct,memory,pids:ansible_profile ansible-playbook'
         ```
 
     First time usage requires `source ~/.bash_aliases`, now you can run:
