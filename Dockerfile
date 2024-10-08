@@ -1,4 +1,4 @@
-FROM python:3.12-alpine AS builder
+FROM python:3.13-alpine AS builder
 WORKDIR /tmp
 # Copy Python packages/dependencies file
 COPY requirements.txt .
@@ -16,7 +16,7 @@ COPY mkdocs.yml .
 # Build new documentation
 RUN mkdocs build
 
-FROM python:3.12-alpine
+FROM python:3.13-alpine
 WORKDIR /tmp
 COPY --from=builder /tmp/site ./site
 EXPOSE 80
