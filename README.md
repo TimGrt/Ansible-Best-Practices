@@ -5,29 +5,29 @@
 A collection of Best Practices for Ansible projects in MkDocs, published to [Github pages](https://timgrt.github.io/Ansible-Best-Practices) and [Github Container Registry](https://github.com/TimGrt/Ansible-Best-Practices/pkgs/container/ansible-best-practices).  
 
 ```bash
-docker pull ghcr.io/timgrt/ansible-best-practices:latest
+podman pull ghcr.io/timgrt/ansible-best-practices:latest
 ```
 
 Start a container from the image, the webserver is available at Port 8080:
 
 ```bash
-docker run -d -p 8080:80/tcp --name best-practice-guide ghcr.io/timgrt/ansible-best-practices:latest
+podman run -d -p 8080:80/tcp --name best-practice-guide ghcr.io/timgrt/ansible-best-practices:latest
 ```
 
 ## Manual build
 
-The project contains the source files for an MkDocs project, a *Dockerfile* is provided which bundles all requirements and displays the resulting content in a webserver.
+The project contains the source files for an MkDocs project, a *Containerfile* is provided which bundles all requirements and displays the resulting content in a webserver.
 
 Clone the project and change into the base directory, afterwards build the image:
 
 ```bash
-docker build -t best-practice-guide .
+podman build -t best-practice-guide .
 ```
 
 Start a container from the image, the webserver is available at Port 8080:
 
 ```bash
-docker run -d -p 8080:80/tcp --name ansible-guide best-practice-guide
+podman run -d -p 8080:80/tcp --name ansible-guide best-practice-guide
 ```
 
 ## Development
