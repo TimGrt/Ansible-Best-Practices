@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-merge-conflict
         name: Check for merge conflict markers
@@ -15,7 +15,7 @@ repos:
       - id: requirements-txt-fixer
         name: Sort entries in requirements.txt
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.41.0
+    rev: v0.42.0
     hooks:
       - id: markdownlint
         name: Lint Markdown files
@@ -25,7 +25,7 @@ repos:
       - id: ansible-lint
         name: Run ansible-lint on documentation examples
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.29.2
+    rev: 0.29.4
     hooks:
       - id: check-github-workflows
   - repo: https://github.com/codespell-project/codespell
