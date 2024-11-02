@@ -2,11 +2,6 @@
 name: Deploy to Github pages and container registry
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    types:
-      - closed
   pull_request:
     branches:
       - main
@@ -53,5 +48,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: Containerfile
           push: true
           tags: ghcr.io/timgrt/ansible-best-practices:latest
