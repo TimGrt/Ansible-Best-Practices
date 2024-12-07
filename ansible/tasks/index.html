@@ -1317,16 +1317,16 @@
 Logically related tasks are to be separated into individual files, the <code>main.yml</code> of a role only <strong>imports</strong> other task files.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">.</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">└── roles</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="go">    └── k8s-bootstrap</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="go">    └── k8s_bootstrap</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="go">        └── tasks</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="go">            ├── install-kubeadm.yml</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="go">            ├── install_kubeadm.yml</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="go">            ├── main.yml</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="go">            └── prerequisites.yml</span>
 </code></pre></div>
 <p>The file name of a task file should describe the content.</p>
-<div class="highlight"><span class="filename">roles/k8s-bootstrap/tasks/main.yml</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nn">---</span>
+<div class="highlight"><span class="filename">roles/k8s_bootstrap/tasks/main.yml</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nn">---</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prerequisites.yml</span><span class="w"> </span><span class="c1"># noqa name[missing]</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install-kubeadm.yml</span><span class="w"> </span><span class="c1"># noqa name[missing]</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install_kubeadm.yml</span><span class="w"> </span><span class="c1"># noqa name[missing]</span>
 </code></pre></div>
 <details class="info">
 <summary><code>noqa</code> statement</summary>
@@ -1345,7 +1345,7 @@ Each approach to re-using distributed Ansible artifacts has advantages and limit
 <p class="admonition-title">Tip</p>
 <p>In most cases, use the static <code>ansible.builtin.import_tasks</code> statement, it has more advantages than disadvantages.</p>
 </div>
-<p>One of the biggest disadvantages of the dynamic <em>include_tasks</em> statement, syntax errors are not found by easily with <code>--syntax-check</code> or by using <em>ansible-lint</em>. You may end up with a failed playbook, although all your testing looked fine. Take a look at the following example, the recommended <code>ansible.builtin.import_tasks</code> statement on the left, the <code>ansible.builtin.include_tasks</code> statement on the right.</p>
+<p>One of the biggest disadvantages of the dynamic <em>include_tasks</em> statement, syntax errors are not found easily with <code>--syntax-check</code> or by using <em>ansible-lint</em>. You may end up with a failed playbook, although all your testing looked fine. Take a look at the following example, the recommended <code>ansible.builtin.import_tasks</code> statement on the left, the <code>ansible.builtin.include_tasks</code> statement on the right.</p>
 <div class="admonition quote">
 <div class="grid" markdown>
 <div class="admonition good-practice-no-title">
@@ -1353,19 +1353,19 @@ Each approach to re-using distributed Ansible artifacts has advantages and limit
 <p>Using <em>static</em> <code>ansible.builtin.import_tasks</code>:</p>
 <div class="no-copy highlight"><span class="filename">roles/prerequisites/tasks/main.yml</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nn">---</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prerequisites.yml</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install-kubeadm.yml</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install_kubeadm.yml</span>
 </code></pre></div>
 <p>Task-file with syntax error (module-parameters are not indented correctly):</p>
-<div class="no-copy highlight"><span class="filename">install-kubeadm.yml</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Kubernetes Repository</span>
+<div class="no-copy highlight"><span class="filename">install_kubeadm.yml</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Kubernetes Repository</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">ansible.builtin.template</span><span class="p">:</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="hll"><span class="w">  </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.repo.j2</span>
 </span><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="hll"><span class="w">  </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/yum.repos.d/kubernetes.repo</span>
 </span></code></pre></div>
 <p>Running playbook with <code>--syntax-check</code> or running <code>ansible-lint</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>k8s-install.yml<span class="w"> </span>--syntax-check
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>k8s_install.yml<span class="w"> </span>--syntax-check
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">ERROR! conflicting action statements: ansible.builtin.template, src</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="go">The error appears to be in &#39;/home/timgrt/kubernetes-installation/roles/k8s-bootstrap/tasks/install-kubeadm.yml&#39;: line 3, column 3, but may</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="go">The error appears to be in &#39;/home/timgrt/kubernetes_installation/roles/k8s-bootstrap/tasks/install_kubeadm.yml&#39;: line 3, column 3, but may</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="go">be elsewhere in the file depending on the exact syntax problem.</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="go">The offending line appears to be:</span>
@@ -1373,10 +1373,10 @@ Each approach to re-using distributed Ansible artifacts has advantages and limit
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
 <a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="go">- name: Install Kubernetes Repository</span>
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="go">  ^ here</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="gp">$ </span>ansible-lint<span class="w"> </span>k8s-install.yml
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="gp">$ </span>ansible-lint<span class="w"> </span>k8s_install.yml
 <a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="go">WARNING  Listing 1 violation(s) that are fatal</span>
 <a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="go">syntax-check[specific]: conflicting action statements: ansible.builtin.template, src</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="go">roles/k8s-bootstrap/tasks/install-kubeadm.yml:3:3</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="go">roles/k8s_bootstrap/tasks/install_kubeadm.yml:3:3</span>
 <a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
 <a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
 <a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="go">                  Rule Violation Summary  </span>
@@ -1391,19 +1391,19 @@ Each approach to re-using distributed Ansible artifacts has advantages and limit
 <p>Using <em>dynamic</em> <code>ansible.builtin.include_tasks</code>:</p>
 <div class="no-copy highlight"><span class="filename">roles/prerequisites/tasks/main.yml</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nn">---</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.include_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prerequisites.yml</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.include_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install-kubeadm.yml</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.include_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install_kubeadm.yml</span>
 </code></pre></div>
 <p>Task-file with syntax error (module-parameters are not indented correctly):</p>
-<p><div class="no-copy highlight"><span class="filename">install-kubeadm.yml</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Kubernetes Repository</span>
+<p><div class="no-copy highlight"><span class="filename">install_kubeadm.yml</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Kubernetes Repository</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">ansible.builtin.template</span><span class="p">:</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="hll"><span class="w">  </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.repo.j2</span>
 </span><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="hll"><span class="w">  </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/yum.repos.d/kubernetes.repo</span>
 </span></code></pre></div>
 Running playbook with <code>--syntax-check</code> or running <code>ansible-lint</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>k8s-install.yml<span class="w"> </span>--syntax-check
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>k8s_install.yml<span class="w"> </span>--syntax-check
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="go">playbook: k8s-install.yml</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="gp">$ </span>ansible-lint<span class="w"> </span>k8s-install.yml
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="go">playbook: k8s_install.yml</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="gp">$ </span>ansible-lint<span class="w"> </span>k8s_install.yml
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="go">Passed: 0 failure(s), 0 warning(s) on 12 files. Last profile that met the validation criteria was &#39;production&#39;.</span>
 </code></pre></div>
@@ -1814,7 +1814,7 @@ Take a look at the <a href="https://docs.ansible.com/ansible/latest/collections/
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 21, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 7, 2024</span>
   </span>
 
     

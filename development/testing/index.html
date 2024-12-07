@@ -1236,7 +1236,7 @@ If you only installed <code>ansible-core</code>, you'll need to install the coll
 <h3 id="configuration">Configuration</h3>
 <p>The <em>molecule</em> configuration files are kept in the role folder you want to test. Create the directory <code>molecule/default</code> and at least the <code>molecule.yml</code> and <code>converge.yml</code>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">roles/</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="go">└── webserver-demo</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="go">└── webserver_demo</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="go">    ├── defaults</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="go">    │   └── main.yml</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="go">    ├── molecule</span>
@@ -1410,7 +1410,7 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 </div>
 <h3 id="usage">Usage</h3>
 <p>Molecule is executed from within the role you want to test, change directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="go">cd roles/webserver-demo</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="go">cd roles/webserver_demo</span>
 </code></pre></div>
 <p>From here, run the molecule scenario, after activating your Python <abbr title="Virtual Environment">VE</abbr> with molecule:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="go">source molecule-venv/bin/activate</span>
@@ -1446,7 +1446,7 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="admonition example">
-<p class="admonition-title">testing-environment.yml</p>
+<p class="admonition-title">testing_environment.yml</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nn">---</span>
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create or delete demo environment for local testing</span>
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
@@ -1469,7 +1469,7 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 </div>
 <div class="tabbed-block">
 <div class="admonition example">
-<p class="admonition-title">testing-inventory.yml</p>
+<p class="admonition-title">testing_inventory.yml</p>
 <p>Add additional instances in the <code>test</code> group, if necessary.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p p-Indicator">[</span><span class="nv">test</span><span class="p p-Indicator">]</span>
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="l l-Scalar l-Scalar-Plain">instance1</span>
@@ -1482,7 +1482,7 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 </div>
 <div class="tabbed-block">
 <div class="admonition example">
-<p class="admonition-title">testing-inventory.yml</p>
+<p class="admonition-title">testing_inventory.yml</p>
 <p>Add your tasks to this playbook and start testing. If you want to use your own playbook, target the <code>test</code> group as well.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nn">---</span>
 <a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Testing playbook</span>
@@ -1497,14 +1497,14 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 </div>
 </div>
 <h3 id="usage_1">Usage</h3>
-<p>First, create the testing instances by executing the <code>testing-environment.yml</code> playbook:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="go">ansible-playbook -i testing-inventory.ini testing-environment.yml</span>
+<p>First, create the testing instances by executing the <code>testing_environment.yml</code> playbook:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="go">ansible-playbook -i testing-inventory.ini testing_environment.yml</span>
 </code></pre></div>
-<p>Add your tasks to the <code>testing-playbook.yml</code> (or use your existing playbook, target the <code>test</code> group) and execute:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="go">ansible-playbook -i testing-inventory.ini testing-playbook.yml</span>
+<p>Add your tasks to the <code>testing_playbook.yml</code> (or use your existing playbook, target the <code>test</code> group) and execute:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="go">ansible-playbook -i testing_inventory.ini testing_playbook.yml</span>
 </code></pre></div>
-<p>After finishing your tests remove the instances by running the <code>testing-environment.yml</code> playbook and provide the <em>extra-var</em> <code>delete</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="go">ansible-playbook -i testing-inventory.ini testing-environment.yml -e delete=true</span>
+<p>After finishing your tests remove the instances by running the <code>testing_environment.yml</code> playbook and provide the <em>extra-var</em> <code>delete</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="go">ansible-playbook -i testing_inventory.ini testing_environment.yml -e delete=true</span>
 </code></pre></div>
 <!-- markdownlint-enable MD024 -->
 

@@ -1724,7 +1724,7 @@ Install the <code>ansible-navigator</code> binary and its dependencies with the 
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#ansible-project-__codelineno-4-1"></a><span class="go">...</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#ansible-project-__codelineno-4-2"></a>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#ansible-project-__codelineno-4-3"></a><span class="go">TASK [Set motd message for k8s worker node] **************************************************</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#ansible-project-__codelineno-4-4"></a><span class="go">task path: /home/timgrt/kubernetes-installation/roles/kube-worker/tasks/configure.yml:39</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#ansible-project-__codelineno-4-4"></a><span class="go">task path: /home/timgrt/kubernetes_installation/roles/kube_worker/tasks/configure.yml:39</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#ansible-project-__codelineno-4-5"></a><span class="go">fatal: [k8s-worker1]: FAILED! =&gt;</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#ansible-project-__codelineno-4-6"></a><span class="go">...</span>
 </code></pre></div>
@@ -1767,33 +1767,33 @@ This makes sure that required collections can be installed, if only the <em>ansi
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#ansible-project-__codelineno-10-1"></a><span class="go">.</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#ansible-project-__codelineno-10-2"></a><span class="go">├── ansible.cfg</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#ansible-project-__codelineno-10-3"></a><span class="go">├── hosts</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#ansible-project-__codelineno-10-4"></a><span class="go">├── k8s-install.yml</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#ansible-project-__codelineno-10-4"></a><span class="go">├── k8s_install.yml</span>
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#ansible-project-__codelineno-10-5"></a><span class="go">├── README.md</span>
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#ansible-project-__codelineno-10-6"></a><span class="go">├── requirements.txt</span>
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#ansible-project-__codelineno-10-7"></a><span class="go">├── requirements.yml</span>
 <a id="__codelineno-10-8" name="__codelineno-10-8" href="#ansible-project-__codelineno-10-8"></a><span class="go">└── roles</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#ansible-project-__codelineno-10-9"></a><span class="go">    ├── k8s-bootstrap</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#ansible-project-__codelineno-10-9"></a><span class="go">    ├── k8s_bootstrap</span>
 <a id="__codelineno-10-10" name="__codelineno-10-10" href="#ansible-project-__codelineno-10-10"></a><span class="go">    │   ├── files</span>
 <a id="__codelineno-10-11" name="__codelineno-10-11" href="#ansible-project-__codelineno-10-11"></a><span class="go">    │   │   ├── daemon.json</span>
 <a id="__codelineno-10-12" name="__codelineno-10-12" href="#ansible-project-__codelineno-10-12"></a><span class="go">    │   │   └── k8s.conf</span>
 <a id="__codelineno-10-13" name="__codelineno-10-13" href="#ansible-project-__codelineno-10-13"></a><span class="go">    │   ├── tasks</span>
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#ansible-project-__codelineno-10-14"></a><span class="go">    │   │   ├── install-kubeadm.yml</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#ansible-project-__codelineno-10-14"></a><span class="go">    │   │   ├── install_kubeadm.yml</span>
 <a id="__codelineno-10-15" name="__codelineno-10-15" href="#ansible-project-__codelineno-10-15"></a><span class="go">    │   │   ├── main.yml</span>
 <a id="__codelineno-10-16" name="__codelineno-10-16" href="#ansible-project-__codelineno-10-16"></a><span class="go">    │   │   └── prerequisites.yml</span>
 <a id="__codelineno-10-17" name="__codelineno-10-17" href="#ansible-project-__codelineno-10-17"></a><span class="go">    │   └── templates</span>
 <a id="__codelineno-10-18" name="__codelineno-10-18" href="#ansible-project-__codelineno-10-18"></a><span class="go">    │       └── kubernetes.repo.j2</span>
-<a id="__codelineno-10-19" name="__codelineno-10-19" href="#ansible-project-__codelineno-10-19"></a><span class="go">    ├── k8s-control-plane</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#ansible-project-__codelineno-10-19"></a><span class="go">    ├── k8s_control_plane</span>
 <a id="__codelineno-10-20" name="__codelineno-10-20" href="#ansible-project-__codelineno-10-20"></a><span class="go">    │   ├── files</span>
 <a id="__codelineno-10-21" name="__codelineno-10-21" href="#ansible-project-__codelineno-10-21"></a><span class="go">    │   │   └── kubeconfig.sh</span>
 <a id="__codelineno-10-22" name="__codelineno-10-22" href="#ansible-project-__codelineno-10-22"></a><span class="go">    │   └── tasks</span>
 <a id="__codelineno-10-23" name="__codelineno-10-23" href="#ansible-project-__codelineno-10-23"></a><span class="go">    │       └── main.yml</span>
-<a id="__codelineno-10-24" name="__codelineno-10-24" href="#ansible-project-__codelineno-10-24"></a><span class="go">    └── k8s-worker-nodes</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#ansible-project-__codelineno-10-24"></a><span class="go">    └── k8s_worker_nodes</span>
 <a id="__codelineno-10-25" name="__codelineno-10-25" href="#ansible-project-__codelineno-10-25"></a><span class="go">        └── tasks</span>
 <a id="__codelineno-10-26" name="__codelineno-10-26" href="#ansible-project-__codelineno-10-26"></a><span class="go">            └── main.yml</span>
 </code></pre></div>
 <h3 id="ansible-project-filenames">Filenames</h3>
-<p>Folder- and file-names consisting of multiple words are separated with hyphens (e.g. <code>roles/grafana-deployment/tasks/grafana-installation.yml</code>).<br />
-YAML files are saved with the extension <code>.yml</code>.</p>
+<p>Folder- and file-names consisting of multiple words are separated with <strong>underscores</strong> (e.g. <code>roles/grafana_deployment/tasks/grafana_installation.yml</code>).<br />
+YAML files are saved with the extension <code>.yml</code>.  </p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="ansible-project-__tabbed_1_1" name="ansible-project-__tabbed_1" type="radio" /><input id="ansible-project-__tabbed_1_2" name="ansible-project-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="ansible-project-__tabbed_1_1">Good</label><label for="ansible-project-__tabbed_1_2">Bad</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -1801,26 +1801,26 @@ YAML files are saved with the extension <code>.yml</code>.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#ansible-project-__codelineno-11-1"></a><span class="go">.</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#ansible-project-__codelineno-11-2"></a><span class="go">├── ansible.cfg</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#ansible-project-__codelineno-11-3"></a><span class="go">├── hosts</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#ansible-project-__codelineno-11-4"></a><span class="go">├── k8s-install.yml</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#ansible-project-__codelineno-11-4"></a><span class="go">├── k8s_install.yml</span>
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#ansible-project-__codelineno-11-5"></a><span class="go">├── README.md</span>
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#ansible-project-__codelineno-11-6"></a><span class="go">├── requirements.yml</span>
 <a id="__codelineno-11-7" name="__codelineno-11-7" href="#ansible-project-__codelineno-11-7"></a><span class="go">└── roles</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#ansible-project-__codelineno-11-8"></a><span class="go">    ├── k8s-bootstrap</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#ansible-project-__codelineno-11-8"></a><span class="go">    ├── k8s_bootstrap</span>
 <a id="__codelineno-11-9" name="__codelineno-11-9" href="#ansible-project-__codelineno-11-9"></a><span class="go">    │   ├── files</span>
 <a id="__codelineno-11-10" name="__codelineno-11-10" href="#ansible-project-__codelineno-11-10"></a><span class="go">    │   │   ├── daemon.json</span>
 <a id="__codelineno-11-11" name="__codelineno-11-11" href="#ansible-project-__codelineno-11-11"></a><span class="go">    │   │   └── k8s.conf</span>
 <a id="__codelineno-11-12" name="__codelineno-11-12" href="#ansible-project-__codelineno-11-12"></a><span class="go">    │   ├── tasks</span>
-<a id="__codelineno-11-13" name="__codelineno-11-13" href="#ansible-project-__codelineno-11-13"></a><span class="go">    │   │   ├── install-kubeadm.yml</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#ansible-project-__codelineno-11-13"></a><span class="go">    │   │   ├── install_kubeadm.yml</span>
 <a id="__codelineno-11-14" name="__codelineno-11-14" href="#ansible-project-__codelineno-11-14"></a><span class="go">    │   │   ├── main.yml</span>
 <a id="__codelineno-11-15" name="__codelineno-11-15" href="#ansible-project-__codelineno-11-15"></a><span class="go">    │   │   └── prerequisites.yml</span>
 <a id="__codelineno-11-16" name="__codelineno-11-16" href="#ansible-project-__codelineno-11-16"></a><span class="go">    │   └── templates</span>
 <a id="__codelineno-11-17" name="__codelineno-11-17" href="#ansible-project-__codelineno-11-17"></a><span class="go">    │       └── kubernetes.repo.j2</span>
-<a id="__codelineno-11-18" name="__codelineno-11-18" href="#ansible-project-__codelineno-11-18"></a><span class="go">    ├── k8s-control-plane</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#ansible-project-__codelineno-11-18"></a><span class="go">    ├── k8s_control_plane</span>
 <a id="__codelineno-11-19" name="__codelineno-11-19" href="#ansible-project-__codelineno-11-19"></a><span class="go">    │   ├── files</span>
 <a id="__codelineno-11-20" name="__codelineno-11-20" href="#ansible-project-__codelineno-11-20"></a><span class="go">    │   │   └── kubeconfig.sh</span>
 <a id="__codelineno-11-21" name="__codelineno-11-21" href="#ansible-project-__codelineno-11-21"></a><span class="go">    │   └── tasks</span>
 <a id="__codelineno-11-22" name="__codelineno-11-22" href="#ansible-project-__codelineno-11-22"></a><span class="go">    │       └── main.yml</span>
-<a id="__codelineno-11-23" name="__codelineno-11-23" href="#ansible-project-__codelineno-11-23"></a><span class="go">    └── k8s-worker-nodes</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#ansible-project-__codelineno-11-23"></a><span class="go">    └── k8s_worker_nodes</span>
 <a id="__codelineno-11-24" name="__codelineno-11-24" href="#ansible-project-__codelineno-11-24"></a><span class="go">        └── tasks</span>
 <a id="__codelineno-11-25" name="__codelineno-11-25" href="#ansible-project-__codelineno-11-25"></a><span class="go">            └── main.yml</span>
 </code></pre></div>
@@ -1828,14 +1828,14 @@ YAML files are saved with the extension <code>.yml</code>.</p>
 </div>
 <div class="tabbed-block">
 <div class="admonition bad-practice-no-title">
-<p>Playbook-name without hyphens and wrong file extension, role folders or task files inconsistent, with underscores and wrong extension.
+<p>Playbook-name without underscores and wrong file extension, role folders or task files inconsistent, with underscores and wrong extension.
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#ansible-project-__codelineno-12-1"></a><span class="go">.</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#ansible-project-__codelineno-12-2"></a><span class="go">├── ansible.cfg</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#ansible-project-__codelineno-12-3"></a><span class="go">├── hosts</span>
 <a id="__codelineno-12-4" name="__codelineno-12-4" href="#ansible-project-__codelineno-12-4"></a><span class="go">├── k8s-install.yaml</span>
 <a id="__codelineno-12-5" name="__codelineno-12-5" href="#ansible-project-__codelineno-12-5"></a><span class="go">├── README.md</span>
 <a id="__codelineno-12-6" name="__codelineno-12-6" href="#ansible-project-__codelineno-12-6"></a><span class="go">└── roles</span>
-<a id="__codelineno-12-7" name="__codelineno-12-7" href="#ansible-project-__codelineno-12-7"></a><span class="go">    ├── k8s_bootstrap</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#ansible-project-__codelineno-12-7"></a><span class="go">    ├── k8s-bootstrap</span>
 <a id="__codelineno-12-8" name="__codelineno-12-8" href="#ansible-project-__codelineno-12-8"></a><span class="go">    │   ├── files</span>
 <a id="__codelineno-12-9" name="__codelineno-12-9" href="#ansible-project-__codelineno-12-9"></a><span class="go">    │   │   ├── daemon.json</span>
 <a id="__codelineno-12-10" name="__codelineno-12-10" href="#ansible-project-__codelineno-12-10"></a><span class="go">    │   │   └── k8s.conf</span>
@@ -1858,12 +1858,6 @@ YAML files are saved with the extension <code>.yml</code>.</p>
 </div>
 </div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Subject to change</p>
-<p>Maybe this has to change in the future, as <em>collection roles</em> only allow <em>underscores</em> for separation.<br />
-See <a href="https://docs.ansible.com/ansible/devel/dev_guide/developing_collections_structure.html#roles-directory">Ansible Docs - Roles directory</a> for more information.<br />
-Also, <em>ansible-lint</em> checks role names to ensure they conform these requirements, which must be disabled otherwise.</p>
-</div>
 <h2 id="ansible-project-yaml-syntax">YAML Syntax</h2>
 <p>Following a basic YAML coding style across the whole team improves readability and reusability.</p>
 <h3 id="ansible-project-indentation">Indentation</h3>
@@ -1878,13 +1872,13 @@ Also, <em>ansible-lint</em> checks role names to ensure they conform these requi
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#ansible-project-__codelineno-13-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubemaster</span>
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#ansible-project-__codelineno-13-4"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-13-5" name="__codelineno-13-5" href="#ansible-project-__codelineno-13-5"></a><span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#ansible-project-__codelineno-13-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s-control-plane</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#ansible-project-__codelineno-13-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s_control_plane</span>
 <a id="__codelineno-13-7" name="__codelineno-13-7" href="#ansible-project-__codelineno-13-7"></a>
 <a id="__codelineno-13-8" name="__codelineno-13-8" href="#ansible-project-__codelineno-13-8"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install and configure Worker Nodes</span>
 <a id="__codelineno-13-9" name="__codelineno-13-9" href="#ansible-project-__codelineno-13-9"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubeworker</span>
 <a id="__codelineno-13-10" name="__codelineno-13-10" href="#ansible-project-__codelineno-13-10"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-13-11" name="__codelineno-13-11" href="#ansible-project-__codelineno-13-11"></a><span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
-<a id="__codelineno-13-12" name="__codelineno-13-12" href="#ansible-project-__codelineno-13-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s-worker-nodes</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#ansible-project-__codelineno-13-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s_worker_nodes</span>
 </code></pre></div>
 Variable-file:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#ansible-project-__codelineno-14-1"></a><span class="nt">ntp_server_list</span><span class="p">:</span>
@@ -1932,7 +1926,7 @@ List in variable-file indented with four whitespaces:
 <a id="__codelineno-18-3" name="__codelineno-18-3" href="#ansible-project-__codelineno-18-3"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span>
 <a id="__codelineno-18-4" name="__codelineno-18-4" href="#ansible-project-__codelineno-18-4"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
 <a id="__codelineno-18-5" name="__codelineno-18-5" href="#ansible-project-__codelineno-18-5"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql</span>
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#ansible-project-__codelineno-18-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql-server</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#ansible-project-__codelineno-18-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql_server</span>
 <a id="__codelineno-18-7" name="__codelineno-18-7" href="#ansible-project-__codelineno-18-7"></a><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 </code></pre></div></p>
 </div>
@@ -2132,37 +2126,37 @@ A playbook <strong>could</strong> contain <code>pre_tasks</code>, <code>roles</c
 <p>Either you need only static importing of roles and you can use the roles section, or you need dynamic inclusion and you should use only the tasks section. Of course, for very simple cases, you can just use tasks without roles (but playbooks/projects grow quickly, refactor to roles early).</p>
 <h3 id="ansible-playbook-plays">Plays</h3>
 <p>Avoid putting multiple plays in a playbook, if not really necessary. As every play most likely targets a different host group, create a separate playbook file for it. This way you achieve to most flexibility.</p>
-<div class="no-copy highlight"><span class="filename">k8s-installation.yml</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#ansible-playbook-__codelineno-4-1"></a><span class="nn">---</span>
+<div class="no-copy highlight"><span class="filename">k8s_installation.yml</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#ansible-playbook-__codelineno-4-1"></a><span class="nn">---</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#ansible-playbook-__codelineno-4-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Initialize Control-Plane Nodes</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#ansible-playbook-__codelineno-4-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubemaster</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#ansible-playbook-__codelineno-4-4"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#ansible-playbook-__codelineno-4-5"></a><span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#ansible-playbook-__codelineno-4-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s-control-plane</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#ansible-playbook-__codelineno-4-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s_control_plane</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#ansible-playbook-__codelineno-4-7"></a>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#ansible-playbook-__codelineno-4-8"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install and configure Worker Nodes</span>
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#ansible-playbook-__codelineno-4-9"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubeworker</span>
 <a id="__codelineno-4-10" name="__codelineno-4-10" href="#ansible-playbook-__codelineno-4-10"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#ansible-playbook-__codelineno-4-11"></a><span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#ansible-playbook-__codelineno-4-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s-worker-nodes</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#ansible-playbook-__codelineno-4-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s_worker_nodes</span>
 </code></pre></div>
 <p>Separate the two plays into their respective playbooks files and reference them in an overall playbook file:</p>
-<div class="highlight"><span class="filename">k8s-control-plane-playbook.yml</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#ansible-playbook-__codelineno-5-1"></a><span class="nn">---</span>
+<div class="highlight"><span class="filename">k8s_control_plane_playbook.yml</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#ansible-playbook-__codelineno-5-1"></a><span class="nn">---</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#ansible-playbook-__codelineno-5-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Initialize Control-Plane Nodes</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#ansible-playbook-__codelineno-5-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubemaster</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#ansible-playbook-__codelineno-5-4"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#ansible-playbook-__codelineno-5-5"></a><span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#ansible-playbook-__codelineno-5-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s-control-plane</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#ansible-playbook-__codelineno-5-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s_control_plane</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">k8s-worker-node-playbook.yml</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#ansible-playbook-__codelineno-6-1"></a><span class="nn">---</span>
+<div class="highlight"><span class="filename">k8s_worker_node_playbook.yml</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#ansible-playbook-__codelineno-6-1"></a><span class="nn">---</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#ansible-playbook-__codelineno-6-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install and configure Worker Nodes</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#ansible-playbook-__codelineno-6-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubeworker</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#ansible-playbook-__codelineno-6-4"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#ansible-playbook-__codelineno-6-5"></a><span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#ansible-playbook-__codelineno-6-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s-worker-nodes</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#ansible-playbook-__codelineno-6-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s_worker_nodes</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">k8s-installation.yml</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#ansible-playbook-__codelineno-7-1"></a><span class="nn">---</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#ansible-playbook-__codelineno-7-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_playbook</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s-control-plane-playbook.yml</span><span class="w"> </span><span class="c1"># noqa name[play]</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#ansible-playbook-__codelineno-7-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_playbook</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s-worker-node-playbook.yml</span><span class="w"> </span><span class="c1"># noqa name[play]</span>
+<div class="highlight"><span class="filename">k8s_installation.yml</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#ansible-playbook-__codelineno-7-1"></a><span class="nn">---</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#ansible-playbook-__codelineno-7-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_playbook</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s_control_plane_playbook.yml</span><span class="w"> </span><span class="c1"># noqa name[play]</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#ansible-playbook-__codelineno-7-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_playbook</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s_worker_node_playbook.yml</span><span class="w"> </span><span class="c1"># noqa name[play]</span>
 </code></pre></div>
 <h3 id="ansible-playbook-module-defaults">Module defaults</h3>
 <p>If your playbook uses modules which need the be called with the same set of parameters or arguments, you can define these as <em>module_defaults</em>.<br />
@@ -2257,7 +2251,7 @@ The defaults can be set at <em>play</em>, <em>block</em> or <em>task</em> level.
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#ansible-playbook-__codelineno-11-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">computacenter.utils</span>
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#ansible-playbook-__codelineno-11-6"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-11-7" name="__codelineno-11-7" href="#ansible-playbook-__codelineno-11-7"></a><span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#ansible-playbook-__codelineno-11-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s-control-plane</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#ansible-playbook-__codelineno-11-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k8s_control_plane</span>
 </code></pre></div>
 <p>With that you could omit the <em>provider.collection</em> part when using modules, by default you would reference a module with the <a href="#ansible-tasks-modules-and-collections"><abbr title="Full Qualified Collection Name">FQCN</abbr></a>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#ansible-playbook-__codelineno-12-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Check if Weave is already installed</span>
@@ -2385,7 +2379,7 @@ The role name should be short and unique. It is separated with hyphens, if it co
 <a id="__codelineno-0-37" name="__codelineno-0-37" href="#ansible-roles-__codelineno-0-37"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_servers</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38" href="#ansible-roles-__codelineno-0-38"></a><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39" href="#ansible-roles-__codelineno-0-39"></a><span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40" href="#ansible-roles-__codelineno-0-40"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-role</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#ansible-roles-__codelineno-0-40"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_role</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41" href="#ansible-roles-__codelineno-0-41"></a><span class="sb">```</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42" href="#ansible-roles-__codelineno-0-42"></a>
 <a id="__codelineno-0-43" name="__codelineno-0-43" href="#ansible-roles-__codelineno-0-43"></a><span class="gu">## Authors</span>
@@ -2423,7 +2417,7 @@ The role name should be short and unique. It is separated with hyphens, if it co
 <p>Use a custom role skeleton which is used by <code>ansible-galaxy</code>!</p>
 </div>
 <p>Consider the following role skeleton, note the missing <em>vars</em> and <em>test</em> folder and the newly added <a href="#development-testing-molecule">Molecule folder</a>.</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#ansible-roles-__codelineno-3-1"></a><span class="go">roles/role-skeleton/</span>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#ansible-roles-__codelineno-3-1"></a><span class="go">roles/role_skeleton/</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#ansible-roles-__codelineno-3-2"></a><span class="go">├── defaults</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#ansible-roles-__codelineno-3-3"></a><span class="go">│   └── main.yml</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#ansible-roles-__codelineno-3-4"></a><span class="go">├── files</span>
@@ -2442,7 +2436,7 @@ The role name should be short and unique. It is separated with hyphens, if it co
 </code></pre></div>
 <p>You need to define the following parameter in your custom <code>ansible.cfg</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#ansible-roles-__codelineno-4-1"></a><span class="k">[galaxy]</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#ansible-roles-__codelineno-4-2"></a><span class="na">role_skeleton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">roles/role-skeleton</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#ansible-roles-__codelineno-4-2"></a><span class="na">role_skeleton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">roles/role_skeleton</span>
 </code></pre></div>
 <div class="admonition success">
 <p class="admonition-title">Success</p>
@@ -2453,16 +2447,16 @@ The role name should be short and unique. It is separated with hyphens, if it co
 Logically related tasks are to be separated into individual files, the <code>main.yml</code> of a role only <strong>imports</strong> other task files.</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#ansible-tasks-__codelineno-0-1"></a><span class="go">.</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#ansible-tasks-__codelineno-0-2"></a><span class="go">└── roles</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#ansible-tasks-__codelineno-0-3"></a><span class="go">    └── k8s-bootstrap</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#ansible-tasks-__codelineno-0-3"></a><span class="go">    └── k8s_bootstrap</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#ansible-tasks-__codelineno-0-4"></a><span class="go">        └── tasks</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#ansible-tasks-__codelineno-0-5"></a><span class="go">            ├── install-kubeadm.yml</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#ansible-tasks-__codelineno-0-5"></a><span class="go">            ├── install_kubeadm.yml</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#ansible-tasks-__codelineno-0-6"></a><span class="go">            ├── main.yml</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#ansible-tasks-__codelineno-0-7"></a><span class="go">            └── prerequisites.yml</span>
 </code></pre></div>
 <p>The file name of a task file should describe the content.</p>
-<div class="highlight"><span class="filename">roles/k8s-bootstrap/tasks/main.yml</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#ansible-tasks-__codelineno-1-1"></a><span class="nn">---</span>
+<div class="highlight"><span class="filename">roles/k8s_bootstrap/tasks/main.yml</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#ansible-tasks-__codelineno-1-1"></a><span class="nn">---</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#ansible-tasks-__codelineno-1-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prerequisites.yml</span><span class="w"> </span><span class="c1"># noqa name[missing]</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#ansible-tasks-__codelineno-1-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install-kubeadm.yml</span><span class="w"> </span><span class="c1"># noqa name[missing]</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#ansible-tasks-__codelineno-1-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install_kubeadm.yml</span><span class="w"> </span><span class="c1"># noqa name[missing]</span>
 </code></pre></div>
 <details class="info">
 <summary><code>noqa</code> statement</summary>
@@ -2481,7 +2475,7 @@ Each approach to re-using distributed Ansible artifacts has advantages and limit
 <p class="admonition-title">Tip</p>
 <p>In most cases, use the static <code>ansible.builtin.import_tasks</code> statement, it has more advantages than disadvantages.</p>
 </div>
-<p>One of the biggest disadvantages of the dynamic <em>include_tasks</em> statement, syntax errors are not found by easily with <code>--syntax-check</code> or by using <em>ansible-lint</em>. You may end up with a failed playbook, although all your testing looked fine. Take a look at the following example, the recommended <code>ansible.builtin.import_tasks</code> statement on the left, the <code>ansible.builtin.include_tasks</code> statement on the right.</p>
+<p>One of the biggest disadvantages of the dynamic <em>include_tasks</em> statement, syntax errors are not found easily with <code>--syntax-check</code> or by using <em>ansible-lint</em>. You may end up with a failed playbook, although all your testing looked fine. Take a look at the following example, the recommended <code>ansible.builtin.import_tasks</code> statement on the left, the <code>ansible.builtin.include_tasks</code> statement on the right.</p>
 <div class="admonition quote">
 <div class="grid" markdown>
 <div class="admonition good-practice-no-title">
@@ -2489,19 +2483,19 @@ Each approach to re-using distributed Ansible artifacts has advantages and limit
 <p>Using <em>static</em> <code>ansible.builtin.import_tasks</code>:</p>
 <div class="no-copy highlight"><span class="filename">roles/prerequisites/tasks/main.yml</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#ansible-tasks-__codelineno-2-1"></a><span class="nn">---</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#ansible-tasks-__codelineno-2-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prerequisites.yml</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#ansible-tasks-__codelineno-2-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install-kubeadm.yml</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#ansible-tasks-__codelineno-2-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.import_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install_kubeadm.yml</span>
 </code></pre></div>
 <p>Task-file with syntax error (module-parameters are not indented correctly):</p>
-<div class="no-copy highlight"><span class="filename">install-kubeadm.yml</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#ansible-tasks-__codelineno-3-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Kubernetes Repository</span>
+<div class="no-copy highlight"><span class="filename">install_kubeadm.yml</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#ansible-tasks-__codelineno-3-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Kubernetes Repository</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#ansible-tasks-__codelineno-3-2"></a><span class="w">  </span><span class="nt">ansible.builtin.template</span><span class="p">:</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#ansible-tasks-__codelineno-3-3"></a><span class="hll"><span class="w">  </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.repo.j2</span>
 </span><a id="__codelineno-3-4" name="__codelineno-3-4" href="#ansible-tasks-__codelineno-3-4"></a><span class="hll"><span class="w">  </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/yum.repos.d/kubernetes.repo</span>
 </span></code></pre></div>
 <p>Running playbook with <code>--syntax-check</code> or running <code>ansible-lint</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#ansible-tasks-__codelineno-4-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>k8s-install.yml<span class="w"> </span>--syntax-check
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#ansible-tasks-__codelineno-4-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>k8s_install.yml<span class="w"> </span>--syntax-check
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#ansible-tasks-__codelineno-4-2"></a><span class="go">ERROR! conflicting action statements: ansible.builtin.template, src</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#ansible-tasks-__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#ansible-tasks-__codelineno-4-4"></a><span class="go">The error appears to be in &#39;/home/timgrt/kubernetes-installation/roles/k8s-bootstrap/tasks/install-kubeadm.yml&#39;: line 3, column 3, but may</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#ansible-tasks-__codelineno-4-4"></a><span class="go">The error appears to be in &#39;/home/timgrt/kubernetes_installation/roles/k8s-bootstrap/tasks/install_kubeadm.yml&#39;: line 3, column 3, but may</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#ansible-tasks-__codelineno-4-5"></a><span class="go">be elsewhere in the file depending on the exact syntax problem.</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#ansible-tasks-__codelineno-4-6"></a>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#ansible-tasks-__codelineno-4-7"></a><span class="go">The offending line appears to be:</span>
@@ -2509,10 +2503,10 @@ Each approach to re-using distributed Ansible artifacts has advantages and limit
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#ansible-tasks-__codelineno-4-9"></a>
 <a id="__codelineno-4-10" name="__codelineno-4-10" href="#ansible-tasks-__codelineno-4-10"></a><span class="go">- name: Install Kubernetes Repository</span>
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#ansible-tasks-__codelineno-4-11"></a><span class="go">  ^ here</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#ansible-tasks-__codelineno-4-12"></a><span class="gp">$ </span>ansible-lint<span class="w"> </span>k8s-install.yml
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#ansible-tasks-__codelineno-4-12"></a><span class="gp">$ </span>ansible-lint<span class="w"> </span>k8s_install.yml
 <a id="__codelineno-4-13" name="__codelineno-4-13" href="#ansible-tasks-__codelineno-4-13"></a><span class="go">WARNING  Listing 1 violation(s) that are fatal</span>
 <a id="__codelineno-4-14" name="__codelineno-4-14" href="#ansible-tasks-__codelineno-4-14"></a><span class="go">syntax-check[specific]: conflicting action statements: ansible.builtin.template, src</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#ansible-tasks-__codelineno-4-15"></a><span class="go">roles/k8s-bootstrap/tasks/install-kubeadm.yml:3:3</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#ansible-tasks-__codelineno-4-15"></a><span class="go">roles/k8s_bootstrap/tasks/install_kubeadm.yml:3:3</span>
 <a id="__codelineno-4-16" name="__codelineno-4-16" href="#ansible-tasks-__codelineno-4-16"></a>
 <a id="__codelineno-4-17" name="__codelineno-4-17" href="#ansible-tasks-__codelineno-4-17"></a>
 <a id="__codelineno-4-18" name="__codelineno-4-18" href="#ansible-tasks-__codelineno-4-18"></a><span class="go">                  Rule Violation Summary  </span>
@@ -2527,19 +2521,19 @@ Each approach to re-using distributed Ansible artifacts has advantages and limit
 <p>Using <em>dynamic</em> <code>ansible.builtin.include_tasks</code>:</p>
 <div class="no-copy highlight"><span class="filename">roles/prerequisites/tasks/main.yml</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#ansible-tasks-__codelineno-5-1"></a><span class="nn">---</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#ansible-tasks-__codelineno-5-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.include_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prerequisites.yml</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#ansible-tasks-__codelineno-5-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.include_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install-kubeadm.yml</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#ansible-tasks-__codelineno-5-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ansible.builtin.include_tasks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install_kubeadm.yml</span>
 </code></pre></div>
 <p>Task-file with syntax error (module-parameters are not indented correctly):</p>
-<p><div class="no-copy highlight"><span class="filename">install-kubeadm.yml</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#ansible-tasks-__codelineno-6-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Kubernetes Repository</span>
+<p><div class="no-copy highlight"><span class="filename">install_kubeadm.yml</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#ansible-tasks-__codelineno-6-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Kubernetes Repository</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#ansible-tasks-__codelineno-6-2"></a><span class="w">  </span><span class="nt">ansible.builtin.template</span><span class="p">:</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#ansible-tasks-__codelineno-6-3"></a><span class="hll"><span class="w">  </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.repo.j2</span>
 </span><a id="__codelineno-6-4" name="__codelineno-6-4" href="#ansible-tasks-__codelineno-6-4"></a><span class="hll"><span class="w">  </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/yum.repos.d/kubernetes.repo</span>
 </span></code></pre></div>
 Running playbook with <code>--syntax-check</code> or running <code>ansible-lint</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#ansible-tasks-__codelineno-7-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>k8s-install.yml<span class="w"> </span>--syntax-check
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#ansible-tasks-__codelineno-7-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>k8s_install.yml<span class="w"> </span>--syntax-check
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#ansible-tasks-__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#ansible-tasks-__codelineno-7-3"></a><span class="go">playbook: k8s-install.yml</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#ansible-tasks-__codelineno-7-4"></a><span class="gp">$ </span>ansible-lint<span class="w"> </span>k8s-install.yml
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#ansible-tasks-__codelineno-7-3"></a><span class="go">playbook: k8s_install.yml</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#ansible-tasks-__codelineno-7-4"></a><span class="gp">$ </span>ansible-lint<span class="w"> </span>k8s_install.yml
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#ansible-tasks-__codelineno-7-5"></a>
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#ansible-tasks-__codelineno-7-6"></a><span class="go">Passed: 0 failure(s), 0 warning(s) on 12 files. Last profile that met the validation criteria was &#39;production&#39;.</span>
 </code></pre></div>
@@ -3909,7 +3903,7 @@ If you only installed <code>ansible-core</code>, you'll need to install the coll
 <h3 id="development-testing-configuration">Configuration</h3>
 <p>The <em>molecule</em> configuration files are kept in the role folder you want to test. Create the directory <code>molecule/default</code> and at least the <code>molecule.yml</code> and <code>converge.yml</code>:</p>
 <div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#development-testing-__codelineno-7-1"></a><span class="go">roles/</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#development-testing-__codelineno-7-2"></a><span class="go">└── webserver-demo</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#development-testing-__codelineno-7-2"></a><span class="go">└── webserver_demo</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#development-testing-__codelineno-7-3"></a><span class="go">    ├── defaults</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#development-testing-__codelineno-7-4"></a><span class="go">    │   └── main.yml</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#development-testing-__codelineno-7-5"></a><span class="go">    ├── molecule</span>
@@ -4083,7 +4077,7 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 </div>
 <h3 id="development-testing-usage">Usage</h3>
 <p>Molecule is executed from within the role you want to test, change directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#development-testing-__codelineno-14-1"></a><span class="go">cd roles/webserver-demo</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#development-testing-__codelineno-14-1"></a><span class="go">cd roles/webserver_demo</span>
 </code></pre></div>
 <p>From here, run the molecule scenario, after activating your Python <abbr title="Virtual Environment">VE</abbr> with molecule:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#development-testing-__codelineno-15-1"></a><span class="go">source molecule-venv/bin/activate</span>
@@ -4119,7 +4113,7 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="admonition example">
-<p class="admonition-title">testing-environment.yml</p>
+<p class="admonition-title">testing_environment.yml</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#development-testing-__codelineno-22-1"></a><span class="nn">---</span>
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#development-testing-__codelineno-22-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create or delete demo environment for local testing</span>
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#development-testing-__codelineno-22-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
@@ -4142,7 +4136,7 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 </div>
 <div class="tabbed-block">
 <div class="admonition example">
-<p class="admonition-title">testing-inventory.yml</p>
+<p class="admonition-title">testing_inventory.yml</p>
 <p>Add additional instances in the <code>test</code> group, if necessary.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#development-testing-__codelineno-23-1"></a><span class="p p-Indicator">[</span><span class="nv">test</span><span class="p p-Indicator">]</span>
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#development-testing-__codelineno-23-2"></a><span class="l l-Scalar l-Scalar-Plain">instance1</span>
@@ -4155,7 +4149,7 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 </div>
 <div class="tabbed-block">
 <div class="admonition example">
-<p class="admonition-title">testing-inventory.yml</p>
+<p class="admonition-title">testing_inventory.yml</p>
 <p>Add your tasks to this playbook and start testing. If you want to use your own playbook, target the <code>test</code> group as well.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#development-testing-__codelineno-24-1"></a><span class="nn">---</span>
 <a id="__codelineno-24-2" name="__codelineno-24-2" href="#development-testing-__codelineno-24-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Testing playbook</span>
@@ -4170,14 +4164,14 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 </div>
 </div>
 <h3 id="development-testing-usage_1">Usage</h3>
-<p>First, create the testing instances by executing the <code>testing-environment.yml</code> playbook:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#development-testing-__codelineno-25-1"></a><span class="go">ansible-playbook -i testing-inventory.ini testing-environment.yml</span>
+<p>First, create the testing instances by executing the <code>testing_environment.yml</code> playbook:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#development-testing-__codelineno-25-1"></a><span class="go">ansible-playbook -i testing-inventory.ini testing_environment.yml</span>
 </code></pre></div>
-<p>Add your tasks to the <code>testing-playbook.yml</code> (or use your existing playbook, target the <code>test</code> group) and execute:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#development-testing-__codelineno-26-1"></a><span class="go">ansible-playbook -i testing-inventory.ini testing-playbook.yml</span>
+<p>Add your tasks to the <code>testing_playbook.yml</code> (or use your existing playbook, target the <code>test</code> group) and execute:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#development-testing-__codelineno-26-1"></a><span class="go">ansible-playbook -i testing_inventory.ini testing_playbook.yml</span>
 </code></pre></div>
-<p>After finishing your tests remove the instances by running the <code>testing-environment.yml</code> playbook and provide the <em>extra-var</em> <code>delete</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#development-testing-__codelineno-27-1"></a><span class="go">ansible-playbook -i testing-inventory.ini testing-environment.yml -e delete=true</span>
+<p>After finishing your tests remove the instances by running the <code>testing_environment.yml</code> playbook and provide the <em>extra-var</em> <code>delete</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#development-testing-__codelineno-27-1"></a><span class="go">ansible-playbook -i testing_inventory.ini testing_environment.yml -e delete=true</span>
 </code></pre></div>
 <!-- markdownlint-enable MD024 -->
 
@@ -4641,7 +4635,7 @@ Add the following block to your <code>ansible.cfg</code>:</p>
 </code></pre></div>
 <details class="example">
 <summary>Example output</summary>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#development-monitoring-__codelineno-2-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span>create-workshop-environment.yml
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#development-monitoring-__codelineno-2-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span>create_workshop_environment.yml
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#development-monitoring-__codelineno-2-2"></a>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#development-monitoring-__codelineno-2-3"></a><span class="go">PLAY [Create Workshop environment] ****************************************************************************************************</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#development-monitoring-__codelineno-2-4"></a>
@@ -4724,7 +4718,7 @@ Add the following block to your <code>ansible.cfg</code>:</p>
 </code></pre></div>
 <details class="example">
 <summary>Example output</summary>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#development-monitoring-__codelineno-8-1"></a><span class="gp">$ </span>cgexec<span class="w"> </span>-g<span class="w"> </span>memory:ansible_profile<span class="w"> </span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span>create-workshop-environment.yml
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#development-monitoring-__codelineno-8-1"></a><span class="gp">$ </span>cgexec<span class="w"> </span>-g<span class="w"> </span>memory:ansible_profile<span class="w"> </span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span>create_workshop_environment.yml
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#development-monitoring-__codelineno-8-2"></a>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#development-monitoring-__codelineno-8-3"></a><span class="go">PLAY [Create Workshop environment] ******************************************************</span>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#development-monitoring-__codelineno-8-4"></a>
@@ -4793,7 +4787,7 @@ Add the following block to your <code>ansible.cfg</code>:</p>
 </code></pre></div>
 <details class="example">
 <summary>Example output</summary>
-<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#development-monitoring-__codelineno-13-1"></a><span class="gp">$ </span>cgexec<span class="w"> </span>-g<span class="w"> </span>cpuacct,memory,pids:ansible_profile<span class="w"> </span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span>create-workshop-environment.yml
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#development-monitoring-__codelineno-13-1"></a><span class="gp">$ </span>cgexec<span class="w"> </span>-g<span class="w"> </span>cpuacct,memory,pids:ansible_profile<span class="w"> </span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>inventory.ini<span class="w"> </span>create_workshop_environment.yml
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#development-monitoring-__codelineno-13-2"></a>
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#development-monitoring-__codelineno-13-3"></a><span class="go">PLAY [Create Workshop environment] *****************************************************************************</span>
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#development-monitoring-__codelineno-13-4"></a>
