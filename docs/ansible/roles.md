@@ -47,7 +47,7 @@ Use the role in a playbook like this (after running plays/roles from dependencie
   hosts: example_servers
   become: true
   roles:
-    - example-role
+    - example_role
 ```
 
 ## Authors
@@ -97,7 +97,7 @@ At least the folders (and content) `tests` (a sample inventory and playbook for 
 Consider the following role skeleton, note the missing *vars* and *test* folder and the newly added [Molecule folder](testing.md#molecule).
 
 ``` { .console .no-copy }
-roles/role-skeleton/
+roles/role_skeleton/
 ├── defaults
 │   └── main.yml
 ├── files
@@ -119,7 +119,7 @@ You need to define the following parameter in your custom `ansible.cfg`:
 
 ```ini
 [galaxy]
-role_skeleton = roles/role-skeleton
+role_skeleton = roles/role_skeleton
 ```
 
 !!! success

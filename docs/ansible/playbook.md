@@ -59,21 +59,21 @@ Either you need only static importing of roles and you can use the roles section
 
 Avoid putting multiple plays in a playbook, if not really necessary. As every play most likely targets a different host group, create a separate playbook file for it. This way you achieve to most flexibility.
 
-```{ .yaml title="k8s-installation.yml" .no-copy }
+```{ .yaml title="k8s_installation.yml" .no-copy }
 --8<-- "example-multiple-plays-playbook.yml"
 ```
 
 Separate the two plays into their respective playbooks files and reference them in an overall playbook file:
 
-```yaml title="k8s-control-plane-playbook.yml"
+```yaml title="k8s_control_plane_playbook.yml"
 --8<-- "example-k8s-control-plane-playbook.yml"
 ```
 
-```yaml title="k8s-worker-node-playbook.yml"
+```yaml title="k8s_worker_node_playbook.yml"
 --8<-- "example-k8s-worker-node-playbook.yml"
 ```
 
-```yaml title="k8s-installation.yml"
+```yaml title="k8s_installation.yml"
 --8<-- "example-k8s-installation-playbook.yml"
 ```
 
@@ -156,7 +156,7 @@ In a playbook, you can control the collections Ansible searches for modules and 
     - computacenter.utils
   become: true
   roles:
-    - k8s-control-plane
+    - k8s_control_plane
 ```
 
 With that you could omit the *provider.collection* part when using modules, by default you would reference a module with the [FQCN](tasks.md#modules-and-collections):

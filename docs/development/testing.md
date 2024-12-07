@@ -92,7 +92,7 @@ The *molecule* configuration files are kept in the role folder you want to test.
 
 ``` { .console .no-copy .hl_lines="5 6 7 8" }
 roles/
-└── webserver-demo
+└── webserver_demo
     ├── defaults
     │   └── main.yml
     ├── molecule
@@ -271,7 +271,7 @@ You may use these example configurations as a starting point. It expects that th
 Molecule is executed from within the role you want to test, change directory:
 
 ```console
-cd roles/webserver-demo
+cd roles/webserver_demo
 ```
 
 From here, run the molecule scenario, after activating your Python VE with molecule:
@@ -330,7 +330,7 @@ ansible-galaxy collection install containers.podman
 Copy the three files in the separate tabs, a playbook for creating the testing environment, an inventory file defining the testing instances and a small demo playbook which can be used to test your Ansible content.
 
 === "Create test environment"
-    !!! example "testing-environment.yml"
+    !!! example "testing_environment.yml"
 
         ```yaml
         ---
@@ -353,7 +353,7 @@ Copy the three files in the separate tabs, a playbook for creating the testing e
         ```
 
 === "Testing inventory"
-    !!! example "testing-inventory.yml"
+    !!! example "testing_inventory.yml"
         Add additional instances in the `test` group, if necessary.
 
         ```yaml
@@ -366,7 +366,7 @@ Copy the three files in the separate tabs, a playbook for creating the testing e
         ```
 
 === "Testing Playbook"
-    !!! example "testing-inventory.yml"
+    !!! example "testing_inventory.yml"
         Add your tasks to this playbook and start testing. If you want to use your own playbook, target the `test` group as well.
 
         ```yaml
@@ -381,21 +381,21 @@ Copy the three files in the separate tabs, a playbook for creating the testing e
 
 ### Usage
 
-First, create the testing instances by executing the `testing-environment.yml` playbook:
+First, create the testing instances by executing the `testing_environment.yml` playbook:
 
 ```console
-ansible-playbook -i testing-inventory.ini testing-environment.yml
+ansible-playbook -i testing-inventory.ini testing_environment.yml
 ```
 
-Add your tasks to the `testing-playbook.yml` (or use your existing playbook, target the `test` group) and execute:
+Add your tasks to the `testing_playbook.yml` (or use your existing playbook, target the `test` group) and execute:
 
 ```console
-ansible-playbook -i testing-inventory.ini testing-playbook.yml
+ansible-playbook -i testing_inventory.ini testing_playbook.yml
 ```
 
-After finishing your tests remove the instances by running the `testing-environment.yml` playbook and provide the *extra-var* `delete`:
+After finishing your tests remove the instances by running the `testing_environment.yml` playbook and provide the *extra-var* `delete`:
 
 ```console
-ansible-playbook -i testing-inventory.ini testing-environment.yml -e delete=true
+ansible-playbook -i testing_inventory.ini testing_environment.yml -e delete=true
 ```
 <!-- markdownlint-enable MD024 -->

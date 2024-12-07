@@ -6,16 +6,16 @@ Logically related tasks are to be separated into individual files, the `main.yml
 ``` { .console .no-copy }
 .
 └── roles
-    └── k8s-bootstrap
+    └── k8s_bootstrap
         └── tasks
-            ├── install-kubeadm.yml
+            ├── install_kubeadm.yml
             ├── main.yml
             └── prerequisites.yml
 ```
 
 The file name of a task file should describe the content.
 
-```yaml title="roles/k8s-bootstrap/tasks/main.yml"
+```yaml title="roles/k8s_bootstrap/tasks/main.yml"
 --8<-- "example-role-main-task.yml"
 ```
 
@@ -36,7 +36,7 @@ Each approach to re-using distributed Ansible artifacts has advantages and limit
 !!! tip
     In most cases, use the static `ansible.builtin.import_tasks` statement, it has more advantages than disadvantages.
 
-One of the biggest disadvantages of the dynamic *include_tasks* statement, syntax errors are not found by easily with `--syntax-check` or by using *ansible-lint*. You may end up with a failed playbook, although all your testing looked fine. Take a look at the following example, the recommended `ansible.builtin.import_tasks` statement on the left, the `ansible.builtin.include_tasks` statement on the right.
+One of the biggest disadvantages of the dynamic *include_tasks* statement, syntax errors are not found easily with `--syntax-check` or by using *ansible-lint*. You may end up with a failed playbook, although all your testing looked fine. Take a look at the following example, the recommended `ansible.builtin.import_tasks` statement on the left, the `ansible.builtin.include_tasks` statement on the right.
 
 !!! quote ""
 
@@ -49,12 +49,12 @@ One of the biggest disadvantages of the dynamic *include_tasks* statement, synta
         ```{ .yaml title="roles/prerequisites/tasks/main.yml" .no-copy}
         ---
         - ansible.builtin.import_tasks: prerequisites.yml
-        - ansible.builtin.import_tasks: install-kubeadm.yml
+        - ansible.builtin.import_tasks: install_kubeadm.yml
         ```
 
         Task-file with syntax error (module-parameters are not indented correctly):
 
-        ```{ .yaml title="install-kubeadm.yml" hl_lines="3 4" .no-copy}
+        ```{ .yaml title="install_kubeadm.yml" hl_lines="3 4" .no-copy}
         - name: Install Kubernetes Repository
           ansible.builtin.template:
           src: kubernetes.repo.j2
@@ -64,10 +64,10 @@ One of the biggest disadvantages of the dynamic *include_tasks* statement, synta
         Running playbook with `--syntax-check` or running `ansible-lint`:
 
         ```{ .console .no-copy}
-        $ ansible-playbook k8s-install.yml --syntax-check
+        $ ansible-playbook k8s_install.yml --syntax-check
         ERROR! conflicting action statements: ansible.builtin.template, src
 
-        The error appears to be in '/home/timgrt/kubernetes-installation/roles/k8s-bootstrap/tasks/install-kubeadm.yml': line 3, column 3, but may
+        The error appears to be in '/home/timgrt/kubernetes_installation/roles/k8s-bootstrap/tasks/install_kubeadm.yml': line 3, column 3, but may
         be elsewhere in the file depending on the exact syntax problem.
 
         The offending line appears to be:
@@ -75,10 +75,10 @@ One of the biggest disadvantages of the dynamic *include_tasks* statement, synta
 
         - name: Install Kubernetes Repository
           ^ here
-        $ ansible-lint k8s-install.yml
+        $ ansible-lint k8s_install.yml
         WARNING  Listing 1 violation(s) that are fatal
         syntax-check[specific]: conflicting action statements: ansible.builtin.template, src
-        roles/k8s-bootstrap/tasks/install-kubeadm.yml:3:3
+        roles/k8s_bootstrap/tasks/install_kubeadm.yml:3:3
 
 
                           Rule Violation Summary  
@@ -95,12 +95,12 @@ One of the biggest disadvantages of the dynamic *include_tasks* statement, synta
         ```{ .yaml title="roles/prerequisites/tasks/main.yml" .no-copy}
         ---
         - ansible.builtin.include_tasks: prerequisites.yml
-        - ansible.builtin.include_tasks: install-kubeadm.yml
+        - ansible.builtin.include_tasks: install_kubeadm.yml
         ```
 
         Task-file with syntax error (module-parameters are not indented correctly):
 
-        ```{ .yaml title="install-kubeadm.yml" hl_lines="3 4" .no-copy}
+        ```{ .yaml title="install_kubeadm.yml" hl_lines="3 4" .no-copy}
         - name: Install Kubernetes Repository
           ansible.builtin.template:
           src: kubernetes.repo.j2
@@ -109,10 +109,10 @@ One of the biggest disadvantages of the dynamic *include_tasks* statement, synta
         Running playbook with `--syntax-check` or running `ansible-lint`:
 
         ```{ .console .no-copy}
-        $ ansible-playbook k8s-install.yml --syntax-check
+        $ ansible-playbook k8s_install.yml --syntax-check
 
-        playbook: k8s-install.yml
-        $ ansible-lint k8s-install.yml
+        playbook: k8s_install.yml
+        $ ansible-lint k8s_install.yml
 
         Passed: 0 failure(s), 0 warning(s) on 12 files. Last profile that met the validation criteria was 'production'.
         ```
