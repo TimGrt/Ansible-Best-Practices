@@ -1,5 +1,5 @@
 ---
-name: Lint markdown files
+name: Linting
 on:
   workflow_dispatch:
   pull_request:
