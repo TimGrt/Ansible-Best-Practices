@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD024 -->
 # Testing
 
 With many people contributing to the automation, it is crucial to test the automation content in-depth. So when you’re developing new Ansible Content like playbooks, roles and collections, it’s a good idea to test the content in a test environment before using it to automate production infrastructure. Testing ensures the automation works as designed and avoids unpleasant surprises down the road.  
@@ -29,9 +30,10 @@ Take a look at the [Linting section](linting.md) for further information.
 ## Molecule
 
 The *Molecule* project is designed to aid in the development and testing of Ansible roles, provides support for testing with multiple instances, operating systems and distributions, virtualization providers, test frameworks and testing scenarios.  
-Molecule is mostly used to test roles in isolation (although it is possible to test multiple roles or playbooks at once). To test against a fresh system, molecule uses a container runtime to provision virtualized/containerized test hosts, runs commands on them and asserts the success. Molecule does not connect via ssh to the container, instead it uses an Ansible installation inside the container. It is therefore necessary to use a custom build container image.
+Molecule is mostly used to test roles in isolation (although it is possible to test multiple roles or playbooks at once). To test against a fresh system, molecule uses a container runtime to provision virtualized/containerized test hosts, runs commands on them and asserts the success.  
+By default, Containers don't allow services to be installed, started and stopped as in a virtual machine. We will be using custom *systemd-enabled* images, which are designed to run an init system as PID 1 for running multi-services inside the container. Also, some additional configuration is needed in the Molecule configuration file as shown below.
 
-Take a look at the [Molecule documentation](https://molecule.readthedocs.io/en/latest/index.html#){ target="_blank" } for a full overview.
+Take a look at the [Molecule documentation](https://ansible.readthedocs.io/projects/molecule/){ target="_blank" } for a full overview.
 
 ### Installation
 
@@ -301,3 +303,99 @@ If you want to login to a running container instance:
 ```console
 molecule login
 ```
+
+## Minimal testing environment
+
+!!! tip
+    This is meant as a *quick and dirty* testing or demo environment only, for anything more sophisticated, use [Molecule](testing.md#molecule) (as you most likely will be moving your content into one or more roles anyway).
+
+You'll miss out on the convenient and frankly easy to use possibilities of *Molecule*, but, if you just need a small environment for testing your Ansible content without impacting your Ansible Control Node, the following setup spins up a small one in (Podman) containers. You will need Podman and Ansible (naturally), but nothing else.
+
+### Installation
+
+You can install Podman with the following command:
+
+```console
+sudo apt install podman
+```
+
+The playbook to create the testing instances uses the *containers.podman* collection, if you only installed `ansible-core`, you'll need to install the collection separately:
+
+```console
+ansible-galaxy collection install containers.podman
+```
+
+### Configuration
+
+Copy the three files in the separate tabs, a playbook for creating the testing environment, an inventory file defining the testing instances and a small demo playbook which can be used to test your Ansible content.
+
+=== "Create test environment"
+    !!! example "testing-environment.yml"
+
+        ```yaml
+        ---
+        - name: Create or delete demo environment for local testing
+          hosts: localhost
+          connection: local
+          vars:
+            testing_image: docker.io/timgrt/rockylinux9-ansible:latest
+          tasks:
+            - name: "{{ (delete | default(false)) | ternary('Delete', 'Create') }} demo instance"
+              containers.podman.podman_container:
+                name: "{{ item }}"
+                hostname: "{{ item }}"
+                image: "{{ testing_image }}"
+                volumes:
+                  - /sys/fs/cgroup:/sys/fs/cgroup:ro
+                command: "/usr/sbin/init"
+                state: "{{ (delete | default(false)) | ternary('absent', 'started') }}"
+              loop: "{{ groups['test'] }}"
+        ```
+
+=== "Testing inventory"
+    !!! example "testing-inventory.yml"
+        Add additional instances in the `test` group, if necessary.
+
+        ```yaml
+        [test]
+        instance1
+
+        [test:vars]
+        ansible_user=ansible
+        ansible_connection=podman
+        ```
+
+=== "Testing Playbook"
+    !!! example "testing-inventory.yml"
+        Add your tasks to this playbook and start testing. If you want to use your own playbook, target the `test` group as well.
+
+        ```yaml
+        ---
+        - name: Testing playbook
+          hosts: test
+          tasks:
+            - name: Output distribution
+              ansible.builtin.debug:
+                msg: "{{ ansible_distribution }}"
+        ```
+
+### Usage
+
+First, create the testing instances by executing the `testing-environment.yml` playbook:
+
+```console
+ansible-playbook -i testing-inventory.ini testing-environment.yml
+```
+
+Add your tasks to the `testing-playbook.yml` (or use your existing playbook, target the `test` group) and execute:
+
+```console
+ansible-playbook -i testing-inventory.ini testing-playbook.yml
+```
+
+After finishing your tests remove the instances by running the `testing-environment.yml` playbook and provide the *extra-var* `delete`:
+
+```console
+ansible-playbook -i testing-inventory.ini testing-environment.yml -e delete=true
+```
+<!-- markdownlint-enable MD024 -->
