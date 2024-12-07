@@ -3,4 +3,4 @@
   hosts: kubemaster
   become: true
   roles:
-    - k8s-control-plane
+    - k8s_control_plane

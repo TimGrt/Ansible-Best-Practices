@@ -17,8 +17,8 @@ exclude_paths:
 mock_roles:
   - postgres
   - common
-  - k8s-control-plane
-  - k8s-worker-nodes
+  - k8s_control_plane
+  - k8s_worker_nodes
 
 var_naming_pattern: "^[a-z_][a-z0-9_]*$"
 
