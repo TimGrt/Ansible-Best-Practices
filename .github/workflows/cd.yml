@@ -1,5 +1,5 @@
 ---
-name: Deploy to Github pages and container registry
+name: Deployment
 on:
   workflow_dispatch:
   pull_request:
