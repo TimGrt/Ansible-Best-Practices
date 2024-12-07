@@ -3,5 +3,5 @@
     name:
       - nginx
       - postgresql
-      - postgresql-server
+      - postgresql_server
     state: present

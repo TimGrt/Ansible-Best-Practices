@@ -68,7 +68,7 @@ show_task_path_on_failure = true
     ...
 
     TASK [Set motd message for k8s worker node] **************************************************
-    task path: /home/timgrt/kubernetes-installation/roles/kube-worker/tasks/configure.yml:39
+    task path: /home/timgrt/kubernetes_installation/roles/kube_worker/tasks/configure.yml:39
     fatal: [k8s-worker1]: FAILED! =>
     ...
 
@@ -135,35 +135,35 @@ pip3 install -r requirements.txt
 .
 ├── ansible.cfg
 ├── hosts
-├── k8s-install.yml
+├── k8s_install.yml
 ├── README.md
 ├── requirements.txt
 ├── requirements.yml
 └── roles
-    ├── k8s-bootstrap
+    ├── k8s_bootstrap
     │   ├── files
     │   │   ├── daemon.json
     │   │   └── k8s.conf
     │   ├── tasks
-    │   │   ├── install-kubeadm.yml
+    │   │   ├── install_kubeadm.yml
     │   │   ├── main.yml
     │   │   └── prerequisites.yml
     │   └── templates
     │       └── kubernetes.repo.j2
-    ├── k8s-control-plane
+    ├── k8s_control_plane
     │   ├── files
     │   │   └── kubeconfig.sh
     │   └── tasks
     │       └── main.yml
-    └── k8s-worker-nodes
+    └── k8s_worker_nodes
         └── tasks
             └── main.yml
 ```
 
 ### Filenames
 
-Folder- and file-names consisting of multiple words are separated with hyphens (e.g. `roles/grafana-deployment/tasks/grafana-installation.yml`).  
-YAML files are saved with the extension `.yml`.
+Folder- and file-names consisting of multiple words are separated with **underscores** (e.g. `roles/grafana_deployment/tasks/grafana_installation.yml`).  
+YAML files are saved with the extension `.yml`.  
 
 === "Good"
     !!! good-practice-no-title ""
@@ -171,32 +171,32 @@ YAML files are saved with the extension `.yml`.
         .
         ├── ansible.cfg
         ├── hosts
-        ├── k8s-install.yml
+        ├── k8s_install.yml
         ├── README.md
         ├── requirements.yml
         └── roles
-            ├── k8s-bootstrap
+            ├── k8s_bootstrap
             │   ├── files
             │   │   ├── daemon.json
             │   │   └── k8s.conf
             │   ├── tasks
-            │   │   ├── install-kubeadm.yml
+            │   │   ├── install_kubeadm.yml
             │   │   ├── main.yml
             │   │   └── prerequisites.yml
             │   └── templates
             │       └── kubernetes.repo.j2
-            ├── k8s-control-plane
+            ├── k8s_control_plane
             │   ├── files
             │   │   └── kubeconfig.sh
             │   └── tasks
             │       └── main.yml
-            └── k8s-worker-nodes
+            └── k8s_worker_nodes
                 └── tasks
                     └── main.yml
         ```
 === "Bad"
     !!! bad-practice-no-title ""
-        Playbook-name without hyphens and wrong file extension, role folders or task files inconsistent, with underscores and wrong extension.
+        Playbook-name without underscores and wrong file extension, role folders or task files inconsistent, with underscores and wrong extension.
         ``` { .console .no-copy }
         .
         ├── ansible.cfg
@@ -204,7 +204,7 @@ YAML files are saved with the extension `.yml`.
         ├── k8s-install.yaml
         ├── README.md
         └── roles
-            ├── k8s_bootstrap
+            ├── k8s-bootstrap
             │   ├── files
             │   │   ├── daemon.json
             │   │   └── k8s.conf
@@ -223,11 +223,6 @@ YAML files are saved with the extension `.yml`.
                 └── tasks
                     └── main.yaml
         ```
-
-!!! note "Subject to change"
-    Maybe this has to change in the future, as *collection roles* only allow *underscores* for separation.  
-    See [Ansible Docs - Roles directory](https://docs.ansible.com/ansible/devel/dev_guide/developing_collections_structure.html#roles-directory) for more information.  
-    Also, *ansible-lint* checks role names to ensure they conform these requirements, which must be disabled otherwise.
 
 ## YAML Syntax
 
