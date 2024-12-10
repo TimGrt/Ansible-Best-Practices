@@ -384,7 +384,7 @@ Copy the three files in the separate tabs, a playbook for creating the testing e
 First, create the testing instances by executing the `testing_environment.yml` playbook:
 
 ```console
-ansible-playbook -i testing-inventory.ini testing_environment.yml
+ansible-playbook -i testing_inventory.ini testing_environment.yml
 ```
 
 Add your tasks to the `testing_playbook.yml` (or use your existing playbook, target the `test` group) and execute:
