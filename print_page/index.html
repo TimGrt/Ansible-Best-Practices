@@ -1217,7 +1217,7 @@
 <p>Searching for something specific? Use the <strong>Search</strong> at the top!</p>
 <div class="admonition tip">
 <p class="admonition-title">Versioning</p>
-<p>This guide is updated constantly, last update on <strong><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 7, 2024</span></strong>.</p>
+<p>This guide is updated constantly, last update on <strong><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 10, 2024</span></strong>.</p>
 </div>
 <!-- markdownlint-disable --></section>
                         <h1 class='nav-section-title' id='section-mindset'>
@@ -4165,7 +4165,7 @@ For example, if you want to test SSH Key-Pair creation in your container (this i
 </div>
 <h3 id="development-testing-usage_1">Usage</h3>
 <p>First, create the testing instances by executing the <code>testing_environment.yml</code> playbook:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#development-testing-__codelineno-25-1"></a><span class="go">ansible-playbook -i testing-inventory.ini testing_environment.yml</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#development-testing-__codelineno-25-1"></a><span class="go">ansible-playbook -i testing_inventory.ini testing_environment.yml</span>
 </code></pre></div>
 <p>Add your tasks to the <code>testing_playbook.yml</code> (or use your existing playbook, target the <code>test</code> group) and execute:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#development-testing-__codelineno-26-1"></a><span class="go">ansible-playbook -i testing_inventory.ini testing_playbook.yml</span>
