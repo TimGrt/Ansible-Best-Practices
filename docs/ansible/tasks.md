@@ -31,7 +31,7 @@ The file name of a task file should describe the content.
 ## import vs. include
 
 Ansible offers two ways to reuse tasks: *statically* with `ansible.builtin.import_tasks` and *dynamically* with `ansible.builtin.include_tasks`.  
-Each approach to re-using distributed Ansible artifacts has advantages and limitations, take a look at the [Ansible documentation for an in-depth comparison of the two statements](https://docs.ansible.com/ansible/devel/playbook_guide/playbooks_reuse.html#comparing-includes-and-imports-dynamic-and-static-reuse){:target="_blank"}.  
+Each approach to reuse distributed Ansible artifacts has advantages and limitations, take a look at the [Ansible documentation for an in-depth comparison of the two statements](https://docs.ansible.com/ansible/devel/playbook_guide/playbooks_reuse.html#comparing-includes-and-imports-dynamic-and-static-reuse){:target="_blank"}.  
 
 !!! tip
     In most cases, use the static `ansible.builtin.import_tasks` statement, it has more advantages than disadvantages.

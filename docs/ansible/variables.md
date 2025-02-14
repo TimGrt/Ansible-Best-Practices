@@ -151,7 +151,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
         --8<-- "example-no-log-variable-playbook.yml"
         ```
         ??? info "Output of playbook run"
-            Using the *stdout_callback: community.general.yaml* for better readability, see [Ansible configuration](project.md#ansible-configuration) for more info.  
+            Using the *stdout_callback: community.general.yaml* for better readability, see [Ansible configuration](project.md#ansible-configuration){:target="_blank"} for more info.  
             ``` { .console .no-copy .hl_lines="22" }
             $ ansible-playbook nolog.yml -v
 
@@ -250,6 +250,317 @@ repos:
 ```
 
 Take a look at the [development section](linting.md#git-pre-commit-hook) for additional information.
+
+## Variable validation
+
+Playbooks often need user input, this may lead to errors like
+
+* required variables not provided
+* wrong variable type (e.g. integer instead of string, string instead of list, ...)
+* typos in variable values
+* ...
+
+It is useful to validate the user input early and provide a meaningful error message, if necessary.
+
+### Assert module
+
+For simple variable validations, use the [`ansible.builtin.assert` module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/assert_module.html){:target="_blank"}, it checks if a given expressions evaluates to *true*.
+
+```yaml
+- name: Ensure AAP credentials are provided
+  ansible.builtin.assert:
+    that:
+      - lookup('env', 'CONTROLLER_HOST') | length > 0
+      - lookup('env', 'CONTROLLER_HOST') | length > 0
+      - lookup('env', 'CONTROLLER_HOST') | length > 0
+    quiet: true
+    fail_msg: |
+      AAP login credentials are missing!
+      Export environment variables locally ir add the correct credential to the Job template.
+```
+
+The task above for example checks if three environment variables are set or rather contain input (the lookup plugin produces an empty string if the environment variable is not found). If the environment variable is found and is longer than zero, the expressions evaluates to true, otherwise the error message in the `fail_msg` parameter is shown and the playbook fails (for this host).
+
+### Validate module
+
+Input validation for complex (deeply nested) variables can be challenging with the `ansible.builtin.assert` module, therefore use the `ansible.utils.validate` module.  
+By default, the [JSON Schema](https://json-schema.org/docs){:target="_blank"} engine is used by the module to validate the data with the provided criteria, other engines can be used as well.  
+
+JSON Schema is extremely widely used and nearly equally widely implemented. There are implementations of JSON Schema validation for many programming languages or environments (e.g. you can use it in VScode where it will validate your variable files, while you are writing it, before you even run the playbook.) and it is well documented. It provides
+
+* Structured Data Description
+* Rule Definition and Enforcement
+* Produce clear documentation
+* Extensibility
+* Data Validation
+
+Take a look at the following example.
+
+=== "Variable File"
+
+    ```yaml
+    ---
+    server_list:
+      - fqdn: server1.example.com
+        ipv4_address_list:
+          - 10.0.5.36
+          - 192.168.2.67
+        cores: 4
+        memory: 16GB
+        disk_space: 100GB
+        business_owner: john.doe@example.com # (1)!
+      - fqdn: server2 # (2)!
+        ipv4_address_list:
+          - 10.0.5.55
+          - 192.168.2.89
+        cores: 2
+        memory: 8 # (3)!
+        disk_space: 100GB
+    ```
+    { .annotate }
+
+    1. This is an optional field, as you can in the [JSON Schema](#__tabbed_5_2) definition in line 47
+    2. That is not a FQDN! The [JSON Schema](#__tabbed_5_2) definition validates that it is (line 17), as well as checking if the required domain is used.
+    3. The memory value is expected to be a string, prefixed with GB. The [JSON Schema](#__tabbed_5_2) definition (line 34) ensures the correct type and prefix.
+
+=== "JSON Schema"
+
+    ```json linenums="1"
+    {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Server List variable file validation",
+        "description": "A schema to validate the variable file containing the server list",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "server_list": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "fqdn": {
+                            "type": "string",
+                            "description": "Server name with example.com domain",
+                            "pattern": "^([a-z0-9]+)(\\.example\\.com)$"
+                        },
+                        "ipv4_address_list": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "format": "ipv4"
+                            }
+                        },
+                        "cores": {
+                            "type": "number",
+                            "minimum": 1,
+                            "maximum": 64
+                        },
+                        "memory": {
+                            "type": "string",
+                            "description": "Memory size in GB, expects a number followed by GB",
+                            "pattern": "^\\d+GB$"
+                        },
+                        "disk_space": {
+                            "type": "string",
+                            "description": "Disk size in GB, expects a number followed by GB",
+                            "pattern": "^\\d+GB$"
+                        },
+                        "business_owner": {
+                            "type": "string",
+                            "description": "Email address of the responsible person for this server",
+                            "format": "email"
+                        }
+                    },
+                    "required": [
+                        "fqdn",
+                        "ipv4_address_list",
+                        "cores",
+                        "memory",
+                        "disk_space"
+                    ]
+                }
+            }
+        },
+        "required": [
+            "server_list"
+        ]
+    }
+    ```
+
+To validate the variable file with the provided JSON Schema file, use the following task:
+
+```yaml
+- name: Variable file validation
+  ansible.utils.validate:
+    data: "{{ lookup('file', 'variables.yml') | from_yaml | to_json }}"
+    criteria: "{{ lookup('file', 'json_schemas/server_list_validation.json') }}"
+    engine: ansible.utils.jsonschema
+```
+
+The files are read in with a file lookup, the variables file is converted to JSON.  
+To be able to use the module (or the filter-, test- or lookup-Plugin with the same name), you'll need the `ansible.utils` collection and an additional Python package:
+
+```console
+ansible-galaxy collection install ansible.utils
+```
+
+```console
+pip3 install jsonschema
+```
+
+??? example "Playbook output showing validation errors"
+
+    ```{. console .hl_lines="11 12 22 23" .no-copy }
+    TASK [Variable file validation] ****************************************************************************************
+    fatal: [localhost]: FAILED! =>
+        changed: false
+        errors:
+        -   data_path: server_list.1.fqdn
+            expected: ^([a-z0-9]+)(\.example\.com)$
+            found: server2
+            json_path: $.server_list[1].fqdn
+            message: '''server2'' does not match ''^([a-z0-9]+)(\\.example\\.com)$'''
+            relative_schema:
+                description: Server name with example.com domain
+                pattern: ^([a-z0-9]+)(\.example\.com)$
+                type: string
+            schema_path: properties.server_list.items.properties.fqdn.pattern
+            validator: pattern
+        -   data_path: server_list.1.memory
+            expected: string
+            found: 8
+            json_path: $.server_list[1].memory
+            message: 8 is not of type 'string'
+            relative_schema:
+                description: Memory size in GB, expects a number followed by GB
+                pattern: ^\d+GB$
+                type: string
+            schema_path: properties.server_list.items.properties.memory.type
+            validator: type
+        msg: |-
+            Validation errors were found.
+            At 'properties.server_list.items.properties.fqdn.pattern' 'server2' does not match '^([a-z0-9]+)(\\.example\\.com)$'.
+            At 'properties.server_list.items.properties.memory.type' 8 is not of type 'string'.
+
+    PLAY RECAP *************************************************************************************************************
+    localhost                  : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0  
+    ```
+
+To create the initial JSON schema for your variable input, multiple tools are available online, for example to convert from [YAML to JSON](https://transform.tools/yaml-to-json){:target="_blank"} and afterwards from [JSON to JSON-Schema](https://transform.tools/json-to-json-schema){:target="_blank"}.
+
+??? example "Usage with `ansible.utils.validate` filter plugin, also for single variable"
+
+    The previous examples validated complete variable files (with potentially multiple variables), the following example shows how to validate a single variable (the same as above) with a provided JSON schema file.  
+    It will also make use of the `ansible.utils.validate` plugin with additional tasks for a more dense output.
+
+    === "Tasks"
+
+        ```yaml
+        - name: Run variable validation
+          ansible.builtin.set_fact:
+            server_list_variable_validation: "{{ server_list | ansible.utils.validate(validation_criteria, engine='ansible.utils.jsonschema') }}"
+          vars:
+            validation_criteria: "{{ lookup('ansible.builtin.file', 'json_schemas/server_list.json') }}"
+
+        - name: Output validation errors for server_list variable
+          ansible.builtin.debug:
+            msg: "Error in {{ item.data_path }}"
+          loop: "{{ server_list_variable_validation }}"
+          loop_control:
+            label: "{{ item.message }}"
+          when: server_list_variable_validation | length > 0
+
+        - name: Assert variable validation
+          ansible.builtin.assert:
+            that:
+              - server_list_variable_validation | length == 0
+            quiet: true
+            fail_msg: "Validation failed, fix the errors shown above!"
+        ```
+
+        The validation plugin produces a list of validations. The second task is shown if the list contains entries, the last task fails the playbook by using the assert module if the validation list is not empty.
+
+    === "JSON Schema"
+
+        Pretty much the same validation as before, but this time the uppermost type (line) is *array* (a *list*).
+
+        ```json hl_lines="5"
+        {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "title": "Server List variable validation",
+            "description": "A schema to validate the variable server_list",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "fqdn": {
+                        "type": "string",
+                        "description": "Server name with example.com domain",
+                        "pattern": "^([a-z0-9]+)(\\.example\\.com)$"
+                    },
+                    "ipv4_address_list": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "format": "ipv4"
+                        }
+                    },
+                    "cores": {
+                        "type": "number",
+                        "minimum": 1,
+                        "maximum": 64
+                    },
+                    "memory": {
+                        "type": "string",
+                        "description": "Memory size in GB, expects a number followed by GB",
+                        "pattern": "^\\d+GB$"
+                    },
+                    "disk_space": {
+                        "type": "string",
+                        "description": "Disk size in GB, expects a number followed by GB",
+                        "pattern": "^\\d+GB$"
+                    },
+                    "business_owner": {
+                        "type": "string",
+                        "description": "Email address of the responsible person for this server",
+                        "format": "email"
+                    }
+                },
+                "required": [
+                    "fqdn",
+                    "ipv4_address_list",
+                    "cores",
+                    "memory",
+                    "disk_space"
+                ]
+            }
+        }
+        ```
+
+    The tasks produce the following output, only showing the *data path* and the *violation message* as the list item label.
+
+    ``` { .console .no-copy }
+    TASK [Run variable validation] **************************************************************************************
+    ok: [localhost]
+
+    TASK [Output validation errors for server_list variable] ************************************************************
+    ok: [localhost] => (item='server2' does not match '^([a-z0-9]+)(\\.example\\.com)$') =>
+        msg: Error in 1.fqdn
+    ok: [localhost] => (item=8 is not of type 'string') =>
+        msg: Error in 1.memory
+
+    TASK [Assert variable validation] ***********************************************************************************
+    fatal: [localhost]: FAILED! =>
+        assertion: server_list_variable_validation | length == 0
+        changed: false
+        evaluated_to: false
+        msg: Validation failed, fix the errors shown above!
+
+    PLAY RECAP **********************************************************************************************************
+    localhost                  : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+    ```
 
 ## Disable variable templating
 
