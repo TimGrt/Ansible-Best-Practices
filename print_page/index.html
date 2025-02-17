@@ -1237,7 +1237,7 @@
 <p>Searching for something specific? Use the <strong>Search</strong> at the top!</p>
 <div class="admonition tip">
 <p class="admonition-title">Versioning</p>
-<p>This guide is updated constantly, last update on <strong><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 14, 2025</span></strong>.</p>
+<p>This guide is updated constantly, last update on <strong><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 17, 2025</span></strong>.</p>
 </div>
 <!-- markdownlint-disable --></section>
                         <h1 class='nav-section-title' id='section-mindset'>
@@ -2094,6 +2094,87 @@ Commented code is generally to be avoided. Playbooks or task files are not commi
 </div>
 <h3 id="ansible-inventory-custom-dynamic-inventory">Custom dynamic inventory</h3>
 <p>In case no suitable inventory plugin exists, you can easily write your own. Take a look at the <a href="#development-extending-inventory-plugins">Ansible Development - Extending</a> section for additional information.</p>
+<h2 id="ansible-inventory-in-memory-inventory">In-Memory Inventory</h2>
+<p>Normally Ansible requires an inventory file, to know which machines it is meant to operate on.</p>
+<p>This is typically a manual process but can be greatly improved by using a dynamic inventory to pull inventory information from other systems.</p>
+<p>Suppose, however, you needed to create <em>X</em> number of instances, which are transient in nature and had no existing details available to populate an inventory file for Ansible to utilise. If <em>X</em> is a small number, you could easily hand-craft the inventory file while the playbook already runs.</p>
+<p>Use the <a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/add_host_module.html#ansible-collections-ansible-builtin-add-host-module" target="_blank"><code>add_host</code> module</a>, which makes use of Ansible's ability to populate an <em>in-memory inventory</em> with information it generates while creating new instances.</p>
+<p>Take a look at the following example, the first <em>play</em> creates a couple of Containers and adds them to a new group. The seconds plays targets this new group and connects to the newly created Containers.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#ansible-inventory-__codelineno-3-1"></a><span class="nn">---</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#ansible-inventory-__codelineno-3-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Add hosts to additional groups</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#ansible-inventory-__codelineno-3-3"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#ansible-inventory-__codelineno-3-4"></a><span class="w">  </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#ansible-inventory-__codelineno-3-5"></a><span class="w">  </span><span class="nt">gather_facts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#ansible-inventory-__codelineno-3-6"></a><span class="w">  </span><span class="nt">vars</span><span class="p">:</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#ansible-inventory-__codelineno-3-7"></a><span class="w">    </span><span class="nt">container_list</span><span class="p">:</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#ansible-inventory-__codelineno-3-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node1</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#ansible-inventory-__codelineno-3-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node2</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#ansible-inventory-__codelineno-3-10"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node3</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#ansible-inventory-__codelineno-3-11"></a><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#ansible-inventory-__codelineno-3-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Start managed node containers</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#ansible-inventory-__codelineno-3-13"></a><span class="w">      </span><span class="nt">containers.podman.podman_container</span><span class="p">:</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#ansible-inventory-__codelineno-3-14"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#ansible-inventory-__codelineno-3-15"></a><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/timgrt/rockylinux8-ansible:latest</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#ansible-inventory-__codelineno-3-16"></a><span class="w">        </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}.example.com&quot;</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#ansible-inventory-__codelineno-3-17"></a><span class="w">        </span><span class="nt">stop_signal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#ansible-inventory-__codelineno-3-18"></a><span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">started</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#ansible-inventory-__codelineno-3-19"></a><span class="w">      </span><span class="nt">loop</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">container_list</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#ansible-inventory-__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#ansible-inventory-__codelineno-3-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Add container to new group</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#ansible-inventory-__codelineno-3-22"></a><span class="w">      </span><span class="nt">ansible.builtin.add_host</span><span class="p">:</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#ansible-inventory-__codelineno-3-23"></a><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">item</span><span class="nv"> </span><span class="s">}}&quot;</span><span class="w"> </span><span class="c1"># (1)!</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#ansible-inventory-__codelineno-3-24"></a><span class="w">        </span><span class="nt">groups</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">managed_node_containers</span><span class="w"> </span><span class="c1"># (2)!</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#ansible-inventory-__codelineno-3-25"></a><span class="w">        </span><span class="nt">ansible_connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">podman</span><span class="w"> </span><span class="c1"># (3)!</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#ansible-inventory-__codelineno-3-26"></a><span class="w">        </span><span class="nt">ansible_python_interpreter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/libexec/platform-python</span><span class="w"> </span><span class="c1"># (4)!</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#ansible-inventory-__codelineno-3-27"></a><span class="w">        </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span><span class="w"> </span><span class="c1"># (5)!</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#ansible-inventory-__codelineno-3-28"></a><span class="w">      </span><span class="nt">loop</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">container_list</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#ansible-inventory-__codelineno-3-29"></a>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#ansible-inventory-__codelineno-3-30"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tasks on containers created in previous play</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#ansible-inventory-__codelineno-3-31"></a><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">managed_node_containers</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#ansible-inventory-__codelineno-3-32"></a><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#ansible-inventory-__codelineno-3-33"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Output stage variable</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#ansible-inventory-__codelineno-3-34"></a><span class="w">      </span><span class="nt">ansible.builtin.debug</span><span class="p">:</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#ansible-inventory-__codelineno-3-35"></a><span class="w">        </span><span class="nt">msg</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">stage</span><span class="nv"> </span><span class="s">}}&quot;</span>
+</code></pre></div>
+<ol>
+<li>Every container instance is added by looping the variable <code>container_list</code>. As the <code>name</code> parameter must be a string a loop is necessary.</li>
+<li>This is the name of the new group! It is targeted in the second play. The <code>groups</code> parameter can be a list of multiple group names.</li>
+<li>These are variables needed to connect to the new instances. As they are Podman containers the <em>podman</em> connection plugin is used.</li>
+<li>The Python interpreter which is used in the new instances. Not always necessary, as normally Ansible discovers the interpreter pretty reliable.</li>
+<li>This is a custom variable for all new instances. You can add more variables here if necessary.</li>
+</ol>
+<details class="example">
+<summary>Playbook output</summary>
+<div class="no-copy highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#ansible-inventory-__codelineno-4-1"></a><span class="gp">$ </span>ansible-playbook<span class="w"> </span><span class="k">in</span>-memory-inventory.yml
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#ansible-inventory-__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#ansible-inventory-__codelineno-4-3"></a><span class="go">PLAY [Add hosts to additional groups] *******************************************************************************************************************************</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#ansible-inventory-__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#ansible-inventory-__codelineno-4-5"></a><span class="go">TASK [Start managed node containers] ********************************************************************************************************************************</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#ansible-inventory-__codelineno-4-6"></a><span class="go">ok: [localhost] =&gt; (item=node1)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#ansible-inventory-__codelineno-4-7"></a><span class="go">ok: [localhost] =&gt; (item=node2)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#ansible-inventory-__codelineno-4-8"></a><span class="go">ok: [localhost] =&gt; (item=node3)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#ansible-inventory-__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#ansible-inventory-__codelineno-4-10"></a><span class="go">TASK [Add container to new group] ***********************************************************************************************************************************</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#ansible-inventory-__codelineno-4-11"></a><span class="go">changed: [localhost] =&gt; (item=node1)</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#ansible-inventory-__codelineno-4-12"></a><span class="go">changed: [localhost] =&gt; (item=node2)</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#ansible-inventory-__codelineno-4-13"></a><span class="go">changed: [localhost] =&gt; (item=node3)</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#ansible-inventory-__codelineno-4-14"></a>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#ansible-inventory-__codelineno-4-15"></a><span class="go">PLAY [Run tasks on containers created in previous play] *************************************************************************************************************</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#ansible-inventory-__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#ansible-inventory-__codelineno-4-17"></a><span class="go">TASK [Gathering Facts] **********************************************************************************************************************************************</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#ansible-inventory-__codelineno-4-18"></a><span class="go">ok: [node2]</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#ansible-inventory-__codelineno-4-19"></a><span class="go">ok: [node1]</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#ansible-inventory-__codelineno-4-20"></a><span class="go">ok: [node3]</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#ansible-inventory-__codelineno-4-21"></a>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#ansible-inventory-__codelineno-4-22"></a><span class="go">TASK [Output stage variable] ****************************************************************************************************************************************</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#ansible-inventory-__codelineno-4-23"></a><span class="go">ok: [node1] =&gt;</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#ansible-inventory-__codelineno-4-24"></a><span class="go">    msg: test</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#ansible-inventory-__codelineno-4-25"></a><span class="go">ok: [node2] =&gt;</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#ansible-inventory-__codelineno-4-26"></a><span class="go">    msg: test</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#ansible-inventory-__codelineno-4-27"></a><span class="go">ok: [node3] =&gt;</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#ansible-inventory-__codelineno-4-28"></a><span class="go">    msg: test</span>
+</code></pre></div>
+</details>
 <!-- markdownlint-disable --></section><section class="print-page" id="ansible-playbook"><h1 id="ansible-playbook-playbooks">Playbooks</h1>
 <p><em>Playbooks</em> are first thing you think of when using Ansible. This section describes some good practices.  </p>
 <h2 id="ansible-playbook-directory-structure">Directory structure</h2>
