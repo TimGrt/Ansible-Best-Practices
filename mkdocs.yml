@@ -1,7 +1,7 @@
 # code: language=yaml
 site_name: Ansible Best Practices
 site_description: Best Practices and Style Guide for Ansible Projects
-copyright: Copyright &copy; Tim Grützmacher 2024
+copyright: Copyright &copy; Tim Grützmacher 2025
 edit_uri: ""
 extra:
   social:
