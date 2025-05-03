@@ -5,8 +5,11 @@ copyright: Copyright &copy; Tim Grützmacher 2025
 edit_uri: ""
 extra:
   social:
+    - icon: simple/githubactions
+      link: https://github.com/TimGrt/Ansible-Best-Practices/actions
+      name: CI/CD Pipelines
     - icon: fontawesome/brands/docker
-      link: https://github.com/timgrt/Ansible-Best-Practices/pkgs/container/ansible-best-practices
+      link: https://github.com/TimGrt/Ansible-Best-Practices/pkgs/container/ansible-best-practices
       name: Docker Container in Github Container Repository
 extra_css:
   - assets/stylesheets/extra.css
@@ -88,6 +91,7 @@ theme:
     - content.code.copy
     - navigation.indexes
     - navigation.instant
+    - navigation.prune
     - navigation.sections
     - navigation.top
     - search.highlight
