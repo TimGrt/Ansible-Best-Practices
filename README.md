@@ -11,7 +11,7 @@ podman pull ghcr.io/timgrt/ansible-best-practices:latest
 Start a container from the image, the webserver is available at Port 8080:
 
 ```bash
-podman run -d -p 8080:80/tcp --name best-practice-guide ghcr.io/timgrt/ansible-best-practices:latest
+podman run -d -p 8080:8080/tcp --name best-practice-guide ghcr.io/timgrt/ansible-best-practices:latest
 ```
 
 ## Manual build
@@ -27,7 +27,7 @@ podman build -t best-practice-guide .
 Start a container from the image, the webserver is available at Port 8080:
 
 ```bash
-podman run -d -p 8080:80/tcp --name ansible-guide best-practice-guide
+podman run -d -p 8080:8080/tcp --name ansible-guide best-practice-guide
 ```
 
 ## Development
