@@ -87,6 +87,37 @@ show_task_path_on_failure = true
 
 Even if you don't set this, the path is displayed automatically for every task when running with `-vv` or greater verbosity, but you'll need to run the playbook again.
 
+### Configure ansible-galaxy
+
+By default, ansible-galaxy uses [https://galaxy.ansible.com](https://galaxy.ansible.com){:target="_blank"} as the Galaxy server. To configure additional servers like *Automation Hub* or *Private Automation Hub*, you'll need to configure these in the `galaxy` section.  
+
+Create a new section for each server name, set the url option for each server name and set the API token for each server name, if necessary.
+
+```ini
+[galaxy]
+server_list = release_galaxy,automation_hub # (1)!
+
+[galaxy_server.release_galaxy] 
+url = https://galaxy.ansible.com/ # (2)!
+
+[galaxy_server.automation_hub]
+url = https://console.redhat.com/api/automation-hub/content/published/ # (3)!
+auth_url = https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token # (4)!
+token = <secret-token>
+```
+
+1. **Comma-separated** list of server identifiers in a **prioritized** order (in the example galaxy.ansible.com is searched first, then Automation Hub).  
+The name of the server does not matter, but needs to match the corresponding `galaxy_server.*` section.  
+2. galaxy.ansible.com doesn't need authentication to download collections (or roles).  
+If you want to publish stuff, you'll need an API Token (or username and password).  
+3. Gets content from the `published` repository, to get stuff from the `validated` repository, adjust or add a new section and add it to the `server_list`.  
+4. The URL of a Keycloak server *token_endpoint* if using SSO authentication. Requires `token`.  
+
+!!! danger
+    Take extra care when using tokens (or passwords) in your `ansible.cfg`, as they might get commited to Git by accident.  
+    Add the file to your `.gitignore`.
+Take a look at the [Ansible documentation for additional information](https://docs.ansible.com/ansible/latest/collections_guide/collections_installing.html#configuring-the-ansible-galaxy-client){:target="_blank"}.
+
 ## Dependencies
 
 Your project will have certain dependencies, make sure to provide a `requirements.yml` for necessary Ansible collections and a `requirements.txt` for necessary Python packages.  
