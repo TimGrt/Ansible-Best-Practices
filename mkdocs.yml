@@ -91,6 +91,7 @@ theme:
     - content.code.copy
     - navigation.indexes
     - navigation.instant
+    - navigation.instant.progress
     - navigation.prune
     - navigation.sections
     - navigation.top
