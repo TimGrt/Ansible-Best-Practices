@@ -97,7 +97,7 @@ Create a new section for each server name, set the url option for each server na
 [galaxy]
 server_list = release_galaxy,automation_hub # (1)!
 
-[galaxy_server.release_galaxy] 
+[galaxy_server.release_galaxy]
 url = https://galaxy.ansible.com/ # (2)!
 
 [galaxy_server.automation_hub]
@@ -114,8 +114,9 @@ If you want to publish stuff, you'll need an API Token (or username and password
 4. The URL of a Keycloak server *token_endpoint* if using SSO authentication. Requires `token`.  
 
 !!! danger
-    Take extra care when using tokens (or passwords) in your `ansible.cfg`, as they might get commited to Git by accident.  
+    Take extra care when using tokens (or passwords) in your `ansible.cfg`, as they might get added to Git by accident.  
     Add the file to your `.gitignore`.
+
 Take a look at the [Ansible documentation for additional information](https://docs.ansible.com/ansible/latest/collections_guide/collections_installing.html#configuring-the-ansible-galaxy-client){:target="_blank"}.
 
 ## Dependencies
