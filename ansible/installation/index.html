@@ -502,10 +502,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Standard install method">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-collections" class="md-nav__link">
     <span class="md-ellipsis">
       Install Collections
@@ -534,16 +533,20 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#install-collections-offline" class="md-nav__link">
+  <a href="#store-collections-with-your-project" class="md-nav__link">
     <span class="md-ellipsis">
-      Install collections offline
+      Store collections with your project
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#install-collections-offline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install collections offline
+    </span>
+  </a>
   
 </li>
         
@@ -1092,10 +1095,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Standard install method">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-collections" class="md-nav__link">
     <span class="md-ellipsis">
       Install Collections
@@ -1124,16 +1126,20 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#install-collections-offline" class="md-nav__link">
+  <a href="#store-collections-with-your-project" class="md-nav__link">
     <span class="md-ellipsis">
-      Install collections offline
+      Store collections with your project
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#install-collections-offline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install collections offline
+    </span>
+  </a>
   
 </li>
         
@@ -1210,7 +1216,7 @@
 
 <h1 id="installation">Installation</h1>
 <h2 id="standard-install-method">Standard install method</h2>
-<p>The latest version can only be obtained via the Python package manager, the <em>ansible-core</em> package contains the binaries and 69 standard modules.</p>
+<p>The latest version can only be obtained via the Python package manager, the <em>ansible-core</em> package contains the binaries and 71 standard modules.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">pip3 install ansible-core</span>
 </code></pre></div>
 <p>The included modules can be listed with <code>ansible-doc --list ansible.builtin</code>.<br />
@@ -1252,26 +1258,29 @@ Take a look at the following section for the recommended installation.</p>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="go">...</span>
 </code></pre></div>
 </details>
-<h3 id="install-collections">Install Collections</h3>
-<p>The recommended installation method is through the Python package manager, necessary modules and plugins not included in the <code>ansible-core</code> binary are installed through <em>collections</em>.<br />
+<h2 id="install-collections">Install Collections</h2>
+<p>Necessary modules and plugins <strong>not</strong> included in the <code>ansible-core</code> binary are installed through <em>collections</em>.<br />
 Additional collections (the included collection is called <em>ansible.builtin</em>) are installed with the <code>ansible-galaxy</code> command-line utility:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">ansible-galaxy collection install community.general</span>
 </code></pre></div>
-<p>Multiple collections can be installed at once with a <code>requirements.yml</code> file.</p>
-<p>Thereby the <a href="../project/#collections">chapter Project &gt; Collections</a> is to be considered. If a container runtime is available, the complete installation can also be bundled in a container image (so-called <em>Execution Environment</em>).</p>
+<p>Multiple collections can be installed at once with a <code>requirements.yml</code> file.<br />
+Thereby the <a href="../project/#collections">chapter Project &gt; Collections</a> is to be considered. If a container runtime is available, the complete installation can also be bundled in a container image (so-called <em>Execution Environment</em>).</p>
+<p>To install collections from <em>(Private) Automation Hub</em> adjust the <code>galaxy</code> section in your <code>ansible.cfg</code>. Take a look at the <a href="../project/#configure-ansible-galaxy">chapter Project &gt; Collections</a></p>
+<h3 id="list-installed-collections">List installed collections</h3>
+<p>Show the name and version of each collection installed in the <code>collections_path</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="go">ansible-galaxy collection list</span>
+</code></pre></div>
+<h3 id="upgrade-installed-collections">Upgrade installed collections</h3>
+<p>To upgrade installed collections use the <code>--upgrade</code> (<code>-U</code>) argument:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">ansible-galaxy collection install community.general --upgrade</span>
+</code></pre></div>
+<h3 id="store-collections-with-your-project">Store collections with your project</h3>
 <p>By default, collections are installed into a (hidden) folder in the home directory (<code>~/.ansible/collections/ansible_collections/</code>). This is defined by the <code>collections_path</code> configuration setting.</p>
 <p>If you want to store collections alongside you project, create a folder <code>collections</code> in your project directory and install collections by providing the <code>--collections-path</code> (<code>-p</code>) argument:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="go">ansible-galaxy collection install community.general --collections-path ./collections/</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="go">ansible-galaxy collection install community.general --collections-path ./collections/</span>
 </code></pre></div>
-<h4 id="list-installed-collections">List installed collections</h4>
-<p>Show the name and version of each collection installed in the <code>collections_path</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">ansible-galaxy collection list</span>
-</code></pre></div>
-<h4 id="upgrade-installed-collections">Upgrade installed collections</h4>
-<p>To upgrade installed collections use the <code>--upgrade</code> (<code>-U</code>) argument:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="go">ansible-galaxy collection install community.general --upgrade</span>
-</code></pre></div>
-<h4 id="install-collections-offline">Install collections offline</h4>
+<p>The <code>collections</code> folder is a default folder, collections stored there are automatically picked up by Ansible.</p>
+<h3 id="install-collections-offline">Install collections offline</h3>
 <p>Download the collection tarball from <a href="https://galaxy.ansible.com/" target="_blank">Galaxy</a> for offline use:</p>
 <ol>
 <li>Navigate to the collection page.</li>
@@ -1525,7 +1534,7 @@ Install the <code>ansible-navigator</code> binary and its dependencies with the 
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 27, 2024 09:57:54">April 27, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 12, 2025 19:39:48">May 12, 2025</span>
   </span>
 
     
@@ -1602,10 +1611,12 @@ Install the <code>ansible-navigator</code> binary and its dependencies with the 
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.prune", "navigation.sections", "navigation.top", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.instant.progress", "navigation.prune", "navigation.sections", "navigation.top", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
