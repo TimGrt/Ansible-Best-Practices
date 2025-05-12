@@ -67,7 +67,7 @@ ansible-galaxy collection install community.general
 Multiple collections can be installed at once with a `requirements.yml` file.  
 Thereby the [chapter Project > Collections](project.md#collections) is to be considered. If a container runtime is available, the complete installation can also be bundled in a container image (so-called *Execution Environment*).
 
-To install collections from *(Private) Automation Hub* adjust the `galaxy` section in your `ansible.cfg`. Take a look at the [chapter Project > Collections](project.md#configure-ansible-galaxy)
+To install collections from *(Private) Automation Hub* adjust the `galaxy` section in your `ansible.cfg`. Take a look at the [chapter Project > Ansible configuration > Configure Ansible Galaxy](project.md#configure-ansible-galaxy)
 
 ### List installed collections
 
