@@ -2,7 +2,7 @@
 
 ## Standard install method
 
-The latest version can only be obtained via the Python package manager, the *ansible-core* package contains the binaries and 69 standard modules.
+The latest version can only be obtained via the Python package manager, the *ansible-core* package contains the binaries and 71 standard modules.
 
 ```console
 pip3 install ansible-core
@@ -55,18 +55,37 @@ Most OS package managers like *apt* or *yum* also provide the `ansible-core` or 
     ...
     ```
 
-### Install Collections
+## Install Collections
 
-The recommended installation method is through the Python package manager, necessary modules and plugins not included in the `ansible-core` binary are installed through *collections*.  
+Necessary modules and plugins **not** included in the `ansible-core` binary are installed through *collections*.  
 Additional collections (the included collection is called *ansible.builtin*) are installed with the `ansible-galaxy` command-line utility:
 
 ```console
 ansible-galaxy collection install community.general
 ```
 
-Multiple collections can be installed at once with a `requirements.yml` file.
-
+Multiple collections can be installed at once with a `requirements.yml` file.  
 Thereby the [chapter Project > Collections](project.md#collections) is to be considered. If a container runtime is available, the complete installation can also be bundled in a container image (so-called *Execution Environment*).
+
+To install collections from *(Private) Automation Hub* adjust the `galaxy` section in your `ansible.cfg`. Take a look at the [chapter Project > Collections](project.md#configure-ansible-galaxy)
+
+### List installed collections
+
+Show the name and version of each collection installed in the `collections_path`:
+
+```console
+ansible-galaxy collection list
+```
+
+### Upgrade installed collections
+
+To upgrade installed collections use the `--upgrade` (`-U`) argument:
+
+```console
+ansible-galaxy collection install community.general --upgrade
+```
+
+### Store collections with your project
 
 By default, collections are installed into a (hidden) folder in the home directory (`~/.ansible/collections/ansible_collections/`). This is defined by the `collections_path` configuration setting.
 
@@ -76,23 +95,9 @@ If you want to store collections alongside you project, create a folder `collect
 ansible-galaxy collection install community.general --collections-path ./collections/
 ```
 
-#### List installed collections
+The `collections` folder is a default folder, collections stored there are automatically picked up by Ansible.
 
-Show the name and version of each collection installed in the `collections_path`:
-
-```console
-ansible-galaxy collection list
-```
-
-#### Upgrade installed collections
-
-To upgrade installed collections use the `--upgrade` (`-U`) argument:
-
-```console
-ansible-galaxy collection install community.general --upgrade
-```
-
-#### Install collections offline
+### Install collections offline
 
 Download the collection tarball from [Galaxy](https://galaxy.ansible.com/){ target=_blank } for offline use:
 
