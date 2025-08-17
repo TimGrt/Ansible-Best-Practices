@@ -1,6 +1,11 @@
 # Inventory
 
-An *inventory* is a list of managed nodes, or hosts, that Ansible deploys and configures. The inventory can either be static or dynamic.
+An *inventory* is a list of managed nodes, or hosts, that Ansible deploys and configures. The inventory can either be static or dynamic.  
+You can use group names to classify hosts and to decide which hosts you are controlling following these criteria:
+
+* **What** - An application, stack, or microservice (e.g. database servers, web servers, and so on).
+* **Where** - A datacenter or region, to talk to local DNS, storage, and so on (e.g., east, west).
+* **When** - The development stage, to avoid testing on production resources (e.g. prod, test).
 
 ## Convert INI to YAML
 
@@ -37,19 +42,37 @@ all:
           ansible_connection: docker
 ```
 
-## Static inventory
+## Inventory types
+
+The simplest inventory is a single file that contains a list of hosts and groups, but you can also use multiple *static* files. A *dynamically* generated inventory is possible, as well as mixes of static and dynamic inventory files and scripts.
+
+### Static inventory
 
 !!! warning
     **Work in Progress** - More description necessary.
 
-## Dynamic inventory
+### Dynamic inventory
 
-!!! warning
-    **Work in Progress** - More description necessary.
+If your Ansible inventory fluctuates over time, with hosts spinning up and shutting down in response to business demands, the static inventory solutions described in How to build your inventory will not serve your needs. You may need to track hosts from multiple sources: cloud providers, LDAP, Cobbler, and/or enterprise CMDB systems.
 
-### Custom dynamic inventory
+There are already loads of [inventory plugins](https://docs.ansible.com/ansible/latest/collections/index_inventory.html){:target="_blank"} available, for example:
+
+* [amazon.aws.aws_ec2](https://docs.ansible.com/ansible/latest/collections/amazon/aws/aws_ec2_inventory.html){:target="_blank"}
+* [community.general.proxmox](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_inventory.html){:target="_blank"}
+* [netbox.netbox.nb_inventory](https://docs.ansible.com/ansible/latest/collections/netbox/netbox/nb_inventory_inventory.html){:target="_blank"}
+* [vmware.vmware.vms](https://docs.ansible.com/ansible/latest/collections/vmware/vmware/vms_inventory.html){:target="_blank"}
+
+#### Custom dynamic inventory
 
 In case no suitable inventory plugin exists, you can easily write your own. Take a look at the [Ansible Development - Extending](extending.md#inventory-plugins) section for additional information.
+
+## Inventory variables
+
+Variables *can* be assigned to every host and/or group in the inventory file *directly*, but this makes the file not very readable with a growing number of hosts, groups and variables.
+
+Instead, you should use the `group_vars` and `host_vars` folder.
+
+Do not create *files* for the groups or hosts (e.g. `group_vars/web.yml` or `host_vars/node1.yml`), but use **folders** instead. Underneath these folders, you can create multiple *variables*-files which are *all* loaded by the [host_group_vars plugin](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/host_group_vars_vars.html){:target="_blank"}.
 
 ## In-Memory Inventory
 
