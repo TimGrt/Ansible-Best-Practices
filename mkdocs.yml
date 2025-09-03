@@ -136,4 +136,5 @@ nav:
   - "Ansible Automation Platform":
     - automation-platform/index.md
     - "Credentials": automation-platform/credentials.md
+    - "Execution Environment": automation-platform/execution_environment.md
     - "Workflows": automation-platform/workflows.md
