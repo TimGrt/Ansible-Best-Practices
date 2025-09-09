@@ -20,12 +20,12 @@ repos:
       - id: markdownlint
         name: Lint Markdown files
   - repo: https://github.com/ansible-community/ansible-lint
-    rev: v25.8.1
+    rev: v25.8.2
     hooks:
       - id: ansible-lint
         name: Run ansible-lint on documentation examples
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.33.2
+    rev: 0.33.3
     hooks:
       - id: check-github-workflows
   - repo: https://github.com/codespell-project/codespell
@@ -34,3 +34,9 @@ repos:
       - id: codespell
         name: Run codespell checker
         entry: codespell
+  - repo: https://github.com/AlexanderDokuchaev/md-dead-link-check
+    rev: "v1.2.0"
+    hooks:
+      - id: md-dead-link-check
+        name: Check external links
+        args: ['--config', '.config/md_dead_link_check.ini']

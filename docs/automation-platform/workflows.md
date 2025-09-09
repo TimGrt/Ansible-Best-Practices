@@ -1,6 +1,6 @@
 # Workflows
 
-[Workflows](https://docs.ansible.com/automation-controller/latest/html/userguide/workflows.html){:target="_blank"} allow you to configure a sequence of disparate job templates (or workflow templates) that may or may not share inventory, playbooks, or permissions.
+[Workflows](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-workflow-job-templates){:target="_blank"}  link together a sequence of disparate resources like [Job templates](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-job-templates){:target="_blank"}, other Workflow job templates, [Project syncs](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-projects){:target="_blank"} or [Inventory source syncs](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-jobs#controller-inventory-sync-jobs_jobs-in-controller){:target="_blank"}.
 
 ## Variables across workflow steps
 
