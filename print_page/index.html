@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="../assets/images/ansible-logo-black.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
     
     
       
@@ -31,6 +31,8 @@
   
   
     
+      
+      
     
   
   
@@ -1255,7 +1257,7 @@
 <p>Searching for something specific? Use the <strong>Search</strong> at the top!</p>
 <div class="admonition tip">
 <p class="admonition-title">Versioning</p>
-<p>This guide is updated constantly, last update on <strong><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 17, 2025 14:25:50 UTC">August 17, 2025</span></strong>.</p>
+<p>This guide is updated constantly, last update on <strong><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 9, 2025 09:52:56 UTC">September 9, 2025</span></strong>.</p>
 </div>
 <!-- markdownlint-disable --></section>
                     <section class='print-page md-section' id='section-2' heading-number='2'>
@@ -5619,7 +5621,7 @@ Add the following block to your <code>ansible.cfg</code>:</p>
 <p>Credentials are utilized for authentication when launching Jobs against machines, synchronizing with inventory sources, and importing project content from a version control system.</p>
 <p>You can grant users and teams the ability to use these credentials, without actually exposing the credential to the user.</p>
 <h2 id="automation-platform-credentials-custom-credentials">Custom Credentials</h2>
-<p>Although a growing number of <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html#ug-credentials-cred-types" target="_blank"><em>credential types</em></a> are already available, it is possible to
+<p>Although a growing number of <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-credentials#ref-controller-credential-types" target="_blank"><em>credential types</em></a> are already available, it is possible to
 define additional <em>custom</em> credential types that works in ways similar to existing ones.<br />
 For example, you could create a custom credential type that injects an API token for a third-party web service into an environment variable, which your playbook or custom inventory script could consume.</p>
 <p>For example, to provide login credentials for plugins and modules of the <a href="https://docs.ansible.com/ansible/latest/collections/dellemc/openmanage/ome_inventory_inventory.html#ansible-collections-dellemc-openmanage-ome-inventory-inventory" target="_blank">Dell EMC OpenManage Enterprise Collection</a> you need to create a custom credential, as no existing credentials type is available.<br />
@@ -5675,7 +5677,7 @@ You can set the <em>environment variables</em> <code>OME_USERNAME</code> and <co
 <p class="admonition-title">Tip</p>
 <p>Depending on the module used, you may leave out the <code>username</code> and <code>password</code> key, environment variables are evaluated first.  Take a look at the module documentation if this is possible, otherwise use the <em>lookup</em> plugin as shown above.</p>
 </div>
-<p>Additional information can be found in the <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/credential_types.html" target="_blank">Ansible documentation</a>.</p>
+<p>Additional information can be found in the <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-credentials#ref-controller-credential-types" target="_blank">Ansible Automation Platform documentation</a>.</p>
 <h3 id="automation-platform-credentials-automation-and-templating">Automation and templating</h3>
 <p>Creating a custom credential with a playbook can be tricky as you need to provide the special, reserved curly braces character as part of the <em>Injector Configuration</em>.<br />
 During the playbook run, Ansible will try to template the values which will fail as they are undefined (and you want the <em>literal</em> string representation anyway). Therefore, prefix the values with <code>!unsafe</code> to prevent templating the values.</p>
@@ -5702,7 +5704,7 @@ During the playbook run, Ansible will try to template the values which will fail
 </span></code></pre></div>
 <p>Take a look at <a href="#ansible-variables-disable-variable-templating">Disable variable templating</a> for additional information.</p>
 <!-- markdownlint-disable --></section><section class="print-page" id="automation-platform-workflows" heading-number="5.3"><h1 id="automation-platform-workflows-workflows">Workflows</h1>
-<p><a href="https://docs.ansible.com/automation-controller/latest/html/userguide/workflows.html" target="_blank">Workflows</a> allow you to configure a sequence of disparate job templates (or workflow templates) that may or may not share inventory, playbooks, or permissions.</p>
+<p><a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-workflow-job-templates" target="_blank">Workflows</a>  link together a sequence of disparate resources like <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-job-templates" target="_blank">Job templates</a>, other Workflow job templates, <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-projects" target="_blank">Project syncs</a> or <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-jobs#controller-inventory-sync-jobs_jobs-in-controller" target="_blank">Inventory source syncs</a>.</p>
 <h2 id="automation-platform-workflows-variables-across-workflow-steps">Variables across workflow steps</h2>
 <p>Transferring information across workflow steps can't be done by the <code>set_fact</code> module, these facts are only available during a normal playbook run. Workflow job template run separate Jobs targeting separate playbooks.</p>
 <div class="admonition quote">
@@ -5896,7 +5898,8 @@ You can't provide distinct stats per host (without workarounds).</p>
   
 </div>
       
-        <div class="md-social">
+        
+<div class="md-social">
   
     
     
