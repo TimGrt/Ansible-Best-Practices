@@ -6,7 +6,7 @@ You can grant users and teams the ability to use these credentials, without actu
 
 ## Custom Credentials
 
-Although a growing number of [*credential types*](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html#ug-credentials-cred-types){:target="_blank"} are already available, it is possible to
+Although a growing number of [*credential types*](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-credentials#ref-controller-credential-types){:target="_blank"} are already available, it is possible to
 define additional *custom* credential types that works in ways similar to existing ones.  
 For example, you could create a custom credential type that injects an API token for a third-party web service into an environment variable, which your playbook or custom inventory script could consume.
 
@@ -54,7 +54,7 @@ An example task may look like this:
 !!! tip
     Depending on the module used, you may leave out the `username` and `password` key, environment variables are evaluated first.  Take a look at the module documentation if this is possible, otherwise use the *lookup* plugin as shown above.
 
-Additional information can be found in the [Ansible documentation](https://docs.ansible.com/automation-controller/latest/html/userguide/credential_types.html){:target="_blank"}.
+Additional information can be found in the [Ansible Automation Platform documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-credentials#ref-controller-credential-types){:target="_blank"}.
 
 ### Automation and templating
 
