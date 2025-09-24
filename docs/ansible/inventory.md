@@ -50,7 +50,7 @@ If your Ansible inventory fluctuates over time, with hosts spinning up and shutt
 There are already loads of [inventory plugins](https://docs.ansible.com/ansible/latest/collections/index_inventory.html){:target="_blank"} available, for example:
 
 * [amazon.aws.aws_ec2](https://docs.ansible.com/ansible/latest/collections/amazon/aws/aws_ec2_inventory.html){:target="_blank"}
-* [community.general.proxmox](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_inventory.html){:target="_blank"}
+* [community.proxmox.proxmox](https://docs.ansible.com/ansible/latest/collections/community/proxmox/proxmox_inventory.html){:target="_blank"}
 * [netbox.netbox.nb_inventory](https://docs.ansible.com/ansible/latest/collections/netbox/netbox/nb_inventory_inventory.html){:target="_blank"}
 * [vmware.vmware.vms](https://docs.ansible.com/ansible/latest/collections/vmware/vmware/vms_inventory.html){:target="_blank"}
 
