@@ -45,7 +45,7 @@ all:
 
 ## Dynamic inventory
 
-If your Ansible inventory fluctuates over time, with hosts spinning up and shutting down in response to business demands, the static inventory solutions described in How to build your inventory will not serve your needs. You may need to track hosts from multiple sources: cloud providers, LDAP, Cobbler, and/or enterprise CMDB systems.
+If your Ansible inventory fluctuates over time, with hosts spinning up and shutting down in response to business demands, the static inventory solutions described in [How to build your inventory](https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html){:target="_blank"} will not serve your needs. You may need to track hosts from multiple sources: cloud providers, LDAP, Cobbler, and/or enterprise CMDB systems.
 
 There are already loads of [inventory plugins](https://docs.ansible.com/ansible/latest/collections/index_inventory.html){:target="_blank"} available, for example:
 
