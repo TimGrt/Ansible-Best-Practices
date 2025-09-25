@@ -7,6 +7,21 @@ You can use group names to classify hosts and to decide which hosts you are cont
 * **Where** - A datacenter or region, to talk to local DNS, storage, and so on (e.g., east, west).
 * **When** - The development stage, to avoid testing on production resources (e.g. prod, test).
 
+!!! tip
+    To *verify* that Ansible has properly read an inventory source, `ansible-inventory --graph` can be used. It prints the structure of hosts and groups and is especially useful for *dynamic inventories*.
+    ```
+    @all:
+      |--@ungrouped:
+      |--@webapp:
+      |  |--@webserver:
+      |  |  |--web01
+      |  |  |--web02
+      |  |--@database:
+      |  |  |--db01
+      |--@backup:
+      |  |--backup01
+    ```
+
 ## Static inventory
 
 The simplest inventory is a single *static* file that contains a list of hosts and groups. Connections are defined more precisely using variables. This approach makes getting started particularly easy. A `.ini` inventory file for example might look like this:
