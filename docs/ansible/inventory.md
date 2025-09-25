@@ -64,7 +64,7 @@ You can use multiple *static* files. A *dynamically* generated inventory is poss
 
 ```ini title="ansible.cfg"
 [defaults]
-inventory = static-datacenter.ini,dynamic-ec2.yml,dynamic-netbox.yml
+inventory = static-datacenter.ini,dynamic.aws_ec2.yml,dynamic-netbox.yml
 ```
 
 ## Inventory variables
