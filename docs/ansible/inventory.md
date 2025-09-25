@@ -7,20 +7,36 @@ You can use group names to classify hosts and to decide which hosts you are cont
 * **Where** - A datacenter or region, to talk to local DNS, storage, and so on (e.g., east, west).
 * **When** - The development stage, to avoid testing on production resources (e.g. prod, test).
 
-## Convert INI to YAML
+!!! tip
+    To *verify* that Ansible has properly read an inventory source, `ansible-inventory --graph` can be used. It prints the structure of hosts and groups and is especially useful for *dynamic inventories*.
+    ```
+    @all:
+      |--@ungrouped:
+      |--@webapp:
+      |  |--@webserver:
+      |  |  |--web01
+      |  |  |--web02
+      |  |--@database:
+      |  |  |--db01
+      |--@backup:
+      |  |--backup01
+    ```
 
-The most common format for the *Ansible Inventory* is the `.ini` format, but sometimes you might need the inventory file in the *YAML* format.  
- A `.ini` inventory file for example might look like this:
+## Static inventory
+
+The simplest inventory is a single *static* file that contains a list of hosts and groups. Connections are defined more precisely using variables. This approach makes getting started particularly easy. A `.ini` inventory file for example might look like this:
 
 ```ini title="inventory.ini"
 [control]
 controller ansible_host=localhost ansible_connection=local
 
 [target]
-rocky8 ansible_connection=docker
+rocky8 ansible_host=192.168.43.77
 ```
 
-You can convert your existing inventory to the YAML format with the `ansible-inventory` utility.
+### Convert INI to YAML
+
+The most common format for the *Ansible Inventory* is the `.ini` format, but sometimes you might need the inventory file in the *YAML* format. You can convert your existing inventory to the YAML format with the `ansible-inventory` utility.
 
 ```console
 ansible-inventory -i inventory.ini -y --list > inventory.yml
@@ -39,32 +55,32 @@ all:
     target:
       hosts:
         rocky8:
-          ansible_connection: docker
+          ansible_host: 192.168.43.77
 ```
 
-## Inventory types
+## Dynamic inventory
 
-The simplest inventory is a single file that contains a list of hosts and groups, but you can also use multiple *static* files. A *dynamically* generated inventory is possible, as well as mixes of static and dynamic inventory files and scripts.
-
-### Static inventory
-
-!!! warning
-    **Work in Progress** - More description necessary.
-
-### Dynamic inventory
-
-If your Ansible inventory fluctuates over time, with hosts spinning up and shutting down in response to business demands, the static inventory solutions described in How to build your inventory will not serve your needs. You may need to track hosts from multiple sources: cloud providers, LDAP, Cobbler, and/or enterprise CMDB systems.
+If your Ansible inventory fluctuates over time, with hosts spinning up and shutting down in response to business demands, the static inventory solutions described in [How to build your inventory](https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html){:target="_blank"} will not serve your needs. You may need to track hosts from multiple sources: cloud providers, LDAP, Cobbler, and/or enterprise CMDB systems.
 
 There are already loads of [inventory plugins](https://docs.ansible.com/ansible/latest/collections/index_inventory.html){:target="_blank"} available, for example:
 
 * [amazon.aws.aws_ec2](https://docs.ansible.com/ansible/latest/collections/amazon/aws/aws_ec2_inventory.html){:target="_blank"}
-* [community.general.proxmox](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_inventory.html){:target="_blank"}
+* [community.proxmox.proxmox](https://docs.ansible.com/ansible/latest/collections/community/proxmox/proxmox_inventory.html){:target="_blank"}
 * [netbox.netbox.nb_inventory](https://docs.ansible.com/ansible/latest/collections/netbox/netbox/nb_inventory_inventory.html){:target="_blank"}
 * [vmware.vmware.vms](https://docs.ansible.com/ansible/latest/collections/vmware/vmware/vms_inventory.html){:target="_blank"}
 
-#### Custom dynamic inventory
+### Custom dynamic inventory
 
 In case no suitable inventory plugin exists, you can easily write your own. Take a look at the [Ansible Development - Extending](extending.md#inventory-plugins) section for additional information.
+
+## Configuration
+
+You can use multiple *static* files. A *dynamically* generated inventory is possible, as well as mixes of static and dynamic inventory files and scripts.
+
+```ini title="ansible.cfg"
+[defaults]
+inventory = static-datacenter.ini,dynamic.aws_ec2.yml,dynamic-netbox.yml
+```
 
 ## Inventory variables
 
