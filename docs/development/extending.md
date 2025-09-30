@@ -39,11 +39,11 @@ Create subfolder beneath the `plugins` folder, `modules` for modules and e.g. `f
 
 When storing custom collections alongside your project and you want to list all collections, you need to adjust your Ansible configuration. You will be able to use your custom collection nevertheless, this is more a quality of life change.
 
-Adjust the `collections_paths` parameter in the `defaults` section of your `ansible.cfg`:
+Adjust the `collections_path` parameter in the `defaults` section of your `ansible.cfg`:
 
 ```ini
 [defaults]
-collections_paths = ~/.ansible/collections:/usr/share/ansible/collections:./collections
+collections_path = ~/.ansible/collections:/usr/share/ansible/collections:./collections
 ```
 
 The first two paths are the default locations for collections, paths are separated with colons.
