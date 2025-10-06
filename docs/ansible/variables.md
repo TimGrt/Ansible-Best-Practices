@@ -23,14 +23,25 @@ The variable name should be self-explanatory (*as brief as possible, as detailed
     !!! good-practice-no-title ""
         ```yaml
         download_directory: ~/.local/bin
-        create_key: true
+        regions_list:
+          - us-east
+          - eu-central
+        backends_dict:
+          mariadb
+          postgresql
         needs_agent: false
+        knows_oop: true
         ```
 === "Bad"
     !!! bad-practice-no-title ""
         ``` { .yaml .no-copy }
         dir: ~/.local/bin
-        create_key: yes
+        regions:
+          - us-east
+          - eu-central
+        backends:
+          mariadb
+          postgresql
         needsAgent: no
         knows_oop: True
         ```
