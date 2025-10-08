@@ -14,4 +14,9 @@ This topic is split into multiple sections, each section covers a different aspe
     ---
     Everything regarding Workflow Job templates
 
+* [:octicons-id-badge-16: &nbsp; Operations](operations.md)
+
+    ---
+    How to operate AAP at scale
+
 </div>

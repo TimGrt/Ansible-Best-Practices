@@ -67,6 +67,8 @@ plugins:
       enabled: !ENV [ENABLED_GIT_REVISION_DATE, True]
       fallback_to_build_date: true
       locale: en
+  - glightbox:
+      manual: true
   - privacy
   - print-site:
     # This plugin should always defined as the last one
@@ -137,3 +139,4 @@ nav:
     - automation-platform/index.md
     - "Credentials": automation-platform/credentials.md
     - "Workflows": automation-platform/workflows.md
+    - "Operations": automation-platform/operations.md
