@@ -10,6 +10,7 @@ on:
 permissions:
   pages: write
   packages: write
+  deployments: write
 jobs:
   deploy:
     name: Deploy MkDocs project to Github pages
