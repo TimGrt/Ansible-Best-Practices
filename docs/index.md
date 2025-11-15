@@ -1,4 +1,4 @@
-# Best Practices
+# Best Practice Guide
 
 This document aims to gather good and best practices from Ansible practitioners and experience from multiple Ansible projects. It strives to give all Ansible users a guideline from which to start their automation journey in good conditions.
 

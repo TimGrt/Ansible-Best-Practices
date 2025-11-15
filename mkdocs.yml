@@ -1,16 +1,16 @@
 # code: language=yaml
-site_name: Ansible Best Practices
-site_description: Best Practices and Style Guide for Ansible Projects
-copyright: Copyright &copy; Tim Grützmacher 2025
-edit_uri: ""
-extra:
-  social:
-    - icon: simple/githubactions
-      link: https://github.com/TimGrt/Ansible-Best-Practices/actions
-      name: CI/CD Pipelines
-    - icon: fontawesome/brands/docker
-      link: https://github.com/TimGrt/Ansible-Best-Practices/pkgs/container/ansible-best-practices
-      name: Docker Container in Github Container Repository
+# site_name: Ansible Best Practices
+# site_description: Best Practices and Style Guide for Ansible Projects
+# copyright: Copyright &copy; Tim Grützmacher 2025
+# edit_uri: ""
+# extra:
+#   social:
+#     - icon: simple/githubactions
+#       link: https://github.com/TimGrt/Ansible-Best-Practices/actions
+#       name: CI/CD Pipelines
+#     - icon: fontawesome/brands/docker
+#       link: https://github.com/TimGrt/Ansible-Best-Practices/pkgs/container/ansible-best-practices
+#       name: Docker Container in Github Container Repository
 extra_css:
   - assets/stylesheets/extra.css
   - assets/stylesheets/tables.css
@@ -87,7 +87,7 @@ theme:
       example: octicons/terminal-24
   logo: assets/images/ansible-logo-black.png
   language: en
-  favicon: assets/images/ansible-logo-black.png
+  # favicon: assets/images/ansible-logo-black.png
   features:
     - content.code.annotate
     - content.code.copy
