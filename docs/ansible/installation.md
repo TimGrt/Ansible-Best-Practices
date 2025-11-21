@@ -58,16 +58,37 @@ Most OS package managers like *apt* or *yum* also provide the `ansible-core` or 
 ## Install Collections
 
 Necessary modules and plugins **not** included in the `ansible-core` binary are installed through *collections*.  
-Additional collections (the included collection is called *ansible.builtin*) are installed with the `ansible-galaxy` command-line utility:
+Additional collections (the included collection is called *ansible.builtin*) are installed with the `ansible-galaxy` command-line utility.  
+By default, Collections are installed from [galaxy.ansible.com](https://galaxy.ansible.com), to install collections from *(Private) Automation Hub* adjust the `galaxy` section in your `ansible.cfg`. Take a look at the [chapter Project > Ansible configuration > Configure Ansible Galaxy](project.md#configure-ansible-galaxy).  
+Collections can also be installed from a Git repository directly, take a look at [chapter Project > Collections](project.md#collections).
+
+### Install single collection
+
+To install a *single* collection only, provide the *Collection name (provider.collection)*.
 
 ```console
 ansible-galaxy collection install community.general
 ```
 
-Multiple collections can be installed at once with a `requirements.yml` file.  
-Thereby the [chapter Project > Collections](project.md#collections) is to be considered. If a container runtime is available, the complete installation can also be bundled in a container image (so-called *Execution Environment*).
+### Install multiple collections
 
-To install collections from *(Private) Automation Hub* adjust the `galaxy` section in your `ansible.cfg`. Take a look at the [chapter Project > Ansible configuration > Configure Ansible Galaxy](project.md#configure-ansible-galaxy)
+Multiple collections can be installed at once with a `requirements.yml` file.  
+Thereby the [chapter Project > Collections](project.md#collections) is to be considered.  
+
+If a container runtime is available, the complete installation can also be bundled in a container image (so-called *Execution Environment*).
+
+### Install collections offline
+
+Download the collection tarball from [Galaxy](https://galaxy.ansible.com/){ target=_blank } for offline use:
+
+1. Navigate to the collection page.
+2. Click on *Download tarball*.
+3. Copy the archive to the remote server.
+4. Install the collection with the `ansible-galaxy` CLI utility, use the `--offline` argument:
+
+    ```console
+    ansible-galaxy collection install ~/community-general-6.4.0.tar.gz --offline
+    ```
 
 ### List installed collections
 
@@ -96,19 +117,6 @@ ansible-galaxy collection install community.general --collections-path ./collect
 ```
 
 The `collections` folder is a default folder, collections stored there are automatically picked up by Ansible.
-
-### Install collections offline
-
-Download the collection tarball from [Galaxy](https://galaxy.ansible.com/){ target=_blank } for offline use:
-
-1. Navigate to the collection page.
-2. Click on *Download tarball*.
-3. Copy the archive to the remote server.
-4. Install the collection with the `ansible-galaxy` CLI utility, use the `--offline` argument:
-
-    ```console
-    ansible-galaxy collection install ~/community-general-6.4.0.tar.gz --offline
-    ```
 
 ## Execution environments
 
