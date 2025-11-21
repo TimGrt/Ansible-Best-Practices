@@ -9,6 +9,7 @@ on:
       - closed
 permissions:
   pages: write
+  contents: write
   packages: write
   deployments: write
 jobs:
