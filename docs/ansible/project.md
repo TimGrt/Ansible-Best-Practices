@@ -145,6 +145,18 @@ Install all collections from the *requirements*-file:
 ansible-galaxy collection install -r requirements.yml
 ```
 
+If you want to install Collections directly from Git (circumventing Galaxy or Automation Hub) use the following configuration:
+
+```yaml
+collections:
+  - name: https://github.com/TimGrt/Ansible-Bootstrap.git # (1)!
+    type: git
+    version: main # (2)!
+```
+
+1. The Git-URL to the Collection content, ensure that you can pull/clone from this address without authentication. The collection name will be deduced from the `galaxy.yml` of the collection (the content is cloned to a temporary location and then installed as if done with the *ansible-galaxy* utility).
+2. The branch to use, if you want to test with a feature branch, adjust this.
+
 ### Python packages
 
 Always provide a `requirements.txt` with **all** Python packages need by modules used within your project.
