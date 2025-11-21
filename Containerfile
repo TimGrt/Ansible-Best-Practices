@@ -1,4 +1,4 @@
-FROM python:3.13-alpine AS builder
+FROM python:3.14-alpine AS builder
 WORKDIR /tmp
 # Install Git executable for git-revision-date-localized-plugin
 RUN apk upgrade --update-cache -a \
@@ -16,7 +16,7 @@ COPY mkdocs.yml .
 # Build new documentation
 RUN mkdocs build
 
-FROM python:3.13-alpine
+FROM python:3.14-alpine
 STOPSIGNAL SIGKILL
 RUN adduser -D docs
 USER docs
