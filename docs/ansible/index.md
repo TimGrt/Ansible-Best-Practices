@@ -24,6 +24,11 @@ This topic is split into seven main sections, each section covers a different as
     ---
     Structure your automation, how to separate playbooks and plays
 
+* [:octicons-package-dependencies-16: &nbsp; Collections](collections.md)
+
+    ---
+    A distribution format for Ansible content that can contain playbooks, roles, modules, and plugins
+
 * [:octicons-stack-16: &nbsp; Roles](roles.md)
 
     ---
