@@ -8,28 +8,28 @@
       
       
       
-        <link rel="prev" href="../development/monitoring/">
+        <link rel="prev" href="../playbook/">
       
       
-        <link rel="next" href="credentials/">
+        <link rel="next" href="../roles/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/ansible-logo-black.png">
+      <link rel="icon" href="../../assets/images/ansible-logo-black.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
       
-        <title>Ansible Automation Platform - Ansible Best Practices</title>
+        <title>Collections - Ansible Best Practices</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
   
@@ -53,26 +53,26 @@
         
         
         
-        <link rel="stylesheet" href="../assets/external/fonts.googleapis.com/css.49ea35f2.css">
+        <link rel="stylesheet" href="../../assets/external/fonts.googleapis.com/css.49ea35f2.css">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
     
-      <link rel="stylesheet" href="../css/print-site.css">
+      <link rel="stylesheet" href="../../css/print-site.css">
     
-      <link rel="stylesheet" href="../css/print-site-material.css">
+      <link rel="stylesheet" href="../../css/print-site-material.css">
     
-      <link rel="stylesheet" href="../assets/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../assets/stylesheets/tables.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/tables.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
-  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -101,7 +101,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ansible-automation-platform" class="md-skip">
+        <a href="#collections" class="md-skip">
           Skip to content
         </a>
       
@@ -129,9 +129,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Ansible Best Practices" class="md-header__button md-logo" aria-label="Ansible Best Practices" data-md-component="logo">
+    <a href="../.." title="Ansible Best Practices" class="md-header__button md-logo" aria-label="Ansible Best Practices" data-md-component="logo">
       
-  <img src="../assets/images/ansible-logo-black.png" alt="logo">
+  <img src="../../assets/images/ansible-logo-black.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -148,7 +148,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ansible Automation Platform
+              Collections
             
           </span>
         </div>
@@ -266,9 +266,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Ansible Best Practices" class="md-nav__button md-logo" aria-label="Ansible Best Practices" data-md-component="logo">
+    <a href="../.." title="Ansible Best Practices" class="md-nav__button md-logo" aria-label="Ansible Best Practices" data-md-component="logo">
       
-  <img src="../assets/images/ansible-logo-black.png" alt="logo">
+  <img src="../../assets/images/ansible-logo-black.png" alt="logo">
 
     </a>
     Ansible Best Practices
@@ -295,7 +295,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -347,7 +347,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../mindset/" class="md-nav__link ">
+            <a href="../../mindset/" class="md-nav__link ">
               
   
   
@@ -390,6 +390,8 @@
       
   
   
+    
+  
   
   
     
@@ -426,15 +428,15 @@
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../ansible/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -458,7 +460,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -478,7 +480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible/installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         
   
   
@@ -506,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible/project/" class="md-nav__link">
+      <a href="../project/" class="md-nav__link">
         
   
   
@@ -534,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible/inventory/" class="md-nav__link">
+      <a href="../inventory/" class="md-nav__link">
         
   
   
@@ -562,7 +564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible/playbook/" class="md-nav__link">
+      <a href="../playbook/" class="md-nav__link">
         
   
   
@@ -587,10 +589,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../ansible/collections/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collections
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -606,6 +635,67 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating collections
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating collections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init-with-ansible-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Init with ansible-galaxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#init-with-ansible-creator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Init with ansible-creator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -618,7 +708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible/roles/" class="md-nav__link">
+      <a href="../roles/" class="md-nav__link">
         
   
   
@@ -646,7 +736,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible/tasks/" class="md-nav__link">
+      <a href="../tasks/" class="md-nav__link">
         
   
   
@@ -674,7 +764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible/variables/" class="md-nav__link">
+      <a href="../variables/" class="md-nav__link">
         
   
   
@@ -744,7 +834,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../development/" class="md-nav__link ">
+            <a href="../../development/" class="md-nav__link ">
               
   
   
@@ -788,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/git/" class="md-nav__link">
+      <a href="../../development/git/" class="md-nav__link">
         
   
   
@@ -816,7 +906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/linting/" class="md-nav__link">
+      <a href="../../development/linting/" class="md-nav__link">
         
   
   
@@ -844,7 +934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/testing/" class="md-nav__link">
+      <a href="../../development/testing/" class="md-nav__link">
         
   
   
@@ -872,7 +962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/extending/" class="md-nav__link">
+      <a href="../../development/extending/" class="md-nav__link">
         
   
   
@@ -900,7 +990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/monitoring/" class="md-nav__link">
+      <a href="../../development/monitoring/" class="md-nav__link">
         
   
   
@@ -932,8 +1022,6 @@
       
   
   
-    
-  
   
   
     
@@ -960,15 +1048,15 @@
     
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../automation-platform/" class="md-nav__link ">
               
   
   
@@ -986,13 +1074,13 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_5" id="__nav_5_label" tabindex="">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1012,7 +1100,7 @@
   
   
     <li class="md-nav__item">
-      <a href="credentials/" class="md-nav__link">
+      <a href="../../automation-platform/credentials/" class="md-nav__link">
         
   
   
@@ -1040,7 +1128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="workflows/" class="md-nav__link">
+      <a href="../../automation-platform/workflows/" class="md-nav__link">
         
   
   
@@ -1068,7 +1156,7 @@
   
   
     <li class="md-nav__item">
-      <a href="operations/" class="md-nav__link">
+      <a href="../../automation-platform/operations/" class="md-nav__link">
         
   
   
@@ -1118,6 +1206,53 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating collections
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating collections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init-with-ansible-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Init with ansible-galaxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#init-with-ansible-creator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Init with ansible-creator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1131,7 +1266,7 @@
                 
 
 
-    <a href="../print_page/" title="Print Site" class="md-content__button md-icon">
+    <a href="../../print_page/" title="Print Site" class="md-content__button md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-9.5 8.5c0 .8-.7 1.5-1.5 1.5H7v2H5.5V9H8c.8 0 1.5.7 1.5 1.5zm5 2c0 .8-.7 1.5-1.5 1.5h-2.5V9H13c.8 0 1.5.7 1.5 1.5zm4-3H17v1h1.5V13H17v2h-1.5V9h3zm-6.5 0h1v3h-1zm-5 0h1v1H7z"></path></svg>
     </a>
 
@@ -1141,27 +1276,168 @@
 
 
 
-<h1 id="ansible-automation-platform">Ansible Automation Platform</h1>
-<p>This topic is split into multiple sections, each section covers a different aspect of using the Ansible Automation Platform.</p>
-<div class="grid cards">
-<ul>
-<li>
-<p><a href="credentials/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.5 0a5.499 5.499 0 1 1-1.288 10.848l-.932.932a.75.75 0 0 1-.53.22H7v.75a.75.75 0 0 1-.22.53l-.5.5a.75.75 0 0 1-.53.22H5v.75a.75.75 0 0 1-.22.53l-.5.5a.75.75 0 0 1-.53.22h-2A1.75 1.75 0 0 1 0 14.25v-2c0-.199.079-.389.22-.53l4.932-4.932A5.5 5.5 0 0 1 10.5 0m-4 5.5c-.001.431.069.86.205 1.269a.75.75 0 0 1-.181.768L1.5 12.56v1.69c0 .138.112.25.25.25h1.69l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l1.023-1.025a.75.75 0 0 1 .768-.18A4 4 0 1 0 6.5 5.5M11 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2"></path></svg></span> &nbsp; Credentials</a></p>
-<hr>
-<p>Secret handling in AAP</p>
-</li>
-<li>
-<p><a href="workflows/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 1.75C0 .784.784 0 1.75 0h3.5C6.216 0 7 .784 7 1.75v3.5A1.75 1.75 0 0 1 5.25 7H4v4a1 1 0 0 0 1 1h4v-1.25C9 9.784 9.784 9 10.75 9h3.5c.966 0 1.75.784 1.75 1.75v3.5A1.75 1.75 0 0 1 14.25 16h-3.5A1.75 1.75 0 0 1 9 14.25v-.75H5A2.5 2.5 0 0 1 2.5 11V7h-.75A1.75 1.75 0 0 1 0 5.25Zm1.75-.25a.25.25 0 0 0-.25.25v3.5c0 .138.112.25.25.25h3.5a.25.25 0 0 0 .25-.25v-3.5a.25.25 0 0 0-.25-.25Zm9 9a.25.25 0 0 0-.25.25v3.5c0 .138.112.25.25.25h3.5a.25.25 0 0 0 .25-.25v-3.5a.25.25 0 0 0-.25-.25Z"></path></svg></span> &nbsp; Workflows</a></p>
-<hr>
-<p>Everything regarding Workflow Job templates</p>
-</li>
-<li>
-<p><a href="operations/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm10 .25a.75.75 0 0 1-.75.75h-4.5a.75.75 0 0 1 0-1.5h4.5a.75.75 0 0 1 .75.75M10.25 11a.75.75 0 0 0 0-1.5h-2.5a.75.75 0 0 0 0 1.5z"></path><path d="M7.25 0h1.5c.966 0 1.75.784 1.75 1.75V3h3.75c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25v-8.5C0 3.784.784 3 1.75 3H5.5V1.75C5.5.784 6.284 0 7.25 0m3.232 4.5A1.75 1.75 0 0 1 8.75 6h-1.5a1.75 1.75 0 0 1-1.732-1.5H1.75a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-8.5a.25.25 0 0 0-.25-.25ZM7 1.75v2.5c0 .138.112.25.25.25h1.5A.25.25 0 0 0 9 4.25v-2.5a.25.25 0 0 0-.25-.25h-1.5a.25.25 0 0 0-.25.25"></path></svg></span> &nbsp; Operations</a></p>
-<hr>
-<p>How to operate AAP at scale</p>
-</li>
-</ul>
+<h1 id="collections">Collections</h1>
+<p>Collections are <em>a distribution format</em> for Ansible content. You do know collections from installing additional modules and plugins already, but you can also package and distribute your playbooks, roles, modules, and plugins in a custom collection.  </p>
+<p>Collection names consist of a <strong>namespace and a name</strong>, separated by a period (<code>.</code>). Both namespace and name should consist of ASCII letters (prefer lower-case letters), digits, and underscores (hyphens are not allowed). You should <strong>not</strong> use the following namespaces: <code>ansible</code>, <code>community</code>, <code>local</code>.</p>
+<div class="admonition question">
+<p class="admonition-title">Collection or Role?</p>
+<p>If you are writing modules/plugins and/or content which should (or can) be used <em>outside</em> of your current project, create a <strong>collection</strong>!<br>
+For example, your project automates the installation and configuration of a database, but you also created role(s) to harden the underlying Linux host. All hardeing roles should be moved into a collection.<br>
+<strong>In most cases, collections make more sense as they are the more flexible distribution format.</strong>  </p>
 </div>
+<p>A collection <em>can</em> contain one or more roles in the <code>roles/</code> directory and these are almost identical to standalone roles, except you need to move plugins out of the individual roles, and use the <abbr title="Full Qualified Collection Name">FQCN</abbr> in some places.</p>
+<h2 id="creating-collections">Creating collections</h2>
+<p>A custom collection does not need much, only a <code>galaxy.yml</code> and a <code>meta/runtime.yml</code> with the following content:</p>
+<div class="grid">
+<div class="no-copy highlight"><span class="filename">galaxy.yml</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s">"namespace_name"</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"collection_name"</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">"1.3.1"</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">readme</span><span class="p">:</span><span class="w"> </span><span class="s">"README.md</span>
+</code></pre></div>
+<div class="no-copy highlight"><span class="filename">runtime.yml</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">requires_ansible</span><span class="p">:</span><span class="w"> </span><span class="s">"&gt;=2.15"</span>
+</code></pre></div>
+</div>
+<p>You can <strong>(and should!)</strong> provide additional information in the collection configuration files.<br>
+Take a look at the documentation for a complete example and <a href="https://docs.ansible.com/projects/ansible/latest/dev_guide/collections_galaxy_meta.html#collections-galaxy-meta" target="_blank" rel="noopener">all valid keys for the <code>galaxy.yml</code></a> or the <a href="https://docs.ansible.com/projects/ansible/latest/dev_guide/developing_collections_structure.html#runtime-yml" target="_blank" rel="noopener">top-level keys for the <code>runtime.yml</code></a>.</p>
+<p>To scaffold the collection skeleton, either use  the <code>ansible-galaxy</code> (simple and slightly outdated format) or the <code>ansible-creator</code> (full-fleged, but may be confusing for beginners) CLI utility.</p>
+<h3 id="init-with-ansible-galaxy">Init with ansible-galaxy</h3>
+<p>To create a new collection use the following command with your desired namespace and (collection) name:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ansible-galaxy collection init computacenter.demo
+</code></pre></div>
+<details class="example">
+<summary>Expand to view the created collection skeleton</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$ tree computacenter/demo/
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>computacenter/demo/
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── README.md
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── docs
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├── galaxy.yml
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>├── meta
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│   └── runtime.yml
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>├── plugins
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│   └── README.md
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>└── roles
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>5 directories, 4 files
+</code></pre></div>
+</details>
+<p>To create/initialize the collection alongside your existing project, append <code>--init-path collections/ansible_collections</code> to the command above.</p>
+<p>The <code>ansible-galaxy</code> utility is also used to <em>build</em>, <em>publish</em> or (how you most likely know it for) <em>install</em> collections or collection artifacts.</p>
+<h3 id="init-with-ansible-creator">Init with ansible-creator</h3>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code>ansible-creator</code> utility is not included in the default <code>ansible-core</code> package and must be <a href="https://docs.ansible.com/projects/creator/installing/" target="_blank" rel="noopener">installed separately</a>!<br>
+ The <em>creator</em> utility seamlessly integrates with <strong>Visual Studio Code (VS Code) and the Ansible extension</strong> for it, offering an intuitive GUI experience.</p>
+</div>
+<p>To create a new collection use the following command with your desired namespace and (collection) name:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ansible-creator init collection computacenter.demo
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <em>init</em> path is different from the <code>ansible-galaxy</code> utility!<br>
+By default, no folder for <em>namespace</em> and <em>collection name</em> are created, but the collection content skeleton is created in the current folder!</p>
+</div>
+<details class="example">
+<summary>Expand to view the created collection skeleton</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$ tree
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>.
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>├── CHANGELOG.rst
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>├── CODE_OF_CONDUCT.md
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>├── CONTRIBUTING
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>├── LICENSE
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>├── MAINTAINERS
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>├── README.md
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>├── changelogs
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│   └── config.yaml
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>├── devfile.yaml
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>├── docs
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>│   └── docsite
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>│       └── links.yml
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>├── extensions
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>│   ├── eda
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>│   │   └── rulebooks
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>│   │       └── rulebook.yml
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>│   └── molecule
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>│       ├── integration_hello_world
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>│       │   └── molecule.yml
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>│       └── utils
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>│           ├── playbooks
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>│           │   ├── converge.yml
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>│           │   └── noop.yml
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>│           └── vars
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>│               └── vars.yml
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>├── galaxy.yml
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>├── meta
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>│   └── runtime.yml
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>├── plugins
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>│   ├── action
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>│   │   ├── __init__.py
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>│   │   └── sample_action.py
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>│   ├── cache
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>│   │   └── __init__.py
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>│   ├── filter
+<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>│   │   ├── __init__.py
+<a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>│   │   └── sample_filter.py
+<a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>│   ├── inventory
+<a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>│   │   └── __init__.py
+<a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>│   ├── lookup
+<a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>│   │   ├── __init__.py
+<a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>│   │   └── sample_lookup.py
+<a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>│   ├── module_utils
+<a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>│   │   └── __init__.py
+<a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>│   ├── modules
+<a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a>│   │   ├── __init__.py
+<a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a>│   │   ├── sample_action.py
+<a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a>│   │   └── sample_module.py
+<a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a>│   ├── plugin_utils
+<a id="__codelineno-5-52" name="__codelineno-5-52" href="#__codelineno-5-52"></a>│   │   └── __init__.py
+<a id="__codelineno-5-53" name="__codelineno-5-53" href="#__codelineno-5-53"></a>│   ├── sub_plugins
+<a id="__codelineno-5-54" name="__codelineno-5-54" href="#__codelineno-5-54"></a>│   │   └── __init__.py
+<a id="__codelineno-5-55" name="__codelineno-5-55" href="#__codelineno-5-55"></a>│   └── test
+<a id="__codelineno-5-56" name="__codelineno-5-56" href="#__codelineno-5-56"></a>│       ├── __init__.py
+<a id="__codelineno-5-57" name="__codelineno-5-57" href="#__codelineno-5-57"></a>│       └── sample_test.py
+<a id="__codelineno-5-58" name="__codelineno-5-58" href="#__codelineno-5-58"></a>├── pyproject.toml
+<a id="__codelineno-5-59" name="__codelineno-5-59" href="#__codelineno-5-59"></a>├── requirements.txt
+<a id="__codelineno-5-60" name="__codelineno-5-60" href="#__codelineno-5-60"></a>├── roles
+<a id="__codelineno-5-61" name="__codelineno-5-61" href="#__codelineno-5-61"></a>│   └── run
+<a id="__codelineno-5-62" name="__codelineno-5-62" href="#__codelineno-5-62"></a>│       ├── README.md
+<a id="__codelineno-5-63" name="__codelineno-5-63" href="#__codelineno-5-63"></a>│       ├── defaults
+<a id="__codelineno-5-64" name="__codelineno-5-64" href="#__codelineno-5-64"></a>│       │   └── main.yml
+<a id="__codelineno-5-65" name="__codelineno-5-65" href="#__codelineno-5-65"></a>│       ├── files
+<a id="__codelineno-5-66" name="__codelineno-5-66" href="#__codelineno-5-66"></a>│       ├── handlers
+<a id="__codelineno-5-67" name="__codelineno-5-67" href="#__codelineno-5-67"></a>│       │   └── main.yml
+<a id="__codelineno-5-68" name="__codelineno-5-68" href="#__codelineno-5-68"></a>│       ├── meta
+<a id="__codelineno-5-69" name="__codelineno-5-69" href="#__codelineno-5-69"></a>│       │   ├── argument_specs.yml
+<a id="__codelineno-5-70" name="__codelineno-5-70" href="#__codelineno-5-70"></a>│       │   └── main.yml
+<a id="__codelineno-5-71" name="__codelineno-5-71" href="#__codelineno-5-71"></a>│       ├── tasks
+<a id="__codelineno-5-72" name="__codelineno-5-72" href="#__codelineno-5-72"></a>│       │   └── main.yml
+<a id="__codelineno-5-73" name="__codelineno-5-73" href="#__codelineno-5-73"></a>│       ├── templates
+<a id="__codelineno-5-74" name="__codelineno-5-74" href="#__codelineno-5-74"></a>│       ├── tests
+<a id="__codelineno-5-75" name="__codelineno-5-75" href="#__codelineno-5-75"></a>│       │   └── inventory
+<a id="__codelineno-5-76" name="__codelineno-5-76" href="#__codelineno-5-76"></a>│       └── vars
+<a id="__codelineno-5-77" name="__codelineno-5-77" href="#__codelineno-5-77"></a>│           └── main.yml
+<a id="__codelineno-5-78" name="__codelineno-5-78" href="#__codelineno-5-78"></a>├── test-requirements.txt
+<a id="__codelineno-5-79" name="__codelineno-5-79" href="#__codelineno-5-79"></a>├── tests
+<a id="__codelineno-5-80" name="__codelineno-5-80" href="#__codelineno-5-80"></a>│   ├── integration
+<a id="__codelineno-5-81" name="__codelineno-5-81" href="#__codelineno-5-81"></a>│   │   ├── __init__.py
+<a id="__codelineno-5-82" name="__codelineno-5-82" href="#__codelineno-5-82"></a>│   │   ├── targets
+<a id="__codelineno-5-83" name="__codelineno-5-83" href="#__codelineno-5-83"></a>│   │   │   └── hello_world
+<a id="__codelineno-5-84" name="__codelineno-5-84" href="#__codelineno-5-84"></a>│   │   │       └── tasks
+<a id="__codelineno-5-85" name="__codelineno-5-85" href="#__codelineno-5-85"></a>│   │   │           └── main.yml
+<a id="__codelineno-5-86" name="__codelineno-5-86" href="#__codelineno-5-86"></a>│   │   └── test_integration.py
+<a id="__codelineno-5-87" name="__codelineno-5-87" href="#__codelineno-5-87"></a>│   └── unit
+<a id="__codelineno-5-88" name="__codelineno-5-88" href="#__codelineno-5-88"></a>│       ├── __init__.py
+<a id="__codelineno-5-89" name="__codelineno-5-89" href="#__codelineno-5-89"></a>│       └── test_basic.py
+<a id="__codelineno-5-90" name="__codelineno-5-90" href="#__codelineno-5-90"></a>└── tox-ansible.ini
+<a id="__codelineno-5-91" name="__codelineno-5-91" href="#__codelineno-5-91"></a>
+<a id="__codelineno-5-92" name="__codelineno-5-92" href="#__codelineno-5-92"></a>40 directories, 49 files
+</code></pre></div>
+</details>
+<p>To initialize the collection with the <a href="https://marketplace.visualstudio.com/items?itemName=redhat.ansible" target="_blank" rel="noopener">VScode Ansible extension</a>, select the extension, click <strong>Collection project</strong>, enter <em>namespace</em> and <em>collection name</em>, specify the destination directory and click <strong>Create</strong>.</p>
+<figure>
+  <img alt="Create Ansible Collection with ansible-creator in VScode" src="../snippets/screenshot-ansible-creator-collection-init.png">
+<br>
+<figcaption></figcaption>
+</figure>
 <!-- markdownlint-disable -->
 
 
@@ -1183,7 +1459,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 09:07:14 UTC">September 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 16, 2025 18:00:49 UTC">December 16, 2025</span>
   </span>
 
     
@@ -1267,20 +1543,20 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.instant.progress", "navigation.prune", "navigation.sections", "navigation.top", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.annotate", "content.code.copy", "navigation.indexes", "navigation.instant", "navigation.instant.progress", "navigation.prune", "navigation.sections", "navigation.top", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
       
-        <script src="../js/print-site.js"></script>
+        <script src="../../js/print-site.js"></script>
       
-        <script src="../assets/javascripts/extra/refresh-on-toggle-dark-light.js"></script>
+        <script src="../../assets/javascripts/extra/refresh-on-toggle-dark-light.js"></script>
       
-        <script src="../assets/external/unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+        <script src="../../assets/external/unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
       
-        <script src="../assets/javascripts/extra/tablesort.js"></script>
+        <script src="../../assets/javascripts/extra/tablesort.js"></script>
       
-        <script src="../assets/external/unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+        <script src="../../assets/external/unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
       
     
   
