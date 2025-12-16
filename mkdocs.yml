@@ -125,6 +125,7 @@ nav:
     - "Project": ansible/project.md
     - "Inventory": ansible/inventory.md
     - "Playbook": ansible/playbook.md
+    - "Collections": ansible/collections.md
     - "Roles": ansible/roles.md
     - "Tasks": ansible/tasks.md
     - "Variables": ansible/variables.md
