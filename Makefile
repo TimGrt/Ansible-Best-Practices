@@ -10,7 +10,7 @@ COLOUR_YELLOW:=$(shell tput setaf 3)
 COLOUR_BLUE:=$(shell tput setaf 4)
 COLOUR_END:=$(shell tput sgr0)
 
-VENV_NAME?=ve-mkdocs-dev
+VENV_NAME?=ve-docs-dev
 PYTHON=${VENV_NAME}/bin/python
 
 help:  ## Display this help
@@ -43,7 +43,7 @@ ifneq ($(shell pwd)/$(PYTHON), $(shell which python))
 	@echo -e "source $(VENV_NAME)/bin/activate"
 endif
 	@echo -e "$(COLOUR_GREEN)## Run the following command for a live preview.$(COLOUR_END)"
-	@echo -e "mkdocs serve -o"
+	@echo -e "mkdocs serve  --livereload"
 
 clean: ## Cleanup the project folders
 	$(info $(COLOUR_BLUE)## Cleaning up things...$(COLOUR_END))
