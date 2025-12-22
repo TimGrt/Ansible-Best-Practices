@@ -14,7 +14,8 @@ Those are **opinionated** guidelines based on the experience of many projects. T
 
 <div class="grid cards" markdown>
 
-* [:material-information-variant-circle-outline: &nbsp; **Mindset**](mindset/index.md)
+* [:material-lightbulb: &nbsp; **Mindset**](mindset/index.md)
+* [:material-new-box: &nbsp; **Get started**](get-started/index.md)
 * [:material-ansible: &nbsp; **Ansible**](ansible/index.md)
 * [:material-code-tags: &nbsp; **Ansible Development**](development/index.md)
 * [:fontawesome-brands-redhat: &nbsp; **Ansible Automation Platform**](automation-platform/index.md)
