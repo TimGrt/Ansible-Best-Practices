@@ -13,7 +13,7 @@ A collection *can* contain one or more roles in the `roles/` directory and these
 
 ## Creating collections
 
-A custom collection does not need much, only a `galaxy.yml` and a `meta/runtime.yml` with the following content:
+A custom collection does not need much, only a `README.md`, a `galaxy.yml` and a `meta/runtime.yml` with the following content:
 
 <div class="grid" markdown>
 
