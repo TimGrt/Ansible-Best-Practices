@@ -26,9 +26,11 @@ The variable name should be self-explanatory (*as brief as possible, as detailed
         regions_list:
           - us-east
           - eu-central
-        backends_dict:
-          mariadb
-          postgresql
+        cidr_blocks_dict:
+          production:
+            vpc_cidr: "172.31.0.0/16"
+          staging:
+            vpc_cidr: "10.0.0.0/24"
         needs_agent: false
         knows_oop: true
         ```
@@ -39,12 +41,39 @@ The variable name should be self-explanatory (*as brief as possible, as detailed
         regions:
           - us-east
           - eu-central
-        backends:
-          mariadb
-          postgresql
+        cidr_blocks:
+          production:
+            vpc_cidr: "172.31.0.0/16"
+          staging:
+            vpc_cidr: "10.0.0.0/24"
         needsAgent: no
         knows_oop: True
         ```
+
+!!! tip "Avoid deeply nested structures"
+    While it may be tempting to create *nested* variable structures as the can hold loads of information, they may be hard to work with (lopp through, get specific fields, etc.).
+
+    ```yaml
+    logical_volumes:
+      - device: /dev/sdb1
+        volume_group: SSD-RAID1
+        volumes:
+          - name: lv0
+            size: 20G
+          - name: lv1
+            size: 20G
+      - device: /dev/sdc1
+        volume_group: HDD-RAID1
+        volumes:
+          - name: lv0
+            size: 20G
+          - name: lv1
+            size: 20G
+    ```
+
+    If dealing/creating with structures like these, ensure that at least every item contains the same set of keys.
+
+    **Aim for *flat* variables if possible.**
 
 ## Referencing variables
 
