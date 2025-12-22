@@ -24,15 +24,42 @@ You can use group names to classify hosts and to decide which hosts you are cont
 
 ## Static inventory
 
-The simplest inventory is a single *static* file that contains a list of hosts and groups. Connections are defined more precisely using variables. This approach makes getting started particularly easy. A `.ini` inventory file for example might look like this:
+The simplest inventory is a single *static* file that contains a list of hosts and groups. Connections are defined more precisely using variables. This approach makes getting started particularly easy.  
+A `.ini` inventory file for example might look like this:
 
 ```ini title="inventory.ini"
 [control]
-controller ansible_host=localhost ansible_connection=local
+wsl ansible_host=localhost ansible_connection=local
 
 [target]
 rocky8 ansible_host=192.168.43.77
+ubuntu ansible_host=192.168.45.68
+
+[target:vars]
+ansible_ssh_private_key_file=~/.ssh/id_for_ansible.pem
 ```
+
+The same inventory can be expressed in the YAML format.
+
+```yaml title="inventory.yml"
+control:
+  hosts:
+    wsl:
+      ansible_connection: local
+      ansible_host: localhost
+
+target:
+  hosts:
+    rocky8:
+      ansible_host: 192.168.43.77
+    ubuntu:
+      ansible_host: 192.168.45.68
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/id_for_ansible.pem
+```
+
+!!! tip
+    Prefer the YAML format.
 
 ### Convert INI to YAML
 
@@ -40,22 +67,6 @@ The most common format for the *Ansible Inventory* is the `.ini` format, but som
 
 ```console
 ansible-inventory -i inventory.ini -y --list > inventory.yml
-```
-
-The resulting file is your inventory in YAML format:
-
-```yaml title="inventory.yml"
-all:
-  children:
-    control:
-      hosts:
-        controller:
-          ansible_connection: local
-          ansible_host: localhost
-    target:
-      hosts:
-        rocky8:
-          ansible_host: 192.168.43.77
 ```
 
 ## Dynamic inventory
