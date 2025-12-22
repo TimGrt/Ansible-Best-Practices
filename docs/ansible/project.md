@@ -208,6 +208,7 @@ pip3 install -r requirements.txt
 
 Folder- and file-names consisting of multiple words are separated with **underscores** (e.g. `roles/grafana_deployment/tasks/grafana_installation.yml`).  
 YAML files are saved with the extension `.yml`.  
+Use descriptive names that are human-readable and **do not shorten more than necessary**. A pattern `object[_feature]_action` has proven useful as it guarantees a proper sorting in the file system for roles and playbooks. **Ansible supports long identifier names, so use them!**
 
 === "Good"
     !!! good-practice-no-title ""
