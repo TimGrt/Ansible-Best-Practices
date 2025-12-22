@@ -24,6 +24,29 @@ git config --global user.email "your.mail@computacenter.com"
 
 Every commit you make can now be traced back to you, this enables collaborating work on Ansible projects.
 
+### Ignore files and folder
+
+Some files and folders should be ignored and not tracked by Git. Create the `.gitignore` file in your project root and paste the following content:
+
+```ini title=".gitignore"
+# Ansible Cache folder
+.ansible/
+
+# Personal VScode settings
+.vscode/
+
+# Folder created during build process from ansible-builder
+context/
+
+# Log files and folders from ansible-navigator
+logs/
+*.log
+
+# Python Cache and build stuff
+__pycache__/
+*.py[cod]
+```
+
 ## Workflow
 
  Git has multiple *states* that your files can reside in:
