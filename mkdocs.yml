@@ -119,6 +119,8 @@ nav:
   - "Overview": index.md
   - "Mindset":
     - mindset/index.md
+  - "Get started":
+    - get-started/index.md
   - "Ansible":
     - ansible/index.md
     - "Installation": ansible/installation.md
