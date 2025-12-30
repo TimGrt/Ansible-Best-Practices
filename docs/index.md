@@ -14,11 +14,30 @@ Those are **opinionated** guidelines based on the experience of many projects. T
 
 <div class="grid cards" markdown>
 
-* [:material-lightbulb: &nbsp; **Mindset**](mindset/index.md)
-* [:material-new-box: &nbsp; **Get started**](get-started/index.md)
-* [:material-ansible: &nbsp; **Ansible**](ansible/index.md)
-* [:material-code-tags: &nbsp; **Ansible Development**](development/index.md)
-* [:fontawesome-brands-redhat: &nbsp; **Ansible Automation Platform**](automation-platform/index.md)
+* :material-lightbulb: &nbsp; [**Mindset**](mindset/index.md)
+
+    ---
+    The *Zen of Ansible*, some guiding principles to keep in mind when automating with Ansible.
+
+* :material-new-box: &nbsp; [**Get started**](get-started/index.md)
+
+    ---
+    Starting a new automation project? A step-by-step guide to set up everything for a successful Ansible project.
+
+* :material-ansible: &nbsp; [**Ansible**](ansible/index.md)
+
+    ---
+    Tips & Tricks for Ansible, from installation and project setup, roles and collections, up to tasks and variables.
+
+* :material-code-tags: &nbsp; [**Ansible Development**](development/index.md)
+
+    ---
+    Developing, testing and troubleshooting Ansible content. Things to consider when your project is making progress.
+
+* :fontawesome-brands-redhat: &nbsp; [**Ansible Automation Platform**](automation-platform/index.md)
+
+    ---
+    Useful things when your project reaches production level or you are the Administrator of AAP.
 
 </div>
 
