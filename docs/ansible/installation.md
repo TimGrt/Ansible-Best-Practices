@@ -1,5 +1,7 @@
 # Installation
 
+How to install Ansible itself and other content.
+
 ## Standard install method
 
 The latest version can only be obtained via the Python package manager, the *ansible-core* package contains the binaries and 71 standard modules.

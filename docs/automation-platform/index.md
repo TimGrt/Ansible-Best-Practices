@@ -4,17 +4,22 @@ This topic is split into multiple sections, each section covers a different aspe
 
 <div class="grid cards" markdown>
 
-* [:octicons-key-16: &nbsp; Credentials](credentials.md)
+* :lucide-clipboard-type: &nbsp; [**Job Templates**](job-templates.md){ data-preview }
+
+    ---
+    A blueprint for automating and orchestrating complex IT tasks.
+
+* :lucide-key-round: &nbsp; [**Credentials**](credentials.md){ data-preview }
 
     ---
     Secret handling in AAP
 
-* [:octicons-workflow-16: &nbsp; Workflows](workflows.md)
+* :lucide-workflow: &nbsp; [**Workflows**](workflows.md){ data-preview }
 
     ---
     Everything regarding Workflow Job templates
 
-* [:octicons-id-badge-16: &nbsp; Operations](operations.md)
+* :lucide-id-card-lanyard: &nbsp; [**Operations**](operations.md){ data-preview }
 
     ---
     How to operate AAP at scale

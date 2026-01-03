@@ -42,7 +42,7 @@ One of the biggest disadvantages of the dynamic *include_tasks* statement, synta
 
     <div class="grid" markdown>
 
-    !!! good-practice-no-title "Syntax or linting errors found"
+    !!! success "Syntax or linting errors found"
 
         Using *static* `ansible.builtin.import_tasks`:
 
@@ -88,7 +88,7 @@ One of the biggest disadvantages of the dynamic *include_tasks* statement, synta
         Failed: 1 failure(s), 0 warning(s) on 12 files.
         ```
 
-    !!! bad-practice-no-title "Syntax or linting errors **NOT** found!"
+    !!! failure "Syntax or linting errors **NOT** found!"
 
         Using *dynamic* `ansible.builtin.include_tasks`:
 
@@ -133,12 +133,12 @@ It is possible to leave off the *name* for a given task, though it is recommende
 Write task names in the imperative (e.g. *"Ensure service is running"*), this communicates the action of the task. Start with a capital letter.
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```yaml
         --8<-- "example-install-package-task.yml"
         ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         ``` { .yaml .no-copy }
         - package:
             name: httpd
@@ -193,7 +193,7 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
     **Work in Progress** - More description necessary.
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```yaml
         - name: Install webserver package
           ansible.builtin.package:
@@ -201,7 +201,7 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
             state: present
         ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         This task never reports a changed state or fails when an error occurs.
         ``` { .yaml .no-copy }
         - name: Install webserver package
@@ -215,12 +215,12 @@ Check mode is supported for non-idempotent modules when passing `creates` or `re
 Use the *full qualified collection names (FQCN)* for modules, they are supported since Version 2.9 and ensures your tasks are set for the future.
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```yaml
         --8<-- "example-install-package-task.yml"
         ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         ``` { .yaml .no-copy }
         - package:
             name: httpd
@@ -247,12 +247,12 @@ Add a **leading zero** (or `1` for setting sticky bit), showing Ansible’s YAML
     Giving Ansible a number without following one of these rules will end up with a decimal number which can have unexpected results.
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```yaml
         --8<-- "example-copy-template-task.yml"
         ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         Missing leading zero:
         ``` { .yaml .no-copy }
         - name: copy index
@@ -330,12 +330,12 @@ When using the `template` module, append `.j2` to the template file name. Keep f
 If the `when:` condition results in a line that is very long, and is an `and` expression, then break it into a list of conditions.
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```yaml
         --8<-- "example-multiple-when-conditions-task.yml"
         ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         ``` { .yaml .no-copy }
         - name: Set motd message for k8s worker node
           copy:
@@ -347,12 +347,12 @@ If the `when:` condition results in a line that is very long, and is an `and` ex
 When using conditions on *blocks*, move the `when` statement to the top, below the *name* parameter, to improve readability.
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```yaml
         --8<-- "example-block-with-when-tasks.yml"
         ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         ``` { .yaml .no-copy }
         - name: Install, configure, and start Apache
           block:
@@ -420,7 +420,7 @@ When looping over complex data structures, the console output of your task can b
 Running the playbook results in the following task output, only the content of the *name* parameter is shown instead of all key-value pairs in the list item.
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```console
         TASK [common : Create local users] *********************************************
         Friday 18 November 2022  12:18:01 +0100 (0:00:01.955)       0:00:03.933 *******
@@ -429,7 +429,7 @@ Running the playbook results in the following task output, only the content of t
         changed: [demo] => (item=mfrink)
         ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         Not using the `label` in the `loop_control` dictionary results in a very long output:
         ``` { .console .no-copy }
         TASK [common : Create local users] *********************************************

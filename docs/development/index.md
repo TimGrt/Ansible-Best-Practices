@@ -4,27 +4,27 @@ This topic is split into four main sections, each section covers a different add
 
 <div class="grid cards" markdown>
 
-* [:octicons-git-pull-request-16: &nbsp; Version Control](git.md)
+* :lucide-git-pull-request-arrow: &nbsp; [**Version Control**](git.md){ data-preview }
 
     ---
     Small guide for version controlling playbooks.
 
-* [:octicons-verified-16: &nbsp; Linting](linting.md)
+* :lucide-search-check: &nbsp; [**Linting**](linting.md){ data-preview }
 
     ---
     Installation and usage of the community backed Ansible Best Practice checker.
 
-* [:octicons-stopwatch-16: &nbsp; Testing](testing.md)
+* :lucide-flask-conical: &nbsp; [**Testing**](testing.md){ data-preview }
 
     ---
     How to test your Ansible content during development.
 
-* [:octicons-plug-16: &nbsp; Extending](extending.md)
+* :lucide-blocks: &nbsp; [**Extending**](extending.md){ data-preview }
 
     ---
     How to create your own custom modules and plugins.
 
-* [:octicons-meter-16: &nbsp; Monitoring & Troubleshooting](monitoring.md)
+* :lucide-timer: &nbsp; [**Monitoring & Troubleshooting**](monitoring.md){ data-preview }
 
     ---
     How to monitor your playbook for resource consumption or time taken.
