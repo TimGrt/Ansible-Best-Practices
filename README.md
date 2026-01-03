@@ -1,8 +1,12 @@
 # Ansible-Best-Practices
 
-[![Integration](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml) [![Deploy to Github pages & Container registry](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/cd.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/cd.yml) [![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
+[![Integration](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/ci.yml) [![Deploy to Github pages & Container registry](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/cd.yml/badge.svg)](https://github.com/TimGrt/Ansible-Best-Practices/actions/workflows/cd.yml) [![Zensical Badge](https://img.shields.io/badge/Made_with_Zensical-orange?style=flat-square)](https://zensical.org/about/)
 
-A collection of Best Practices for Ansible projects in MkDocs, published to [Github pages](https://timgrt.github.io/Ansible-Best-Practices) and [Github Container Registry](https://github.com/TimGrt/Ansible-Best-Practices/pkgs/container/ansible-best-practices).  
+A collection of Best Practices for Ansible projects, published to [Github pages](https://timgrt.github.io/Ansible-Best-Practices) and [Github Container Registry](https://github.com/TimGrt/Ansible-Best-Practices/pkgs/container/ansible-best-practices).  
+
+## Manual Deployment
+
+If you want to deploy the Guide yourself, pull to Container image:
 
 ```bash
 podman pull ghcr.io/timgrt/ansible-best-practices:latest
@@ -16,7 +20,7 @@ podman run -d -p 8080:8080/tcp --name best-practice-guide ghcr.io/timgrt/ansible
 
 ## Manual build
 
-The project contains the source files for an MkDocs project, a *Containerfile* is provided which bundles all requirements and displays the resulting content in a webserver.
+The project contains the source files for a Zensical project, a *Containerfile* is provided which bundles all requirements and displays the resulting content in a webserver.
 
 Clone the project and change into the base directory, afterwards build the image:
 

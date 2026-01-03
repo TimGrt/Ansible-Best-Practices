@@ -3,92 +3,92 @@ name: 🐛 Bug report
 description: Create a report to help us improve.
 labels: ["bug"]
 body:
-- type: markdown
-  attributes:
-    value: |
-      **Thank you for taking the time to open this Issue!**
+  - type: markdown
+    attributes:
+      value: |
+        **Thank you for taking the time to open this Issue!**
 
-      ⚠️ **Please note**
-      Verify first that your issue is not already reported!
+        ⚠️ **Please note**
+        Verify first that your issue is not already reported!
 
-- type: input
-  id: contact
-  attributes:
+  - type: input
+    id: contact
+    attributes:
       label: ☎️ Contact Details
       description: How can we get in touch with you if we need more info?
       placeholder: ex. email@example.com
-  validations:
+    validations:
       required: false
 
-- type: dropdown
-  id: type
-  attributes:
-    label: What type of bug?
-    description: Is the bug related to the MkDocs deployment or a documented Best Practice?
-    options:
-      - MkDocs
-      - Documentation
-  validations:
-    required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: What type of bug?
+      description: Is the bug related to the Zensical deployment or a documented Best Practice?
+      options:
+        - Deployment
+        - Documentation
+    validations:
+      required: true
 
-- type: dropdown
-  id: section
-  attributes:
-    label: Which section?
-    description: Which section of the Guide needs an update?
-    options:
-      - Overview
-      - Mindset
-      - Ansible
-      - Ansible Development
-  validations:
-    required: true
+  - type: dropdown
+    id: section
+    attributes:
+      label: Which section?
+      description: Which section of the Guide needs an update?
+      options:
+        - Overview
+        - Mindset
+        - Ansible
+        - Ansible Development
+    validations:
+      required: true
 
-- type: dropdown
-  id: sub-section
-  attributes:
-    label: Which sub-section?
-    description: Which sub-section of the Guide needs an update, if applicable?
-    options:
-      - The Zen of Ansible
-      - Installation
-      - Project
-      - Inventory
-      - Variables
-      - Playbook
-      - Roles
-      - Tasks
-      - Version Control
-      - Linting
-      - Testing
-      - Extending
-  validations:
-    required: false
+  - type: dropdown
+    id: sub-section
+    attributes:
+      label: Which sub-section?
+      description: Which sub-section of the Guide needs an update, if applicable?
+      options:
+        - The Zen of Ansible
+        - Installation
+        - Project
+        - Inventory
+        - Variables
+        - Playbook
+        - Roles
+        - Tasks
+        - Version Control
+        - Linting
+        - Testing
+        - Extending
+    validations:
+      required: false
 
-- type: textarea
-  id: whats-wrong
-  attributes:
-    label: What is wrong?
-    description: What needs to be fixed?
-    value: "Please give a clear and concise explanation what needs to be fixed!"
-  validations:
-    required: true
+  - type: textarea
+    id: whats-wrong
+    attributes:
+      label: What is wrong?
+      description: What needs to be fixed?
+      value: "Please give a clear and concise explanation what needs to be fixed!"
+    validations:
+      required: true
 
-- type: textarea
-  id: ansible-version
-  attributes:
-    label: What Ansible version are you using?
-    description: When reporting a bug with the documented Best Practice, which Ansible version are you using when executing the described guidance.
-    placeholder: Run 'ansible --version' and input the complete output here.
-    render: bash
-  validations:
-    required: false
+  - type: textarea
+    id: ansible-version
+    attributes:
+      label: What Ansible version are you using?
+      description: When reporting a bug with the documented Best Practice, which Ansible version are you using when executing the described guidance.
+      placeholder: Run 'ansible --version' and input the complete output here.
+      render: bash
+    validations:
+      required: false
 
-- type: textarea
-  id: log
-  attributes:
-    label: Relevant log output
-    description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-    render: bash
-  validations:
-    required: false
+  - type: textarea
+    id: log
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: bash
+    validations:
+      required: false
