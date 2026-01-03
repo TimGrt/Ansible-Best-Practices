@@ -1,3 +1,8 @@
+---
+hide:
+  - footer
+---
+
 # The Zen of Ansible
 
 Your Ansible automation content doesn’t necessarily have to follow this guidance, but they’re good ideas to keep in mind. These aphorisms are opinions that can be debated and sometimes can be contradictory. What matters is that they communicate a mindset for getting the most from Ansible and your automation.

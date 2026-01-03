@@ -1,5 +1,7 @@
 # Project
 
+Your Ansible project needs more than just a playbook and an inventory. Before starting it is useful to ship a custom configuration
+
 ## Version Control
 
 Keep your playbooks and inventory file in git (or another version control system), and commit when you make changes to them. This way you have an audit trail describing when and why you changed the rules that are automating your infrastructure.
@@ -8,6 +10,271 @@ Keep your playbooks and inventory file in git (or another version control system
     Always use version control!
 
 Take a look at the [Development section](git.md) for additional information.
+
+## Directory structure
+
+``` { .console .no-copy }
+.
+├── ansible.cfg
+├── hosts
+├── k8s_install.yml
+├── README.md
+├── requirements.txt
+├── requirements.yml
+└── roles
+    ├── k8s_bootstrap
+    │   ├── files
+    │   │   ├── daemon.json
+    │   │   └── k8s.conf
+    │   ├── tasks
+    │   │   ├── install_kubeadm.yml
+    │   │   ├── main.yml
+    │   │   └── prerequisites.yml
+    │   └── templates
+    │       └── kubernetes.repo.j2
+    ├── k8s_control_plane
+    │   ├── files
+    │   │   └── kubeconfig.sh
+    │   └── tasks
+    │       └── main.yml
+    └── k8s_worker_nodes
+        └── tasks
+            └── main.yml
+```
+
+### Filenames
+
+Folder- and file-names consisting of multiple words are separated with **underscores** (e.g. `roles/grafana_deployment/tasks/grafana_installation.yml`).  
+YAML files are saved with the extension `.yml`.  
+Use descriptive names that are human-readable and **do not shorten more than necessary**. A pattern `object[_feature]_action` has proven useful as it guarantees a proper sorting in the file system for roles and playbooks. **Ansible supports long identifier names, so use them!**
+
+<div class="grid" markdown>
+
+=== "Good"
+
+    !!! success ""
+        ``` { .console .no-copy }
+        .
+        ├── ansible.cfg
+        ├── hosts
+        ├── k8s_install.yml
+        ├── README.md
+        ├── requirements.yml
+        └── roles
+            ├── k8s_bootstrap
+            │   ├── files
+            │   │   ├── daemon.json
+            │   │   └── k8s.conf
+            │   ├── tasks
+            │   │   ├── install_kubeadm.yml
+            │   │   ├── main.yml
+            │   │   └── prerequisites.yml
+            │   └── templates
+            │       └── kubernetes.repo.j2
+            ├── k8s_control_plane
+            │   ├── files
+            │   │   └── kubeconfig.sh
+            │   └── tasks
+            │       └── main.yml
+            └── k8s_worker_nodes
+                └── tasks
+                    └── main.yml
+        ```
+=== "Bad"
+
+    !!! failure ""
+        Playbook-name without underscores and wrong file extension, role folders or task files inconsistent, with underscores and wrong extension.
+        ``` { .console .no-copy }
+        .
+        ├── ansible.cfg
+        ├── hosts
+        ├── k8s-install.yaml
+        ├── README.md
+        └── roles
+            ├── k8s-bootstrap
+            │   ├── files
+            │   │   ├── daemon.json
+            │   │   └── k8s.conf
+            │   ├── tasks
+            │   │   ├── installKubeadm.yaml
+            │   │   ├── main.yml
+            │   │   └── prerequisites.yaml
+            │   └── templates
+            │       └── kubernetes.repo.j2
+            ├── k8sControlPlane
+            │   ├── files
+            │   │   └── kubeconfig.sh
+            │   └── tasks
+            │       └── main.yaml
+            └── k8s_worker-nodes
+                └── tasks
+                    └── main.yaml
+        ```
+
+</div>
+
+## YAML Syntax
+
+Following a basic YAML coding style across the whole team improves readability and reusability.
+
+### Indentation
+
+Two spaces are used to indent everything, e.g. list items or dictionary keys.
+
+=== "Good"
+
+    !!! success ""
+        Playbook:
+
+        ```yaml
+        --8<-- "example-multiple-plays-playbook.yml"
+        ```
+
+        Variable-file:
+
+        ```yaml
+        --8<-- "example-list-variable-file.yml"
+        ```
+
+=== "Bad"
+
+    !!! failure ""
+        Playbook with roles **not** indented by two whitespaces.
+
+        ``` { .yaml .no-copy }
+        - name: Demo play
+          hosts: database_servers
+          roles:
+          - common
+          - postgres
+        ```
+
+        List in variable-file indented with four whitespaces:
+
+        ``` { .yaml .no-copy }
+        ntp_server_list:
+            - 0.de.pool.ntp.org
+            - 1.de.pool.ntp.org
+            - 2.de.pool.ntp.org
+            - 3.de.pool.ntp.org
+        ```
+
+The so-called YAML "one-line" syntax is not used, neither for passing parameters in tasks, nor for lists or dictionaries.
+
+=== "Good"
+
+    !!! success ""
+        ```yaml
+        --8<-- "example-install-package-from-repo-task.yml"
+        ```
+
+        ```yaml
+        --8<-- "example-multiple-packages-install-task.yml"
+        ```
+=== "Bad"
+
+    !!! failure ""
+        Task with *One-line* syntax:
+
+        ```{ .yaml .no-copy }
+        - name: Install the latest version of Apache from the testing repo
+          package: name=httpd enablerepo=testing state=present
+        ```
+
+        List in task with *One-line* syntax:
+
+        ```{ .yaml .no-copy }
+        - name: Install a list of packages
+          package:
+            name: ['nginx', 'postgresql', 'postgresql-server']
+            state: present
+        ```
+
+### Booleans
+
+Use `true` and `false` for boolean values in playbooks.  
+Do not use the Ansible-specific `yes` and `no` as boolean values in YAML as these are completely custom extensions used by Ansible and are not part of the YAML spec. Also, avoid the use of the Python-style `True` and `False` for boolean values.
+
+=== "Good"
+
+    !!! success ""
+        ```yaml
+        --8<-- "example-boolean-task.yml"
+        ```
+
+=== "Bad"
+
+    !!! failure ""
+        ```{ .yaml .no-copy }
+        - name: Start and enable service httpd
+          ansible.builtin.service:
+            name: httpd
+            enabled: yes
+            state: started
+        ```
+
+*YAML 1.1* allows all variants whereas *YAML 1.2* allows only *true/false*, you can avoid a massive migration effort for when it becomes the default.
+
+Use the `| bool` filter when using bare variables (expressions consisting of just one variable reference without any operator) in `when` conditions.
+
+=== "Good"
+
+    !!! success ""
+        Using a variable `upgrade_allowed` with the default value `false`, task is executed when overwritten with `true` value.
+        ```yaml
+        --8<-- "example-boolean-condition-task.yml"
+        ```
+
+=== "Bad"
+
+    !!! failure ""
+        ```{ .yaml .no-copy }
+        - name: Upgrade all packages, excluding kernel & foo related packages
+          ansible.builtin.package:
+            name: "*"
+            state: latest
+            exclude: kernel*,foo*
+          when: upgrade_allowed
+        ```
+
+### Quoting
+
+Do not use quotes unless you have to, especially for short module-keyword-like strings like *present*, *absent*, etc.  
+When using quotes, use the same *type* of quotes throughout your playbooks. Always use **double quotes** (`"`), whenever possible.
+
+## Comments
+
+Use loads of comments!  
+Well, the *name* parameter should describe your task in detail, but if your task uses multiple filters or regex's, comments should be used for further explanation.  
+Commented code is generally to be avoided. Playbooks or task files are not committed, if they contain commented out code.  
+
+!!! failure inline end "Bad"
+
+    **Why is the second task commented?**  
+    Is it not necessary anymore?  
+    Does it not work as expected?
+
+```{ .yaml .no-copy }
+- name: Change port to {{ grafana_port }}
+    community.general.ini_file:
+        path: /etc/grafana/grafana.ini
+        section: server
+        option: http_port
+        value: "{{ grafana_port }}"
+    become: true
+    notify: restart grafana
+
+# - name: Change theme to {{ grafana_theme }}
+#   ansible.builtin.lineinfile:
+#     path: /etc/grafana/grafana.ini
+#     regexp: '.*default_theme ='
+#     line: "default_theme = {{ grafana_theme }}"
+#   become: yes
+#   notify: restart grafana
+```
+
+!!! success "Comment commented tasks"
+    If you really have to comment the whole task, add a description why, when and by whom it was commented.
 
 ## Ansible configuration
 
@@ -33,7 +300,7 @@ check_mode_markers = true
 
 The markers are `DRY RUN` at the beginning and ending of playbook execution (when calling `ansible-playbook --check`) and `CHECK MODE` as a suffix at every play and task that is run in check mode.
 
-??? example
+??? example "Example output"
 
     ``` { .console .no-copy }
     $ ansible-playbook -i inventory.ini playbook.yml -C
@@ -60,7 +327,7 @@ For easier development when handling with very big playbooks, it may be useful t
 show_task_path_on_failure = true
 ```
 
-??? example
+??? example "Example output"
 
     When set to `true`:
 
@@ -172,236 +439,3 @@ Install all dependencies from the *requirements*-file:
 ```console
 pip3 install -r requirements.txt
 ```
-
-## Directory structure
-
-``` { .console .no-copy }
-.
-├── ansible.cfg
-├── hosts
-├── k8s_install.yml
-├── README.md
-├── requirements.txt
-├── requirements.yml
-└── roles
-    ├── k8s_bootstrap
-    │   ├── files
-    │   │   ├── daemon.json
-    │   │   └── k8s.conf
-    │   ├── tasks
-    │   │   ├── install_kubeadm.yml
-    │   │   ├── main.yml
-    │   │   └── prerequisites.yml
-    │   └── templates
-    │       └── kubernetes.repo.j2
-    ├── k8s_control_plane
-    │   ├── files
-    │   │   └── kubeconfig.sh
-    │   └── tasks
-    │       └── main.yml
-    └── k8s_worker_nodes
-        └── tasks
-            └── main.yml
-```
-
-### Filenames
-
-Folder- and file-names consisting of multiple words are separated with **underscores** (e.g. `roles/grafana_deployment/tasks/grafana_installation.yml`).  
-YAML files are saved with the extension `.yml`.  
-Use descriptive names that are human-readable and **do not shorten more than necessary**. A pattern `object[_feature]_action` has proven useful as it guarantees a proper sorting in the file system for roles and playbooks. **Ansible supports long identifier names, so use them!**
-
-=== "Good"
-    !!! good-practice-no-title ""
-        ``` { .console .no-copy }
-        .
-        ├── ansible.cfg
-        ├── hosts
-        ├── k8s_install.yml
-        ├── README.md
-        ├── requirements.yml
-        └── roles
-            ├── k8s_bootstrap
-            │   ├── files
-            │   │   ├── daemon.json
-            │   │   └── k8s.conf
-            │   ├── tasks
-            │   │   ├── install_kubeadm.yml
-            │   │   ├── main.yml
-            │   │   └── prerequisites.yml
-            │   └── templates
-            │       └── kubernetes.repo.j2
-            ├── k8s_control_plane
-            │   ├── files
-            │   │   └── kubeconfig.sh
-            │   └── tasks
-            │       └── main.yml
-            └── k8s_worker_nodes
-                └── tasks
-                    └── main.yml
-        ```
-=== "Bad"
-    !!! bad-practice-no-title ""
-        Playbook-name without underscores and wrong file extension, role folders or task files inconsistent, with underscores and wrong extension.
-        ``` { .console .no-copy }
-        .
-        ├── ansible.cfg
-        ├── hosts
-        ├── k8s-install.yaml
-        ├── README.md
-        └── roles
-            ├── k8s-bootstrap
-            │   ├── files
-            │   │   ├── daemon.json
-            │   │   └── k8s.conf
-            │   ├── tasks
-            │   │   ├── installKubeadm.yaml
-            │   │   ├── main.yml
-            │   │   └── prerequisites.yaml
-            │   └── templates
-            │       └── kubernetes.repo.j2
-            ├── k8sControlPlane
-            │   ├── files
-            │   │   └── kubeconfig.sh
-            │   └── tasks
-            │       └── main.yaml
-            └── k8s_worker-nodes
-                └── tasks
-                    └── main.yaml
-        ```
-
-## YAML Syntax
-
-Following a basic YAML coding style across the whole team improves readability and reusability.
-
-### Indentation
-
-Two spaces are used to indent everything, e.g. list items or dictionary keys.
-
-=== "Good"
-    !!! good-practice-no-title ""
-        Playbook:
-        ```yaml
-        --8<-- "example-multiple-plays-playbook.yml"
-        ```
-        Variable-file:
-        ```yaml
-        --8<-- "example-list-variable-file.yml"
-        ```
-=== "Bad"
-    !!! bad-practice-no-title ""
-        Playbook with roles **not** indented by two whitespaces.
-        ``` { .yaml .no-copy }
-        - name: Demo play
-          hosts: database_servers
-          roles:
-          - common
-          - postgres
-        ```
-        List in variable-file indented with four whitespaces:
-        ``` { .yaml .no-copy }
-        ntp_server_list:
-            - 0.de.pool.ntp.org
-            - 1.de.pool.ntp.org
-            - 2.de.pool.ntp.org
-            - 3.de.pool.ntp.org
-        ```
-
-The so-called YAML "one-line" syntax is not used, neither for passing parameters in tasks, nor for lists or dictionaries.
-
-=== "Good"
-    !!! good-practice-no-title ""
-        ```yaml
-        --8<-- "example-install-package-from-repo-task.yml"
-        ```
-        ```yaml
-        --8<-- "example-multiple-packages-install-task.yml"
-        ```
-=== "Bad"
-    !!! bad-practice-no-title ""
-        Task with *One-line* syntax:
-        ```{ .yaml .no-copy }
-        - name: Install the latest version of Apache from the testing repo
-          package: name=httpd enablerepo=testing state=present
-        ```
-        List in task with *One-line* syntax:
-        ```{ .yaml .no-copy }
-        - name: Install a list of packages
-          package:
-            name: ['nginx', 'postgresql', 'postgresql-server']
-            state: present
-        ```
-
-### Booleans
-
-Use `true` and `false` for boolean values in playbooks.  
-Do not use the Ansible-specific `yes` and `no` as boolean values in YAML as these are completely custom extensions used by Ansible and are not part of the YAML spec. Also, avoid the use of the Python-style `True` and `False` for boolean values.
-
-=== "Good"
-    !!! good-practice-no-title ""
-        ```yaml
-        --8<-- "example-boolean-task.yml"
-        ```
-=== "Bad"
-    !!! bad-practice-no-title ""
-        ```{ .yaml .no-copy }
-        - name: Start and enable service httpd
-          ansible.builtin.service:
-            name: httpd
-            enabled: yes
-            state: started
-        ```
-
-*YAML 1.1* allows all variants whereas *YAML 1.2* allows only *true/false*, you can avoid a massive migration effort for when it becomes the default.
-
-Use the `| bool` filter when using bare variables (expressions consisting of just one variable reference without any operator) in `when` conditions.
-
-=== "Good"
-    !!! good-practice-no-title ""
-        Using a variable `upgrade_allowed` with the default value `false`, task is executed when overwritten with `true` value.
-        ```yaml
-        --8<-- "example-boolean-condition-task.yml"
-        ```
-=== "Bad"
-    !!! bad-practice-no-title ""
-        ```{ .yaml .no-copy }
-        - name: Upgrade all packages, excluding kernel & foo related packages
-          ansible.builtin.package:
-            name: "*"
-            state: latest
-            exclude: kernel*,foo*
-          when: upgrade_allowed
-        ```
-
-### Quoting
-
-Do not use quotes unless you have to, especially for short module-keyword-like strings like *present*, *absent*, etc.  
-When using quotes, use the same *type* of quotes throughout your playbooks. Always use **double quotes** (`"`), whenever possible.
-
-## Comments
-
-Use loads of comments!  
-Well, the *name* parameter should describe your task in detail, but if your task uses multiple filters or regex's, comments should be used for further explanation.  
-Commented code is generally to be avoided. Playbooks or task files are not committed, if they contain commented out code.  
-
-!!! bad-practice "Bad"
-    Why is the second task commented? Is it not necessary anymore? Does it not work as expected?
-    ```{ .yaml .no-copy }
-    - name: Change port to {{ grafana_port }}
-      community.general.ini_file:
-        path: /etc/grafana/grafana.ini
-        section: server
-        option: http_port
-        value: "{{ grafana_port }}"
-      become: true
-      notify: restart grafana
-
-    # - name: Change theme to {{ grafana_theme }}
-    #   ansible.builtin.lineinfile:
-    #     path: /etc/grafana/grafana.ini
-    #     regexp: '.*default_theme ='
-    #     line: "default_theme = {{ grafana_theme }}"
-    #   become: yes
-    #   notify: restart grafana
-    ```
-    !!! good-practice "Comment commented tasks"
-        If you really have to comment the whole task, add a description why, when and by whom it was commented.

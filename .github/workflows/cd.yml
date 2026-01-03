@@ -8,26 +8,29 @@ on:
     types:
       - closed
 permissions:
+  contents: read
   pages: write
-  contents: write
+  id-token: write
   packages: write
-  deployments: write
 jobs:
   deploy:
-    name: Deploy MkDocs project to Github pages
-    if: github.event.pull_request.merged == true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-      - name: Install Python
-        uses: actions/setup-python@v6
+      - uses: actions/configure-pages@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - run: pip3 install -r requirements.txt
-      - run: mkdocs gh-deploy --force
+      - run: pip install zensical
+      - run: zensical build --clean
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4
+        id: deployment
 
   publish_to_github_packages:
     name: Publish to Github Container registry

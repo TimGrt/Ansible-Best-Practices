@@ -87,12 +87,12 @@ Module defaults are defined by [*grouping* together modules that share common se
 Since **ansible-core 2.12**, collections can define their own groups in the `meta/runtime.yml` file. *module_defaults* does not take the collections keyword into account, so the *fully qualified group name* must be used for new groups in module_defaults.
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```yaml hl_lines="4 5 6 7 8"
         --8<-- "example-module-defaults-playbook.yml"
         ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         Authentication parameters are repeated in every task.
         ```{ .yaml .no-copy }
         - name: Demo play with modules which need to call the same arguments
@@ -141,12 +141,10 @@ The *group* is called `all`, therefore the module defaults groups needs to be `g
 !!! note
     Any module defaults set at the play level (and block/task level when using `include_role` or `import_role`) will apply to **any** roles used, which may cause unexpected behavior in the role.
 
-## Collections in playbooks
+## Collections-Key in playbooks
 
 In a playbook, you can control the collections Ansible searches for modules and action plugins to execute.
-
-!!! quote "tl;dr"
-    This is not recommended, try to avoid this.
+With that you **could** omit the *provider.collection* part when using modules, by default you would reference a module with the [FQCN](tasks.md#modules-and-collections):
 
 ```{ .yaml .no-copy }
 - name: Initialize Control-Plane Nodes
@@ -159,7 +157,10 @@ In a playbook, you can control the collections Ansible searches for modules and 
     - k8s_control_plane
 ```
 
-With that you could omit the *provider.collection* part when using modules, by default you would reference a module with the [FQCN](tasks.md#modules-and-collections):
+!!! quote "tl;dr"
+    This is not recommended, try to avoid this.
+
+By default, you must provide the module with its FQCN.
 
 ```yaml
 --8<-- "example-k8s-waeve-task.yml"

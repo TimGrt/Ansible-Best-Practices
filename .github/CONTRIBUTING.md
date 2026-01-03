@@ -41,7 +41,7 @@ Use your best judgement, take a look at the basic rules of the [Ansible document
 * [Grammar and punctuation](https://docs.ansible.com/ansible/latest/dev_guide/style_guide/grammar_punctuation.html)
 * [Spelling](https://docs.ansible.com/ansible/latest/dev_guide/style_guide/spelling_word_choice.html)
 
-The following topics should help you developing [*MkDocs*](https://www.mkdocs.org/) documentation with the [*Material*](https://squidfunk.github.io/mkdocs-material/) theme and show some documentation standards of this guide.
+The following topics should help you developing documentation with [*Zensical*](https://zensical.org/docs/get-started/) and show some documentation standards of this guide.
 
 ### Internal and external links
 
@@ -96,10 +96,10 @@ Store your code example in the `snippets` folder of the section and include it l
 
 The *snippet* is added to the rendered output, the *pre-commit* configuration automatically lints all examples in the `snippets` folder, ensuring best practices are followed.
 
-If you want to add a *filename* to your example content, use the `title="<custom title>"` option. The [MkDocs Material documentation](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#usage) shows even more possibilities (annotations, line numbers, highlighting specific lines, ...), use what is available!
+If you want to add a *filename* to your example content, use the `title="<custom title>"` option. The [Zensical documentation](https://zensical.org/docs/authoring/code-blocks/) shows even more possibilities (annotations, line numbers, highlighting specific lines, ...), use what is available!
 
 A special case are *Mermaid* diagrams, these are also enclosed by backticks in a code block (`mermaid`), but are rendered differently.
-Take a look at the [MkDocs Material documentation](https://squidfunk.github.io/mkdocs-material/reference/diagrams/#usage) for usage instructions.
+Take a look at the [Zensical documentation](https://zensical.org/docs/authoring/diagrams/) for usage instructions.
 
 #### Copy or not to copy
 
@@ -114,4 +114,4 @@ By default, every code block has a small *copy* button in the top-right corner, 
 > Always pose yourself the question, can the code block content be pasted into the shell as is?  
 > If not, it should not by copyable!
 
-Additional information can be found in the [MkDocs Material documentation](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#code-copy-button).
+Additional information can be found in the [Zensical documentation](https://zensical.org/docs/authoring/code-blocks/#code-copy-button).

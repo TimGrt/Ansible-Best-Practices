@@ -4,8 +4,7 @@ The [Red Hat EMEA Ansible Launch Team](https://ansible-ops-model.gitlab.io/#abou
 The model, which covers **people, process, technology, service management and strategy** is divided between three different advancement levels, from [MVP](https://ansible-ops-model.gitlab.io/mvp/){:target="_blank"} over [2.0](https://ansible-ops-model.gitlab.io/twozero/){:target="_blank"} to [Advanced](https://ansible-ops-model.gitlab.io/advanced/){:target="_blank"}.
 
 <figure markdown="span">
-  ![AAP Operational Model](https://gitlab.com/ansible-ops-model/ansible-ops-model.gitlab.io/-/raw/8cf1e7e7e6457994a7526df486e4b1b106917e9f/assets/images/aap-operational-model.jpg){ loading=lazy .on-glb }
-  <figcaption>Click the image to zoom in!</figcaption>
+  ![AAP Operational Model](https://gitlab.com/ansible-ops-model/ansible-ops-model.gitlab.io/-/raw/8cf1e7e7e6457994a7526df486e4b1b106917e9f/assets/images/aap-operational-model.jpg)
 </figure>
 
 ## Configuration as Code

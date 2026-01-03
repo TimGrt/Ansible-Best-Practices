@@ -1,6 +1,6 @@
 # Python VE build by Makefile
 ve-docs-dev/
-# Build folder when running 'mkdocs build'
+# Build folder when running 'zensical build'
 site/
 # Assets downloaded by privacy plugin
 .cache/

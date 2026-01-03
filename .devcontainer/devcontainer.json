@@ -1,5 +1,5 @@
 {
-	"name": "MkDocs Dev-Container",
+	"name": "Zensical Dev-Container",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "..",
@@ -17,5 +17,5 @@
 	"containerEnv": {
 		"HOME": "/home/vscode"
 	},
-	"postAttachCommand": ["echo", "Run 'mkdocs serve' to preview the MkDocs project."]
+	"postAttachCommand": ["echo", "Run 'zensical serve' to preview the documentation in a local webserver."]
 }

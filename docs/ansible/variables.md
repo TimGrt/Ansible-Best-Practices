@@ -1,5 +1,7 @@
 # Variables
 
+Variables are essential for reusable automation content. There are many ways to provide variables and variables at different locations override each other. There are [22 levels of variable precedence](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_variables.html#understanding-variable-precedence){:target="_blank"}.
+
 ## Where to put variables
 
 I always store all my variables at the following **three** locations:
@@ -9,6 +11,9 @@ I always store all my variables at the following **three** locations:
 * *defaults* folder in roles
 
 The *defaults*-folder contains only default values for all variables used by the role.
+
+Using `extra_vars` should be kept to a minimum. They overwrite everything else, even runtime vars (Variable set by `register` or `set_fact`), which can be quite surprising.  
+When using the **Automation Platform**, you can provide variables to *Job Templates* via *Survey*, these are `extra_vars` as well.
 
 ## Naming Variables
 
@@ -20,7 +25,7 @@ The variable name should be self-explanatory (*as brief as possible, as detailed
 * *Boolean* values are provided with lowercase `true` or `false`
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```yaml
         download_directory: ~/.local/bin
         regions_list:
@@ -35,7 +40,7 @@ The variable name should be self-explanatory (*as brief as possible, as detailed
         knows_oop: true
         ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         ``` { .yaml .no-copy }
         dir: ~/.local/bin
         regions:
@@ -50,7 +55,7 @@ The variable name should be self-explanatory (*as brief as possible, as detailed
         knows_oop: True
         ```
 
-!!! tip "Avoid deeply nested structures"
+!!! failure "Avoid deeply nested structures"
     While it may be tempting to create *nested* variable structures as the can hold loads of information, they may be hard to work with (lopp through, get specific fields, etc.).
 
     ```yaml
@@ -83,7 +88,7 @@ When referencing *list* or *dictionary* variables, try to use the *bracket notat
 Bracket notation always works and you can use variables inside the brackets. Dot notation can cause problems because some keys collide with attributes and methods of python dictionaries.
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         Simple variable reference:
         ```yaml
         --8<-- "example-simple-variable-task.yml"
@@ -93,7 +98,7 @@ Bracket notation always works and you can use variables inside the brackets. Dot
         --8<-- "example-bracket-notation-variable-task.yml"
         ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         Not using whitespaces around variable name.
         ``` { .yaml .no-copy }
         - name: Deploy configuration file
@@ -118,7 +123,7 @@ For example, to store sensitive variables in `group_vars`, create the subdirecto
 Inside of the `vars.yml` file, define all of the variables needed, including any sensitive ones. Next, copy all of the sensitive variables over to the `vault.yml` file and prefix these variables with `vault_`. Adjust the variables in the *vars* file to point to the matching *vault_* variables using Jinja2 syntax, and ensure that the vault file is vault encrypted.
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```yaml
         ---
         # file: group_vars/database_servers/vars.yml
@@ -152,7 +157,7 @@ Inside of the `vars.yml` file, define all of the variables needed, including any
             31386635613238613233
             ```
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         ``` { .console .no-copy }
         # file: group_vars/database_servers.yml
         username: admin
@@ -186,7 +191,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
     Always add the **`no_log: true`** key-value-pair for tasks that run the risk of leaking vault-encrypted content!
 
 === "Good"
-    !!! good-practice-no-title ""
+    !!! success ""
         ```yaml hl_lines="13"
         --8<-- "example-no-log-variable-playbook.yml"
         ```
@@ -233,7 +238,7 @@ The `ansible.builtin.debug` module on the other hand is a bad example, it will o
                 ```
                 In this example, the salt is stored in a variable, the same way as the password itself. If you hashed the password, the warning will disappear.
 === "Bad"
-    !!! bad-practice-no-title ""
+    !!! failure ""
         ``` { .yaml .no-copy hl_lines="13" }
         - name: Not using no_log parameter
           hosts: database_servers
