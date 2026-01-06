@@ -1,3 +1,7 @@
+---
+icon: lucide/key-round
+---
+
 # Credentials
 
 Credentials are utilized for authentication when launching Jobs against machines, synchronizing with inventory sources, and importing project content from a version control system.
@@ -15,10 +19,10 @@ You can set the *environment variables* `OME_USERNAME` and `OME_PASSWORD` by cre
 
 In the left navigation bar, choose *Credential Types* and click *Add*, besides the name you need to fill two fields:
 
-| Configuration            | Description                                                                                      |
-| ------------------------ | ------------------------------------------------------------------------------------------------ |
-| *Input*    | Which input fields you will make available when creating a credential of this type. |
-| *Injector* | What your credential type will provide to the playbook                              |
+| Configuration | Description                                                                         |
+| ------------- | ----------------------------------------------------------------------------------- |
+| *Input*       | Which input fields you will make available when creating a credential of this type. |
+| *Injector*    | What your credential type will provide to the playbook                              |
 
 ```yaml title="Input Configuration"
 fields:
@@ -41,7 +45,7 @@ env:
 ```
 
 !!! warning
-    You are responsible for avoiding collisions in the `extra_vars`, `env`, and file namespaces. Also, avoid environment variable or extra variable names that start with `ANSIBLE_` because they are reserved.
+    You are responsible for avoiding collisions in the `extra-vars`, `env`, and file namespaces. Also, avoid environment variable or extra variable names that start with `ANSIBLE_` because they are reserved.
 
 Save your credential type, create a new credential of this type and attach it to the Job template with the playbook targeting the OpenManage Enterprise API.
 

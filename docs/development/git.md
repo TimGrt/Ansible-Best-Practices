@@ -1,3 +1,7 @@
+---
+icon: lucide/git-pull-request-arrow
+---
+
 # Version Control
 
 Ansible content should be treated as any project containing source code, therefore using version control is always recommended. This guide focuses on *Git* as it is the most widespread tool.

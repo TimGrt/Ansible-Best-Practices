@@ -1,3 +1,7 @@
+---
+icon: lucide/search-check
+---
+
 # Linting
 
 [*Ansible Lint*](https://ansible-lint.readthedocs.io/){:target="_blank"} is a best-practice checker for Ansible, maintained by the Ansible community.

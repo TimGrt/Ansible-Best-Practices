@@ -1,3 +1,7 @@
+---
+icon: lucide/blocks
+---
+
 # Extending Ansible
 
 Ansible is easily customizable, you can extend Ansible by adding custom modules or plugins.  

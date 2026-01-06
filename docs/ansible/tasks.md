@@ -1,3 +1,7 @@
+---
+icon: lucide/list-ordered
+---
+
 # Tasks
 
 **Tasks should always be inside of a role.** Do not use tasks in a play directly.  

@@ -3,7 +3,7 @@ site_name = "Ansible Best Practices"
 site_description = "Best Practices and Style Guide for Ansible Projects"
 site_author = "Tim Grützmacher"
 site_url = "https://github.com/TimGrt/Ansible-Best-Practices"
-copyright = "Copyright &copy; Tim Grützmacher 2025"
+copyright = "Copyright &copy; Tim Grützmacher 2026"
 
 repo_url = "https://github.com/TimGrt/Ansible-Best-Practices"
 repo_name = "TimGrt/Ansible-Best-Practices"
@@ -63,7 +63,6 @@ features = [
     # "announce.dismiss",
     "content.code.annotate",
     "content.code.copy",
-    "content.code.select",
     "content.footnote.tooltips",
     "content.tooltips",
     "navigation.footer",
@@ -141,6 +140,7 @@ emoji_generator = "zensical.extensions.emoji.to_svg"
 [project.markdown_extensions.pymdownx.highlight]
 anchor_linenums = true
 line_spans = "__span"
+linenums_style = "pymdownx-inline"
 pygments_lang_class = true
 # https://zensical.org/docs/setup/extensions/python-markdown-extensions/#inlinehilite
 [project.markdown_extensions.pymdownx.inlinehilite]
