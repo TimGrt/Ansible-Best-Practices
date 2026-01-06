@@ -1,3 +1,7 @@
+---
+icon: lucide/notebook-text
+---
+
 # Variables
 
 Variables are essential for reusable automation content. There are many ways to provide variables and variables at different locations override each other. There are [22 levels of variable precedence](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_variables.html#understanding-variable-precedence){:target="_blank"}.
@@ -12,8 +16,8 @@ I always store all my variables at the following **three** locations:
 
 The *defaults*-folder contains only default values for all variables used by the role.
 
-Using `extra_vars` should be kept to a minimum. They overwrite everything else, even runtime vars (Variable set by `register` or `set_fact`), which can be quite surprising.  
-When using the **Automation Platform**, you can provide variables to *Job Templates* via *Survey*, these are `extra_vars` as well.
+Using `extra-vars` should be kept to a minimum. They overwrite everything else, even runtime vars (Variable set by `register` or `set_fact`), which can be quite surprising.  
+When using the **Automation Platform**, you can provide variables to *Job Templates* via *Survey*, these are basically `extra-vars` as well.
 
 ## Naming Variables
 

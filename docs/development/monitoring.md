@@ -1,3 +1,7 @@
+---
+icon: lucide/timer
+---
+
 # Monitoring & Troubleshooting
 
 This section describes different methods to monitor or troubleshoot your Ansible playbook runs.  

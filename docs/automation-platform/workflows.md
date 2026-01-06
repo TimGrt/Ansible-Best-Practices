@@ -1,3 +1,7 @@
+---
+icon: lucide/workflow
+---
+
 # Workflows
 
 [Workflows](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-workflow-job-templates){:target="_blank"}  link together a sequence of disparate resources like [Job templates](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-job-templates){:target="_blank"}, other Workflow job templates, [Project syncs](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-projects){:target="_blank"} or [Inventory source syncs](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_execution/controller-jobs#controller-inventory-sync-jobs_jobs-in-controller){:target="_blank"}.
@@ -9,7 +13,7 @@ Transferring information across workflow steps can't be done by the `set_fact` m
 !!! quote "Possible Use-case"
     Think of a first workflow step searching for an available IP address in an IPAM tool. The second workflow step can't know this IP before the workflow itself starts, therefore this information needs to be transferred from the first workflow step to the second one.
 
-In addition to the workflow `extra_vars`, jobs ran as part of a workflow can inherit variables in the *artifacts* dictionary of a parent job in the workflow. These artifacts can be defined by the [`set_stats` module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/set_stats_module.html){:target="_blank"}.
+In addition to the workflow `extra-vars`, jobs ran as part of a workflow can inherit variables in the *artifacts* dictionary of a parent job in the workflow. These artifacts can be defined by the [`set_stats` module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/set_stats_module.html){:target="_blank"}.
 
 !!! info
     The point of set_stats in workflows is to have a vehicle to pass data via `--extra-vars` to the next job template.

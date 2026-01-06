@@ -1,3 +1,7 @@
+---
+icon: lucide/id-card-lanyard
+---
+
 # Operations
 
 The [Red Hat EMEA Ansible Launch Team](https://ansible-ops-model.gitlab.io/#about-us){:target="_blank"} created a good practice based [Operational Model for AAP](https://ansible-ops-model.gitlab.io/){:target="_blank"}, for people who want inspiration for how you can run a central automation platform based on Ansible Automation Platform.  

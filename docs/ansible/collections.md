@@ -1,3 +1,7 @@
+---
+icon: lucide/boxes
+---
+
 # Collections
 
 Collections are *a distribution format* for Ansible content. You do know collections from installing additional modules and plugins already, but you can also package and distribute your playbooks, roles, modules, and plugins in a custom collection.  

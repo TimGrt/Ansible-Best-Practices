@@ -1,3 +1,7 @@
+---
+icon: lucide/square-stack
+---
+
 # Roles
 
 New playbook functionality is always added in a role. Roles should only serve a defined purpose that is unambiguous by the role name.

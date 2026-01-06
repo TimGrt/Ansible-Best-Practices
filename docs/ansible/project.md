@@ -1,3 +1,7 @@
+---
+icon: lucide/folder-git-2
+---
+
 # Project
 
 Your Ansible project needs more than just a playbook and an inventory. Before starting it is useful to ship a custom configuration

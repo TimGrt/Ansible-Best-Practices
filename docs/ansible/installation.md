@@ -1,3 +1,7 @@
+---
+icon: lucide/monitor-cog
+---
+
 # Installation
 
 How to install Ansible itself and other content.
@@ -322,14 +326,14 @@ Take a look at the [Playbooks section](playbook.md#with-ansible-navigator) on ho
 
 Some `ansible-navigator` commands map to `ansible` commands (prefix every Navigator command with `ansible-navigator`):
 
-| Navigator command           | Description                                                                                                        |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| <nobr>`exec -- ansible ...`</nobr> | Runs Ansible *ad-hoc* commands.                                                                                    |
-| `builder`                   | Builds new execution environments, the `ansible-builder` utility is installed with `ansible-navigator`.            |
-| `config`                    | Explore the current ansible configuration as with `ansible-config`.                                                |
-| `doc`                       | Explore the documentation for modules and plugins as with `ansible-doc`.                                           |
-| `inventory`                 | Inspect the inventory and browser groups and hosts.                                                                |
-| `lint`                      | Runs best-practice checker, `ansible-lint` needs to be installed locally or in the selected execution-environment. |
-| `run`                       | Runs Playbooks.                                                                                                    |
+| Navigator command                        | Description                                                                                                        |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| <nobr>`exec -- ansible ...`</nobr>       | Runs Ansible *ad-hoc* commands.                                                                                    |
+| `builder`                                | Builds new execution environments, the `ansible-builder` utility is installed with `ansible-navigator`.            |
+| `config`                                 | Explore the current ansible configuration as with `ansible-config`.                                                |
+| `doc`                                    | Explore the documentation for modules and plugins as with `ansible-doc`.                                           |
+| `inventory`                              | Inspect the inventory and browser groups and hosts.                                                                |
+| `lint`                                   | Runs best-practice checker, `ansible-lint` needs to be installed locally or in the selected execution-environment. |
+| `run`                                    | Runs Playbooks.                                                                                                    |
 | <nobr>`exec -- ansible-test ...`</nobr>  | Executes sanity, unit and integration tests for Collections.                                                       |
 | <nobr>`exec -- ansible-vault ...`</nobr> | Runs utility to encrypt or decrypt Ansible content.                                                                |

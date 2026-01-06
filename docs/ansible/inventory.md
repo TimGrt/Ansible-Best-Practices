@@ -1,3 +1,7 @@
+---
+icon: lucide/server
+---
+
 # Inventory
 
 An *inventory* is a list of managed nodes, or hosts, that Ansible deploys and configures. The inventory can either be static or dynamic.  

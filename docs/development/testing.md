@@ -1,3 +1,7 @@
+---
+icon: lucide/flask-conical
+---
+
 <!-- markdownlint-disable MD024 -->
 # Testing
 
@@ -29,8 +33,13 @@ Take a look at the [Linting section](linting.md) for further information.
 
 ## Molecule
 
-The *Molecule* project is designed to aid in the development and testing of Ansible roles, provides support for testing with multiple instances, operating systems and distributions, virtualization providers, test frameworks and testing scenarios.  
-Molecule is mostly used to test roles in isolation (although it is possible to test multiple roles or playbooks at once). To test against a fresh system, molecule uses a container runtime to provision virtualized/containerized test hosts, runs commands on them and asserts the success.  
+The *Molecule* project is designed to aid in the development and testing of Ansible roles, provides support for testing with multiple instances, operating systems and distributions, virtualization providers and testing scenarios. Test scenarios can target any system or service reachable from Ansible, from containers and virtual machines to cloud infrastructure, hyperscaler services, APIs, databases, and network devices. Molecule can also validate inventory configurations and dynamic inventory sources.  
+Molecule is mostly used to test roles in isolation (although it is possible to test multiple roles or playbooks at once).  
+
+!!! note
+    **The following guide describes the testing with (systemd-enabled) Podman container images, other drivers are available!**
+
+To test against a fresh system, molecule uses a container runtime to provision virtualized/containerized test hosts, runs commands on them, asserts the success and destroys them afterwards.  
 By default, Containers don't allow services to be installed, started and stopped as in a virtual machine. We will be using custom *systemd-enabled* images, which are designed to run an init system as PID 1 for running multi-services inside the container. Also, some additional configuration is needed in the Molecule configuration file as shown below.
 
 Take a look at the [Molecule documentation](https://ansible.readthedocs.io/projects/molecule/){ target="_blank" } for a full overview.
@@ -88,24 +97,61 @@ If you are done with Molecule testing, use `deactivate` to leave your VE.
 
 ### Configuration
 
-The *molecule* configuration files are kept in the role folder you want to test. Create the directory `molecule/default` and at least the `molecule.yml` and `converge.yml`:
+Create the directory `molecule/default` and at least the `molecule.yml` and `converge.yml`.  
+Depending on your project setup (*classic* role structure or collection), the Molecule configuration files need to be stored at different locations.
 
-``` { .console .no-copy .hl_lines="5 6 7 8" }
-roles/
-└── webserver_demo
-    ├── defaults
-    │   └── main.yml
-    ├── molecule
-    │   └── default
-    │       ├── converge.yml
-    │       └── molecule.yml
-    ├── tasks
-    │   └── main.yml
-    └── templates
-        └── index.html
-```
+<div class="grid" markdown>
 
-You may use these example configurations as a starting point. It expects that the Container image is already present (use `podman pull docker.io/timgrt/rockylinux9-ansible:latest`).
+!!! abstract "Role"
+
+    The *molecule* configuration files are kept in the role folder you want to test:
+
+    ``` { .console .no-copy .hl-lines="5-8" }
+    roles/
+    └── webserver_demo
+        ├── defaults
+        │   └── main.yml
+        ├── molecule
+        │   └── default
+        │       ├── converge.yml
+        │       └── molecule.yml
+        ├── tasks
+        │   └── main.yml
+        └── templates
+            └── index.html
+    ```
+
+!!! abstract "Collection"
+
+    The *molecule* configuration files are kept in a **separate** folder `extensions` in the collection root directory:
+
+    ``` { .console .hl_lines="5 6 7 8" .no-copy }
+    .
+    ├── README.md
+    ├── extensions
+    │   └── molecule
+    │       └── default
+    │           ├── converge.yml
+    │           └── molecule.yml
+    ├── galaxy.yml
+    ├── meta
+    │   └── runtime.yml
+    └── roles
+        └── webserver_demo
+            ├── defaults
+            │   └── main.yml
+            ├── tasks
+            │   └── main.yml
+            └── templates
+                └── welcome.html.j2
+    ```
+
+    !!! tip
+        The Playbook file `converge.yml` **must** reference the role to test with the FQCN!
+
+</div>
+
+You may use this (minimal) example configuration as a starting point.
 
 === "Central Molecule configuration"
     !!! example "molecule.yml"
@@ -116,79 +162,52 @@ You may use these example configurations as a starting point. It expects that th
           name: podman
         platforms: # (1)!
           - name: instance1 # (2)!
-            groups: # (3)!
-              - molecule
-              - rocky
-            image: docker.io/timgrt/rockylinux9-ansible:latest # (4)!
-            volumes:
+            image: ghcr.io/timgrt/rhel9-molecule-test-image:main # (3)!
+            volumes: # (4)!
               - /sys/fs/cgroup:/sys/fs/cgroup:ro
             command: "/usr/sbin/init"
-            pre_build_image: true # (5)!
-            exposed_ports:
-              - 80/tcp
-            published_ports: # (6)!
+            published_ports: # (5)!
               - 8080:80/tcp
-        provisioner:
-          name: ansible
-          options:
-            D: true # (7)!
-          connection_options:
-            ansible_user: ansible # (8)!
-          config_options:
+            groups: # (6)!
+              - molecule
+        ansible:
+          executor:
+            args:
+              ansible_playbook:
+                - --inventory=../../../../inventory/ # (7)!
+          cfg:
             defaults:
               interpreter_python: auto_silent
-              callbacks_enabled: ansible.posix.profile_tasks, ansible.posix.timer # (9)!
-              callback_result_format: yaml # (10)!
+              remote_user: ansible # (8)!
+              callbacks_enabled: ansible.posix.timer, ansible.posix.profile_tasks # (9)!
+              callback_result_format: yaml  # (10)!
               roles_path: "$MOLECULE_PROJECT_DIRECTORY/.." # (11)!
-          inventory:
-            links:
-              group_vars: ../../../../inventory/group_vars/ # (12)!
-        scenario: # (13)!
-          create_sequence:
-            - create
-            - prepare
-          converge_sequence:
-            - create
-            - prepare
-            - converge
-          test_sequence:
-            - destroy
-            - create
-            - converge
-            - idempotence
-            - destroy
-          destroy_sequence:
-            - destroy
+            diff: # (12)!
+              always: true
         ```
 
         1. List of hosts to provision by *molecule*, copy the list item and use a unique name if you want to deploy multiple containers. In the following example one Container with Rocky Linux 8 and one Ubuntu 20.04 container are provisioned.
             ```yaml
-              - name: rocky8-instance1
-                image: docker.io/timgrt/rockylinux9-ansible:latest
+              - name: rocky8
+                image: docker.io/timgrt/rockylinux8-ansible:latest
+                pre_build_image: true
                 volumes:
                   - /sys/fs/cgroup:/sys/fs/cgroup:ro
-                tmpfs:
-                  - /run
-                  - /tmp
-                command: "/usr/sbin/init"
-                pre_build_image: true
                 groups:
                   - molecule
                   - rocky
               - name: ubuntu2004
                 image: docker.io/timgrt/ubuntu2004-ansible:latest
+                pre_build_image: true
                 volumes:
                   - /sys/fs/cgroup:/sys/fs/cgroup:ro
                 command: "/lib/systemd/systemd"
-                pre_build_image: true
                 groups:
                   - molecule
                   - ubuntu
             ```
-        2. The *name* of your container, for better identification you could use e.g. `demo.${USER}.molecule` which uses your username from environment variable    substitution, showing who deployed the container for what purpose.
-        3. Additional *groups* the host should be part of, using a custom `molecule` group for referencing in `converge.yml`.  
-        If you want your container to inherit variables from *group_vars* (see *inventory.links.group_vars* in the *provisioner* section), add the group(s) to this list.
-        4. For more information regarding the used container image, see [https://hub.docker.com/r/timgrt/rockylinux9-ansible](https://hub.docker.com/r/timgrt/rockylinux9-ansible){:target="_blank"}. The image provides a *systemd-enabled* environment, this ensures you can install and start services with *systemctl* as in any normal VM.  
+        2. The *name* of your container, for better identification you could use e.g. `demo.${USER}.molecule` which uses your username from environment variable substitution, showing who deployed the container for what purpose.
+        3. For more information regarding the used container image, see [https://hub.docker.com/r/timgrt/rockylinux9-ansible](https://hub.docker.com/r/timgrt/rockylinux9-ansible){:target="_blank"}. The image provides a *systemd-enabled* environment, this ensures you can install and start services with *systemctl* as in any normal VM.  
         Some more useful images are:
             * [Rocky Linux 8](https://hub.docker.com/r/timgrt/rockylinux8-ansible){ target="_blank" }
             * [Fedora 39](https://hub.docker.com/r/timgrt/fedora37-ansible){ target="_blank" }
@@ -196,30 +215,37 @@ You may use these example configurations as a starting point. It expects that th
             * [Debian 10](https://hub.docker.com/r/timgrt/debian10-ansible){ target="_blank" }
             * [OpenSuse 15](https://hub.docker.com/r/timgrt/opensuse15-ansible){ target="_blank" }
             * [RHEL 8](https://github.com/TimGrt/rhel8-molecule-test-image/pkgs/container/rhel8-molecule-test-image){ target="_blank" }
-        5. Container image must be present before running Molecule, pull it with `podman pull docker.io/timgrt/rockylinux9-ansible:latest`
-        6. When running a webserver inside the container (on port 80), this will publish the container port 80 to the host port 8080. Now, you can check the webserver content by using `http://localhost:8080` (or use the IP of your host).
-        7. Enables *diff* mode, set to `false` if you don't want that.
+        4. The *volume mount* is necessary for a systemd-enabled container.
+        5. When running a webserver inside the container (on port 80), this will publish the container port 80 to the host port 8080. Now, you can check the webserver content by using `http://localhost:8080` (or use the IP of your host).
+        6. Additional *groups* the host should be part of. **Use a custom `molecule` group for referencing in `converge.yml`**.  
+        7. If you want your container to inherit variables from *group_vars*, reference the location of the folder where the *group_vars* folder is stored (here in the subfolder *inventory* of the project, searching begins in the scenario folder *defaults*). Add the required group to the instance above.  
+          **If you don't need this, remove the `executor` key and it's content.**
         8. Uses the *ansible* user to connect to the container (must be available in the container image!), this way you can test with `become`. Otherwise you would connect with the *root* user, most likely this is not what you would do in production.
-        9. Adds a timer to every task and the overall playbook run, as well as formatting the Ansible output to YAML for better readability.  
+        9.  Adds a timer to every task and the overall playbook run, as well as formatting the Ansible output to YAML for better readability.  
         Install necessary collection with `ansible-galaxy collection install ansible.posix`.
         10. Formats the output to YAML format.
-        11. Necessary parameter to find the role to test, when not storing the role in a collection and using the `extensions` folder.
-        12. If you want your container to inherit variables from *group_vars*, reference the location of your *group_vars* (here they are stored in the subfolder *inventory* of the project, searching begins in the scenario folder *defaults*). Delete the *inventory* key and all content if you don't need this.
-        13. A scenario allows Molecule to test a role in a particular way, these are the stages when executing Molecule.  
-        For example, running `molecule converge` would create a container (if not already created), prepare it (if not already prepared) and run the *converge* stage/playbook.  
+        11. Necessary parameter to find the role to test, when **not** storing the role in a collection and using the `extensions` folder.
+        12. Enables *diff* mode, useful for troubleshooting. Remove this key if you don't want this.
 
 === "Playbook file"
     !!! example "converge.yml"
-        The *role* to test must be defined here, change `role-name` to the actual name.
+
+        The *role* to test must be defined here.
 
         ```yaml
         ---
         - name: Converge
-          hosts: molecule
+          hosts: molecule # (1)!
           become: true
           roles:
-            - role-name
+            - webserver_demo # (2)!
         ```
+
+        1. **You should use a custom/molecule-only group here!**
+
+            !!! warning
+                If you target the `all` group, Molecule may run the automation on your **actual** nodes!
+        2. In a collection project (and the Molecule configuration in the `extensions` folder), the role **must** be referenced by FQCN!
 
 === "Preparation stage"
     !!! example "prepare.yml"
@@ -244,13 +270,6 @@ You may use these example configurations as a starting point. It expects that th
     !!! example "verify.yml"
         Adds an **optional** verification stage (referenced by `verify` in the *scenario* definition). **Not used in the example above.**
 
-        Add this block to your `molecule.yml` as a top-level key:
-
-        ```yaml
-        verifier:
-          name: ansible
-        ```
-
         The `verify.yml` contains your tests for your role.
 
         ```yaml
@@ -269,13 +288,12 @@ You may use these example configurations as a starting point. It expects that th
                   - ansible_facts['services']['mariadb.service']['state'] == 'running'
         ```
 
-        Other *verifiers* like *testinfra* can be used.
-
 ### Usage
 
-Molecule is executed from within the role you want to test, change directory:
+In a *collection* project, you can execute Molecule directly from the project root directory.  
+If your are using Molecule in a *classic* project, it is executed from **within the role** you want to test, change directory:
 
-```console
+``` { .console .no-copy }
 cd roles/webserver_demo
 ```
 
@@ -285,7 +303,7 @@ From here, run the molecule scenario, after activating your Python VE with molec
 source molecule-venv/bin/activate
 ```
 
-To only create the defined containers, but not run the Ansible tasks:
+To **only create** the defined containers, but not run the Ansible tasks:
 
 ```console
 molecule create
@@ -297,7 +315,13 @@ To run the Ansible tasks of the role (if the container does not exist, it will b
 molecule converge
 ```
 
-To execute a full test circle (existing containers are deleted, re-created and Ansible tasks are executed, containers are deleted(!) afterwards):
+To destroy the provisioned infrastructure.
+
+```console
+molecule destroy
+```
+
+To execute a full test circle (existing containers are deleted, re-created and Ansible tasks are executed and containers are deleted(!) afterwards):
 
 ```console
 molecule test

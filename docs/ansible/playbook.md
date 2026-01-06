@@ -1,3 +1,7 @@
+---
+icon: lucide/rocket
+---
+
 # Playbooks
 
 *Playbooks* are first thing you think of when using Ansible. This section describes some good practices.  
