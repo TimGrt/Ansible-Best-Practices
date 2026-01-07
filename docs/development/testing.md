@@ -106,7 +106,7 @@ Depending on your project setup (*classic* role structure or collection), the Mo
 
     The *molecule* configuration files are kept in the role folder you want to test:
 
-    ``` { .console .no-copy .hl-lines="5-8" }
+    ``` { .console hl_lines="5-8" .no-copy }
     roles/
     └── webserver_demo
         ├── defaults
@@ -125,7 +125,7 @@ Depending on your project setup (*classic* role structure or collection), the Mo
 
     The *molecule* configuration files are kept in a **separate** folder `extensions` in the collection root directory:
 
-    ``` { .console .hl_lines="5 6 7 8" .no-copy }
+    ``` { .console hl_lines="3-7" .no-copy }
     .
     ├── README.md
     ├── extensions
@@ -161,7 +161,7 @@ You may use this (minimal) example configuration as a starting point.
         driver:
           name: podman
         platforms: # (1)!
-          - name: instance1 # (2)!
+          - name: rhel9-instance1 # (2)!
             image: ghcr.io/timgrt/rhel9-molecule-test-image:main # (3)!
             volumes: # (4)!
               - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -181,7 +181,7 @@ You may use this (minimal) example configuration as a starting point.
               remote_user: ansible # (8)!
               callbacks_enabled: ansible.posix.timer, ansible.posix.profile_tasks # (9)!
               callback_result_format: yaml  # (10)!
-              roles_path: "$MOLECULE_PROJECT_DIRECTORY/.." # (11)!
+              roles_path: "${MOLECULE_PROJECT_DIRECTORY}/.." # (11)!
             diff: # (12)!
               always: true
         ```
@@ -288,6 +288,53 @@ You may use this (minimal) example configuration as a starting point.
                   - ansible_facts['services']['mariadb.service']['state'] == 'running'
         ```
 
+#### Molecule variables
+
+The configuration options may contain environment variables, either *Molecule-specific* or *default* environment variables, e.g. `USER`. Some example variables are the following:
+
+| (Environment-)Variable                      | Description                                                                                                                          |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `MOLECULE_PROJECT_DIRECTORY`                | Path to your project (role) directory, can be used to set a specific directory.<br>**Necessary when not using collection structure** |
+| `MOLECULE_SCENARIO_NAME`                    | Name of the Molecule *scenario* (by default it is called `default`), you can define multiple scenarios                               |
+| <nobr>`MOLECULE_EPHEMERAL_DIRECTORY`</nobr> | Path to generated directory, by default `~/.ansible/tmp/molecule.<hash>.<scenario-name>/`                                            |
+
+!!! tip
+    The full list can be found in the [Molecule documentation](https://docs.ansible.com/projects/molecule/configuration/#variable-substitution){ target="_blank" }.
+
+The variables can be used to create custom instance names:
+
+```yaml hl_lines="3"
+---
+platforms:
+  - name: rhel9-$MOLECULE_SCENARIO_NAME-$USER
+    image: ghcr.io/timgrt/rhel9-molecule-test-image:main
+```
+
+??? example
+    This would result in the following name (shown with the output of `molecule list -f yaml`):
+
+    ``` { .console hl_lines="11 17" .no-copy }
+    (ve-molecule) timgrt@wsl-ubuntu:demo$ molecule list -f yaml
+    INFO     Collection 'cc_ansible_community.demo' detected.
+    INFO     Scenarios will be used from 'extensions/molecule'
+    WARNING  Driver podman does not provide a schema.
+    INFO     default ➜ list: Executing
+    INFO     default ➜ list: Executed: Successful
+    ---
+    - Converged: 'false'
+      Created: 'true'
+      Driver Name: podman
+      Instance Name: rhel9-default-timgrt
+      Provisioner Name: ansible
+      Scenario Name: default
+    - Converged: 'false'  
+      Created: 'false'  
+      Driver Name: podman  
+      Instance Name: rhel9-hardening-timgrt  
+      Provisioner Name: ansible  
+      Scenario Name: hardening
+    ```
+
 ### Usage
 
 In a *collection* project, you can execute Molecule directly from the project root directory.  
@@ -332,6 +379,22 @@ If you want to login to a running container instance:
 ```console
 molecule login
 ```
+
+#### Temporary files
+
+Molecule writes a couple of temporary files to indicate which steps of a *sequence* were already performed. For example, if a test instance was already *created* and *prepared*, this state is written to a `state.yml` file. All temporary files are written to `~/.ansible/tmp/molecule.<hash>.<scenario-name>/`.
+
+??? example
+
+    ``` { .console .no-copy }
+    $ tree ~/.ansible/tmp/molecule.KpdR.default/
+    /home/timgrt/.ansible/tmp/molecule.KpdR.default/
+    ├── ansible.cfg
+    ├── inventory
+    │   └── ansible_inventory.yml
+    ├── molecule.yml
+    └── state.yml
+    ```
 
 ## Minimal testing environment
 
