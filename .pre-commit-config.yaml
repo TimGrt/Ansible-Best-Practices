@@ -15,17 +15,18 @@ repos:
       - id: requirements-txt-fixer
         name: Sort entries in requirements.txt
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.45.0
+    rev: v0.47.0
     hooks:
       - id: markdownlint
         name: Lint Markdown files
   - repo: https://github.com/ansible-community/ansible-lint
-    rev: v25.8.2
+    rev: v25.12.2
     hooks:
       - id: ansible-lint
+        language_version: python3
         name: Run ansible-lint on documentation examples
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.33.3
+    rev: 0.36.0
     hooks:
       - id: check-github-workflows
   - repo: https://github.com/codespell-project/codespell
