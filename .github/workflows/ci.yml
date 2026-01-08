@@ -15,4 +15,4 @@ jobs:
           python-version: '3.13'
       - uses: pre-commit/action@v3.0.1
         env:
-          SKIP_HOOKS: ${{ github.event_name == 'workflow_dispatch' && 'no-commit-to-branch' || '' }}
+          SKIP: ${{ github.event_name == 'workflow_dispatch' && 'no-commit-to-branch' || '' }}
