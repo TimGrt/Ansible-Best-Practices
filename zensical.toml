@@ -2,7 +2,7 @@
 site_name = "Ansible Best Practices"
 site_description = "Best Practices and Style Guide for Ansible Projects"
 site_author = "Tim Grützmacher"
-site_url = "https://github.com/TimGrt/Ansible-Best-Practices"
+site_url = "https://timgrt.github.io/Ansible-Best-Practices/"
 copyright = "Copyright &copy; Tim Grützmacher 2026"
 
 repo_url = "https://github.com/TimGrt/Ansible-Best-Practices"
@@ -11,6 +11,11 @@ repo_name = "TimGrt/Ansible-Best-Practices"
 extra_javascript = [
     "https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js",
     "assets/javascripts/extra/tablesort.js"
+]
+
+extra_css = [
+    "assets/stylesheets/extra.css",
+    "assets/stylesheets/tables.css"
 ]
 
 nav = [
@@ -87,11 +92,16 @@ features = [
 example = "lucide/search-code"
 
 [[project.theme.palette]]
+media = "(prefers-color-scheme)"
+toggle.icon = "lucide/sun-moon"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
 media = "(prefers-color-scheme: light)"
 scheme = "default"
 palette.primary = "red"
 palette.accent = "blue"
-toggle.icon = "material/brightness-4"
+toggle.icon = "lucide/sun"
 toggle.name = "Switch to dark mode"
 
 [[project.theme.palette]]
@@ -99,12 +109,17 @@ media = "(prefers-color-scheme: dark)"
 scheme = "slate"
 palette.primary = "blue"
 palette.accent = "red"
-toggle.icon = "material/brightness-7"
-toggle.name = "Switch to light mode"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to system preference"
 
 # ----------------------------------------------------------------------------
 # The "extra" section contains miscellaneous settings.
 # ----------------------------------------------------------------------------
+[[project.extra.social]]
+icon = "octicons/person-add-24"
+link = "https://github.com/TimGrt/Ansible-Best-Practices"
+name = "Original Repository"
+
 [[project.extra.social]]
 icon = "simple/githubactions"
 link = "https://github.com/TimGrt/Ansible-Best-Practices/actions"
@@ -156,3 +171,14 @@ custom_fences = [
 # https://zensical.org/docs/authoring/content-tabs/#content-tabs
 [project.markdown_extensions.pymdownx.tabbed]
 alternate_style = true
+# https://zensical.org/docs/setup/navigation/#instant-previews
+[project.markdown_extensions.zensical.extensions.preview]
+configurations = [
+    { targets.include = [
+        "ansible/*",
+        "automation-platform/*",
+        "development/*",
+        "get-started/*",
+        "mindset/*"
+    ]}
+]
