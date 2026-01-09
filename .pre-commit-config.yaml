@@ -2,42 +2,47 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
-      - id: check-merge-conflict
-        name: Check for merge conflict markers
-      - id: check-yaml
-        name: Check YAML syntax
-        args: [--unsafe]
       - id: trailing-whitespace
-        name: Remove trailing whitespaces
+        name: 📝 Remove trailing whitespaces
         args: [--markdown-linebreak-ext=md]
-      - id: no-commit-to-branch
-        name: Ensure committing to allowed branch
       - id: requirements-txt-fixer
-        name: Sort entries in requirements.txt
+        name: 🐍 Sort entries in requirements.txt
+      - id: check-merge-conflict
+        name: ❌ Check for merge conflict markers
+      - id: check-yaml
+        name: 🐫 Check YAML syntax
+        args: [--unsafe]
+      - id: no-commit-to-branch
+        name: 💻 Check for commits to allowed branch
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.47.0
     hooks:
       - id: markdownlint
-        name: Lint Markdown files
+        name: 📋 Check Markdown syntax
   - repo: https://github.com/ansible-community/ansible-lint
-    rev: v25.12.2
+    rev: v26.1.0
     hooks:
       - id: ansible-lint
         language_version: python3
-        name: Run ansible-lint on documentation examples
+        name: 🔎 Check documentation examples with ansible-lint
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 0.36.0
     hooks:
       - id: check-github-workflows
+        name: ➿ Check GitHub Workflows
+      - id: check-github-issue-forms
+        name: 📚 Check GitHub Issue Forms
+      - id: check-renovate
+        name: 🔤 Check Renovate configuration
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1
     hooks:
       - id: codespell
-        name: Run codespell checker
+        name: ❓ Check for typos
         entry: codespell
   - repo: https://github.com/AlexanderDokuchaev/md-dead-link-check
     rev: "v1.2.0"
     hooks:
       - id: md-dead-link-check
-        name: Check external links
+        name: 🔭 Check external links
         args: ['--config', '.config/md_dead_link_check.ini']
