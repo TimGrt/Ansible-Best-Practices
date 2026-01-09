@@ -1,12 +1,9 @@
 ---
 name: Deployment
 on:
-  workflow_dispatch:
-  pull_request:
-    branches:
-      - main
+  release:
     types:
-      - closed
+      - published
 permissions:
   contents: write
   pages: write
@@ -34,7 +31,6 @@ jobs:
 
   publish_to_github_packages:
     name: Publish to Github Container registry
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: read
