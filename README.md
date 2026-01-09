@@ -4,18 +4,25 @@
 
 A collection of Best Practices for Ansible projects, published to [Github pages](https://timgrt.github.io/Ansible-Best-Practices) and [Github Container Registry](https://github.com/TimGrt/Ansible-Best-Practices/pkgs/container/ansible-best-practices).  
 
+## Contribution & Development
+
+**To help us making the Best Practice Guide even better**, [open an issue](https://github.com/TimGrt/Ansible-Best-Practices/issues/new/choose) and/or take a look at our [Contributing Guidelines](.github/CONTRIBUTING.md), if you want to work on it yourself.  
+The Guidelines also show you how to setup a [development environment](.github/CONTRIBUTING.md#create-development-environment).
+
 ## Manual Deployment
 
-If you want to deploy the Guide yourself, pull to Container image:
+If you want to deploy the Guide yourself, you can use our image published to the [Github Container Registry](https://github.com/TimGrt/Ansible-Best-Practices/pkgs/container/ansible-best-practices).
+
+Pull the Container image:
 
 ```bash
-podman pull ghcr.io/timgrt/ansible-best-practices:latest
+podman pull ghcr.io/timgrt/ansible-best-practices:main
 ```
 
 Start a container from the image, the webserver is available at Port 8080:
 
 ```bash
-podman run -d -p 8080:8080/tcp --name best-practice-guide ghcr.io/timgrt/ansible-best-practices:latest
+podman run -d -p 8080:8080/tcp --name best-practice-guide ghcr.io/timgrt/ansible-best-practices:main
 ```
 
 ## Manual build
@@ -33,7 +40,3 @@ Start a container from the image, the webserver is available at Port 8080:
 ```bash
 podman run -d -p 8080:8080/tcp --name ansible-guide best-practice-guide
 ```
-
-## Development
-
-We document our Coding Guidelines in the [Contributing Guidelines](https://github.com/TimGrt/Ansible-Best-Practices/blob/main/.github/CONTRIBUTING.md), this document also includes instructions on how the setup a development environment.

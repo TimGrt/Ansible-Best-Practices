@@ -2,15 +2,7 @@
 
 Thank you for taking the time to contribute to the *Ansible Best Practice Guide*!
 
-## Pull Request Guidelines
-
-Before opening a *pull request* make sure you followed the next couple of steps.
-
-1. Use the provided `Makefile` to create a development environment!
-2. Always **preview** the changes you made thoroughly, only commit your changes if everything looks as intended!
-3. Use the provided *pre-commit* configuration, it will lint your Markdown files and also check for spelling errors!
-
-### Create development environment
+## Create development environment
 
 Run the provided *Makefile*, the `all` target creates a Python VE with all requirements and installs the provided *pre-commit* hooks:
 
@@ -27,6 +19,14 @@ When you are done with your work, run the *Makefile* with the `clean` target:
 ```console
 make clean
 ```
+
+## Pull Request Guidelines
+
+Before opening a *pull request* make sure you followed the next couple of steps.
+
+1. Use the provided `Makefile` to create a development environment!
+2. Always **preview** the changes you made thoroughly, only commit your changes if everything looks as intended!
+3. Use the provided *pre-commit* configuration, it will lint your Markdown files and also check for spelling errors!
 
 ## Documentation Guidelines
 
