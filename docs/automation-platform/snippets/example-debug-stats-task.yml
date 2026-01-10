@@ -1,3 +1,0 @@
-- name: Output available IP address from previous workflow step
-  ansible.builtin.debug:
-    msg: "{{ available_ip }}"

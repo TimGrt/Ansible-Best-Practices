@@ -1,3 +1,0 @@
----
-- ansible.builtin.import_tasks: prerequisites.yml # noqa name[missing]
-- ansible.builtin.import_tasks: install_kubeadm.yml # noqa name[missing]

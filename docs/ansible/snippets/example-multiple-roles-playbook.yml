@@ -1,6 +1,0 @@
----
-- name: Demo play
-  hosts: database_servers
-  roles:
-    - common
-    - postgres

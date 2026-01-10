@@ -1,5 +1,0 @@
-# load-failure rule can't be skipped
-install_kubeadm.yml load-failure[filenotfounderror]
-prerequisites.yml load-failure[filenotfounderror]
-configuration.yml load-failure[filenotfounderror]
-installation.yml load-failure[filenotfounderror]

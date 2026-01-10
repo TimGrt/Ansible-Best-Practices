@@ -1,5 +1,0 @@
----
-- name: Install and configure PostgreSQL database
-  hosts: postgres_servers
-  roles:
-    - postgres

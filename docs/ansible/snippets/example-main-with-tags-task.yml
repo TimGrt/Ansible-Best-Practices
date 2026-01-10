@@ -1,8 +1,0 @@
----
-- ansible.builtin.import_tasks: installation.yml # noqa name[missing]
-  tags:
-    - install
-
-- ansible.builtin.import_tasks: configuration.yml # noqa name[missing]
-  tags:
-    - configure
