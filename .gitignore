@@ -1,6 +1,10 @@
-# Python VE build by Makefile
-ve-docs-dev/
-# Build folder when running 'zensical build'
-site/
-# Assets downloaded by privacy plugin
-.cache/
+# Ansible Cache folder
+.ansible/
+# Jekyll stuff
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+Gemfile.lock
+

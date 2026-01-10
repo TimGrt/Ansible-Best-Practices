@@ -1,4 +1,0 @@
-- name: Setting stat of free IP address for subsequent workflow step
-  ansible.builtin.set_stats:
-    data:
-      available_ip: "{{ ipam_returned_ip }}"

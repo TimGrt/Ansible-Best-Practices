@@ -1,4 +1,0 @@
-- name: Install webserver package
-  ansible.builtin.package:
-    name: httpd
-    state: present

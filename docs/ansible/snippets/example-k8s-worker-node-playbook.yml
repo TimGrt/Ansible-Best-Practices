@@ -1,6 +1,0 @@
----
-- name: Install and configure Worker Nodes
-  hosts: kubeworker
-  become: true
-  roles:
-    - k8s_worker_nodes

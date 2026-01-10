@@ -1,6 +1,0 @@
-- name: Upgrade all packages, excluding kernel & foo related packages # noqa package-latest
-  ansible.builtin.package:
-    name: "*"
-    state: latest
-    exclude: kernel*,foo*
-  when: upgrade_allowed | bool

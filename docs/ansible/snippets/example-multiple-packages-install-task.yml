@@ -1,7 +1,0 @@
-- name: Install a list of packages
-  ansible.builtin.package:
-    name:
-      - nginx
-      - postgresql
-      - postgresql_server
-    state: present
